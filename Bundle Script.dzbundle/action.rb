@@ -1,0 +1,82 @@
+# Dropzone Action Info
+# Name: Bundle Script
+# Description: Converts dropped .dropzone script files written for Dropzone 2 into shiny new .dzbundle packages for Dropzone 3.\n\nYou must choose a destination folder for the bundle output.
+# Handles: Files
+# Events: Dragged
+# Creator: Aptonic Software
+# URL: http://aptonic.com
+# OptionsNIB: ChooseFolder
+# SkipConfig: No
+# RunsSandboxed: Yes
+# Version: 1.0
+# MinDropzoneVersion: 3.0
+
+require "open-uri"
+require "fileutils"
+
+def dragged
+  $dz.determinate(false)
+  
+  bundled_files_count = 0
+  
+  $items.each do |item|
+    next unless File.extname(item) == '.dropzone'
+    $dz.begin("Bundling #{File.basename(item)}...")
+    if process_dropzone_script(File.read(item))
+      bundled_files_count += 1
+    end
+  end
+  
+  if (bundled_files_count > 0)
+    s = (bundled_files_count == 1 ? "" : "s")
+    $dz.finish("Successfully bundled #{bundled_files_count} script#{s}")
+    `open \"#{ENV['EXTRA_PATH']}\" 2>&1`
+  else
+    $dz.finish("Bundle failed. No valid .dropzone scripts found.")
+  end
+  
+  $dz.url(false)
+end
+
+def process_dropzone_script(file_contents)
+  if file_contents =~ /# Name: (.*)/
+        
+    # Make bundle folder
+    bundle_name = "#{$1}.dzbundle"
+    bundle_path = ENV['EXTRA_PATH'] + '/' + bundle_name
+    
+    FileUtils.mkdir(bundle_path)
+
+    if file_contents =~ /# IconURL: (.*)/    
+      # Retrieve icon
+      File.open("#{bundle_path}/icon.png", 'wb') do |fo|
+        fo.write open($1).read 
+      end
+    end
+
+    lines = file_contents.split("\n")
+    newfile = File.open("#{bundle_path}/action.rb", 'w')
+    wrote_extra_meta = false
+    needs_meta_added = false
+    lines.each_with_index do |line, n|
+      needs_meta_added = (line.gsub!(/# Dropzone Destination Info/, "# Dropzone Action Info") != nil or needs_meta_added)
+      if line =~ /# (.*):(.*)/
+        line.gsub!(/NSFilenamesPboardType/, "Files")
+        line.gsub!(/NSStringPboardType/, "Text")
+      else
+        if (n > 2 and not wrote_extra_meta and needs_meta_added)
+          newfile << "# Version: 1.0\n# RunsSandboxed: Yes\n# MinDropzoneVersion: 3.0\n"
+          wrote_extra_meta = true
+        end
+      end
+      if (not line =~ /\#\!\/usr\/bin\/ruby/ and not line =~ /# IconURL: (.*)/ and not (n == 1 and line.strip == ""))
+        newfile << line + "\n"
+      end
+    end
+
+    newfile.close
+    true
+  else
+    false
+  end
+end
