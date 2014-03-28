@@ -27,7 +27,7 @@ def dragged
   
   if urls.length == 1
     finish_text = "URL is now on clipboard"
-    url = urls[0]
+    url = urls[0].strip
   elsif urls.length > 1
     finish_text = "Upload Complete"
     url = false
