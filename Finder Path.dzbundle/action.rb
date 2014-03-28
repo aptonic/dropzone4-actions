@@ -5,6 +5,7 @@
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # Version: 1.0
+# SkipConfig: Yes
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 
