@@ -29,7 +29,7 @@ END`
     $dz.url(false)
   else 
     $dz.finish("Path copied")
-    $dz.text(path)
+    $dz.text(path.strip)
   end
   
 end
