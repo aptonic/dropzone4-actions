@@ -45,6 +45,15 @@ def process_dropzone_script(file_contents)
     bundle_name = "#{$1}.dzbundle"
     bundle_path = ENV['EXTRA_PATH'] + '/' + bundle_name
     
+    if File.exist?(bundle_path)
+      output = $dz.cocoa_dialog("yesno-msgbox --text \"Bundle Already Exists\" --informative-text \"Bundle named '#{bundle_name}' already exists at destination. Overwrite?\" --no-cancel --float")
+      if output.to_i == 1
+        FileUtils.rm_r(bundle_path)
+      else
+        return false
+      end
+    end
+  
     FileUtils.mkdir(bundle_path)
 
     if file_contents =~ /# IconURL: (.*)/    
