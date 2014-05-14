@@ -40,9 +40,11 @@ end
 
 def process_dropzone_script(file_contents)
   if file_contents =~ /# Name: (.*)/
-        
+    
+    original_name = $1    
+    
     # Make bundle folder
-    bundle_name = "#{$1}.dzbundle"
+    bundle_name = "#{original_name}.dzbundle"
     bundle_path = ENV['EXTRA_PATH'] + '/' + bundle_name
     
     if File.exist?(bundle_path)
@@ -58,8 +60,14 @@ def process_dropzone_script(file_contents)
 
     if file_contents =~ /# IconURL: (.*)/    
       # Retrieve icon
+      begin
+        icon_data = open($1).read
+      rescue
+        $dz.error("Error downloading icon for #{original_name}", "Failed to download icon at URL '#{$1}'\n\n#{$!}")
+      end
+      
       File.open("#{bundle_path}/icon.png", 'wb') do |fo|
-        fo.write open($1).read 
+        fo.write icon_data
       end
     end
 
