@@ -1,0 +1,177 @@
+# Dropzone Action Info
+# Name: Compress Image
+# Description: This destination is for compressing the images given. You must have imagemagick library(http://www.imagemagick.org/script/index.php) installed. It is best to install from HomeBrew (http://brew.sh/).
+# Handles: Files
+# Events: Clicked, Dragged
+# Creator: Richard Guay <raguay@customct.com>
+# RunsSandboxed: Yes
+# Version: 1.1
+# URL: http://customct.com
+# MinDropzoneVersion: 3.0
+# IconURL: http://www.customct.com/images/CompressFile.png
+# SkipConfig: Yes
+
+require 'fileutils'
+
+def dragged
+	#
+	# Turn on determinate mode.
+	#
+	$dz.determinate(true)
+
+	#
+	# Set the default return string to an error.
+	#
+	result = "You have to set the defaults first!"
+
+	#
+	# Get the data values.
+	#
+	#
+	# get the defaults.
+	#
+	$size = ENV['image_width']
+	$ext = ENV['image_ext']
+
+	#
+	# Process each image file.
+	#
+	total = $items.count
+
+	#
+	# Tell dropzone we are starting...
+	#
+	$dz.begin("Start compressing #{total} images...")
+
+	#
+	# Create the temporary directory for the originals.
+	#
+	tmpDir = File.dirname($items[0]) + "/tmp/"
+	if ! File.directory?(tmpDir)
+		#
+		# Directory does not exist! Create it!
+		#
+		FileUtils.mkdir_p(tmpDir)
+	end
+
+
+	#
+	# Index over all of the given images.
+	#
+	for index in 0 ... total
+		#
+		# Copy the original to the tmp directory. Rsync would be the preferred
+		# method, but it messes up the percentage graph on the user interface.
+		#
+		# Rsync.do_copy($items[index], tmpDir, false)
+		#
+		FileUtils.copy_file($items[index], "#{tmpDir}#{File.basename($items[index])}")
+
+		#
+		# Create the new file name with the extension supplied by the user.
+		#
+		$newFilePath = "#{$items[index].chomp(File.extname($items[index]))}#{$ext}"
+
+		#
+		# Convert the image file.
+		#
+		`/usr/local/bin/convert  -background white -quality 90% -alpha background -alpha off +dither -colors 512 -flatten -transparent none -resize #{$size} \"#{$items[index]}\" \"#{$newFilePath}\";`
+
+		#
+		# If the conversion does not destroy the original, then remove the original.
+		#
+		if File.extname($items[index]) != $ext
+			File.delete($items[index])
+		end
+
+		#
+		# Tell Dropzone what percentage is done.
+		#
+		$dz.percent((((index + 1)*100)/total).to_i)
+
+		#
+		# Set the results string to finished.
+		#
+		result = "Finished Compressing."
+	end
+
+	#
+	# Tell the user that it is done.
+	#
+	$dz.finish(result)
+
+	#
+	# Finish out the dropzone protocal. If you want a url in the clipboard, pass it
+	# here. If you just want to copy text to the clipboard, use $dz.text() instead.
+	# Either $dz.url() or $dz.text() has to be the last thing in the dragged method.
+	#
+	$dz.url(false)
+end
+
+def clicked
+	#
+	# The clicked handler should get the size and extension to use and
+	# save it in the configuration file. We will save data in the
+	# ~/Library/Application Support/Dropzone/Destination Data/CompressFiles.txt
+	#
+
+	#
+	# Set the default return string to the error condition.
+	#
+	result = "Sorry, you canceled out."
+
+	#
+	# Request the width of the graphic.
+	#
+	button1, width =$dz.cocoa_dialog('standard-inputbox --title "Compress Files: Graphic Width" --e --informative-text "What width? "').split("\n")
+
+	#
+	# See if the user canceled out. Do not continue if they cancel.
+	#
+	if button1 != "2"
+		#
+		# Ask for the graphic file type to end up with.
+		#
+		button2, extnum =$dz.cocoa_dialog('standard-dropdown --title "Compress Files: Graphic Format" --text "What Graphic Format?" --items ".jpg" ".png" ".gif" ').split("\n")
+
+		#
+		# See if the user canceled out. Do not continue if they cancel.
+		#
+		if button2 != "2"
+			#
+			# Change the dropdown number to a string.
+			#
+			case extnum.to_i
+			when 0
+				ext = ".jpg"
+			when 1
+				ext = ".png"
+			when 2
+				ext = ".gif"
+			end
+
+			#
+			# Write the data file. Do not append, but delete and write fresh!
+			#
+			$dz.save_value("image_width", width)
+			$dz.save_value("image_ext", ext)
+
+			#
+			# Tell the user by setting the return string to what the user gave.
+			#
+			result = "Size: #{width} px, Ext: #{ext}"
+
+			#
+			# Tell the user that it is done.
+			#
+			$dz.finish(result)
+
+			#
+			# Finish out the dropzone protocal. If you want a url in the clipboard, pass it
+			# here. If you just want to copy text to the clipboard, use $dz.text() instead.
+			# Either $dz.url() or $dz.text() has to be the last thing in the clicked method.
+			#
+			$dz.url(false)
+		end
+	end
+end
