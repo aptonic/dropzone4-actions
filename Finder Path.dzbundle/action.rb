@@ -8,6 +8,7 @@
 # SkipConfig: Yes
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
+# UniqueID: 1003
 
 def clicked
 

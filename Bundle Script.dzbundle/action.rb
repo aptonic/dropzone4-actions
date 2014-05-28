@@ -10,6 +10,7 @@
 # RunsSandboxed: Yes
 # Version: 1.0
 # MinDropzoneVersion: 3.0
+# UniqueID: 1001
 
 require "open-uri"
 require "fileutils"

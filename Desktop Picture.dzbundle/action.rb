@@ -8,6 +8,7 @@
 # Version: 1.0
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
+# UniqueID: 1002
 
 def dragged
   $dz.determinate(false)

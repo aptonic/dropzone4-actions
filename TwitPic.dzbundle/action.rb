@@ -10,6 +10,7 @@
 # RunsSandboxed: Yes
 # Version: 1.0
 # MinDropzoneVersion: 3.0
+# UniqueID: 1007
 
 require "rexml/document"
 require "oauth"

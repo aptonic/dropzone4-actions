@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Compress Image
-# Description: This destination is for compressing the images given. You must have imagemagick library(http://www.imagemagick.org/script/index.php) installed. It is best to install from HomeBrew (http://brew.sh/).
+# Description: This destination is for compressing the images given.\n\nYou must have the imagemagick library installed. It is best to install it using HomeBrew (http://brew.sh/).
 # Handles: Files
 # Events: Clicked, Dragged
 # Creator: Richard Guay <raguay@customct.com>
@@ -8,8 +8,7 @@
 # Version: 1.1
 # URL: http://customct.com
 # MinDropzoneVersion: 3.0
-# IconURL: http://www.customct.com/images/CompressFile.png
-# SkipConfig: Yes
+# UniqueID: 1008
 
 require 'fileutils'
 
