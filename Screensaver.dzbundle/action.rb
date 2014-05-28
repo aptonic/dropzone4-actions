@@ -7,6 +7,7 @@
 # Version: 1.0
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
+# UniqueID: 1006
  
 def clicked
   `osascript -e 'tell application "System Events" to start current screen saver' >& /dev/null`
