@@ -4,7 +4,7 @@
 # Events: Clicked
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.2
+# Version: 1.3
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1006
