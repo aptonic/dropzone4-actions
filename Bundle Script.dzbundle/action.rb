@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Bundle Script
-# Description: Converts dropped .dropzone script files written for Dropzone 2 into shiny new .dzbundle packages for Dropzone 3.\n\nYou must choose a destination folder for the bundle output.
+# Description: Converts dropped .dropzone script files written for Dropzone 2 into shiny new .dzbundle packages for Dropzone 3.\n\nYou must choose a destination folder for the bundle output. Very nice
 # Handles: Files
 # Events: Dragged
 # Creator: Aptonic Software
@@ -8,7 +8,7 @@
 # OptionsNIB: ChooseFolder
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1001
 
