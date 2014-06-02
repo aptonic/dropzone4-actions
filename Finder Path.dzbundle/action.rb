@@ -4,7 +4,7 @@
 # Events: Clicked
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Version: 1.1
 # SkipConfig: Yes
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
@@ -26,7 +26,7 @@ if finder_path is not null then return finder_path
 END`
 
   if (path == nil or path == "")
-    $dz.finish("Nothing selected")
+    $dz.finish("Testing")
     $dz.url(false)
   else 
     $dz.finish("Path copied")
