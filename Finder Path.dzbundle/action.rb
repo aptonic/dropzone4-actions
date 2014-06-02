@@ -4,7 +4,7 @@
 # Events: Clicked
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Version: 1.1
 # SkipConfig: Yes
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
