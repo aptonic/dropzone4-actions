@@ -11,22 +11,9 @@ There have been big changes to the Dropzone API since Dropzone 2. Actions listed
 
 A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It must contain an action.rb script and an icon.png file that contains the icon for the action. The bundle can also optionally contain other resources such as ruby libraries or executables. The action.rb file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
 
-Here's an example of correct metadata you can copy/paste and use for your own actions:
+The easiest way to develop a new Dropzone 3 action is to click the white plus in the top left of the grid and choose the 'Develop Action...' item. 
 
-```
-# Dropzone Action Info
-# Name: Example Action
-# Description: This text describes what your action does. 
-# Handles: Files
-# Events: Dragged
-# Creator: Aptonic Software
-# URL: http://aptonic.com
-# RunsSandboxed: Yes
-# Version: 1.0
-# MinDropzoneVersion: 3.0
-```
-
-The meta data block must begin with the line ```# Dropzone Action Info``` and be the first thing at the top of the file.
+![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-action.png)
 
 Each recognised meta data option is described below:
 
