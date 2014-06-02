@@ -1,11 +1,11 @@
 # Dropzone Action Info
 # Name: Desktop Picture
-# Description: A dropped image will be set as the current desktop background.
+# Description: A dropped image will be set as the current desktop background. Hello
 # Handles: Files
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Version: 1.2
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1002
