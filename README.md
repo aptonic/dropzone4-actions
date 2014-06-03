@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Dropzone 3 Actions](#dropzone-3-actions)
+  - [Dropzone 3 API](#dropzone-3-api)
+  - [Action Metadata](#action-metadata)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Dropzone 3 Actions
 
 This repository contains a bunch of add-on actions that work with Dropzone 3. To install them you can clone this repository and double click on bundles to add them.
@@ -16,11 +26,11 @@ The easiest way to develop a new Dropzone 3 action is to click the white plus in
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-action.png)
 <br>
 
-This will bring up the 'Develop Action' dialog shown below which allows you to configure your action. 
+This will bring up the 'Develop Action' dialog shown below which allows you to configure your action:
 
 ![Develop Dialog](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-dialog.png)
 
-The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is given below:
+The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is shown below:
 
 ```ruby
 # Dropzone Action Info
@@ -62,7 +72,11 @@ def clicked
 end
 ```
 
-Each recognised meta data option is described below:
+## Action Metadata
+
+At the top of the file is the metadata section that was generated when you clicked 'Create Action' - there are a few extra fields that are not currently customizable from the Develop Dialog that you should be aware of.
+
+All recognised meta data options are described below:
 
 <table>
 	<th>
@@ -148,3 +162,6 @@ Each recognised meta data option is described below:
 		<td>No</td>
 	</tr>
 </table>
+
+In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
+
