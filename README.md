@@ -7,9 +7,9 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 ## Dropzone 3 API
 
-There have been big changes to the Dropzone API since Dropzone 2. Actions listed in here will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you download and use the Bundle Script.dzbundle action from this repository to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
+There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you download and use the Bundle Script.dzbundle action from this repository to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
 
-A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It must contain an action.rb script and an icon.png file that contains the icon for the action. The bundle can also optionally contain other resources such as ruby libraries or executables. The action.rb file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
+A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It must contain an action.rb script and an icon.png file that contains the default icon for the action. The bundle can also optionally contain other resources such as ruby libraries or executables. The action.rb file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
 
 The easiest way to develop a new Dropzone 3 action is to click the white plus in the top left of the grid and choose the 'Develop Action...' item. 
 
