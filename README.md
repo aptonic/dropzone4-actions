@@ -16,7 +16,11 @@ The easiest way to develop a new Dropzone 3 action is to click the white plus in
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-action.png)
 <br>
 
-This will bring up the 'Develop Action' dialog shown below which allows you to configure your action. The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is given below:
+This will bring up the 'Develop Action' dialog shown below which allows you to configure your action. 
+
+![Develop Dialog](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-dialog.png)
+
+The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is given below:
 
 ```ruby
 # Dropzone Action Info
@@ -57,9 +61,6 @@ def clicked
   $dz.url(false)
 end
 ```
-
-
-![Develop Dialog](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-dialog.png)
 
 Each recognised meta data option is described below:
 
