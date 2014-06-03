@@ -163,5 +163,4 @@ All recognised meta data options are described below:
 	</tr>
 </table>
 
-In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
 
