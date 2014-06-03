@@ -14,6 +14,52 @@ A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It 
 The easiest way to develop a new Dropzone 3 action is to click the white plus in the top left of the grid and choose the 'Develop Action...' item. 
 
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-action.png)
+<br>
+
+This will bring up the 'Develop Action' dialog shown below which allows you to configure your action. The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is given below:
+
+```ruby
+# Dropzone Action Info
+# Name: Custom Action
+# Description: Describes what your action will do.
+# Handles: Files
+# Creator: Your name
+# URL: http://yoursite.com
+# Events: Clicked, Dragged
+# KeyModifiers: Command, Option, Control, Shift
+# SkipConfig: No
+# RunsSandboxed: Yes
+# Version: 1.0
+# MinDropzoneVersion: 3.0
+
+def dragged
+  $dz.begin("Starting some task...")
+  $dz.determinate(true)
+  
+  # Below lines tell Dropzone to update the progress bar display
+  $dz.percent(10)
+  sleep(1)
+  $dz.percent(50)
+  sleep(1)
+  $dz.percent(100)
+  
+  # The below line tells Dropzone to end with a notification center notification with the text "Task Complete"
+  $dz.finish("Task Complete")
+  
+  # You should always call $dz.url or $dz.text last in your script. The below $dz.text line places text on the clipboard.
+  # If you don't want to place anything on the clipboard you should still call $dz.url(false)
+  $dz.text("Here's some output which will be placed on the clipboard")
+end
+ 
+def clicked
+  # This method gets called when a user clicks on your action
+  $dz.finish("You clicked me!")
+  $dz.url(false)
+end
+```
+
+
+![Develop Dialog](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-dialog.png)
 
 Each recognised meta data option is described below:
 
