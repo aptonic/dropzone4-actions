@@ -12,7 +12,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
   - [Developing an Action](#developing-an-action)
-    - [Copy and Edit an Existing Action](#copy-and-edit-an-existing-action)
+    - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
   - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -76,7 +76,7 @@ def clicked
 end
 ```
 
-### Copy and Edit an Existing Action
+### Copy and Edit an existing action
 
 The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' this will duplicate the underlying action bundle as a new User Action and open the script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
 
