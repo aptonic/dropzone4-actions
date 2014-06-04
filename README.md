@@ -79,13 +79,15 @@ def clicked
 end
 ```
 
+At the top of the file is the generated metadata. The purpose of each metadata option is described in the [Action Metadata](#action-metadata) section.
+
+In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
+
 ### Copy and Edit an existing action
 
 The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
-
-In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
 
 ## Customizing your Actions Icon
 
