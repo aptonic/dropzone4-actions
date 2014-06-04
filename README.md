@@ -85,7 +85,7 @@ All recognised meta data options are described below:
 	<th>
 		Explanation
 	</th>
-	<th width="50">
+	<th width="100">
 		Required
 	</th>
 	<tr>
