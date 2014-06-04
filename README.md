@@ -11,13 +11,13 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 **Table of Contents**
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
-  - [Developing an Action](#developing-an-action)
-    - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
-  - [Action Metadata](#action-metadata)
+- [Developing an Action](#developing-an-action)
+  - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
+- [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Introducing the Dropzone 3 API
+## Introducing the Dropzone 3 API
 
 There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you install the [Bundle Script.dzbundle](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) action from [here](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
 
@@ -78,7 +78,7 @@ end
 
 ### Copy and Edit an existing action
 
-The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' this will duplicate the underlying action bundle as a new User Action and open the script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
+The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
 
