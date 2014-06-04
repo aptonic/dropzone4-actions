@@ -12,6 +12,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
 - [Developing an Action](#developing-an-action)
+- [The Debug Console](#the-debug-console)
   - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
@@ -54,6 +55,8 @@ The values entered here will be used to generate the metadata section at the top
 # MinDropzoneVersion: 3.0
 
 def dragged
+  puts $items.inspect
+
   $dz.begin("Starting some task...")
   $dz.determinate(true)
   
@@ -82,6 +85,10 @@ end
 At the top of the file is the generated metadata. The purpose of each metadata option is described in the [Action Metadata](#action-metadata) section.
 
 In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
+
+## The Debug Console
+
+![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/debug-console.png)
 
 ### Copy and Edit an existing action
 
