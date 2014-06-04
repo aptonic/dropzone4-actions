@@ -182,6 +182,6 @@ There needs to be an icon.png file inside your action bundle. This icon is used 
 ![Reveal](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/reveal.png)
 <br>
 ![Show Package Contents](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/show-package-contents.png)
-<br>
+<br><br><br>
 ![Replace Icon](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/replace-icon.png)
 
