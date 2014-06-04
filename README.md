@@ -12,7 +12,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
 - [Developing an Action](#developing-an-action)
-- [The Debug Console](#the-debug-console)
+  - [Generated Template Action](#generated-template-action)
+- [Debug Console](#debug-console)
   - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
@@ -38,7 +39,9 @@ This will bring up the 'Develop Action' dialog shown below which allows you to c
 
 ![Develop Dialog](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/develop-dialog.png)
 
-The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is shown below:
+The values entered here will be used to generate the metadata section at the top of action.rb. When you've chosen values appropriate for your action, click Create Action. This will open your default text editor with the newly generated action.rb file and add the action to your Dropzone grid. The generated action.rb file provides template code so you can easily get started. The template is given below.
+
+### Generated Template Action
 
 ```ruby
 # Dropzone Action Info
@@ -86,9 +89,15 @@ At the top of the file is the generated metadata. The purpose of each metadata o
 
 In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
 
-## The Debug Console
+## Debug Console
+
+The debug console makes it quick and easy to view the output and environment of your action. To open the debug console, click on the Settings gear in the top right of the Dropzone grid and click 'Debug Console' - you can also open it by first clicking the Dropzone menu item so Dropzone gets keyboard focus and then press Cmd+Shift+D
+
+![Open Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/open-debug-console.png)
 
 ![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/debug-console.png)
+
+The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#developing-an-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located in /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your script.
 
 ### Copy and Edit an existing action
 
