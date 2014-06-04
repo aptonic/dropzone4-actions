@@ -92,7 +92,7 @@ The meta data block must begin with the line:
 ```ruby
 # Dropzone Action Info
 ```
-and be the first thing at the top of the file.
+And this must be the first thing at the top of the file.
 
 All recognised metadata options are described below:
 
