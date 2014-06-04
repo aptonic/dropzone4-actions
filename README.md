@@ -97,7 +97,7 @@ The debug console makes it quick and easy to view the output and environment of 
 
 ![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/debug-console.png)
 
-The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#developing-an-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located in /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your script.
+The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located in /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your script.
 
 ## Copy and Edit an existing action
 
