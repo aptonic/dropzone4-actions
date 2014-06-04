@@ -13,8 +13,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
-- [Debug Console](#debug-console)
 - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
+- [Debug Console](#debug-console)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -89,6 +89,12 @@ At the top of the file is the generated metadata. The purpose of each metadata o
 
 In the template action you will notice that two Ruby methods have been created for you. The dragged method is called by Dropzone when items are dragged onto your action and the clicked method is called when your action is clicked on in the grid.
 
+## Copy and Edit an existing action
+
+The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
+
+![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
+
 ## Debug Console
 
 The debug console makes it quick and easy to view the output and environment of your action. To open the debug console, click on the Settings gear in the top right of the Dropzone grid and click 'Debug Console' - you can also open it by first clicking the Dropzone menu item so Dropzone gets keyboard focus and then press Cmd+Shift+D
@@ -98,12 +104,6 @@ The debug console makes it quick and easy to view the output and environment of 
 ![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/debug-console.png)
 
 The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located in /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your script.
-
-## Copy and Edit an existing action
-
-The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
-
-![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
 
 ## Customizing your Actions Icon
 
