@@ -14,7 +14,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
 - [Debug Console](#debug-console)
-  - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
+- [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -99,7 +99,7 @@ The debug console makes it quick and easy to view the output and environment of 
 
 The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#developing-an-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located in /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your script.
 
-### Copy and Edit an existing action
+## Copy and Edit an existing action
 
 The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
 
