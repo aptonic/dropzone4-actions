@@ -77,7 +77,7 @@ end
 At the top of the file is the metadata section that was generated when you clicked 'Create Action' - there are a few extra fields that are not currently customizable from the Develop Dialog that you should be aware of.
 
 All recognised meta data options are described below:
-
+<br>
 <table>
 	<th>
 		Field
