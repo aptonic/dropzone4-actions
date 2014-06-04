@@ -11,15 +11,18 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 **Table of Contents**
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
+  - [Developing an Action](#developing-an-action)
   - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Introducing the Dropzone 3 API
 
-There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you download and use the Bundle Script.dzbundle action from this repository to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
+There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you install the [Bundle Script.dzbundle](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) action from [here](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
 
 A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It must contain an action.rb script and an icon.png file that contains the default icon for the action. The bundle can also optionally contain other resources such as Ruby libraries or executables. The action.rb file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
+
+## Developing an Action
 
 The easiest way to develop a new Dropzone 3 action is to click the white plus in the top left of the grid and choose the 'Develop Action...' item. 
 
@@ -71,6 +74,12 @@ def clicked
   $dz.url(false)
 end
 ```
+
+### Copy and Edit an Existing Action
+
+The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' this will duplicate the underlying action bundle as a new User Action and open the script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
+
+![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
 
 ## Action Metadata
 
