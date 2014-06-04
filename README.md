@@ -79,13 +79,13 @@ At the top of the file is the metadata section that was generated when you click
 All recognised meta data options are described below:
 
 <table>
-	<th width="250">
+	<th width="240">
 		Field
 	</th>
 	<th>
 		Explanation
 	</th>
-	<th>
+	<th width="50">
 		Required
 	</th>
 	<tr>
