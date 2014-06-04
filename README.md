@@ -4,6 +4,8 @@ This repository contains a bunch of add-on actions that work with Dropzone 3. To
 
 This repository works in conjunction with the [dropzone3-actions-zipped](https://github.com/aptonic/dropzone3-actions-zipped) repository which contains zipped versions of these actions (auto updated nightly). The zipped versions are better if you want to download only specific actions or need to provide a link to an action.
 
+---
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
@@ -12,8 +14,6 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
----
 
 ## Dropzone 3 API
 
