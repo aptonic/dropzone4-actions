@@ -87,9 +87,10 @@ The other way you can create a new action is by right clicking on an existing ac
 
 ## Action Metadata
 
-At the top of the file is the metadata section that was generated when you clicked 'Create Action' - there are a few extra fields that are not currently customizable from the Develop Dialog that you should be aware of.
+At the top of your action.rb file is the metadata section that was generated when you clicked 'Create Action' 
+The meta data block must begin with the line # Dropzone Action Info and be the first thing at the top of the file.
 
-All recognised meta data options are described below:
+All recognised metadata options are described below:
 
 <table>
 	<th width="240">
