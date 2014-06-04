@@ -79,7 +79,7 @@ At the top of the file is the metadata section that was generated when you click
 All recognised meta data options are described below:
 
 <table>
-	<th width="200">
+	<th width="250">
 		Field
 	</th>
 	<th>
