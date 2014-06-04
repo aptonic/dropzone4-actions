@@ -12,6 +12,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 - [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
   - [Developing an Action](#developing-an-action)
+    - [Copy and Edit an Existing Action](#copy-and-edit-an-existing-action)
   - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
