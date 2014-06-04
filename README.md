@@ -13,6 +13,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+---
+
 ## Dropzone 3 API
 
 There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you download and use the Bundle Script.dzbundle action from this repository to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
