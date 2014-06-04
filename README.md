@@ -1,6 +1,6 @@
 # Dropzone 3 Actions
 
-This repository contains a bunch of add-on actions that work with Dropzone 3. You can fast install most of these actions from a [list of featured](http://aptonic.com/dropzone3/actions) actions on our website [here](http://aptonic.com/dropzone3/actions) or alternatively you can clone this repository and double click on bundles to add them.
+This repository contains a bunch of add-on actions that work with Dropzone 3. You can quick install most of these actions from a [list of featured](http://aptonic.com/dropzone3/actions) actions on our website [here](http://aptonic.com/dropzone3/actions) or alternatively you can clone this repository and double click on bundles to add them.
 
 This repository works in conjunction with the [dropzone3-actions-zipped](https://github.com/aptonic/dropzone3-actions-zipped) repository which contains zipped versions of these actions (auto updated nightly). The zipped versions are better if you want to download only specific actions or need to provide a link to an action. The API documentation for Dropzone 3 is provided below.
 
@@ -21,7 +21,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 ![API Logo](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/dzbundle.png)
 
-There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you install the [Bundle Script.dzbundle](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) action from [here](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
+There have been big changes to the Dropzone API since Dropzone 2. Actions listed in this repository will only work with Dropzone 3. Dropzone 2 actions (.dropzone files) can still be added to Dropzone 3 but it's best if you install the [Bundle Script](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) action from [here](http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Script) to convert old Dropzone 2 scripts into shiny new Dropzone 3 action bundles.
 
 A Dropzone 3 action bundle is simply a directory with a .dzbundle extension. It must contain an action.rb script and an icon.png file that contains the default icon for the action. The bundle can also optionally contain other resources such as Ruby libraries or executables. The action.rb file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
 
