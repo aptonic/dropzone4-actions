@@ -17,8 +17,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Debug Console](#debug-console)
 - [Dragged Types](#dragged-types)
 - [Providing Status Updates](#providing-status-updates)
-  - [$dz.begin(message)](#$dzbeginmessage)
-  - [$dz.determinate(value)](#$dzdeterminatevalue)
+  - [dz.begin(message)](#$dzbeginmessage)
+  - [dz.determinate(value)](#$dzdeterminatevalue)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
