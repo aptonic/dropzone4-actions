@@ -173,6 +173,9 @@ You can switch between determinate and indeterminate modes as your script execut
 $dz.determinate(false)
 ```
 
+![Determinate False](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/determinate-false.png)
+
+
 ```ruby
 $dz.determinate(true)
 ```
