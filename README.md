@@ -178,9 +178,12 @@ $dz.determinate(false)
 
 
 ```ruby
+$dz.begin("Running task...")
 $dz.determinate(true)
+$dz.percent(50)
 ```
 
+![Determinate False](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/determinate-true.png)
 
 ## Customizing your Actions Icon
 
