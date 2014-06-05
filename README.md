@@ -10,7 +10,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [ntroducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
+- [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
 - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
@@ -19,7 +19,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Providing Status Updates](#providing-status-updates)
   - [$dz.begin(message)](#$dzbeginmessage)
   - [$dz.determinate(value)](#$dzdeterminatevalue)
-- [Customizing your Actions con](#customizing-your-actions-icon)
+- [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
