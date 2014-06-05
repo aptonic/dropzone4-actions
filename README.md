@@ -173,6 +173,8 @@ You can call this method multiple times as your action runs to update the displa
 $dz.begin("Running task...")
 ```
 
+![Determinate False](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/determinate-false.png)
+
 ### $dz.determinate(value)
 
 Value may be either true or false. Determinate mode (true) indicates that you will be providing progress information to Dropzone from your script as a percent and indeterminate mode (false) means that no progress information will be provided.
