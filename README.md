@@ -10,17 +10,17 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Introducing the Dropzone 3 API](#introducingthe-dropzone-3-api)
-- [Developing an Action](#developingan-action)
-  - [Generated Template Action](#generatedtemplate-action)
-- [Copy and Edit an existing action](#copyand-edit-an-existing-action)
-- [Debug Console](#debugconsole)
-- [Dragged Types](#draggedtypes)
-- [Providing Status Updates](#providingstatus-updates)
-  - [$dz.begin(message)](#$dzbeginmessage)
-  - [$dz.determinate(value)](#$dzdeterminatevalue)
-- [Customizing your Actions Icon](#customizingyour-actions-icon)
-- [Action Metadata](#actionmetadata)
+- [Introducing the Dropzone 3 API](#introducing-the-dropzone-3-api)
+- [Developing an Action](#developing-an-action)
+  - [Generated Template Action](#generated-template-action)
+- [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
+- [Debug Console](#debug-console)
+- [Dragged Types](#dragged-types)
+- [Providing Status Updates](#providing-status-updates)
+  - [dz.begin(message)](#dzbeginmessage)
+  - [dz.determinate(value)](#dzdeterminatevalue)
+- [Customizing your Actions Icon](#customizing-your-actions-icon)
+- [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
