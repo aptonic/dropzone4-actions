@@ -15,6 +15,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [Generated Template Action](#generated-template-action)
 - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
 - [Debug Console](#debug-console)
+- [Dragged Types](#dragged-types)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -103,7 +104,52 @@ The debug console makes it quick and easy to view the output and environment of 
 
 ![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/debug-console.png)
 
-The screenshot above shows the output in the debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located inside the Dropzone.app application bundle at /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your action.rb script.
+The screenshot above shows the debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located inside the Dropzone.app application bundle at /Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your action.rb script. The task description file contents are output in the debug console when running a task.
+
+In the above example, the task description file contents were:
+
+```ruby
+ACTION: "/Users/john/Library/Application Support/Dropzone 3/Actions/Custom Action.dzbundle"
+EVENT: "dragged"
+VARIABLE: "support_folder" "/Users/john/Library/Application Support/Dropzone 3"
+VARIABLE: "dragged_type" "files"
+ITEMS: "/Users/john/Desktop/Test2.jpeg" "/Users/john/Desktop/Test.jpeg"
+```
+
+The ACTION and EVENT fields are used by runner.rb to determine which action bundle to use and which method to call in your script. The VARIABLE fields can be accessed in your script using the ENV['variable_name'] global. 
+
+## Dragged Types
+
+If your action supports the dragged event, then you must specify the types of content your action can handle in the metadata as follows:
+
+**Handle files only**
+```ruby
+# Handles: Files
+```
+
+**Handle strings of text only**
+```ruby
+# Handles: Text
+```
+
+**Handle both files and strings of text**
+```ruby
+# Handles: Files, Text
+```
+
+If you specify files then the user will only be allowed to drag files onto your action. If you specify text then the user will only be allowed to drag strings of text onto your action.
+If you specify both types, then either type may be dragged and your action will need to determine the type as follows:
+
+```ruby
+case ENV['dragged_type']
+  when 'files'
+  # Code to handle dragged files goes here
+  # $items is an array of the dragged filenames
+  when 'text'
+  # Code to handle dragged text goes here
+  # $items[0] is the dragged string of text
+end
+```
 
 ## Customizing your Actions Icon
 
