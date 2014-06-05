@@ -170,6 +170,7 @@ You can switch between determinate and indeterminate modes as your script execut
 **Examples**
 
 ```ruby
+$dz.begin("Running task...")
 $dz.determinate(false)
 ```
 
