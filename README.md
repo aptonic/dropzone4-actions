@@ -175,7 +175,6 @@ $dz.determinate(false)
 ```
 
 ![Determinate False](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/determinate-false.png)
-<br><br>
 
 ```ruby
 $dz.begin("Running task...")
