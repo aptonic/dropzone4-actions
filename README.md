@@ -17,6 +17,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Debug Console](#debug-console)
 - [Dragged Types](#dragged-types)
 - [Providing Status Updates](#providing-status-updates)
+  - [$dz.begin(message)](#$dzbeginmessage)
   - [$dz.determinate(value)](#$dzdeterminatevalue)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
@@ -160,6 +161,17 @@ end
 ## Providing Status Updates
 
 Your action can optionally call API methods to provide status updates to Dropzone so that the user can monitor the progress of your action using the in grid progress bars and text - For example if your action uploaded data to a server then you can call the below methods to inform the user about the progression of the upload. You can provide these status updates by calling methods on the $dz global which is an instance of the Dropzone class. This global is setup for you when Dropzone calls your script. The methods for providing status updates from your script are outlined below:
+
+### $dz.begin(message)
+
+Tells Dropzone to show a new task status progress bar in the grid and to set the label above the progress bar to the specified message.
+You can call this method multiple times as your action runs to update the displayed text.
+
+**Example**
+
+```ruby
+$dz.begin("Running task...")
+```
 
 ### $dz.determinate(value)
 
