@@ -16,6 +16,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
 - [Debug Console](#debug-console)
 - [Dragged Types](#dragged-types)
+- [Providing Status Updates](#providing-status-updates)
+  - [$dz.determinate(value)](#$dzdeterminatevalue)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -92,7 +94,7 @@ In the template action you will notice that two Ruby methods have been created f
 
 ## Copy and Edit an existing action
 
-The other way you can create a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
+The other way you can develop a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated script for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications.
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
 
@@ -116,7 +118,11 @@ VARIABLE: "dragged_type" "files"
 ITEMS: "/Users/john/Desktop/Test2.jpeg" "/Users/john/Desktop/Test.jpeg"
 ```
 
-The ACTION and EVENT fields are used by runner.rb to determine which action bundle to use and which method to call in your script. The VARIABLE fields can be accessed in your script using the ENV['variable_name'] global. 
+The ACTION and EVENT fields are used by runner.rb to determine which action bundle to use and which method to call in your script. The VARIABLE fields can be accessed in your script using the ENV['variable_name'] global.
+
+Note that output that was recognized and processed by Dropzone is shown in black (this is output that was generated from calling the $dz methods) while unrecognized output is shown in red. This is useful when debugging your script as if you use puts to output something for debugging purposes you can easily see it. Also, if your action causes a Ruby exception then the debug console will be shown automatically and the backtrace will be shown in red so you can fix the issue.
+
+Clicking on the Edit Last button will open the last run action script in your text editor and clicking Rerun Last runs the last run task again with the same items, drag type and variables. This makes developing and debugging actions faster and easier.
 
 ## Dragged Types
 
@@ -150,6 +156,27 @@ case ENV['dragged_type']
   # $items[0] is the dragged string of text
 end
 ```
+
+## Providing Status Updates
+
+Your action can optionally call API methods to provide status updates to Dropzone so that the user can monitor the progress of your action using the in grid progress bars and text - For example if your action uploaded data to a server then you can call the below methods to inform the user about the progression of the upload. You can provide these status updates by calling methods on the $dz global which is an instance of the Dropzone class. This global is setup for you when Dropzone calls your script. The methods for providing status updates from your script are outlined below:
+
+### $dz.determinate(value)
+
+Value may be either true or false. Determinate mode (true) indicates that you will be providing progress information to Dropzone from your script as a percent and indeterminate mode (false) means that no progress information will be provided.
+
+You can switch between determinate and indeterminate modes as your script executes. For example, you might choose to resize some images and then upload them to a server - you may not be able to provide progress information as the images are resized, but you can provide progress information while uploading them to a server. Therefore you would tell Dropzone to use indeterminate mode initially and then switch to determinate mode once you begin uploading. You should use determinate mode and provide progress information when possible.
+
+**Examples**
+
+```ruby
+$dz.determinate(false)
+```
+
+```ruby
+$dz.determinate(true)
+```
+
 
 ## Customizing your Actions Icon
 
