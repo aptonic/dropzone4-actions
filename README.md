@@ -215,8 +215,9 @@ Shows a notification center notification that the task is finishing with the giv
 
 **Example**
 
+```ruby
 $dz.finish("Task Complete")
-
+```
 
 ## Customizing your Actions Icon
 
