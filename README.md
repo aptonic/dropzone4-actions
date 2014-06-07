@@ -30,6 +30,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [CocoaDialog](#cocoadialog)
 - [Saving and loading values](#saving-and-loading-values)
 - [Temporary folder](#temporary-folder)
+- [Bundling Ruby libs](#bundling-ruby-libs)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -366,6 +367,10 @@ puts $dz.temp_folder
 ```
 
 Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debug console. The output path will be different on your system.
+
+## Bundling Ruby libs
+
+You can include Ruby libs needed by your action by placing them inside your action bundle. Before running your action, runner.rb changes the working directory to the inside of your action bundle. This means you can do require 'libname' where libname is the name of a .rb file inside your action bundle. There is an example of this in the [Flickr Upload](https://github.com/aptonic/dropzone3-actions/tree/master/Flickr%20Upload.dzbundle) bundle.
 
 ## Customizing your Actions Icon
 
