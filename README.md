@@ -258,7 +258,7 @@ $dz.text("This is a test string that will not be URL encoded")
 
 ### $dz.fail(message)
 
-Shows a notification center notification that the task failed. Also terminates the task and makes a cross show in the status item to indicate task failure. If you call this, you don't need to call $dz.url or $dz.text after.
+Shows a notification center notification that the task failed. Also terminates the task and makes a cross show in the status item to indicate task failure. If you call this you don't need to call $dz.url or $dz.text after.
 
 **Example**
 
