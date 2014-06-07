@@ -26,6 +26,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.fail(message)](#dzfailmessage)
 - [Showing Alerts and Errors](#showing-alerts-and-errors)
   - [$dz.alert(title, message)](#dzalerttitle-message)
+  - [$dz.error(title, message)](#dzerrortitle-message)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -288,6 +289,18 @@ $dz.alert("Alert Title", "Some informative text...")
 ```
 
 ![Alert](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/alert.png)
+
+### $dz.error(title, message)
+
+Shows a popup error box with the given title and message.
+
+**Example**
+
+```ruby
+$dz.error("Error Title", "An error occurred...")
+```
+
+![Error](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/error.png)
 
 ## Customizing your Actions Icon
 
