@@ -22,6 +22,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.percent(value)](#dzpercentvalue)
   - [$dz.finish(message)](#dzfinishmessage)
   - [$dz.url(url)](#dzurlurl)
+  - [$dz.text(text)](#dztexttext)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -240,6 +241,18 @@ You can use the following if you do not wish to provide a URL:
 
 ```ruby
 $dz.url(false)
+```
+
+### $dz.text(text)
+
+You can use this in place of $dz.url. It behaves exactly the same except that it does not attempt to encode the argument as a URL so you can place raw strings of text on the pasteboard.
+
+**Example**
+
+The following would result in the raw string 'This is a test string that will not be URL encoded' being placed on the pasteboard.
+
+```ruby
+$dz.text("This is a test string that will not be URL encoded")
 ```
 
 ## Customizing your Actions Icon
