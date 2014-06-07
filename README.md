@@ -279,6 +279,8 @@ $dz.fail("Error uploading file")
 
 ### $dz.alert(title, message)
 
+Shows a popup alert box with the given title and message.
+
 **Example**
 
 ```ruby
