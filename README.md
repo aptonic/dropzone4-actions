@@ -28,6 +28,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.alert(title, message)](#dzalerttitle-message)
   - [$dz.error(title, message)](#dzerrortitle-message)
 - [CocoaDialog](#cocoadialog)
+- [Saving and Loading Values](#saving-and-loading-values)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -334,6 +335,12 @@ else
   puts "No was clicked"
 end
 ```
+
+## Saving and Loading Values
+
+Your action can store strings values in the Dropzone database by calling $dz.save_value(value_name, value). This is useful for storing configuration for your action - e.g. when your action first runs you could use CocoaDialog to prompt for a setting and then store the result. When the action is next run, all saved values are set as environment variables and can be accessed using ENV[stored_value_name]. You can see which variables were set in the [debug console](#debug-console) each time your action is run. If the user has multiple instances of your action setup in the grid, the stored values are unique to each instance.
+
+
 
 ## Customizing your Actions Icon
 
