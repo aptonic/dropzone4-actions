@@ -318,9 +318,7 @@ The below example prompts the user for a filename and outputs the entered filena
 output = $dz.cocoa_dialog('standard-inputbox --title "Save to File" --e --informative-text "Enter Filename:"')
 button, filename = output.split("\n")
 
-if button == "2"
-  $dz.fail("Cancelled")
-end
+$dz.fail("Cancelled") if button == "2"
 
 puts filename
 ```
