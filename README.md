@@ -24,6 +24,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.url(url, title)](#dzurlurl-title)
   - [$dz.text(text)](#dztexttext)
   - [$dz.fail(message)](#dzfailmessage)
+- [Showing Alerts and Errors](#showing-alerts-and-errors)
+  - [$dz.alert(title, message)](#dzalerttitle-message)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -272,6 +274,16 @@ $dz.fail("Error uploading file")
 ```
 
 ![Failed Notification](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/fail-notification.png)
+
+## Showing Alerts and Errors
+
+### $dz.alert(title, message)
+
+**Example**
+
+```ruby
+$dz.alert("Alert Title", "Some informative text...")
+```
 
 ## Customizing your Actions Icon
 
