@@ -27,6 +27,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Showing Alerts and Errors](#showing-alerts-and-errors)
   - [$dz.alert(title, message)](#dzalerttitle-message)
   - [$dz.error(title, message)](#dzerrortitle-message)
+- [CocoaDialog](#cocoadialog)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -303,6 +304,11 @@ $dz.error("Error Title", "An error occurred...")
 ![Error](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/error.png)
 
 Note that calling $dz.error results in your script terminating immediately while calling $dz.alert allows you to display a message and then continue execution of your script.
+
+## CocoaDialog
+
+CocoaDialog is an application bundled with Dropzone that allows the use of common GUI controls such as file selectors, text input, progress bars, yes/no confirmations and more. You can learn more about how to use CocoaDialog [here](http://mstratman.github.io/cocoadialog/#documentation). CocoaDialog has many possible applications in a Dropzone action, for example, the 'Save Text' action that ships with Dropzone uses CocoaDialog to popup a dialog box to get the desired filename.
+
 
 ## Customizing your Actions Icon
 
