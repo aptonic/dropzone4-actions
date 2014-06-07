@@ -307,8 +307,23 @@ Note that calling $dz.error results in your script terminating immediately while
 
 ## CocoaDialog
 
-CocoaDialog is an application bundled with Dropzone that allows the use of common UI controls such as file selectors, text input, yes/no confirmations and more. You can learn more about how to use CocoaDialog [here.](http://mstratman.github.io/cocoadialog/#documentation) CocoaDialog has many possible applications in a Dropzone action, for example, the 'Save Text' action that ships with Dropzone uses CocoaDialog to popup a dialog box to get the desired filename.
+CocoaDialog is an application bundled with Dropzone that allows the use of common UI controls such as file selectors, text input, yes/no confirmations and more. You can learn more about how to use CocoaDialog [here.](http://mstratman.github.io/cocoadialog/#documentation) CocoaDialog has many possible uses in a Dropzone action, for example, the 'Save Text' action that ships with Dropzone uses CocoaDialog to popup a dialog box to get the desired filename.
 
+You can launch CocoaDialog by calling $dz.cocoa_dialog(arguments) where arguments is a string with the arguments to be passed to the CocoaDialog command line tool.
+The below example prompts the user for a filename and outputs the entered filename to the debug console. It also handles the case where the user clicks the cancel button.
+
+**Example**
+
+```ruby
+output = $dz.cocoa_dialog('standard-inputbox --title "Save to File" --e --informative-text "Enter Filename:"')
+button, filename = output.split("\n")
+
+if button == "2"
+  $dz.fail("Cancelled")
+end
+
+puts filename
+```
 
 ## Customizing your Actions Icon
 
