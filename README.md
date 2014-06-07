@@ -21,6 +21,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.determinate(value)](#dzdeterminatevalue)
   - [$dz.percent(value)](#dzpercentvalue)
   - [$dz.finish(message)](#dzfinishmessage)
+  - [$dz.url(url)](#dzurlurl)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -220,6 +221,12 @@ $dz.finish("Task Complete")
 ```
 
 ![Finish Notification](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/finish-notification.png)
+
+### $dz.url(url)
+
+Sets a URL to be placed on the pasteboard. This is useful for writing actions that result in content being made available at a URL so a user can quickly paste the URL into other applications. 
+
+If you do not wish to specify a URL, you must still call this method with false as the argument. Calling this method causes the task status bar to be removed from the grid and the task resources to be cleaned up. You should only call this method once and it should be the last method your action calls. 
 
 ## Customizing your Actions Icon
 
