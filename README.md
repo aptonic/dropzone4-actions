@@ -232,7 +232,7 @@ If you do not wish to specify a URL, you must still call this method with false 
 
 **Examples**
 
-The following would result in the URL http://aptonic.com being placed on the pasteboard.
+The following would result in the URL http://aptonic.com being placed on the pasteboard:
 
 ```ruby
 $dz.url("http://aptonic.com")
@@ -250,7 +250,7 @@ You can use this in place of $dz.url. It behaves exactly the same except that it
 
 **Example**
 
-The following would result in the raw string 'This is a test string that will not be URL encoded' being placed on the pasteboard.
+The following would result in the raw string 'This is a test string that will not be URL encoded' being placed on the pasteboard:
 
 ```ruby
 $dz.text("This is a test string that will not be URL encoded")
