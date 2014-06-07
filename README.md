@@ -228,6 +228,20 @@ Sets a URL to be placed on the pasteboard. This is useful for writing actions th
 
 If you do not wish to specify a URL, you must still call this method with false as the argument. Calling this method causes the task status bar to be removed from the grid and the task resources to be cleaned up. You should only call this method once and it should be the last method your action calls. 
 
+**Examples**
+
+The following would result in the URL http://aptonic.com being placed on the pasteboard.
+
+```ruby
+$dz.url("http://aptonic.com")
+```
+
+You can use the following if you do not wish to provide a URL:
+
+```ruby
+$dz.url(false)
+```
+
 ## Customizing your Actions Icon
 
 There needs to be an icon.png file inside your action bundle. This icon is used as the default action icon when your action is added to the grid. This icon should ideally be at least 300x300px in size. The maximum size action icons can be displayed in the grid is 150x150 but when in retina display modes this is doubled to 300x300. You can change the icon for your action by going into the Dropzone preferences, opening the User Actions tab and clicking the Reveal button to show your Action bundle in the Finder. You then right click the bundle and click 'Show Package Contents' and drag a new icon.png into the bundle. This is illustrated below:
