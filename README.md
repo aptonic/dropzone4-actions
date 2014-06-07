@@ -313,7 +313,7 @@ You can launch CocoaDialog by calling $dz.cocoa_dialog(arguments) where argument
 
 **Examples**
 
-The below example prompts the user for a filename and outputs the entered filename to the debug console. It also handles the case where the user clicks the cancel button.
+The below example prompts the user for a filename and outputs the entered filename to the debug console. It also handles the case where the user clicks the cancel button:
 
 ```ruby
 output = $dz.cocoa_dialog('standard-inputbox --title "Save to File" --e --informative-text "Enter Filename:"')
@@ -324,10 +324,10 @@ $dz.fail("Cancelled") if button == "2"
 puts filename
 ```
 
-The below example gets a yes or no answer from the user and then outputs to debug console depending on the answer.
+The below example gets a yes or no answer from the user and then outputs to debug console depending on the answer:
 
 ```ruby
-output = $dz.cocoa_dialog('yesno-msgbox --text "Are you sure you want to delete this file?" --no-cancel')
+output = $dz.cocoa_dialog('yesno-msgbox --no-cancel --text "Are you sure you want to delete this file?"')
 if output == "1\n"
   puts "Yes was clicked" 
 else
