@@ -270,7 +270,7 @@ Shows a notification center notification that the task failed. Also terminates t
 **Example**
 
 ```ruby
-$dz.fail("Error uploading file")
+$dz.fail("Error processing file")
 ```
 
 ![Failed Notification](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/fail-notification.png)
