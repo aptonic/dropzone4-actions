@@ -307,7 +307,7 @@ Note that calling $dz.error results in your script terminating immediately while
 
 ## CocoaDialog
 
-CocoaDialog is an application bundled with Dropzone that allows the use of common GUI controls such as file selectors, text input, progress bars, yes/no confirmations and more. You can learn more about how to use CocoaDialog [here](http://mstratman.github.io/cocoadialog/#documentation). CocoaDialog has many possible applications in a Dropzone action, for example, the 'Save Text' action that ships with Dropzone uses CocoaDialog to popup a dialog box to get the desired filename.
+CocoaDialog is an application bundled with Dropzone that allows the use of common GUI controls such as file selectors, text input, yes/no confirmations and more. You can learn more about how to use CocoaDialog [here](http://mstratman.github.io/cocoadialog/#documentation). CocoaDialog has many possible applications in a Dropzone action, for example, the 'Save Text' action that ships with Dropzone uses CocoaDialog to popup a dialog box to get the desired filename.
 
 
 ## Customizing your Actions Icon
