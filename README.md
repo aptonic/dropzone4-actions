@@ -324,7 +324,7 @@ $dz.fail("Cancelled") if button == "2"
 puts filename
 ```
 
-The below example gets a yes or no answer from the user and then outputs to debug console depending on the answer:
+The below example gets a yes or no answer from the user and then outputs the result to the debug console:
 
 ```ruby
 output = $dz.cocoa_dialog('yesno-msgbox --no-cancel --text "Are you sure you want to delete this file?"')
