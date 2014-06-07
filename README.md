@@ -19,6 +19,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Providing Status Updates](#providing-status-updates)
   - [$dz.begin(message)](#dzbeginmessage)
   - [$dz.determinate(value)](#dzdeterminatevalue)
+  - [$dz.percent(value)](#dzpercentvalue)
+  - [$dz.finish(message)](#dzfinishmessage)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -195,6 +197,26 @@ $dz.percent(50)
 ```
 
 ![Determinate False](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/determinate-true.png)
+
+### $dz.percent(value)
+
+Value is an integer value between 0 and 100. Dropzone updates the task progress bar to reflect this value.
+You only need to call this method when in determinate mode.
+
+**Example**
+
+```ruby
+$dz.percent(50)
+```
+
+### $dz.finish(message)
+
+Shows a notification center notification that the task is finishing with the given message. To actually end the task and remove the task status bar from the grid you have to call $dz.url after this.
+
+**Example**
+
+$dz.finish("Task Complete")
+
 
 ## Customizing your Actions Icon
 
