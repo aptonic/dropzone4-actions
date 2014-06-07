@@ -23,6 +23,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.finish(message)](#dzfinishmessage)
   - [$dz.url(url)](#dzurlurl)
   - [$dz.text(text)](#dztexttext)
+  - [$dz.fail(message)](#dzfailmessage)
 - [Customizing your Actions Icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
 
@@ -254,6 +255,18 @@ The following would result in the raw string 'This is a test string that will no
 ```ruby
 $dz.text("This is a test string that will not be URL encoded")
 ```
+
+### $dz.fail(message)
+
+Shows a notification center notification that the task failed with a given message and terminates and cleans up the task. Also makes a cross show in the status item. If you call this, you don't need to call $dz.url or $dz.text after.
+
+**Example**
+
+```ruby
+$dz.fail("Error uploading file")
+```
+
+![Failed Notification](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/fail-notification.png)
 
 ## Customizing your Actions Icon
 
