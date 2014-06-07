@@ -204,7 +204,6 @@ Value is an integer value between 0 and 100. Dropzone updates the task progress 
 You only need to call this method when in determinate mode.
 
 **Example**
-
 ```ruby
 $dz.percent(50)
 ```
@@ -214,7 +213,6 @@ $dz.percent(50)
 Shows a notification center notification that the task is finishing with the given message. To actually end the task and remove the task status bar from the grid you have to call $dz.url after this.
 
 **Example**
-
 ```ruby
 $dz.finish("Task Complete")
 ```
