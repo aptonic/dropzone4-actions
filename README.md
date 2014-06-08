@@ -29,7 +29,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.error(title, message)](#dzerrortitle-message)
 - [CocoaDialog](#cocoadialog)
 - [Saving and loading values](#saving-and-loading-values)
-- [Temporary folder](#temporary-folder)
+- [Getting a temporary folder](#getting-a-temporary-folder)
 - [Bundling Ruby libs and executables](#bundling-ruby-libs-and-executables)
 - [Customizing your actions icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
@@ -360,7 +360,7 @@ Outputting the saved value to the debug console:
 puts ENV['username']
 ```
 
-## Temporary folder
+## Getting a temporary folder
 
 If your action needs to store files in a temporary location you can use $dz.temp_folder to get return a path that is writeable by both the sandboxed and unsandboxed versions of Dropzone.
 
