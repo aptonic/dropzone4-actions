@@ -35,6 +35,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [OptionsNIBs](#optionsnibs)
 - [Bundling Ruby libs and executables](#bundling-ruby-libs-and-executables)
 - [Customizing your actions icon](#customizing-your-actions-icon)
+- [Distributing your action](#distributing-your-action)
 - [Action Metadata](#action-metadata)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -455,6 +456,10 @@ There needs to be an icon.png file inside your action bundle. This icon is used 
 ![Show Package Contents](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/show-package-contents.png)
 <br><br><br>
 ![Replace Icon](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/replace-icon.png)
+
+## Distributing your action
+
+
 
 ## Action Metadata
 
