@@ -459,7 +459,13 @@ There needs to be an icon.png file inside your action bundle. This icon is used 
 
 ## Distributing your action
 
+Dropzone 3 action distribution is done via GitHub. You should clone this repository, copy your dzbundle into it and send a GitHub pull request.
+To copy your action, ![Reveal](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/reveal.png) it in the Finder from the User Actions tab in the Preferences and then copy it into your cloned copy of this repository. After your pull request is merged, within 24 hours your action can be automatically installed from a link like http://aptonic.com/dropzone3/actions/install.php?bundle_name=Bundle%20Name where Bundle%20Name is the URL encoded name of your action bundle.
 
+In order to make your action updatable, you must add a UniqueID metadata field with a random numeric ID before releasing it.
+To release an update for your action, make your changes, increment the version number in the action metadata and send a pull request with your action to this repository. Users will then be automatically updated to the newest version of your action.
+
+If you do not wish to distribute your action bundle this way then you can simply zip up the bundle and distribute it manually. Users can install it by unzipping it and double clicking it.
 
 ## Action Metadata
 
@@ -529,6 +535,11 @@ All recognised metadata options are described below:
 	<tr>
 		<td>RunsSandboxed</td>
 		<td>If your action does things that are incompatible with OS X sandboxing (such as running AppleScript or writing to arbitrary directories) then set this to No. Users of the non-Mac App Store version of Dropzone 3 will be able to run your action as normal but users of the Mac App Store version of Dropzone 3 will be prompted to install a special helper app that runs your action unsandboxed on behalf of the parent app.</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>UniqueID</td>
+		<td>A random number that uniquely identifies your action. When Dropzone updates an action it checks that the UniqueID matches so that the updater doesn't inadvertently overwrite a users action that has the same name. If you want your action to be updatable then you must supply this field.</td>
 		<td>Yes</td>
 	</tr>
 	<tr>
