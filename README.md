@@ -423,7 +423,7 @@ The above would show the below panel with username and password fields when addi
 ![Login OptionsNIB](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/login-optionsnib.png)
 
 <table>
-	<th width="240">
+	<th>
 		Field
 	</th>
 	<th>
