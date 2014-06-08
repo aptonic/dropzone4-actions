@@ -29,7 +29,8 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.error(title, message)](#dzerrortitle-message)
 - [CocoaDialog](#cocoadialog)
 - [Saving and loading values](#saving-and-loading-values)
-- [Copying files](#copying-files)
+- [Key Modifiers](#key-modifiers)
+- [Copying Files](#copying-files)
 - [Getting a temporary folder](#getting-a-temporary-folder)
 - [Bundling Ruby libs and executables](#bundling-ruby-libs-and-executables)
 - [Customizing your actions icon](#customizing-your-actions-icon)
@@ -361,7 +362,25 @@ Outputting the saved value to the debug console:
 puts ENV['username']
 ```
 
-## Copying files
+## Key Modifiers
+
+If the user holds down a modifier key while dragging items onto your action and you have specified in your scripts metadata that the modifier key is supported then the symbol for the held modifier is overlaid on your action as shown above and the ENV['KEY_MODIFIERS'] environment variable is set with the currently held modifier for your script to access. You can specify that your script supports multiple key modifiers by specifying each supported modifier delimited by a comma, however, only one key modifier may be used at a time.
+
+To support key modifiers, in your action metadata at the top of action.rb add a line like the example below with a comma separated list of the modifiers your action supports:
+
+```ruby
+# KeyModifiers: Command, Option, Control, Shift
+```
+
+Then in your action.rb dragged method access the held key modifier as follows:
+
+```ruby
+puts ENV['KEY_MODIFIERS']
+```
+
+Note that only one held key modifier at a time is supported.
+
+## Copying Files
 
 As copying files is a common thing to need to do in a Dropzone action - e.g. to resize some images and then copy them to a folder, a Ruby library is provided by Dropzone that handles this for you. An advantage of using the Rsync library to copy files is that it also prompts the user to cancel or replace if a file they are copying already exists at the destination. This library is automatically loaded for you by runner.rb. 
 
