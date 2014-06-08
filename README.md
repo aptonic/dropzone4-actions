@@ -422,7 +422,7 @@ The above would show the below panel with username and password fields when addi
 
 ![Login OptionsNIB](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/login-optionsnib.png)
 
-When your action is run, the values would then be available as follows:
+When your action is run, the values would then be available from the environment variables as follows:
 
 <table>
 	<th>
