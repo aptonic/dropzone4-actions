@@ -115,7 +115,7 @@ In the template action you will notice that two Ruby methods have been created f
 
 ### Copy and Edit an existing action
 
-The other way you can develop a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated action for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications. All of the built-in Dropzone actions (except for the OS X sharing services like AirDrop, Twitter, Facebook etc.) can be copied and edited this way and you can also copy and edit any user actions you have installed. This is a great way to see how other actions work and to get code snippets from other actions that might be useful in your own actions.
+The other way you can develop a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated action for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications. All of the built-in Dropzone actions (except for the OS X sharing services like AirDrop, Twitter, Facebook etc.) can be copied and edited this way and you can also copy and edit any user actions you have installed. This is a great way to see how other actions work and to get code snippets that might be useful in your own actions.
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/copy-and-edit.png)
 
