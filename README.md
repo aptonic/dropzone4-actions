@@ -465,7 +465,7 @@ To copy your action, [Reveal](https://raw.githubusercontent.com/aptonic/dropzone
 In order to make your action updatable, you must add a UniqueID metadata field with a random numeric ID before releasing it.
 To release an update for your action, make your changes, increment the version number in the action metadata and send a pull request with your action to this repository. Users will then be automatically updated to the newest version of your action.
 
-If you do not wish to distribute your action bundle this way then you can simply zip up the bundle and distribute it manually. Users can install it by unzipping it and double clicking it.
+If you do not wish to distribute your action bundle this way then you can simply zip up the bundle and distribute it manually. Users can install it by unzipping it and double clicking it or dragging it to the Add to Grid area.
 
 ## Action Metadata
 
