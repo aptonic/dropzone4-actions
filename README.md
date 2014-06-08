@@ -44,7 +44,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 
 ![API Logo](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/dzbundle.png)
 
-The general idea of a Dropzone action is that files or text will be dropped on the action and then the action will perform some useful function on the dropped items. This might be uploading the dropped files to a web service, renaming the files, resizing images, zipping files etc. The possible uses are really only limited by your imagination.
+The general idea of a Dropzone action is that files or text will be dropped on the action and then the action will perform some useful function on the dropped items. This might be uploading the dropped files to a web service, renaming the files, resizing images, zipping files etc. The possible uses are limited only by your imagination.
 
 A Dropzone action also accepts a click event so when you click on it in the Dropzone grid it does something: for example the [Finder Path](https://aptonic.com/dropzone3/actions/install.php?bundle_name=Finder%20Path) action copies the currently selected item path in Finder to the clipboard. The API outlined below describes how you can easily develop your own actions to use with Dropzone and then share these actions with others. Dropzone actions are developed in Ruby so it's a good idea to learn a little Ruby first if you haven't coded in it before. There's an excellent introduction to the Ruby language [here.](http://www.codecademy.com/tracks/ruby)
 
