@@ -417,6 +417,12 @@ The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAP
 # OptionsNIB: Login
 ```
 
+You will need to reload your grid actions for this to take effect. Click the Dropzone menu item and press Cmd+R to reload action metadata.
+The above would show the below panel with username and password fields when adding or editing the action:
+
+![Login OptionsNIB](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/login-optionsnib.png)
+
+
 ## Bundling Ruby libs and executables
 
 You can include Ruby libs needed by your action by placing them inside your action bundle. Before running your action, runner.rb changes the working directory to the inside of your action bundle. This means you can do require 'libname' where libname is the name of a .rb file inside your action bundle. There is an example of this in the [Flickr Upload](https://github.com/aptonic/dropzone3-actions/tree/master/Flickr%20Upload.dzbundle) bundle. The Flickr Upload action also demonstrates how to launch an application or command line tool bundled with your action. 
