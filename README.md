@@ -409,7 +409,7 @@ Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debu
 
 ## OptionsNIBs
 
-Some actions may require additional information from the user, such as login details, API keys and folder paths in order to work. Dropzone provides a way to collect this information by loading an additional interface into the 'Add Action' panel when a user adds your action to the Dropzone grid. When Dropzone executes your action, environment variables are set with the information collected in the OptionsNIB.
+Some actions may require additional information from the user, such as login details, API keys or folder paths in order to work. Dropzone provides a way to collect this information by loading an additional interface into the 'Add Action' panel when a user adds your action to the Dropzone grid. When Dropzone runs your action, environment variables are set with the information collected in the OptionsNIB.
 
 The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder and ChooseApplication. To use an OptionsNIB, you need to add a line to the metadata section like below:
 
@@ -417,7 +417,7 @@ The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAP
 # OptionsNIB: Login
 ```
 
-You will need to reload your grid actions for this to take effect. Click the Dropzone menu item and press Cmd+R to reload action metadata.
+You will need to reload your grid actions for this metadata change to take effect. Click the Dropzone menu item and press Cmd+R to reload action metadata.
 The above would show the below panel with username and password fields when adding or editing the action:
 
 ![Login OptionsNIB](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/login-optionsnib.png)
