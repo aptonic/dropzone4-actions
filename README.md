@@ -142,7 +142,7 @@ The ACTION and EVENT fields are used by runner.rb to determine which action bund
 
 Note that output that was recognized and processed by Dropzone is shown in black (this is output that was generated from calling the $dz methods) while unrecognized output is shown in red. This is useful when debugging your script as if you use puts to output something for debugging purposes you can easily see it. Also, if your action causes a Ruby exception then the debug console will be shown automatically and the backtrace will be shown in red so you can fix the issue.
 
-Clicking on the Edit Last button will open the last run action script in your text editor and clicking Rerun Last runs the last run task again with the same items, drag type and variables. This makes developing and debugging actions faster and easier.
+Clicking on the 'Edit Last' button will open the last run action script in your text editor and clicking 'Rerun Last' runs the last run task again with the same items, drag type and variables. This makes developing and debugging actions faster and easier.
 
 ## Dragged Types
 
