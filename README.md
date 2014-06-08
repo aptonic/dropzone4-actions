@@ -372,7 +372,7 @@ Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debu
 
 You can include Ruby libs needed by your action by placing them inside your action bundle. Before running your action, runner.rb changes the working directory to the inside of your action bundle. This means you can do require 'libname' where libname is the name of a .rb file inside your action bundle. There is an example of this in the [Flickr Upload](https://github.com/aptonic/dropzone3-actions/tree/master/Flickr%20Upload.dzbundle) bundle. The Flickr Upload action also demonstrates how to launch an application or command line tool bundled with your action. 
 
-You can simply surround the relative path of the application bundles executable with back ticks in your action as follows:
+You can simply surround the relative path of the application bundles executable with back ticks in your action script as follows:
 
 ```ruby
 `YourApp.app/Contents/MacOS/YourApp`
