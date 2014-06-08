@@ -32,6 +32,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
 - [Key Modifiers](#key-modifiers)
 - [Copying Files](#copying-files)
 - [Getting a temporary folder](#getting-a-temporary-folder)
+- [OptionsNIBs](#optionsnibs)
 - [Bundling Ruby libs and executables](#bundling-ruby-libs-and-executables)
 - [Customizing your actions icon](#customizing-your-actions-icon)
 - [Action Metadata](#action-metadata)
@@ -405,6 +406,10 @@ puts $dz.temp_folder
 ```
 
 Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debug console. The output path will be different on your system.
+
+## OptionsNIBs
+
+
 
 ## Bundling Ruby libs and executables
 
