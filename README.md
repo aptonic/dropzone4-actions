@@ -409,7 +409,9 @@ Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debu
 
 ## OptionsNIBs
 
+Some actions may require additional information from the user, such as login details, API keys and folder paths in order to function correctly. Dropzone provides a way to collect this information by loading an additional interface into the 'Add Action' panel when a user adds your action to the Dropzone grid. When Dropzone executes your action, environment variables are set with the information collected in the OptionsNIB.
 
+The currently available OptionsNIBs and the names of the environment variables set by them are outlined below:
 
 ## Bundling Ruby libs and executables
 
