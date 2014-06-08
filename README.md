@@ -29,6 +29,7 @@ This repository works in conjunction with the [dropzone3-actions-zipped](https:/
   - [$dz.error(title, message)](#dzerrortitle-message)
 - [CocoaDialog](#cocoadialog)
 - [Saving and loading values](#saving-and-loading-values)
+- [Copying files](#copying-files)
 - [Getting a temporary folder](#getting-a-temporary-folder)
 - [Bundling Ruby libs and executables](#bundling-ruby-libs-and-executables)
 - [Customizing your actions icon](#customizing-your-actions-icon)
@@ -358,6 +359,16 @@ Outputting the saved value to the debug console:
 
 ```ruby
 puts ENV['username']
+```
+
+## Copying files
+
+As copying files is a common thing to need to do in a Dropzone action - e.g. to resize some images and then copy them to a folder, a Ruby library is provided by Dropzone that handles this for you. An advantage of using the Rsync library to copy files is that it also prompts the user to cancel or replace if a file they are copying already exists at the destination. This library is automatically loaded for you by runner.rb. 
+
+You can call it as follows:
+
+```ruby
+Rsync.do_copy(files, destination, remove_sent)
 ```
 
 ## Getting a temporary folder
