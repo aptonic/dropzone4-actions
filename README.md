@@ -371,6 +371,8 @@ You can call it as follows:
 Rsync.do_copy(files, destination, remove_sent)
 ```
 
+To see an example of this in use, add a 'Copy Files' action to your grid, right click it and do 'Copy and Edit Script'
+
 ## Getting a temporary folder
 
 If your action needs to store files in a temporary location you can use $dz.temp_folder to get return a path that is writeable by both the sandboxed and unsandboxed versions of Dropzone.
