@@ -411,7 +411,11 @@ Would output /Users/john/Library/Application Support/Dropzone 3/Temp to the debu
 
 Some actions may require additional information from the user, such as login details, API keys and folder paths in order to work. Dropzone provides a way to collect this information by loading an additional interface into the 'Add Action' panel when a user adds your action to the Dropzone grid. When Dropzone executes your action, environment variables are set with the information collected in the OptionsNIB.
 
-The currently available OptionsNIBs and the names of the environment variables set by them are outlined below:
+The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder and ChooseApplication. To use an OptionsNIB, you need to add a line to the metadata section like below:
+
+```ruby
+# OptionsNIB: Login
+```
 
 ## Bundling Ruby libs and executables
 
