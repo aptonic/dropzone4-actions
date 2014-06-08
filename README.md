@@ -422,6 +422,23 @@ The above would show the below panel with username and password fields when addi
 
 ![Login OptionsNIB](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/login-optionsnib.png)
 
+<table>
+	<th width="240">
+		Field
+	</th>
+	<th>
+		Environment Variable
+	</th>
+	<tr>
+		<td>Username</td>
+		<td>ENV['username']</td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td>ENV['password']</td>
+	</tr>
+</table>
+
 
 ## Bundling Ruby libs and executables
 
