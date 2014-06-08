@@ -380,7 +380,7 @@ Then in your action.rb dragged method access the held key modifier as follows:
 puts ENV['KEY_MODIFIERS']
 ```
 
-The above line would output the currently held key modifier to the debug console.
+The above line would output the held key modifier to the debug console.
 
 ## Copying Files
 
