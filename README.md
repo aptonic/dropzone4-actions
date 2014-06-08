@@ -366,7 +366,7 @@ puts ENV['username']
 
 ![Error](https://raw.githubusercontent.com/aptonic/dropzone3-actions/master/docs/keymodifiers.png)
 
-If the user holds down a modifier key while dragging items onto your action and you have specified in your scripts metadata that the modifier key is supported then the symbol for the held modifier is overlaid on your action as shown above. The ENV['KEY_MODIFIERS'] environment variable is set with the currently held modifier for your script to access. You can specify that your script supports multiple key modifiers by specifying each supported modifier delimited by a comma, however only one key modifier may be used at a time.
+If the user holds down a modifier key while dragging items onto your action and you have specified in your scripts metadata that the modifier key is supported then the symbol for the held modifier is overlaid on your action as shown above. The ENV['KEY_MODIFIERS'] environment variable is also set with the held modifier for your script to access. You can specify that your script supports multiple key modifiers by specifying each supported modifier delimited by a comma, however only one key modifier may be used at a time.
 
 To support key modifiers, in your action metadata at the top of action.rb add a line like the example below with a comma separated list of the modifiers your action supports:
 
