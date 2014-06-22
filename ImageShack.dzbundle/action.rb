@@ -3,12 +3,11 @@
 # Description: Uploads an image to ImageShack.
 # Handles: Files
 # Events: Clicked, Dragged
-# KeyModifiers: Option
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # OptionsNIB: ImageShack
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1005
 
