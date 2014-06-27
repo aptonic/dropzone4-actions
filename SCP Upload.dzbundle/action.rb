@@ -9,7 +9,7 @@
 # OptionsNIB: ExtendedLogin
 # DefaultPort: 22
 # Version: 1.0
-# RunsSandboxed: Yes
+# RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 
 require 'scp_uploader'
