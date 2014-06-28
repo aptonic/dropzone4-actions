@@ -1,19 +1,19 @@
 # Dropzone Action Info
 # Name: ImageShack
-# Description: Uploads an image to ImageShack.
+# Description: Uploads images to ImageShack. Drop multiple images to create an album.
 # Handles: Files
-# Events: Clicked, Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # OptionsNIB: ImageShack
+# Events: Clicked, Dragged
+# SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.0
-# UniqueID: 1005
 
-require "imageshack"
+require 'imageshack'
+require 'curl_uploader'
 
-FF_USERAGENT = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.6) Gecko/2009011913 Firefox/3.0.6"
 UPLOAD_URL = "https://api.imageshack.com/v2/images"
 
 def dragged
@@ -21,74 +21,84 @@ def dragged
   
   $dz.determinate(false)
   
-  file_path = $items[0]
-  filename = File.basename(file_path)
-  
   allowed_exts = ["jpg", "jpeg", "gif", "tif", "tiff", "png", "bmp"]
-  ext = File.extname(file_path).downcase[1..-1]
   
-  if not allowed_exts.include?(ext)
-    $dz.fail("Not an Image")
+  # Check only supported types were dragged
+  $items.each do |item|
+    filename = File.basename(item)
+    ext = File.extname(item).downcase[1..-1]  
+    $dz.fail("Only image files are supported") if not allowed_exts.include?(ext)
   end
-  
-  $dz.begin("Uploading #{filename}...")
-  
-  last_output = 0
-  is_receiving_json = false
-  json_output = ""
-  ext = "jpeg" if ext == "jpg"
-  ext = "tiff" if ext == "tif"
+
+  album_name = get_album_name if $items.length > 1
   
   auth_token = imageshack.get_auth_token(ENV['username'], ENV['password'])
   if not auth_token
     $dz.fail(imageshack.error_message)
   end
   
-  $dz.determinate(true)
-  
-  file_path = file_path.gsub('"', '\"')
-  IO.popen("/usr/bin/curl -# -A '#{FF_USERAGENT}' -F 'api_key=#{ENV['api_key']}' -F 'auth_token=#{auth_token}' -F \"file=@#{file_path}\" #{UPLOAD_URL} 2>&1 | tr -u \"\r\" \"\n\"") do |f|
-    while line = f.gets do
-      if line =~ /%/ and not is_receiving_json
-        line_split = line.split(" ")
-        file_percent_raw = line_split[1]
-        if file_percent_raw != nil
-          file_percent = file_percent_raw.to_i
-          if last_output != file_percent
-            $dz.percent(file_percent) 
-            $dz.determinate(false) if file_percent == 100
-          end
-          last_output = file_percent
-        end
-      end
-      if line =~ /"success"/ or is_receiving_json
-        is_receiving_json = true
-        json_output += line
-      else
-        handle_errors(line)
-      end
+  uploader = CurlUploader.new
+  uploader.upload_url = "https://api.imageshack.com/v2/images"
+  uploader.post_vars = {:api_key => ENV['api_key'], :auth_token => auth_token}
+
+  if $items.length == 1
+    # Just do the upload and put URL on clipboard
+    uploader.file_field_name = "file"
+    result = uploader.upload($items)[0]
+    puts result.inspect
+    check_upload_output_valid(result)
+    url = imageshack.get_url(result[:output])
+    
+    if url
+      finish(url)
+    else
+      $dz.fail(imageshack.error_message)
     end
-  end
-  
-  url = imageshack.get_url(json_output)
-  
-  if url
-    $dz.finish("URL is now on clipboard")
-    $dz.url(url)
   else
-    $dz.finish(imageshack.error_message)
-    $dz.url(false)
+    # Create album, upload to it then put album URL on clipboard
+    album_info = imageshack.create_album(album_name, auth_token)
+    uploader.file_field_name = "files"
+    uploader.post_vars[:album] = album_info["result"]["id"]
+    results = uploader.upload($items)
+    puts results.inspect
+    
+    results.each do |result|
+      check_upload_output_valid(result)
+    end
+    
+    finish("https://imageshack.com/a/#{album_info["result"]["id"]}", "Album:: #{album_name}")
   end
 end
 
-def handle_errors(line)
-  if line[0..4] == "curl:"
-    if line[6..-1] =~ /Couldn't resolve/
-      $dz.error("ImageShack Upload Error", "Please check your network connection.")
-    else
-      $dz.error("ImageShack Upload Error", line[6..-1])
-    end
+def check_upload_output_valid(result)
+  json_result = result[:output]
+  if result[:curl_output_valid]
+    return true
+  else
+    error_message = json_result
+    $dz.fail("Invalid response. Check the debug console.")
   end
+end
+
+def get_album_name
+  # Prompt for album name with CocoaDialog
+  output = $dz.cocoa_dialog("inputbox --button1 \"OK\" --button2 \"Cancel\" --title \"Upload #{$items.length} Images to ImageShack\" --e --informative-text \"Enter album name:\"")
+  button, album_name = output.split("\n")
+
+  if album_name == nil
+    $dz.fail("Invalid Album Name")
+  end
+
+  if button == "2"
+    $dz.fail("Cancelled")
+  else
+    return album_name
+  end
+end
+
+def finish(url, title=nil)
+  $dz.finish("URL is now on clipboard")
+  $dz.url(url, title)
 end
 
 def clicked
