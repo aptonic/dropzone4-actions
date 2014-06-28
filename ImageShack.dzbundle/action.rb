@@ -10,6 +10,7 @@
 # RunsSandboxed: Yes
 # Version: 1.2
 # MinDropzoneVersion: 3.0
+# UniqueID: 1005
 
 require 'imageshack'
 require 'curl_uploader'
