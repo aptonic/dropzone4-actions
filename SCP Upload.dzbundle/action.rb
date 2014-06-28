@@ -11,6 +11,7 @@
 # Version: 1.0
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
+# UniqueID: 1009
 
 require 'scp_uploader'
 
