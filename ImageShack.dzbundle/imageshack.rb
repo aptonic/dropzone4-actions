@@ -1,3 +1,4 @@
+require 'post_request'
 require 'json'
 require 'uri'
 require 'net/https'
@@ -6,21 +7,16 @@ class ImageShack
   attr_accessor :error_message
   
   def get_auth_token(username, password)
-    uri = URI.parse("https://api.imageshack.com/v2/user/login")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-    request = Net::HTTP::Post.new(uri.request_uri)
-    request["Content-Type"] = "application/x-www-form-urlencoded"
+    form_data = {
+    	:user => username,
+    	:password => password
+    }
 
-    request.set_form_data({
-    	"user" => username,
-    	"password" => password,
-    })
+    post_request = PostRequest.new("https://api.imageshack.com/v2/user/login", form_data)
     
     begin
-      response = http.request(request)
-      json = JSON.parse(response.body)
+      response = post_request.post
+      json = JSON.parse(response)
     rescue
       @error_message = $!
       return
@@ -39,16 +35,7 @@ class ImageShack
     end
   end
   
-  def get_url(json_output)
-    begin
-      extracted_json = /\{".*\}/.match(json_output)[0]
-      json = JSON.parse(extracted_json)
-    rescue
-      puts json_output
-      @error_message = $!
-      return
-    end
-      
+  def get_url(json)
     if json["result"] and json["result"]["images"].length > 0
       return json["result"]["images"][0]["direct_link"]
     else
@@ -57,8 +44,45 @@ class ImageShack
       else
         @error_message = "Invalid JSON received"
       end
-      puts json_output
       return nil
     end
+  end
+  
+  def create_album(album_name, auth_token)
+    form_data = {
+      :api_key => ENV['api_key'],
+      :auth_token => auth_token,
+    	:title => album_name
+    }
+
+    post_request = PostRequest.new("https://api.imageshack.com/v2/albums", form_data)
+
+    album_creation_success = false
+
+    begin
+      response = post_request.post
+      json = JSON.parse(response)
+      if json["success"] and json["result"] and json["result"]["id"]
+        album_creation_success = true
+      else
+        album_creation_success = false
+      end
+    rescue
+      album_creation_success = false
+      error_message = $!
+    end
+    
+    if (album_creation_success)
+      return json
+    else
+      puts response
+      if json["error"] and json["error"]["error_message"]
+        error_output = json["error"]["error_message"]
+      else
+        error_output = (error_message ? "Error:: #{error_message}\n\nResponse: #{response}" : "Response not valid:: #{response}")
+      end
+      $dz.error("Album creation failed", "The album could not be created.\n\n#{error_output}")
+    end
+    
   end
 end
