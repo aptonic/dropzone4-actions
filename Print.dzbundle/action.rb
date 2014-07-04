@@ -6,7 +6,7 @@
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # Version: 1.0
-# RunsSandboxed: Yes
+# RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
 
