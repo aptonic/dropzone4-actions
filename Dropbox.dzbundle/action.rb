@@ -67,7 +67,7 @@ def dragged
 	$dz.begin("Copying #{File.basename(path)} ...")
 	Rsync.do_copy(path, @dropboxPubDir, false)
 	$dz.finish("URL is now on clipboard")
-	$dz.url("#{@dropboxPublicBaseURL}#{ ENV['USERNAME']}/#{File.basename(path)}")
+	$dz.url("#{@dropboxPublicBaseURL}#{ ENV['user_id']}/#{File.basename(path)}")
 end
 
 def clicked
