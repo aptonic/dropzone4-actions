@@ -9,6 +9,7 @@
 # Version: 1.0
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
+# UniqueID: 1010
 
 require 'set'
 require 'base64'
