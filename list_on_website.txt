@@ -1,6 +1,7 @@
 SCP Upload
 ImageShack
 TwitPic
+Dropbox
 Desktop Picture
 Finder Path
 Screensaver
