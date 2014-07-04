@@ -3,7 +3,8 @@ ImageShack
 TwitPic
 Dropbox
 Install Application
-Desktop Picture
+Print
 Finder Path
 Screensaver
+Desktop Picture
 Bundle Script
