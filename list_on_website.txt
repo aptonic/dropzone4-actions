@@ -7,4 +7,5 @@ Print
 Finder Path
 Screensaver
 Desktop Picture
+Bitly
 Bundle Script
