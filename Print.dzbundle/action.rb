@@ -1,11 +1,11 @@
 # Dropzone Action Info
 # Name: Print
-# Description: Dropped files will be printed. If you have multiple printers, you will be prompted for which printer you wish to use.\n\nNote this action is intended as just a quick and dirty way to quickly print an image, PDF or office document. It is not intended to let you configure print settings and may not always format documents correctly.
+# Description: Dropped files will be printed. If you have multiple printers, you will be prompted for which printer you wish to use.\n\nNote this action is intended as just a quick and dirty way to quickly print an image, PDF, Pages or MS Office document. It is not intended to let you configure print settings.
 # Handles: Files
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
@@ -14,7 +14,7 @@ $printing_tmp_folder = "#{$dz.temp_folder}/Dropzone-Printing"
 
 def dragged
   standard_types = ["pdf", "jpg", "jpeg", "gif", "bmp", "png", "tif", "tiff", "txt", "rtf"]
-  rich_types = ["xlsx", "xls", "docm", "dotx", "dotm", "xlsm",  "doc", "docx", "ppt", "pptx", "pptm"]
+  rich_types = ["xlsx", "xls", "docm", "dotx", "dotm", "dot", "xlsm",  "doc", "docx", "ppt", "pptx", "pptm", "pages"]
   
   # Check for valid type
   $items.each do |item|
@@ -34,23 +34,27 @@ def dragged
   lp_output = ""
   lp_command = ""
   
-  system("/bin/rm -rf \"#{$printing_tmp_folder}\"")
-  
   # Process and print each item
   $items.each do |item|
     ext = File.extname(item).downcase[1..-1]
     if standard_types.include?(ext)
       lp_command = "lp #{printer_flag} \"#{item}\" 2>&1"
       lp_output = `#{lp_command}`
+      
+      if lp_output =~ /Error/
+        $dz.error("Printing Error", "The lp command was called with #{lp_command} and returned " + lp_output)
+      end
     else
-      # Convert document to PDF with qlmanage
-      pdf_output_file = make_pdf(item)
-      lp_command = "lp #{printer_flag} \"#{pdf_output_file}\" 2>&1"
-      lp_output = `#{lp_command}`
-    end
-    
-    if lp_output =~ /Error/
-      $dz.error("Printing Error", "The lp command was called with #{lp_command} and returned " + lp_output)
+      # Open the relevant app with AppleScript, print the file and quit
+      if ["xlsx", "xls", "xlsm"].include?(ext)
+        run_app_and_print(printer, "Microsoft Excel", "sheet", item)
+      elsif ["ppt", "pptx", "pptm"].include?(ext)
+        run_app_and_print(printer, "Microsoft PowerPoint", "presentation", item)
+      elsif ["docm", "dotx", "dot", "dotm", "doc", "docx"].include?(ext)
+        run_app_and_print(printer, "Microsoft Word", "document", item)
+      elsif ["pages"].include?(ext)
+        run_app_and_print(printer, "Pages", "document", item)
+      end
     end
   end
 
@@ -79,18 +83,18 @@ def get_printer
   end
 end
 
-def make_pdf(path)
-  Dir.mkdir($printing_tmp_folder) unless File.exists?($printing_tmp_folder)
-  file = File.basename(path)
-  puts `qlmanage -p -o "#{$printing_tmp_folder}" "#{path}"`
-  if File.exists?("#{$printing_tmp_folder}/#{file}.qlpreview/Preview.html")
-    a = File.read("#{$printing_tmp_folder}/#{file}.qlpreview/Preview.html") 
-    b = a.gsub('<div class="PageStyle">',"").gsub('{background:#ACB2BB;}','')
-    File.open("#{$printing_tmp_folder}/qlmanage-doc2pdf-tmp.html","w") {|f| f << b}
-    output_filename = "#{$printing_tmp_folder}/#{file}.pdf"
-    `/usr/sbin/cupsfilter \"#{$printing_tmp_folder}/qlmanage-doc2pdf-tmp.html\" > \"#{output_filename}\" 2> /dev/null`
-    return output_filename
-  else
-    $dz.error("PDF Creation Error", "The generated preview file #{$printing_tmp_folder}/#{file}.qlpreview/Preview.html could not be found.")
-  end
+def run_app_and_print(printer, app_name, item_name, path)
+  path.gsub!("\"", "\\\"")
+  printer.gsub!("\"", "\\\"")
+  printer_applescript = (printer == "use_default_printer" ? "" : "target printer:\"#{printer}\", ")
+  error_handling = (app_name =~ /PowerPoint/ ? "}" : ", error handling:standard} without print dialog")
+result=`osascript -so <<END
+tell application "#{app_name}"
+	open POSIX file "#{path}"
+	print the front #{item_name} with properties {#{printer_applescript}copies:1#{error_handling}
+	quit
+end tell
+END`
+  puts result
+  $dz.error("Failed to Print Document", "Error printing document.\n\nThis may be because '#{app_name}' cannot be found. Check the debug console for more info.") if result =~ /error/
 end
