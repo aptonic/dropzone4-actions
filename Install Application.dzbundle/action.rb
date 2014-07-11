@@ -5,7 +5,7 @@
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # OptionsNIB: InstallApplicationOptions
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1011
@@ -108,7 +108,7 @@ def dragged
     system("xattr -d com.apple.quarantine #{files} >& /dev/null")
     
     # Extract, find application inside and copy
-    unzip_dir_name = File.dirname($items[0]) + "/" + File.basename($items[0], File.extname($items[0])) 
+    unzip_dir_name = File.dirname($items[0]) + "/" + File.basename($items[0]).split(".")[0]
     unzip_result = `/usr/bin/unzip -o -d \"#{unzip_dir_name}\" #{files} -x __MACOSX/* 2>&1`
     
     app_to_install = InstallApp.get_bundle_to_install(unzip_dir_name)
