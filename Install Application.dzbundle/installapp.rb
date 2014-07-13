@@ -61,8 +61,10 @@ class InstallApp
   end
   
   def self.install_destination
-    # If user has an Applications folder in their home directory then install there
-    if File::exists?(File.expand_path("~/Applications")) and ENV['REMOTE_PATH'] != "MAINFOLDER"
+    # If user has an Applications folder in their home directory then install there unless force_main_applications_folder
+    force_main_applications_folder = (ENV['force_main_applications_folder'] ? (ENV['force_main_applications_folder'] == '1') : true)
+    
+    if File::exists?(File.expand_path("~/Applications")) and not force_main_applications_folder
       return File.expand_path("~/Applications") + "/"
     else
       return "/Applications/"

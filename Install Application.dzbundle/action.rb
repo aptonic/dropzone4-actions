@@ -4,8 +4,8 @@
 # Handles: Files
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# OptionsNIB: InstallApplicationOptions
-# Version: 1.1
+# OptionsNIB: InstallApplication
+# Version: 1.2
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1011
@@ -13,8 +13,7 @@
 require 'installapp'
 
 def dragged
-  #trash_source = (ENV['TRASH_SOURCE'] == "YES" ? true : false)
-  trash_source = true
+  trash_source = (ENV['trash_source'] ? (ENV['trash_source'] == '1') : true)
   files = "\"#{$items[0]}\""
   destination = InstallApp.install_destination
   app_path = ""
