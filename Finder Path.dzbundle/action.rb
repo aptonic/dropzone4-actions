@@ -1,15 +1,25 @@
 # Dropzone Action Info
 # Name: Finder Path
-# Description: Copies the path of the currently selected item in the Finder to the clipboard.
-# Events: Clicked
+# Description: Click on this action to copy the path of the currently selected item in the Finder to the clipboard.\n\nYou can also drag files onto it and it will put the paths of the dragged files on the clipboard.
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Events: Clicked, Dragged
+# Handles: Files
 # SkipConfig: Yes
 # RunsSandboxed: No
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1003
 
+def dragged
+  file_path_list = ""
+  $items.each {|item| file_path_list += item.strip + "\n"}
+  
+  s = ($items.length > 1 ? "s" : "")
+  $dz.finish("Path" + s + " copied")
+  $dz.text(file_path_list.strip)
+end
+  
 def clicked
 
 path=`osascript <<END
