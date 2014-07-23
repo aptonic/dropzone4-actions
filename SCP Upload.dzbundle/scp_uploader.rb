@@ -38,7 +38,7 @@ class SCPUploader
     alert_title = "SCP Upload Error"
     error_title = "Connection Failed"
     begin
-      Net::SSH.start(host, user, {:password => pass, :port => port}) do |ssh|
+      Net::SSH.start(host, user, {:password => pass, :port => port, :config => false}) do |ssh|
         remotedir = ssh.exec!("echo ~").strip if not remotedir
 
   	    files = []
@@ -135,7 +135,7 @@ class SCPUploader
     path_warning = ""
     
     begin
-      Net::SSH.start(host_info[:server], host_info[:username], {:password => host_info[:password], :port => host_info[:port]}) do |ssh|
+      Net::SSH.start(host_info[:server], host_info[:username], {:password => host_info[:password], :port => host_info[:port], :config => false }) do |ssh|
         if not ENV['remote_path']
           remote_path = ssh.exec!("echo ~").strip
           path_warning = "\n\nAs you have not specified a remote path, files will be uploaded to #{remote_path}."
