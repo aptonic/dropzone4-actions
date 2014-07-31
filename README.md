@@ -243,7 +243,7 @@ $dz.finish("Task Complete")
 
 Sets a URL to be placed on the pasteboard. This is useful for writing actions that result in content being made available at a URL so a user can quickly paste the URL into other applications. You can optionally provide a title for the URL that will be shown in the Recently Shared popup menu. If you don't specify a title then the first dragged filename will be used or the truncated text if text was dragged.
 
-If you do not wish to specify a URL, you must still call this method with false as the argument. Calling this method causes the task status bar to be removed from the grid and the task resources to be cleaned up. You should only call this method once and it should be the last method your action calls. 
+If you do not wish to specify a URL, you must still call either this method with false as the argument or `$dz.text`. Calling this method causes the task status bar to be removed from the grid and the task resources to be cleaned up. You should only call this method once and it should be the last method your action calls. 
 
 **Examples**
 
