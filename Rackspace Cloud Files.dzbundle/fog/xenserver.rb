@@ -1,0 +1,1 @@
+require 'fog/xenserver/compute'
