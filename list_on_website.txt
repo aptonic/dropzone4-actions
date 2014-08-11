@@ -8,4 +8,5 @@ Finder Path
 Screensaver
 Desktop Picture
 Bitly
+Rackspace Cloud Files
 Bundle Script
