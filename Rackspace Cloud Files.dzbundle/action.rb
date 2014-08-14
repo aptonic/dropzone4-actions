@@ -39,13 +39,15 @@ def dragged
     urls << rackspace.upload_file(file, remote_container)
   end
 
+  domain = rackspace.get_custom_domain()
   if urls.length == 1
     if urls[0].nil? or urls[0].to_s.strip.length == 0
       $dz.finish("No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!")
       $dz.url(false)
     else
       $dz.finish("URL is now in clipboard")
-      $dz.text("#{urls[0]}")
+      url = (domain != "nil" ? urls[0].gsub!(remote_container.public_url, "http://#{domain}") : urls[0])
+      $dz.text("#{url}")
     end
   elsif urls.length > 1
     merged_urls = urls.join(" ")
@@ -53,6 +55,7 @@ def dragged
       $dz.finish("No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!")
       $dz.url(false)
     else
+      merged_urls = ( domain != "nil" ? merged_urls.gsub!(remote_container.public_url, "http://#{domain}") : merged_urls )
       $dz.finish("URLs are now in clipboard")
       $dz.text(merged_urls)
     end
@@ -68,6 +71,7 @@ def clicked
   rackspace.read_region()
   rackspace.read_container_name()
   rackspace.read_cdn()
+  rackspace.read_custom_domain()
 
   $dz.finish("Selected region and container name were saved!")
 
