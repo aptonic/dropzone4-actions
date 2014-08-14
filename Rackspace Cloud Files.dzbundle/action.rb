@@ -21,14 +21,14 @@ def dragged
   $dz.determinate(false)
     
   $dz.begin("Connecting to Rackspace Cloud Files...")
-  rackspace.configureClient()
+  rackspace.configure_client()
 
   $dz.begin("Getting container...")
 
-  remoteContainer = rackspace.getRemoteContainer()
+  remote_container = rackspace.get_remote_container()
   
   # If it doesn't exist, then error
-  if(remoteContainer.nil?)
+  if(remote_container.nil?)
     $dz.error("Error", "Could not access or create the remote container")
   end
 
@@ -36,7 +36,7 @@ def dragged
 
   # Upload each file to the cloud files endpoint
   $items.each do |file|
-    urls << rackspace.uploadFile(file, remoteContainer)
+    urls << rackspace.upload_file(file, remote_container)
   end
 
   if urls.length == 1
@@ -48,13 +48,13 @@ def dragged
       $dz.text("#{urls[0]}")
     end
   elsif urls.length > 1
-    mergedURLs = urls.join(" ")
-    if mergedURLs.to_s.strip.length == 0
+    merged_urls = urls.join(" ")
+    if merged_urls.to_s.strip.length == 0
       $dz.finish("No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!")
       $dz.url(false)
     else
       $dz.finish("URLs are now in clipboard")
-      $dz.text(mergedURLs)
+      $dz.text(merged_urls)
     end
   end
     
@@ -65,9 +65,9 @@ def clicked
 
   $dz.determinate(false)
 
-  rackspace.readRegion()
-  rackspace.readContainerName()
-  rackspace.readCDN()
+  rackspace.read_region()
+  rackspace.read_container_name()
+  rackspace.read_cdn()
 
   $dz.finish("Selected region and container name were saved!")
 
