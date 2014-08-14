@@ -155,11 +155,35 @@ class Rackspace
     enable_cdn
   end
 
+  def get_custom_domain
+    ENV['domain']
+  end
+
   def create_remote_container(remote_container_name, enable_cdn)
     remote_container = @client.directories.create(:key => remote_container_name)
     remote_container.public = enable_cdn
     remote_container.save
 
     remote_container
+  end
+
+  def read_custom_domain()
+    # Get the container name
+    output = $dz.cocoa_dialog('inputbox --button1 "OK" --button2 "Cancel" --title "Custom domain" --e --informative-text "Fill in below what custom domain should be used for the container (ex. \"images.domain.com\", leave empty if not needed)"')
+    
+    button, domain = output.split("\n")
+    
+    if button == "2"
+      $dz.fail("Cancelled")
+    end
+    
+    # Fail if no container name is entered
+    if domain.to_s.strip.length > 0
+      $dz.save_value('domain', domain)
+    else
+      $dz.save_value('domain', 'nil')
+    end
+
+    domain
   end
 end
