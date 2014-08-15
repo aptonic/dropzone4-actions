@@ -1,6 +1,6 @@
 begin
-  require 'composite_io'
-  require 'parts'
+  require 'lib/composite_io'
+  require 'lib/parts'
   require 'stringio'
 rescue LoadError
   $stderr.puts "Install the multipart-post gem."
