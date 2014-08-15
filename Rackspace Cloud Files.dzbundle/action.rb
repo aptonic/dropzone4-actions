@@ -10,7 +10,7 @@
 # RunsSandboxed: No
 # Version: 1.0
 # MinDropzoneVersion: 3.0
-# UniqueID: 1015
+# UniqueID: 1016
 
 require 'lib/fog'
 require 'rackspace'
@@ -46,7 +46,7 @@ def dragged
       $dz.url(false)
     else
       $dz.finish("URL is now in clipboard")
-      url = (domain != "nil" ? urls[0].gsub!(remote_container.public_url, "http://#{domain}") : urls[0])
+      url = (domain != nil && domain != "nil" ? urls[0].gsub!(remote_container.public_url, "http://#{domain}") : urls[0])
       $dz.text("#{url}")
     end
   elsif urls.length > 1
@@ -55,7 +55,7 @@ def dragged
       $dz.finish("No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!")
       $dz.url(false)
     else
-      merged_urls = ( domain != "nil" ? merged_urls.gsub!(remote_container.public_url, "http://#{domain}") : merged_urls )
+      merged_urls = (domain != nil && domain != "nil" ? merged_urls.gsub!(remote_container.public_url, "http://#{domain}") : merged_urls )
       $dz.finish("URLs are now in clipboard")
       $dz.text(merged_urls)
     end
