@@ -9,7 +9,6 @@ class Rackspace
       $dz.fail('Cancelled')
     end
 
-    region = ''
     case region_index
       when '0'
         region = 'DFW'
@@ -167,7 +166,7 @@ class Rackspace
     remote_container
   end
 
-  def read_custom_domain()
+  def read_custom_domain
     # Get the container name
     output = $dz.cocoa_dialog('inputbox --button1 "OK" --button2 "Cancel" --title "Custom domain" --e --informative-text "Fill in below what custom domain should be used for the container (ex. \"images.domain.com\", leave empty if not needed)"')
 
