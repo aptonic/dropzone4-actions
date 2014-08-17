@@ -12,7 +12,6 @@
 # MinDropzoneVersion: 3.0
 # UniqueID: 1017
 
-require 'lib/fog'
 require 'rackspace'
 
 def dragged
