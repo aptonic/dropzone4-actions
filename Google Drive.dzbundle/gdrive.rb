@@ -8,6 +8,7 @@ class Gdrive
   Folder = Struct.new(:title, :folder_id)
 
   def configure_client
+    $dz.begin('Connecting to Google Drive...')
     @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Google Drive',
                                     :application_version => '1.0.0')
 
@@ -42,6 +43,7 @@ class Gdrive
 
   def upload_file (file_path, folder_id)
     file_name = file_path.split(File::SEPARATOR).last
+    $dz.begin("Uploading #{file_name} to Google Drive...")
     content_type = `file -Ib #{file_path}`.gsub(/\n/, "")
 
 
@@ -83,6 +85,7 @@ class Gdrive
   end
 
   def select_folder
+    $dz.begin('What folder would you like to use?')
     folders = get_folders
 
     if folders.empty?
@@ -148,6 +151,7 @@ class Gdrive
   end
 
   def create_new_folder(folder_name)
+    $dz.begin("Creating new folder #{folder_name}...")
     content_type = 'application/vnd.google-apps.folder'
 
     file = @drive.files.insert.request_schema.new({
