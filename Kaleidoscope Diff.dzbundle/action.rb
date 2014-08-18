@@ -9,7 +9,7 @@
 # SkipConfig: Yes
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
-# UniqueID: 1017
+# UniqueID: 1018
 
 def dragged
   if $items.size < 2
