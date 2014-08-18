@@ -135,6 +135,13 @@ class Rackspace
       rescue RuntimeError
         $dz.error('Error while creating container', 'There was an error while creating the container. Please check that you have access to the chosen region with your account!')
       end
+    else
+      enable_cdn = get_cdn
+      enabled_cdn_message = enable_cdn ? 'Enabling' : 'Disabling'
+
+      $dz.begin("#{enabled_cdn_message} CDN for the container...")
+      remote_container.public = enable_cdn
+      remote_container.save
     end
 
     remote_container
