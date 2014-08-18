@@ -10,7 +10,7 @@
 # RunsSandboxed: No
 # Version: 1.0
 # MinDropzoneVersion: 3.0
-# UniqueID: 1000
+# UniqueID: 1020
 
 require 'gdrive'
 
