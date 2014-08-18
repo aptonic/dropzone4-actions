@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Slack
-# Description: Uploads files to a Slack channel
+# Description: Uploads files to a Slack channel \n\nIn order to get the token needed for the API Key field below, login at https://slack.com with your account and afterwards go to https://api.slack.com. Scroll down and copy the token value from the Authentication section in the API Key below.
 # Handles: Files
 # Creator: Alexandru Chirițescu
 # URL: http://alexchiri.com
@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1019
 
