@@ -44,7 +44,8 @@ class Rackspace
     # Fail if no container name is entered
     if remote_container_name.to_s.strip.length == 0
       $dz.fail('Container name cannot be empty!')
-    elsif $dz.save_value('container', remote_container_name)
+    else
+      $dz.save_value('container', remote_container_name)
     end
 
     remote_container_name
@@ -126,7 +127,7 @@ class Rackspace
     if remote_container.nil?
       enable_cdn = get_cdn
       enabled_cdn_message = enable_cdn ? 'enabled' : 'disabled'
-      $dz.begin("Adding new container with CDN #{enabled_cdn_message}...")
+      $dz.begin("Adding new container #{remote_container_name} with CDN #{enabled_cdn_message}...")
 
       begin
         remote_container = create_remote_container(remote_container_name, enable_cdn)
@@ -139,7 +140,7 @@ class Rackspace
       enable_cdn = get_cdn
       enabled_cdn_message = enable_cdn ? 'Enabling' : 'Disabling'
 
-      $dz.begin("#{enabled_cdn_message} CDN for the container...")
+      $dz.begin("#{enabled_cdn_message} CDN for the container #{remote_container_name}...")
       remote_container.public = enable_cdn
       remote_container.save
     end
