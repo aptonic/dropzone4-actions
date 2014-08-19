@@ -7,7 +7,7 @@
 # Handles: Files
 # SkipConfig: Yes
 # RunsSandboxed: No
-# Version: 1.2
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1003
 
