@@ -2,6 +2,8 @@ require 'lib/faraday'
 require 'lib/json'
 
 class Slack
+  Channel = Struct.new(:channel_name, :channel_id)
+
   def initialize
     @slack_api_url = 'https://slack.com/'
     @slack_channels_list_url = '/api/channels.list'
@@ -30,7 +32,12 @@ class Slack
       $dz.error('Error', channels_response.error)
     end
 
-    channels_response['channels']
+    channels = Array.new
+    channels_response['channels'].each do |channel|
+      channels << Channel.new(channel['name'], channel['id'])
+    end
+
+    channels
   end
 
   def upload_file (file_path, channel_id)
@@ -80,14 +87,22 @@ class Slack
   def select_channel
     channels = get_channels
 
-    channels_map = {}
-    channels.each do |channel|
-      channels_map[channel['name']] = channel['id']
+    saved_channel_name = ENV['channel_name']
+    index_saved_channel_name = channels.index { |x| x.channel_name == saved_channel_name }
+    no_saved_channel = (saved_channel_name.nil? or saved_channel_name.to_s.strip.length == 0 or index_saved_channel_name.nil? )
+
+    channel_names = ''
+    # if there's a valid saved channel name, then display it first and reorder array
+    unless no_saved_channel
+      channel_names = "#{channel_names} \"#{saved_channel_name}\" "
+      channels.insert(0, channels.delete_at(index_saved_channel_name))
     end
 
-    channel_names = ""
-    channels_map.each_key do |key|
-      channel_names = channel_names + "\"" + key + "\" "
+
+    channels.each do |channel|
+      unless !no_saved_channel and saved_channel_name == channel.channel_name
+        channel_names = "#{channel_names} \"#{channel.channel_name}\""
+      end
     end
 
     output = $dz.cocoa_dialog("dropdown --button1 \"OK\" --button2 \"Cancel\" --title \"Choose channel\" --text \"In which channel would you like to upload the file(s)?\" --items #{channel_names}")
@@ -98,6 +113,8 @@ class Slack
     end
 
     channel_index_int = Integer(channel_index)
-    channel_id = channels_map.values[channel_index_int]
+    selected_channel = channels[channel_index_int]
+    $dz.save_value('channel_name', selected_channel.channel_name)
+    channel_id = selected_channel.channel_id
   end
 end
