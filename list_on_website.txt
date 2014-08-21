@@ -7,6 +7,7 @@ Print
 Finder Path
 Screensaver
 Desktop Picture
+Send iMessage With Attachment to Phone Number
 Bitly
 Rackspace Cloud Files
 Bundle Script
