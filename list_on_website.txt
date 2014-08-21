@@ -2,6 +2,7 @@ SCP Upload
 ImageShack
 TwitPic
 Dropbox
+Rackspace Cloud Files
 Install Application
 Print
 Finder Path
