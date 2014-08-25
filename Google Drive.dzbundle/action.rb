@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Google Drive
-# Description: Uploads files to Google Drive.
+# Description: Uploads files to Google Drive. \n\nIn order to get your configuration details, you need to create a new Project in the Google Developer Console which will give the action access to the Drive API. https://www.youtube.com/watch?v=S0HFgDRqk9E
 # Handles: Files
 # Creator: Alexandru Chirițescu
 # URL: http://alexchiri.com
@@ -8,7 +8,7 @@
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1020
 

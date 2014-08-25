@@ -1,19 +1,31 @@
 require 'lib/google/api_client'
 require 'lib/google/api_client/auth/file_storage'
 require 'lib/google/api_client/auth/installed_app'
+require 'securerandom'
+
 class Gdrive
   API_VERSION = 'v2'
   CACHED_API_FILE = "drive-#{API_VERSION}.cache"
-  CREDENTIAL_STORE_FILE = "#{$0}-oauth2.json"
+  CREDENTIAL_STORE_FILE = 'oauth2.json'
   Folder = Struct.new(:title, :folder_id)
 
   def configure_client
     $dz.begin('Connecting to Google Drive...')
+
+    unique_client_id = ENV['unique_client_id']
+    if unique_client_id.nil? or unique_client_id.to_s.strip.length == 0
+      unique_client_id = urlsafe_base64
+      $dz.save_value('unique_client_id', unique_client_id)
+    end
+
+    temp_file_base_path = "#{$dz.temp_folder}/#{unique_client_id}"
+    puts temp_file_base_path
+
     @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Google Drive',
                                     :application_version => '1.0.0')
 
 
-    file_storage = Google::APIClient::FileStorage.new(CREDENTIAL_STORE_FILE)
+    file_storage = Google::APIClient::FileStorage.new("#{temp_file_base_path}_#{CREDENTIAL_STORE_FILE}")
 
     if file_storage.authorization.nil?
       flow = Google::APIClient::InstalledAppFlow.new(
@@ -28,13 +40,14 @@ class Gdrive
     end
 
     @drive = nil
-    if File.exists? CACHED_API_FILE
-      File.open(CACHED_API_FILE) do |file|
+    temp_cached_api_file = "#{temp_file_base_path}_#{CACHED_API_FILE}"
+    if File.exists? temp_cached_api_file
+      File.open(temp_cached_api_file) do |file|
         @drive = Marshal.load(file)
       end
     else
       @drive = @client.discovered_api('drive', API_VERSION)
-      File.open(CACHED_API_FILE, 'w') do |file|
+      File.open(temp_cached_api_file, 'w') do |file|
         Marshal.dump(@drive, file)
       end
     end
@@ -168,5 +181,14 @@ class Gdrive
     end
 
     result.data['id']
+  end
+
+  # copied it from http://softover.com/UUID_in_Ruby_1.8
+  def urlsafe_base64(n=nil, padding=false)
+    s = [SecureRandom.random_bytes(n)].pack('m*')
+    s.delete!("\n")
+    s.tr!('+/', '-_')
+    s.delete!('=') unless padding
+    s
   end
 end
