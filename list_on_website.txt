@@ -5,6 +5,7 @@ Dropbox
 Rackspace Cloud Files
 Install Application
 Print
+Image Search
 Finder Path
 Screensaver
 Desktop Picture
