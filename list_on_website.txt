@@ -5,8 +5,10 @@ Dropbox
 Rackspace Cloud Files
 Install Application
 Print
+Image Search
 Finder Path
 Screensaver
+Say Text
 Desktop Picture
 Send iMessage With Attachment to Phone Number
 Bitly
