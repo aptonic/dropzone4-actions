@@ -18,14 +18,14 @@ def dragged
   rackspace = Rackspace.new
 
   $dz.determinate(false)
-    
+
   $dz.begin('Connecting to Rackspace Cloud Files...')
   rackspace.configure_client
 
   $dz.begin('Getting container...')
 
   remote_container = rackspace.get_remote_container
-  
+
   # If it doesn't exist, then error
   if remote_container.nil?
     $dz.error('Error', 'Could not access or create the remote container')
@@ -38,15 +38,13 @@ def dragged
     urls << rackspace.upload_file(file, remote_container)
   end
 
-  domain = rackspace.get_custom_domain
   if urls.length == 1
     if urls[0].nil? or urls[0].to_s.strip.length == 0
       $dz.finish('No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!')
       $dz.url(false)
     else
       $dz.finish('URL is now in clipboard')
-      url = (domain != nil && domain != 'nil' ? urls[0].gsub!(remote_container.public_url, "http://#{domain}") : urls[0])
-      $dz.text("#{url}")
+      $dz.text("#{urls[0]}")
     end
   elsif urls.length > 1
     merged_urls = urls.join(' ')
@@ -54,12 +52,11 @@ def dragged
       $dz.finish('No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!')
       $dz.url(false)
     else
-      merged_urls = (domain != nil && domain != 'nil' ? merged_urls.gsub!(remote_container.public_url, "http://#{domain}") : merged_urls )
       $dz.finish('URLs are now in clipboard')
       $dz.text(merged_urls)
     end
   end
-    
+
 end
 
 def clicked

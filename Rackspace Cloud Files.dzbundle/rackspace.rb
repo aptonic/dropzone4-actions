@@ -1,6 +1,9 @@
 require 'lib/fog'
 
 class Rackspace
+  SEGMENT_LIMIT = 5368709119.0
+  BUFFER_SIZE = Excon.defaults[:chunk_size] || 1024 * 1024
+
   def read_region
     output = $dz.cocoa_dialog('dropdown --button1 "OK" --button2 "Cancel" --title "Rackspace region" --text "Which region do you want to use?" --items "Dallas-Fort Worth (DFW)" "Chicago (ORD)" "Northern Virginia (IAD)" "London (LON)" "Sydney (SYD)" "Hong Kong (HKG)"')
     button, region_index = output.split("\n")
@@ -69,25 +72,113 @@ class Rackspace
 
 
   def upload_file (file_path, directory)
-    file_name = file_path.split(File::SEPARATOR).last
-    file = directory.files.get(file_name)
-    local_file = File.open(file_path)
+    file = File.open(file_path)
 
+    url = ''
     unless file.nil?
-      # Delete the remote file, if it exists
-      file.destroy
-      file.save
+      if file.stat.size > SEGMENT_LIMIT
+        url = upload_large_file(file, directory)
+      else
+        url = upload_small_file(file, directory)
+      end
     end
 
-    $dz.begin("Uploading #{File.basename(file_name)} ...")
-    file = directory.files.create(
-        :key => file_name,
-        :body => local_file
-    )
+    url
+  end
 
-    file.save
+  def upload_small_file(file, directory)
+    response = nil
+    url = ''
+    file_size = file.stat.size
 
-    file.public_url
+    begin
+      $dz.begin("Uploading #{File.basename(file.path)} ...")
+      $dz.determinate(true)
+
+      until file.eof?
+        offset = 0
+
+        response = @client.put_object(directory.key, File.basename(file.path), nil) do
+          buf = file.read(BUFFER_SIZE).to_s
+          offset += buf.size
+
+          $dz.percent(offset.to_f/file_size * 100)
+
+          buf
+        end
+      end
+    rescue Exception => e
+      $dz.error('Error occurred while uploading file to Rackspace Cloud Files', e.message)
+    end
+
+    if response.status == 201
+      url = determine_file_url(directory, file)
+    else
+      $dz.error('Error occurred while uploading file to Rackspace Cloud Files', response.status)
+    end
+
+    url
+  end
+
+
+  def upload_large_file(file, directory)
+    segment_name = File.basename(file.path)
+    file_size = file.stat.size
+
+    segment = 0
+    uploaded = 0
+
+    begin
+      $dz.begin("Uploading #{File.basename(file.path)} ...")
+      $dz.determinate(true)
+
+      until file.eof?
+        segment += 1
+        offset = 0
+
+        # upload segment to cloud files
+        segment_suffix = segment.to_s.rjust(10, '0')
+        response = @client.put_object(directory.key, "#{segment_name}/#{segment_suffix}", nil) do
+          if offset <= SEGMENT_LIMIT - BUFFER_SIZE
+            buf = file.read(BUFFER_SIZE).to_s
+            offset += buf.size
+            uploaded += offset
+
+            $dz.percent(uploaded.to_f/file_size * 100)
+
+            buf
+          else
+            ''
+          end
+        end
+
+        if response.status != 201
+          $dz.error('Error occurred while uploading file to Rackspace Cloud Files', response.status)
+        end
+      end
+    rescue Exception => e
+      $dz.error('Error occurred while uploading file to Rackspace Cloud Files', e.message)
+    end
+
+    @client.put_object_manifest(directory.key, segment_name, 'X-Object-Manifest' => "#{directory.key}/#{segment_name}/")
+
+    determine_file_url(directory, file)
+  end
+
+  def determine_file_url(directory, file)
+    url = ''
+    if directory.public_url
+      domain = get_custom_domain
+
+      escaped_file_name = Fog::Rackspace.escape(File.basename(file.path), '/')
+      if domain != nil and domain != 'nil'
+        url = "http://#{domain}/#{escaped_file_name}"
+      else
+        url = "#{directory.public_url}/#{escaped_file_name}"
+      end
+    end
+
+    url
   end
 
   def configure_client
