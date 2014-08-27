@@ -7,7 +7,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1021
 
@@ -32,6 +32,14 @@ tell application "Messages"
   set targetService to 1st service whose service type = iMessage
   set targetBuddy to buddy "#{phone_number}" of targetService
   send theAttachment1 to targetBuddy
+	try
+		close window "File Transfers"
+	end try
+end tell
+tell application "Finder"
+	try
+		set visible of process "Messages" to false
+	end try
 end tell
 END`
   puts result
