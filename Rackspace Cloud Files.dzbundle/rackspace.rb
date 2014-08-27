@@ -1,7 +1,8 @@
 require 'lib/fog'
 
 class Rackspace
-  SEGMENT_LIMIT = 5368709119.0
+  # SEGMENT_LIMIT = 5368709119.0
+  SEGMENT_LIMIT = 1024 * 1024
   BUFFER_SIZE = Excon.defaults[:chunk_size] || 1024 * 1024
 
   def read_region
@@ -90,6 +91,7 @@ class Rackspace
     response = nil
     url = ''
     file_size = file.stat.size
+    last_output = 0
 
     begin
       $dz.begin("Uploading #{File.basename(file.path)} ...")
@@ -102,7 +104,13 @@ class Rackspace
           buf = file.read(BUFFER_SIZE).to_s
           offset += buf.size
 
-          $dz.percent(offset.to_f/file_size * 100)
+          upload_percent = (offset.to_f/file_size * 100).to_i
+          if last_output != upload_percent
+            $dz.percent(upload_percent)
+            $dz.determinate(false) if upload_percent == 100
+          end
+
+          last_output = upload_percent
 
           buf
         end
@@ -127,6 +135,7 @@ class Rackspace
 
     segment = 0
     uploaded = 0
+    last_output = 0
 
     begin
       $dz.begin("Uploading #{File.basename(file.path)} ...")
@@ -144,7 +153,13 @@ class Rackspace
             offset += buf.size
             uploaded += offset
 
-            $dz.percent(uploaded.to_f/file_size * 100)
+            upload_percent = (uploaded.to_f/file_size * 100).to_i
+            if last_output != upload_percent
+              $dz.percent(upload_percent)
+              $dz.determinate(false) if upload_percent == 100
+            end
+
+            last_output = upload_percent
 
             buf
           else
