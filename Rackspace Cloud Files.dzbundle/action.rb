@@ -7,8 +7,8 @@
 # OptionsNIB: UsernameAPIKey
 # Events: Dragged, Clicked
 # SkipConfig: No
-# RunsSandboxed: No
-# Version: 1.5
+# RunsSandboxed: Yes
+# Version: 1.6
 # MinDropzoneVersion: 3.0
 # UniqueID: 1017
 
