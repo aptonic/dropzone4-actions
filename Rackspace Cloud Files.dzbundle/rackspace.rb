@@ -1,8 +1,7 @@
 require 'lib/fog'
 
 class Rackspace
-  # SEGMENT_LIMIT = 5368709119.0
-  SEGMENT_LIMIT = 1024 * 1024
+  SEGMENT_LIMIT = 5368709119.0
   BUFFER_SIZE = Excon.defaults[:chunk_size] || 1024 * 1024
 
   def read_region
@@ -95,7 +94,8 @@ class Rackspace
 
     begin
       $dz.begin("Uploading #{File.basename(file.path)} ...")
-      $dz.determinate(true)
+      show_progress = file_size > BUFFER_SIZE
+      $dz.determinate(show_progress)
 
       until file.eof?
         offset = 0
@@ -104,13 +104,15 @@ class Rackspace
           buf = file.read(BUFFER_SIZE).to_s
           offset += buf.size
 
-          upload_percent = (offset.to_f/file_size * 100).to_i
-          if last_output != upload_percent
-            $dz.percent(upload_percent)
-            $dz.determinate(false) if upload_percent == 100
-          end
+          if show_progress
+            upload_percent = (offset.to_f/file_size * 100).to_i
+            if last_output != upload_percent
+              $dz.percent(upload_percent)
+              $dz.determinate(false) if upload_percent == 100
+            end
 
-          last_output = upload_percent
+            last_output = upload_percent
+          end
 
           buf
         end
@@ -132,6 +134,7 @@ class Rackspace
   def upload_large_file(file, directory)
     segment_name = File.basename(file.path)
     file_size = file.stat.size
+    show_progress = file_size > BUFFER_SIZE
 
     segment = 0
     uploaded = 0
@@ -139,7 +142,7 @@ class Rackspace
 
     begin
       $dz.begin("Uploading #{File.basename(file.path)} ...")
-      $dz.determinate(true)
+      $dz.determinate(show_progress)
 
       until file.eof?
         segment += 1
@@ -151,15 +154,17 @@ class Rackspace
           if offset <= SEGMENT_LIMIT - BUFFER_SIZE
             buf = file.read(BUFFER_SIZE).to_s
             offset += buf.size
-            uploaded += offset
 
-            upload_percent = (uploaded.to_f/file_size * 100).to_i
-            if last_output != upload_percent
-              $dz.percent(upload_percent)
-              $dz.determinate(false) if upload_percent == 100
+            if show_progress
+              uploaded += offset
+              upload_percent = (uploaded.to_f/file_size * 100).to_i
+              if last_output != upload_percent
+                $dz.percent(upload_percent)
+                $dz.determinate(false) if upload_percent == 100
+              end
+
+              last_output = upload_percent
             end
-
-            last_output = upload_percent
 
             buf
           else
