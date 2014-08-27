@@ -1,8 +1,7 @@
 require 'lib/fog'
 
 class Rackspace
-  # SEGMENT_LIMIT = 5368709119.0
-  SEGMENT_LIMIT = 1024 * 1024
+  SEGMENT_LIMIT = 5368709119.0
   BUFFER_SIZE = Excon.defaults[:chunk_size] || 1024 * 1024
 
   def read_region
