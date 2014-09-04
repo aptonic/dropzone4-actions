@@ -4,11 +4,12 @@
 # Handles: Files
 # Creator: Alexandru Chirițescu
 # URL: http://alexchiri.com
-# OptionsNIB: GoogleDrive
+# OptionsNIB: GoogleAuth
+# AuthScope: https://www.googleapis.com/auth/drive
 # Events: Dragged, Clicked
 # SkipConfig: No
-# RunsSandboxed: No
-# Version: 1.3
+# RunsSandboxed: Yes
+# Version: 1.4
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1020
 
