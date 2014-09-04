@@ -19,25 +19,19 @@ class Gdrive
     end
 
     temp_file_base_path = "#{$dz.temp_folder}/#{unique_client_id}"
-    puts temp_file_base_path
 
     @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Google Drive',
                                     :application_version => '1.0.0')
 
-
-    file_storage = Google::APIClient::FileStorage.new("#{temp_file_base_path}_#{CREDENTIAL_STORE_FILE}")
-
-    if file_storage.authorization.nil?
-      flow = Google::APIClient::InstalledAppFlow.new(
-          :client_id => ENV['username'],
-          :client_secret => ENV['api_key'],
-          :scope => ['https://www.googleapis.com/auth/drive']
-      )
-
-      @client.authorization = flow.authorize(file_storage)
-    else
-      @client.authorization = file_storage.authorization
-    end
+    authorization = Signet::OAuth2::Client.new({
+                                                    :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
+                                                    :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                                                    :client_id => ENV['client_id'],
+                                                    :client_secret => ENV['client_secret'],
+                                                    :refresh_token => ENV['refresh_token']
+                                                })
+    authorization.fetch_access_token!
+    @client.authorization = authorization
 
     @drive = nil
     temp_cached_api_file = "#{temp_file_base_path}_#{CACHED_API_FILE}"
@@ -109,7 +103,7 @@ class Gdrive
       # check if there was a previously selected folder and if it's still in the folder list
       saved_folder_name = ENV['folder_name']
       index_saved_folder_name = folders.index { |x| x.title == saved_folder_name }
-      no_saved_folder = (saved_folder_name.nil? or saved_folder_name.to_s.strip.length == 0 or index_saved_folder_name.nil? )
+      no_saved_folder = (saved_folder_name.nil? or saved_folder_name.to_s.strip.length == 0 or index_saved_folder_name.nil?)
 
       # if there's a valid saved folder, then display it first and reorder array
       unless no_saved_folder
