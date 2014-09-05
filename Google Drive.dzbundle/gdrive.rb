@@ -22,16 +22,7 @@ class Gdrive
 
     @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Google Drive',
                                     :application_version => '1.0.0')
-
-    authorization = Signet::OAuth2::Client.new({
-                                                    :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
-                                                    :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-                                                    :client_id => ENV['client_id'],
-                                                    :client_secret => ENV['client_secret'],
-                                                    :refresh_token => ENV['refresh_token']
-                                                })
-    authorization.fetch_access_token!
-    @client.authorization = authorization
+    @client.authorization = get_authorization
 
     @drive = nil
     temp_cached_api_file = "#{temp_file_base_path}_#{CACHED_API_FILE}"
@@ -46,6 +37,37 @@ class Gdrive
       end
     end
 
+  end
+
+  def get_authorization
+    if ENV['expires_at'].nil? or ENV['access_token'].nil?
+      $dz.error('Redo authorization', 'The authorization data is not complete. Please redo the authorization from the action\'s Edit screen')
+    end
+
+    token_expiration_time_ms = ENV['expires_at'].to_i
+    if token_expiration_time_ms > Time.now.to_i
+      authorization = Signet::OAuth2::Client.new({
+                                                     :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
+                                                     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                                                     :client_id => ENV['client_id'],
+                                                     :client_secret => ENV['client_secret'],
+                                                     :access_token => ENV['access_token']
+                                                 })
+    else
+      authorization = Signet::OAuth2::Client.new({
+                                                     :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
+                                                     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                                                     :client_id => ENV['client_id'],
+                                                     :client_secret => ENV['client_secret'],
+                                                     :refresh_token => ENV['refresh_token']
+                                                 })
+      authorization.fetch_access_token!
+
+      $dz.save_value('access_token', authorization.access_token)
+      $dz.save_value('expires_at', (Time.now + authorization.expires_in).to_i)
+    end
+
+    authorization
   end
 
   def upload_file (file_path, folder_id)
