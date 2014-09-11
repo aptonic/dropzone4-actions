@@ -4,6 +4,7 @@ TwitPic
 Dropbox
 Rackspace Cloud Files
 Install Application
+Zip Files
 Print
 Image Search
 Finder Path
