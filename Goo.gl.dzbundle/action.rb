@@ -1,12 +1,18 @@
-# Dropzone Destination Info
+# Dropzone Action Info
 # Name: Goo.gl
-# Description: Dropped URL will be converted to a short Goo.gl URL. To use without authentification, enter any letter in the username field. Drag a shorten URL with command key pressed to expand.
-# Handles: NSStringPboardType
+# Description: Dropped URL will be converted to a short Goo.gl URL.\n\nTo use without authentication, leave the username and password fields blank.\n
+# Handles: Files
 # Creator: Dominique Da Silva
 # URL: http://www.agonia.fr
+# Events: Clicked, Dragged
 # OptionsNIB: Login
-# LoginTitle: Google Authentification (Enter a letter to use without auth)
+# SkipValidation: Yes
+# RunsSandboxed: No
+# LoginTitle: Google Login Details
 # KeyModifiers: Command
+# Version: 1.0
+# MinDropzoneVersion: 3.2.1
+# UniqueID: 1024
 
 require 'cgi'
 require 'rexml/document'
