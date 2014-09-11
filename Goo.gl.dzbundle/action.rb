@@ -1,7 +1,7 @@
 # Dropzone Action Info
 # Name: Goo.gl
 # Description: Dropped URL will be converted to a short Goo.gl URL.\n\nTo use without authentication, leave the username and password fields blank.\n
-# Handles: Files
+# Handles: Text
 # Creator: Dominique Da Silva
 # URL: http://www.agonia.fr
 # Events: Clicked, Dragged
@@ -9,7 +9,6 @@
 # SkipValidation: Yes
 # RunsSandboxed: No
 # LoginTitle: Google Login Details
-# KeyModifiers: Command
 # Version: 1.0
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1024
@@ -32,11 +31,10 @@ def shorten(item)
 	if item =~ /http/
 		username = ENV['username']
 		password = ENV['password']
-		key_modifiers = ENV['KEY_MODIFIERS']
 
-		if key_modifiers == 'Command'
+		if item =~ /http:\/\/goo.gl\//
 			#-------------------------------------------------------------
-			#Try to Expand Shortened URL
+			# Try to Expand Shortened URL
 			#-------------------------------------------------------------
 			urlToExpand = CGI::escape(item)
 			expandURL = URI.parse("https://www.googleapis.com/urlshortener/v1/url?shortUrl=#{urlToExpand}")
