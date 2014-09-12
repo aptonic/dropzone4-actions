@@ -13,5 +13,4 @@ Say Text
 Desktop Picture
 Send iMessage With Attachment to Phone Number
 Bitly
-Goo.gl
 Bundle Script
