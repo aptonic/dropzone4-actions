@@ -64,7 +64,7 @@ def shorten(item)
 			#-------------------------------------------------------------
 			# Shorten URL With Goo.gl
 			#-------------------------------------------------------------
-			if username.length > 10
+			if username
 				# Get Authentification Token
 				puts "Password defined, user #{username}"
 
