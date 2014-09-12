@@ -9,7 +9,7 @@
 # SkipValidation: Yes
 # RunsSandboxed: No
 # LoginTitle: Google Login Details
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1024
 
