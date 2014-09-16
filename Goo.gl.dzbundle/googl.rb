@@ -43,31 +43,31 @@ class Googl
   end
 
   def get_authorization
-    if ENV['expires_at'].nil? or ENV['access_token'].nil?
-      $dz.error('Redo authorization', 'The authorization data is not complete. Please redo the authorization from the action\'s Edit screen')
-    end
+    authorization = nil
 
-    token_expiration_time_ms = ENV['expires_at'].to_i
-    if token_expiration_time_ms > Time.now.to_i
-      authorization = Signet::OAuth2::Client.new({
-                                                     :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
-                                                     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-                                                     :client_id => ENV['client_id'],
-                                                     :client_secret => ENV['client_secret'],
-                                                     :access_token => ENV['access_token']
-                                                 })
-    else
-      authorization = Signet::OAuth2::Client.new({
-                                                     :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
-                                                     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-                                                     :client_id => ENV['client_id'],
-                                                     :client_secret => ENV['client_secret'],
-                                                     :refresh_token => ENV['refresh_token']
-                                                 })
-      authorization.fetch_access_token!
+    unless ENV['expires_at'].nil? or ENV['access_token'].nil?
+      token_expiration_time_ms = ENV['expires_at'].to_i
+      if token_expiration_time_ms > Time.now.to_i
+        authorization = Signet::OAuth2::Client.new({
+                                                       :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
+                                                       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                                                       :client_id => ENV['client_id'],
+                                                       :client_secret => ENV['client_secret'],
+                                                       :access_token => ENV['access_token']
+                                                   })
+      else
+        authorization = Signet::OAuth2::Client.new({
+                                                       :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
+                                                       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+                                                       :client_id => ENV['client_id'],
+                                                       :client_secret => ENV['client_secret'],
+                                                       :refresh_token => ENV['refresh_token']
+                                                   })
+        authorization.fetch_access_token!
 
-      $dz.save_value('access_token', authorization.access_token)
-      $dz.save_value('expires_at', (Time.now + authorization.expires_in).to_i)
+        $dz.save_value('access_token', authorization.access_token)
+        $dz.save_value('expires_at', (Time.now + authorization.expires_in).to_i)
+      end
     end
 
     authorization
@@ -77,8 +77,12 @@ class Googl
     $dz.determinate(false)
     $dz.begin('Getting Goo.gl URL')
 
+    if item =~ /http:\/\/goo\.gl\/*$/ or item =~ /https:\/\/goo\.gl\/*$/
+      $dz.error('Invalid URL', 'You cannot expand or shorten the Google url shortener base domain!')
+    end
+
     if item =~ /http/
-      if item =~ /http:\/\/goo.gl\//
+      if item =~ /http:\/\/goo\.gl\//
         expand_url(item)
       else
         shorten_url(item)
@@ -106,7 +110,7 @@ class Googl
       $dz.finish('Goo.gl failed to shortcut your URL!')
       $dz.url(false)
     else
-      $dz.finish('Goo.gl Shortened URL is now on clipboard')
+      $dz.finish("Goo.gl Shortened URL for #{url_to_shorten} is now on clipboard")
       $dz.url(short_url)
     end
   end
@@ -131,7 +135,7 @@ class Googl
     else
       # Expand URL
       $dz.url(expanded_url)
-      $dz.finish("Goo.gl expanded URL for #{item} is now on clipboard")
+      $dz.finish("Goo.gl expanded URL for #{url_to_expand} is now on clipboard")
     end
   end
 
