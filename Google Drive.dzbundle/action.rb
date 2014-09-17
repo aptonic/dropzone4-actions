@@ -8,7 +8,7 @@
 # AuthScope: https://www.googleapis.com/auth/drive
 # Events: Dragged, Clicked
 # SkipConfig: No
-# RunsSandboxed: Yes
+# RunsSandboxed: No
 # Version: 1.5
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1020
