@@ -1,6 +1,5 @@
 SCP Upload
 ImageShack
-TwitPic
 Dropbox
 Google Drive
 Rackspace Cloud Files
