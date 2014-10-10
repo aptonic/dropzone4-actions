@@ -28,7 +28,7 @@ def dragged
   #
   # Create the temporary directory for the originals.
   #
-  tmpDir = File.dirname($items[0]) + "/images/"
+  tmpDir = File.dirname($items[0]) + "/images"
   if ! File.directory?(tmpDir)
     #
     # Directory does not exist! Create it!
@@ -43,7 +43,7 @@ def dragged
   for index in 0 ... total
     filename = File.basename($items[index],".pdf")
 
-    `~/bin/pdfimages -f 1 -l 1 '#{$items[index]}' '#{tmpDir}/#{filename}'`
+    `/usr/local/bin/pdfimages -f 1 -l 1 '#{$items[index]}' '#{tmpDir}/#{filename}'`
 
     #
     # Convert the image file.
