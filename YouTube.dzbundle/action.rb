@@ -1,0 +1,36 @@
+# Dropzone Action Info
+# Name: YouTube
+# Description: Uploads videos to YouTube.
+# Handles: Files
+# Creator: Alexandru Chirițescu
+# URL: http://alexchiri.com
+# OptionsNIB: GoogleAuth
+# AuthScope: https://www.googleapis.com/auth/youtube.upload
+# Events: Dragged, Clicked
+# SkipConfig: Yes
+# RunsSandboxed: No
+# Version: 1.0
+# MinDropzoneVersion: 3.2.1
+
+require 'youtube'
+
+def dragged
+  youtube = Youtube.new
+
+  $dz.determinate(false)
+
+  youtube.configure_client
+
+  $items.each do |file|
+    privacy_status = youtube.read_privacy_status
+    youtube.upload_video(file, privacy_status)
+  end
+
+  $dz.finish('Video(s) were uploaded to YouTube!')
+  $dz.url(false)
+
+end
+
+def clicked
+  system('open https://youtube.com')
+end
