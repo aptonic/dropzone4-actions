@@ -8,7 +8,7 @@
 # Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1025
 
@@ -18,7 +18,7 @@ def dragged
   zipfile = ZipFiles.zip($items, filename + ".zip")
   zipfile = zipfile[1, zipfile.length - 2]
   system("zip -d \"#{zipfile}\" '__MACOSX*' '*.DS_Store' >& /dev/null")
-  Rsync.do_copy(zipfile, ENV['path'], true)
+  Rsync.do_copy([zipfile], ENV['path'], true)
   $dz.finish("ZIP created")
   $dz.url(false)
 end

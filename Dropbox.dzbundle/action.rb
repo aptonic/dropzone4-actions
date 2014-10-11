@@ -6,7 +6,7 @@
 # URL: http://sideshowcoder.com
 # Events: Dragged, Clicked
 # OptionsNIB: DropboxLogin
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1010
@@ -66,7 +66,7 @@ def dragged
 
 	# Copy file to Dropbox Public dir and place create URL on Clipboard
 	$dz.begin("Copying #{File.basename(path)} ...")
-	Rsync.do_copy(path, @dropboxPubDir, false)
+	Rsync.do_copy([path], @dropboxPubDir, false)
 	$dz.finish("URL is now on clipboard")
 	$dz.url("#{@dropboxPublicBaseURL}#{ ENV['user_id']}/#{File.basename(path)}")
 end
