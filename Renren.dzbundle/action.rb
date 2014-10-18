@@ -24,8 +24,8 @@ def get_token
   end
 
   Rack::OAuth2::AccessToken::MAC.new(
-    :access_token => URI.unescape(ENV.fetch 'USERNAME', '-'),
-    :mac_key => URI.unescape(ENV.fetch 'PASSWORD', '-'),
+    :access_token => URI.unescape(ENV.fetch 'username', '-'),
+    :mac_key => URI.unescape(ENV.fetch 'password', '-'),
     :mac_algorithm => 'hmac-sha-1'
   )
 end
