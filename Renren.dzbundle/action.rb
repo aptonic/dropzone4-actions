@@ -5,7 +5,7 @@
 # Handles: Files
 # Events: Clicked, Dragged
 # Creator: BlahGeek
-# URL: http://blog.blahgeek.com/dropzone-renren
+# URL: http://blog.blahgeek.com/dropzone3-renren
 # OptionsNIB: Login
 # LoginTitle: API Details (Click the link to see how-to)
 # RunsSandboxed: Yes
