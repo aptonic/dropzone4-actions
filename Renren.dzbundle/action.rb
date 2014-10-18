@@ -52,7 +52,7 @@ def dragged
     return
   end
 
-  text = $dz.cocoa_dialog('standard-inputbox --title "上传图片" --e --informative-text "请输入照片描述：')
+  text = $dz.cocoa_dialog('standard-inputbox --title "上传图片" --e --informative-text "请输入照片描述："')
   button, text = text.split("\n")
   if button == "2"
     $dz.finish("操作已取消")
