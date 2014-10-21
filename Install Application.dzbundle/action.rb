@@ -4,8 +4,9 @@
 # Handles: Files
 # Creator: Aptonic Software
 # URL: http://aptonic.com
+# Events: Clicked, Dragged
 # OptionsNIB: InstallApplication
-# Version: 1.2
+# Version: 1.3
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1011
@@ -37,7 +38,7 @@ def dragged
 
     # Find new app path
     full_source_path = files.split("/")
-    app_name = full_source_path[-1..-1].to_s[0..-2]
+    app_name = full_source_path[-1][0..-2]
     app_path = "#{destination}#{app_name}"
   elsif extname == ".pkg" or extname == ".mpkg" or extname == ".prefpane"
     InstallApp.open_bundle($items[0])
@@ -83,7 +84,7 @@ def dragged
       $dz.begin("Copying application...")
       $dz.determinate(true)
       $rsync_copy_extended_attributes = true
-      Rsync.do_copy(app_to_install, destination, false)
+      Rsync.do_copy([app_to_install], destination, false)
       app_path = "#{destination}#{app_file}"
     end
     
@@ -119,7 +120,7 @@ def dragged
       $dz.begin("Moving application...")  
       $dz.determinate(true)
       $rsync_copy_extended_attributes = true
-      Rsync.do_copy(app_to_install, destination, true)
+      Rsync.do_copy([app_to_install], destination, true)
       app_path = "#{destination}#{app_file}"
     end
     
