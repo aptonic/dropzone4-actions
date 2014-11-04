@@ -8,10 +8,11 @@
 # AuthScope: https://www.googleapis.com/auth/drive
 # Events: Dragged, Clicked
 # SkipConfig: No
-# RunsSandboxed: No
-# Version: 1.5
+# RunsSandboxed: Yes
+# Version: 1.7
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1020
+# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'gdrive'
 

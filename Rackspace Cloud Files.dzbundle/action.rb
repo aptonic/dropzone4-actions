@@ -8,7 +8,7 @@
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.6
+# Version: 1.7
 # MinDropzoneVersion: 3.0
 # UniqueID: 1017
 
@@ -47,7 +47,7 @@ def dragged
       $dz.text("#{urls[0]}")
     end
   elsif urls.length > 1
-    merged_urls = urls.join(' ')
+    merged_urls = urls.join("\n")
     if merged_urls.to_s.strip.length == 0
       $dz.finish('No URL(s) were copied to clipboard, because CDN is disabled or no URL was returned!')
       $dz.url(false)
