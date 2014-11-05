@@ -1,13 +1,14 @@
+require 'bundler/setup'
+require 'google/api_client'
+require 'google/api_client/client_secrets'
+require 'google/api_client/auth/installed_app'
+require 'securerandom'
 require 'cgi'
 require 'rexml/document'
 require 'uri'
 require 'net/http'
 require 'net/https'
 require 'json'
-require 'lib/google/api_client'
-require 'lib/google/api_client/auth/file_storage'
-require 'lib/google/api_client/auth/installed_app'
-require 'securerandom'
 
 class Googl
   API_VERSION = 'v1'

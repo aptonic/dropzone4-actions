@@ -1,7 +1,8 @@
-require 'lib/google/api_client'
-require 'lib/google/api_client/auth/file_storage'
-require 'lib/google/api_client/auth/installed_app'
-require 'securerandom'
+require 'bundler/setup'
+require 'google/api_client'
+require 'google/api_client/client_secrets'
+require 'google/api_client/auth/installed_app'
+require 'cgi'
 
 class Youtube
   API_VERSION = 'v3'
@@ -96,8 +97,7 @@ class Youtube
       $dz.error(result.error_message)
     end
 
-    puts "https://www.youtube.com/edit?o=U&video_id=#{result.data.id}"
-    system("open https://www.youtube.com/edit?o=U&video_id=#{result.data.id}")
+    system("open 'https://www.youtube.com/edit?o=U&video_id=#{result.data.id}'")
   end
 
   def read_privacy_status
