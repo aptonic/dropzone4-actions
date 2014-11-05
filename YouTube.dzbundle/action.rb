@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: YouTube
-# Description: Uploads videos to YouTube.
+# Description: Uploads dragged videos to YouTube. \n\nYou can select the privacy level and after upload it opens the edit page of the video in the default browser.
 # Handles: Files
 # Creator: Alexandru Chirițescu
 # URL: http://alexchiri.com
