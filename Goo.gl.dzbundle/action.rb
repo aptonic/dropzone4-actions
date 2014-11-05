@@ -9,7 +9,7 @@
 # AuthScope: https://www.googleapis.com/auth/urlshortener
 # SkipValidation: Yes
 # RunsSandboxed: No
-# Version: 1.5
+# Version: 1.4
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1024
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
