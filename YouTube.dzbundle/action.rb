@@ -10,6 +10,7 @@
 # SkipConfig: Yes
 # RunsSandboxed: No
 # Version: 1.1
+# UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
