@@ -7,9 +7,8 @@
 # OptionsNIB: GoogleAuth
 # AuthScope: https://www.googleapis.com/auth/youtube.upload
 # Events: Dragged, Clicked
-# SkipConfig: Yes
 # RunsSandboxed: No
-# Version: 1.1
+# Version: 1.2
 # UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
