@@ -74,7 +74,7 @@ class Youtube
   def upload_video (file_path, privacy_status)
     file_name = file_path.split(File::SEPARATOR).last
     $dz.begin("Uploading #{file_name} to YouTube...")
-    content_type = `file -Ib #{file_path}`.gsub(/\n/, "")
+    content_type = `file -Ib \"#{file_path}\"`.gsub(/\n/, "")
 
 
     file = @youtube.videos.insert.request_schema.new({
@@ -94,7 +94,7 @@ class Youtube
         })
 
     unless result.success?
-      $dz.error(result.error_message)
+      $dz.error('Upload Failed', result.error_message)
     end
 
     system("open 'https://www.youtube.com/edit?o=U&video_id=#{result.data.id}'")

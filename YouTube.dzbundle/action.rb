@@ -9,7 +9,7 @@
 # Events: Dragged, Clicked
 # SkipConfig: Yes
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.2.1
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
