@@ -6,7 +6,7 @@
 # URL: http://sideshowcoder.com
 # Events: Dragged, Clicked
 # OptionsNIB: DropboxLogin
-# Version: 1.1
+# Version: 1.2
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1010
