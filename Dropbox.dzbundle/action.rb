@@ -50,7 +50,7 @@ def dragged
 		# 1 Folder was dragged
 		# Create a Zip from the folder and name it after the folder
 		dir_name = $items[0].split(File::SEPARATOR).last
-		zipfile = ZipFiles.zip($items[0], "#{dir_name}.zip")
+		zipfile = ZipFiles.zip($items, "#{dir_name}.zip")
 		path = zipfile
 	else
 		# Only 1 item dragged 
