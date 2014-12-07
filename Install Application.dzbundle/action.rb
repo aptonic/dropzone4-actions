@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # Events: Clicked, Dragged
 # OptionsNIB: InstallApplication
-# Version: 1.3
+# Version: 1.4
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1011
