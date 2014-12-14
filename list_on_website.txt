@@ -11,6 +11,7 @@ Image Search
 Finder Path
 Screensaver
 Say Text
+Sleep
 Desktop Picture
 Send iMessage With Attachment to Phone Number
 Bitly
