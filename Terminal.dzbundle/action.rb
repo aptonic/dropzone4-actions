@@ -7,7 +7,7 @@
 # Events: Clicked, Dragged
 # KeyModifiers:
 # SkipConfig: No
-# RunsSandboxed: Yes
+# RunsSandboxed: No
 # Version: 1.0
 # MinDropzoneVersion: 3.0
 
