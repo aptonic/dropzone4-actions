@@ -8,7 +8,7 @@
 # KeyModifiers:
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 def dragged
@@ -23,12 +23,12 @@ def dragged
         dir = File.dirname($items[0])
         when 'text'
         # Verify that this is a directory path
-        dir = $items[0] if File.directory?(dir)
+        dir = $items[0] if File.directory?($items[0])
     end
     
     # Launch Terminal in desired directory
     if dir
-        system("osascript -e 'tell application \"Terminal\" to do script \"cd #{dir};clear\"'")
+        system("osascript -e 'tell application \"Terminal\"\n\tactivate\n\tdo script \"cd #{dir};clear\"\nend tell'")
         else
         # Could not figure out what the user wants. Dump to console and notify user.
         puts "Could not figure out what to do with data:"
@@ -42,7 +42,7 @@ end
 
 def clicked
     # FIXME there is probably a way to launch a new window without the "do script" part?
-    puts system("osascript -e 'tell application \"Terminal\" to do script \"\"'")
+    puts system("osascript -e 'tell application \"Terminal\"\n\tactivate\n\tdo script \"\"\nend tell'")
     # nothing to do here...
     $dz.url(false)
 end
