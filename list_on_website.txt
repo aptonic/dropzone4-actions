@@ -6,6 +6,7 @@ Google Drive
 Rackspace Cloud Files
 Install Application
 Zip Files
+Create DMG File
 Print
 Image Search
 Finder Path
