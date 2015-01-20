@@ -1,68 +1,94 @@
 # Dropzone Action Info
 # Name: Pushover
-# Description: Send clipboard content via Pushover (https://pushover.net/).
+# Description: Send message via a Pushover notification (https://pushover.net/). Hold Alt Key to select a device or Shift Key to refresh devices list. 
 # Creator: Dominique Da Silva
 # URL: http://www.agonia.fr
 # Events: Clicked, Dragged
-# KeyModifiers: Command, Option, Control, Shift
+# KeyModifiers: Option, Shift
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # Handles: Text
 # OptionsNIB: APIKey
 # LoginTitle: Pushover User API Key
 
-# require 'net/http'
-require 'net/https'
-require 'uri'
+require 'notification'
 
 def send(data)
 
-	$dz.begin("Sending clipboard content via Pushover")
+	$dz.begin("Sending message via Pushover")
 
-	url = URI.parse("https://api.pushover.net/1/messages")
-	req = Net::HTTP::Post.new(url.path)
-	api_key = ENV['api_key']
-	message = data[0,600].strip()
+	ask_device = ENV['ask_device']
+	devices = ENV['devices']
+	modifier = ENV['KEY_MODIFIERS']
 
-	if message.length < 5 || message.nil? || message.empty?
-		$dz.error("Nothing to send", "Your clipboard is empty.")
+	notification = Notification.new('pushover', ENV['api_key'])
+	notification.message = data.chomp
+	notification.sound = 'none'
+
+	# Ask user if he want to display a list of device each time
+	if ask_device.nil?
+		output = $dz.cocoa_dialog('msgbox --no-cancel --title "Pushover" --text "Send notification to all devices by default ?" --informative-text "To select a device later, you can hold Shift Key to display the list of device." --button1 "Yes to all" --button2 "No, choose each time" ')
+		if output == "2\n"
+			$dz.save_value('ask_device', 'true')
+			ask_device = 'true'
+		else
+			$dz.save_value('ask_device', 'false')
+			ask_device = 'false'
+		end
 	end
 
-	req.set_form_data({
-		:token => "aAAXwYRyTCJr4W7i7JtabmSmtgUf7f",
-		:user => "#{api_key}",
-		:message => "#{message}",
-	})
-	res = Net::HTTP.new(url.host, url.port)
-	res.use_ssl = true
-	res.verify_mode = OpenSSL::SSL::VERIFY_PEER
-	res.start {|http| http.request(req) }
+	# DISPLAY A LIST OF DEVICES
+	# Option: Display the dropdown list
+	# Shift: Update the devices from Pushover server and open the dropdown list
 
-end
+	# Refresh user devices list from Pushover
+	if devices.nil? || modifier == 'Shift'
+		devices = notification.pushover_devices
+	end
 
-def readClipboard
-	IO.popen('pbpaste') {|clipboard| clipboard.read}
+	if ( ask_device == 'true' || modifier == 'Option' || modifier == 'Shift' ) && ! devices.nil?
+		devices_list = devices.tr(',',' ')
+		output = $dz.cocoa_dialog("dropdown --title 'Pushover' --no-cancel --text \"Select the device in the list to which to send the message.\" --float --button1 'Send' --string-output --items #{devices_list}")
+		button, device = output.split("\n")
+		puts "Selected device: "+device
+		notification.device = device
+	end
+	
+	notification.push # send the message
+
+	$dz.finish("Message sent via Pushover")
+	$dz.url(false)
 end
 
 def dragged
-	if ENV['dragged_type'] == 'text'
-		send($items[0])
-		$dz.finish("Dragged content sent via Pushover")
-	end
-	$dz.url(false)
+	send($items[0])
 end
 
 def clicked
-	# This method gets called when a user clicks on your action
-	data = readClipboard()
 
-	if ENV['api_key'] == ''
-		$dz.error("User Key Empty", "You must define your user key.")
-	else
-		send(data)
-		$dz.finish("Clipboard content sent via Pushover")
+	# Clicked action open Pushover webpage
+	po_website = ["https://pushover.net/","https://client.pushover.net/"]
+	website_choice = ENV['website_choice']
+
+	if website_choice.nil?
+		website_choice = "0"
+		choice = $dz.cocoa_dialog('msgbox --title "Pushover Website" --text "Choose the Pushover webpage to open by default." --informative-text "For Pushover Desktop Users you can choose the client website when you click on the action, otherwire select the homepage." --button3 "Cancel" --button2 "Pushover Client" --button1 "Pushover homepage"')
+		choice = choice.to_i - 1
+
+		if choice == 0 or choice == 1 then
+			website_choice = choice.to_s
+			$dz.save_value('website_choice', choice)
+		end
 	end
-	$dz.url(false)
+
+	choice = website_choice.to_i
+	puts "Open website "+po_website[choice]
+	system("open "+po_website[choice])
+
+	# update devices
+	notification = Notification.new('pushover', ENV['api_key'])
+	notification.pushover_devices
+
 end
