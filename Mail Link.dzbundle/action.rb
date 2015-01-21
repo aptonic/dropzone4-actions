@@ -9,7 +9,7 @@
 # RunsSandboxed: No
 # Version: 1.1
 # MinDropzoneVersion: 3.0
-# UniqueID 1029
+# UniqueID: 1029
 
 $SUBJECT = "Web Site Link"
 
