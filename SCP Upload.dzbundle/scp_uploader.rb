@@ -1,4 +1,8 @@
-require 'scp'
+require 'bundler/setup'
+require 'net/scp'
+
+# Trying to set the locale in the SSH session causes commands to emit warnings on some servers
+ENV.delete('LC_ALL')
 
 class SCPUploader
 
