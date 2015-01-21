@@ -36,4 +36,5 @@ end
 
 def clicked
   system("open /Applications/Mail.app >& /dev/null")
+  $dz.url(false)
 end
