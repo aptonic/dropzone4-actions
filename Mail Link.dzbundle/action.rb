@@ -1,5 +1,5 @@
 # Dropzone Action Info
-# Name: Mail A Link
+# Name: Mail Link
 # Description: Drag and drop a link onto this action and a new email will be created in Mail.app with the link.
 # Handles: Text
 # Creator: Randy Green
