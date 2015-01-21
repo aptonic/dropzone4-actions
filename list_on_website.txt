@@ -15,6 +15,7 @@ Say Text
 Sleep
 Desktop Picture
 Open Terminal at Path
+Mail Link
 Send iMessage With Attachment to Phone Number
 Bitly
 Goo.gl
