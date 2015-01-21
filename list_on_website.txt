@@ -14,6 +14,7 @@ Screensaver
 Say Text
 Sleep
 Desktop Picture
+Open Terminal at Path
 Send iMessage With Attachment to Phone Number
 Bitly
 Goo.gl
