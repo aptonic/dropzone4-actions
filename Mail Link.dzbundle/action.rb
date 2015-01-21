@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Mail A Link
-# Description: Drag and drop a link onto this action and a new email will be created in Mail.app wih the link.
+# Description: Drag and drop a link onto this action and a new email will be created in Mail.app with the link.
 # Handles: Text
 # Creator: Randy Green
 # URL: http://humblebeeapps.com
