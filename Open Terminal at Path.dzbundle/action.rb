@@ -9,7 +9,7 @@
 # RunsSandboxed: No
 # Version: 1.2
 # MinDropzoneVersion: 3.0
-# UniqueID 1030
+# UniqueID: 1030
 
 def dragged
   dir = false
