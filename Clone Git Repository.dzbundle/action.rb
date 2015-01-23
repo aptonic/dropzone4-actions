@@ -9,7 +9,7 @@
 # RunsSandboxed: No
 # Events: Dragged, Clicked
 # KeyModifiers: Command
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1031
 
@@ -56,7 +56,7 @@ def dragged
     $dz.determinate(false)
 
     # Do the actual clone
-    gitclone = `/usr/bin/gitd clone #{url} "#{absolute_path}" 2>&1`
+    gitclone = `/usr/bin/git clone #{url} "#{absolute_path}" 2>&1`
     if ! $?.success?
       $dz.error("Git clone failed","Git failed to clone the repository:\n#{gitclone}")
       $dz.fail("Git failed to clone the repository.")
