@@ -1,0 +1,69 @@
+/*
+ * This is the Script Theme. Mostly a test for Google Fonts usage.
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Playball);
+
+body {
+	background-color: rgba(178, 161, 82, 0.4);
+}
+
+.slide {
+	color: rgb(155, 133, 25);
+	background-color: rgba(178, 161, 82, .4);
+}
+
+.slide h1, .slide h2, .slide h3, .slide h4, .slide h5, .slide h6, .slide p, .slide ol li, .slide ul li {
+	font-family: 'Playball', cursive;
+}
+
+.background {
+	opacity        : 	.50;
+}
+
+.slide h1 {
+	font-size: 10em;
+	margin-bottom: .5em;
+}
+
+.slide h2 {
+	font-size: 8em;
+}
+
+.slide h3 {
+	font-size: 6em;
+}
+
+.slide h4 {
+	font-size: 4em;
+}
+
+.slide h5 {
+	font-size: 2em;
+}
+
+.slide h6 {
+	font-size: 1em;
+}
+
+.slide p {
+	font-size: 2em;
+}
+
+.slide ol {
+	list-style: decimal-leading-zero;
+	text-align: left;
+}
+
+.slide ol li {
+	font-size: 2em;
+}
+
+.slide ul {
+	list-style: disc;
+	text-align: left;
+}
+
+.slide ul li {
+	font-size: 2em;
+}
