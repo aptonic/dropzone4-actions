@@ -1,4 +1,5 @@
-require 'lib/fog'
+require 'bundler/setup'
+require 'fog'
 
 class Rackspace
   SEGMENT_LIMIT = 5368709119.0
