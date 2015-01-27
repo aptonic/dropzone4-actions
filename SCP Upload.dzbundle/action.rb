@@ -8,10 +8,11 @@
 # URL: http://aptonic.com
 # OptionsNIB: ExtendedLogin
 # DefaultPort: 22
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1009
+# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'scp_uploader'
 
