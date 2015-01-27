@@ -8,9 +8,10 @@
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.9
+# Version: 2.0
 # MinDropzoneVersion: 3.0
 # UniqueID: 1017
+# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'rackspace'
 
