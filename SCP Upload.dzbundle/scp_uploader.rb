@@ -15,7 +15,7 @@ class SCPUploader
     
     self.upload(source_files, destination, host_info[:server], host_info[:port], 
     host_info[:username], host_info[:password]) do |percent, remote_path|
-      remote_file = remote_path.split(File::SEPARATOR)[-1][0..-2]
+      remote_file = remote_path.split(File::SEPARATOR)[-1]
       
       if remote_path != last_uploaded_path
         $dz.begin("Uploading #{remote_file}...")
@@ -75,7 +75,7 @@ class SCPUploader
                 else
                   percent = 100
                 end
-                yield percent, remote
+                yield percent, local
               end
               transferred += bytesSent
             rescue
