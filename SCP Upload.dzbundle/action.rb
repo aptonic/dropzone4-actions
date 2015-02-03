@@ -8,7 +8,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: ExtendedLogin
 # DefaultPort: 22
-# Version: 1.1
+# Version: 1.2
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1009
@@ -52,7 +52,7 @@ def dragged
   finish_text = "Upload Complete"
   
   if remote_paths.length == 1
-    filename = remote_paths[0].split(File::SEPARATOR)[-1].strip[0..-2]
+    filename = remote_paths[0].split(File::SEPARATOR)[-1].strip
     
     if ENV['root_url'] != nil
       slash = (ENV['root_url'][-1,1] == "/" ? "" : "/")
