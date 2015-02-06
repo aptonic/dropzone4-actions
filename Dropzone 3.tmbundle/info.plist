@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>wbua@ncgbavp.pbz</string>
+	<key>contactName</key>
+	<string>John Winter</string>
+	<key>description</key>
+	<string>Dropzone 3 utilities</string>
+	<key>name</key>
+	<string>Dropzone 3</string>
+	<key>uuid</key>
+	<string>0B03AC1F-A26A-4C85-82FD-469C5F8700A8</string>
+</dict>
+</plist>
