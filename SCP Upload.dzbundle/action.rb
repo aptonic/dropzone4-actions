@@ -23,7 +23,7 @@ $host_info = {:server    => ENV['server'],
 
 def dragged
   delete_zip = false
-  test
+
   if ENV['KEY_MODIFIERS'] == "Option"
     # Zip up files before uploading
     if $items.length == 1
