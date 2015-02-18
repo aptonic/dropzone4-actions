@@ -41,6 +41,9 @@ class SCPUploader
     alert_title = "SCP Upload Error"
     error_title = "Connection Failed"
     begin
+      # If using public key auth then attempt connection so that ssh-agent caches private key
+      puts `ssh -p #{port} #{host} 'exit'` if not pass
+      
       Net::SSH.start(host, user, {:password => pass, :port => port}) do |ssh|
         remotedir = ssh.exec!("echo ~").strip if not remotedir
 
@@ -90,8 +93,12 @@ class SCPUploader
       $dz.error(alert_title, "Server not found.")
     rescue Net::SSH::AuthenticationFailed
       $dz.error(alert_title, "Username or password incorrect.")
-    rescue
-      $dz.error(error_title, $!)
+    rescue => e
+      if e.message =~ /PKey/
+        $dz.error(error_title, "Your private key could not be unlocked.\n\nTry SSHing to the server from Terminal to unlock the keychain then try your upload again.")
+      else
+        $dz.error(error_title, e.message)
+      end
     end  
   end
 
@@ -136,6 +143,9 @@ class SCPUploader
     error_title = "Connection Failed"
     path_warning = ""
     
+    # If using public key auth then attempt connection so that ssh-agent caches private key
+    puts `ssh -p #{host_info[:port]} #{host_info[:server]} 'exit'` if not host_info[:password]
+    
     begin
       Net::SSH.start(host_info[:server], host_info[:username], {:password => host_info[:password], :port => host_info[:port]}) do |ssh|
         if not ENV['remote_path']
@@ -149,9 +159,13 @@ class SCPUploader
       $dz.error(error_title, "Server not found.")
     rescue Net::SSH::AuthenticationFailed
       $dz.error("Authentication Failed", "Username or password incorrect.")
-    rescue
-      $dz.error(error_title, $!)
-    end
+    rescue => e
+      if e.message =~ /PKey/
+        $dz.error(error_title, "Your private key could not be unlocked.\n\nTry SSHing to the server from Terminal to unlock the keychain then try your upload again.")
+      else
+        $dz.error(error_title, e.message)
+      end
+    end  
     
     $dz.alert("Connection Successful", "SCP connection succeeded.#{path_warning}")
   end
