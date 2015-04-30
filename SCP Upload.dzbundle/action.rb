@@ -8,10 +8,11 @@
 # URL: http://aptonic.com
 # OptionsNIB: ExtendedLogin
 # DefaultPort: 22
-# Version: 1.0
+# Version: 1.3
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1009
+# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'scp_uploader'
 
@@ -22,7 +23,7 @@ $host_info = {:server    => ENV['server'],
 
 def dragged
   delete_zip = false
-  
+
   if ENV['KEY_MODIFIERS'] == "Option"
     # Zip up files before uploading
     if $items.length == 1
@@ -51,7 +52,7 @@ def dragged
   finish_text = "Upload Complete"
   
   if remote_paths.length == 1
-    filename = remote_paths[0].split(File::SEPARATOR)[-1].strip[0..-2]
+    filename = remote_paths[0].split(File::SEPARATOR)[-1].strip
     
     if ENV['root_url'] != nil
       slash = (ENV['root_url'][-1,1] == "/" ? "" : "/")
