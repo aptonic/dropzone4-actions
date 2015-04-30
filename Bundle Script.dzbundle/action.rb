@@ -8,12 +8,13 @@
 # OptionsNIB: ChooseFolder
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1001
 
-require "open-uri"
 require "fileutils"
+require "net/http"
+require "uri"
 
 def dragged
   $dz.determinate(false)
@@ -59,10 +60,10 @@ def process_dropzone_script(file_contents)
   
     FileUtils.mkdir(bundle_path)
 
-    if file_contents =~ /# IconURL: (.*)/    
+    if file_contents =~ /# IconURL: (.*)/
       # Retrieve icon
       begin
-        icon_data = open($1).read
+        icon_data = fetch($1).body
       rescue
         $dz.error("Error downloading icon for #{original_name}", "Failed to download icon at URL '#{$1}'\n\n#{$!}")
       end
@@ -96,5 +97,15 @@ def process_dropzone_script(file_contents)
     true
   else
     false
+  end
+end
+
+def fetch(uri_str, limit = 10)
+  response = Net::HTTP.get_response(URI.parse(uri_str))
+  case response
+  when Net::HTTPSuccess     then response
+  when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+  else
+    response.error!
   end
 end

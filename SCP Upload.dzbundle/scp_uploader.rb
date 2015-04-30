@@ -1,4 +1,7 @@
-require 'scp'
+require 'net/scp'
+
+# Trying to set the locale in the SSH session causes commands to emit warnings on some servers
+ENV.delete('LC_ALL')
 
 class SCPUploader
 
@@ -11,8 +14,8 @@ class SCPUploader
     host_info = self.sanitize_host_info(host_info)
     
     self.upload(source_files, destination, host_info[:server], host_info[:port], 
-                                           host_info[:username], host_info[:password]) do |percent, remote_path|
-      remote_file = remote_path.split(File::SEPARATOR)[-1][0..-2]
+    host_info[:username], host_info[:password]) do |percent, remote_path|
+      remote_file = remote_path.split(File::SEPARATOR)[-1]
       
       if remote_path != last_uploaded_path
         $dz.begin("Uploading #{remote_file}...")
@@ -38,57 +41,64 @@ class SCPUploader
     alert_title = "SCP Upload Error"
     error_title = "Connection Failed"
     begin
+      # If using public key auth then attempt connection so that ssh-agent caches private key
+      puts `ssh -p #{port} #{host} 'exit'` if not pass
+      
       Net::SSH.start(host, user, {:password => pass, :port => port}) do |ssh|
         remotedir = ssh.exec!("echo ~").strip if not remotedir
 
-  	    files = []
-  	    size  = 0
+        files = []
+        size = 0
 	
-  	    localpaths.each do |localpath|
-  	      path = self.path_contents(localpath, remotedir)
-  	      files.concat path[:files]
-  	      size += path[:size]
-  	    end
-  	    
-  	    transferred = 0
-  	    $dz.begin("Uploading #{files.size} files...") if files.length > 1 
-  	    files.each do |local, remote|
-  	      if local.empty? then
-  	        # Try to create the directory
-  	        begin
-  	          ssh.exec! "mkdir \"#{remote}\""
-  	        rescue
-  	          # $dz.error("Error creating directory", $!)
-  	          # Remote already exists?
-  	        end
-  	      else
-  	        begin
-  	          # Send the file
-  	          bytesSent = 0
-  	          ssh.scp.upload!(local, remote) do |ch, name, sent, total|
-  	            bytesSent = sent
-  	            if size != 0
-  	              percent = ((transferred + sent) * 100 / size)
-  	            else
-  	              percent = 100
-  	            end
-  	            yield percent, remote
-  	          end
-  	          transferred += bytesSent
-              rescue
-                $dz.error(alert_title, $!)
-  	        end
-  	      end
-  	    end
-  	  end
-  	rescue Timeout::Error
+        localpaths.each do |localpath|
+          path = self.path_contents(localpath, remotedir)
+          files.concat path[:files]
+          size += path[:size]
+        end
+        
+        transferred = 0
+        $dz.begin("Uploading #{files.size} files...") if files.length > 1 
+        files.each do |local, remote|
+          if local.empty? then
+            # Try to create the directory
+            begin
+              ssh.exec! "mkdir \"#{remote}\""
+            rescue
+              # $dz.error("Error creating directory", $!)
+              # Remote already exists?
+            end
+          else
+            begin
+              # Send the file
+              bytesSent = 0
+              ssh.scp.upload!(local, remote) do |ch, name, sent, total|
+                bytesSent = sent
+                if size != 0
+                  percent = ((transferred + sent) * 100 / size)
+                else
+                  percent = 100
+                end
+                yield percent, local
+              end
+              transferred += bytesSent
+            rescue
+              $dz.error(alert_title, $!)
+            end
+          end
+        end
+      end
+    rescue Timeout::Error
       $dz.error(alert_title, "Connection timed out.")
     rescue SocketError
       $dz.error(alert_title, "Server not found.")
     rescue Net::SSH::AuthenticationFailed
       $dz.error(alert_title, "Username or password incorrect.")
-    rescue
-      $dz.error(error_title, $!)
+    rescue => e
+      if e.message =~ /PKey/
+        $dz.error(error_title, "Your private key could not be unlocked.\n\nTry SSHing to the server from Terminal to unlock the keychain then try your upload again.")
+      else
+        $dz.error(error_title, e.message)
+      end
     end  
   end
 
@@ -118,8 +128,7 @@ class SCPUploader
     elsif filestat.file? then
       # Increment the size
       size += File.size localfile;
-      remotefile = (remotedir + '/' + File.basename(localfile)).gsub('//', '/')
-      files.push [localfile, "\"" + remotefile + "\""]
+      files.push [localfile, remotedir]
     end
     return { :files => files, :size => size }
   end
@@ -134,6 +143,9 @@ class SCPUploader
     error_title = "Connection Failed"
     path_warning = ""
     
+    # If using public key auth then attempt connection so that ssh-agent caches private key
+    puts `ssh -p #{host_info[:port]} #{host_info[:server]} 'exit'` if not host_info[:password]
+    
     begin
       Net::SSH.start(host_info[:server], host_info[:username], {:password => host_info[:password], :port => host_info[:port]}) do |ssh|
         if not ENV['remote_path']
@@ -147,9 +159,13 @@ class SCPUploader
       $dz.error(error_title, "Server not found.")
     rescue Net::SSH::AuthenticationFailed
       $dz.error("Authentication Failed", "Username or password incorrect.")
-    rescue
-      $dz.error(error_title, $!)
-    end
+    rescue => e
+      if e.message =~ /PKey/
+        $dz.error(error_title, "Your private key could not be unlocked.\n\nTry SSHing to the server from Terminal to unlock the keychain then try your upload again.")
+      else
+        $dz.error(error_title, e.message)
+      end
+    end  
     
     $dz.alert("Connection Successful", "SCP connection succeeded.#{path_warning}")
   end

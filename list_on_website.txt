@@ -1,16 +1,22 @@
 SCP Upload
 ImageShack
 Dropbox
+YouTube
 Google Drive
 Rackspace Cloud Files
 Install Application
 Zip Files
+Create DMG File
 Print
 Image Search
 Finder Path
 Screensaver
 Say Text
+Sleep
 Desktop Picture
+Open Terminal at Path
+Mail Link
 Send iMessage With Attachment to Phone Number
 Bitly
+Goo.gl
 Bundle Script

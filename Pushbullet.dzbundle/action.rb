@@ -11,6 +11,7 @@
 # Version: 1.0
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
+# UniqueID: 1032
 
 require 'rubygems'
  

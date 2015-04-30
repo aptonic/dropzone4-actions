@@ -1,7 +1,7 @@
-require 'lib/google/api_client'
-require 'lib/google/api_client/auth/file_storage'
-require 'lib/google/api_client/auth/installed_app'
-require 'securerandom'
+require 'bundler/setup'
+require 'google/api_client'
+require 'google/api_client/client_secrets'
+require 'google/api_client/auth/installed_app'
 
 class Gdrive
   API_VERSION = 'v2'
