@@ -3,13 +3,13 @@
 # Description: Drag the URL of a git repository onto this action and it will be cloned into the selected folder.\n\nHold the command key to select a different destination folder.
 # Handles: Text
 # Creator: Dominique Da Silva
-# URL: http://www.agonia.fr
+# URL: http://inspira.io
 # OptionsNIB: ChooseFolder 
 # SkipConfig: No
 # RunsSandboxed: No
 # Events: Dragged, Clicked
 # KeyModifiers: Command
-# Version: 1.2
+# Version: 1.3
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1031
 
@@ -32,7 +32,11 @@ def dragged
     if modifier == "Command"
       chosen_folder = $dz.cocoa_dialog("fileselect --title \"Select a folder to clone to\" --informative-text \"Select the folder where you want git to clone this project.\" --select-directories --debug --select-only-directories --string-output --with-directory \"#{folder}\" --no-newline")
       puts chosen_folder
-      $dz.fail("You must select a folder") if chosen_folder.empty?
+      if chosen_folder.empty?
+        $dz.fail("You must select a folder") 
+      else
+        folder = chosen_folder
+      end
     end
     
     absolute_path = File.join(folder, project_folder)
