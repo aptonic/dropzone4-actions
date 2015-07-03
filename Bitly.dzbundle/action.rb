@@ -2,19 +2,18 @@
 # Name: Bitly
 # Description: A dropped URL will be converted to a Bit.ly URL. Password is your API key which can be found at http://bit.ly/a/your_api_key
 # Handles: Text
-# Creator: Sergej Müller
-# URL: http://ebiene.de
+# Creator: Aptonic Software
+# URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
 
-require 'cgi'
-require 'rexml/document'
-require 'net/https'
 require 'uri'
+require 'rest-client'
+require 'multi_json'
  
 def dragged
   shorten($items[0])
@@ -22,43 +21,48 @@ end
 
 def shorten(item)
   $dz.determinate(false)
-  $dz.begin("Getting Bitly URL")
+  $dz.begin("Getting Bitly URL...")
   
-  if item =~ /http/
-    username = ENV['username']
-    apikey = ENV['password']
-    url = CGI::escape(item)
-
-    version = "2.0.1"
-    uri = URI.parse("http://api.bit.ly/shorten?version=#{version}&format=xml&longUrl=#{url}&login=#{username}&apiKey=#{apikey}")
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
-
-    doc = REXML::Document.new(response.body)
-    doc.elements.each("bitly/errorMessage") do |a|
-      if a.text == "INVALID_LOGIN"
-        $dz.fail("Invalid user or API key")
-      elsif a.text == "ALREADY_A_BITLY_LINK"
-        $dz.fail("Already a bit.ly link")
-      else
-         doc.elements.each("bitly/results/nodeKeyVal/shortUrl") do |b|
-           if b.text.empty?
-             $dz.fail("Empty URL is returned")
-           else
-             $dz.finish("URL is now on clipboard")
-             $dz.url(b.text)
-           end
-         end
-       end
-     end
-  else
+  begin
+    url = URI.parse(item)
+    url = URI.parse("http://" + item) unless url.scheme
+  rescue URI::InvalidURIError
     $dz.fail("Invalid URL")
   end
+  
+  begin
+    response = RestClient.get 'https://api-ssl.bitly.com/v3/shorten', {:params => {:login => ENV['username'], :apiKey => ENV['password'], :longUrl => url}}
+  rescue
+    puts $!
+    $dz.fail("Failed to connect to Bitly")
+  end
+  
+  begin
+    result = MultiJson.load(response.body)
+  rescue
+    puts $!
+    show_response_invalid_error(response)
+  end
+  
+  if result['status_txt'] == 'OK'
+    $dz.finish("URL is now on clipboard")
+    $dz.url(result['data']['url'])
+  elsif result['status_txt'] == "INVALID_LOGIN"
+    $dz.fail("Invalid Username or API key")
+  elsif result['status_txt'] == "ALREADY_A_BITLY_LINK"
+    $dz.fail("Already a Bitly link")
+  else
+    show_response_invalid_error(response)
+  end
+end 
+
+def show_response_invalid_error(response)
+  puts response.body if response
+  $dz.fail("Error shortening URL.\nSee Dropzone debug console for details.")
 end
 
 def readClipboard
-	IO.popen('pbpaste') {|clipboard| clipboard.read}
+  IO.popen('pbpaste') {|clipboard| clipboard.read}
 end
  
 def clicked
