@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.1
+# Version: 1.2
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
@@ -51,6 +51,8 @@ def shorten(item)
     $dz.fail("Invalid Username or API key")
   elsif result['status_txt'] == "ALREADY_A_BITLY_LINK"
     $dz.fail("Already a Bitly link")
+  elsif result['status_txt'] == "INVALID_URI"
+    $dz.fail("Invalid URL")
   else
     show_response_invalid_error(response)
   end
