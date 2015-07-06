@@ -82,15 +82,19 @@ class Googl
       $dz.error('Invalid URL', 'You cannot expand or shorten the Google url shortener base domain!')
     end
 
-    if item =~ /http/
-      if item =~ /http:\/\/goo\.gl\//
-        expand_url(item)
-      else
-        shorten_url(item)
-      end
+    begin
+      url = URI.parse(item)
+      url = URI.parse("http://" + item) unless url.scheme
+    rescue URI::InvalidURIError
+      $dz.fail("Invalid URL")
+    end
+
+    url_as_string = url.to_s
+
+    if url_as_string =~ /http:\/\/goo\.gl\//
+      expand_url(url_as_string)
     else
-      $dz.finish('Invalid URL')
-      $dz.url(false)
+      shorten_url(url_as_string)
     end
   end
 
