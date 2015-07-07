@@ -76,9 +76,6 @@ class Googl
   end
 
   def process(item)
-    $dz.determinate(false)
-    $dz.begin('Getting Goo.gl URL')
-
     if item =~ /http:\/\/goo\.gl\/*$/ or item =~ /https:\/\/goo\.gl\/*$/
       $dz.error('Invalid URL', 'You cannot expand or shorten the Google url shortener base domain!')
     end
@@ -92,7 +89,7 @@ class Googl
 
     url_as_string = url.to_s
 
-    if url_as_string =~ /http:\/\/goo\.gl\//
+    if url_as_string =~ /https?:\/\/goo\.gl\//
       expand_url(url_as_string)
     else
       shorten_url(url_as_string)
@@ -107,16 +104,15 @@ class Googl
     )
 
     unless result.success?
-      $dz.error('Goo.gl Failed to shorten URL', "#{result.status} #{result.error_message}")
+      $dz.error('Failed to shorten URL', "#{result.status} #{result.error_message}")
     end
 
     short_url = result.data.id
 
     if short_url.nil? || short_url.to_s.strip.length == 0
-      $dz.finish('Goo.gl failed to shortcut your URL!')
-      $dz.url(false)
+      $dz.fail('Error shortening URL')
     else
-      $dz.finish("Goo.gl Shortened URL for #{url_to_shorten} is now on clipboard")
+      $dz.finish("URL is now on clipboard")
       $dz.url(short_url)
     end
   end
@@ -129,19 +125,18 @@ class Googl
         })
 
     unless result.success?
-      $dz.error('Goo.gl Failed to Expand URL', "#{result.status} #{result.error_message}")
+      $dz.error('Failed to Expand URL', "#{result.status} #{result.error_message}")
     end
 
     expanded_url = result.data['longUrl']
 
     if expanded_url.nil? || expanded_url.to_s.strip.length == 0
       # Failed Expand URL
-      $dz.alert('Goo.gl Failed to Expand URL')
-      $dz.finish('Expand URL Failed')
+      $dz.fail('Error expanding URL')
     else
       # Expand URL
+      $dz.finish("Expanded URL is now on clipboard")
       $dz.url(expanded_url)
-      $dz.finish("Goo.gl expanded URL for #{url_to_expand} is now on clipboard")
     end
   end
 
