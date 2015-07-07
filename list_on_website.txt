@@ -18,5 +18,4 @@ Open Terminal at Path
 Mail Link
 Send iMessage With Attachment to Phone Number
 Bitly
-Goo.gl
 Bundle Script
