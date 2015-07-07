@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Goo.gl
-# Description: Dropped URLs will be converted to short Goo.gl URLs and short Goo.gl URLs will be expanded. When clicked, the action will attempt to do the same with any URLs present in clipboard.\n\nAuthorization is optional, use it only if you want to track the shortened URLs using your Google account.
+# Description: A dropped URL will be converted to a shortened Goo.gl URL.\nYou can also drop shortened URLs to get the expanded URL.\n\nWhen clicked, the action will attempt to shorten or expand a URL on the clipboard.\n\nAuthorization is optional, use it only if you want to track the shortened URLs using your Google account.
 # Handles: Text
 # Creator: Dominique Da Silva
 # URL: http://www.agonia.fr
@@ -9,8 +9,8 @@
 # AuthScope: https://www.googleapis.com/auth/urlshortener
 # SkipValidation: Yes
 # RunsSandboxed: No
-# Version: 1.5
-# MinDropzoneVersion: 3.2.1
+# Version: 1.6
+# MinDropzoneVersion: 3.2.3
 # UniqueID: 1024
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 

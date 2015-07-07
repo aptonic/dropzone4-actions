@@ -1,4 +1,3 @@
-require 'bundler/setup'
 require 'google/api_client'
 require 'google/api_client/client_secrets'
 require 'google/api_client/auth/installed_app'
@@ -26,7 +25,7 @@ class Googl
 
     @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Goo.gl',
                                     :application_version => '1.0.0')
-
+                                
     @client.authorization = get_authorization
 
     @urlshortener = nil
@@ -69,6 +68,8 @@ class Googl
         $dz.save_value('access_token', authorization.access_token)
         $dz.save_value('expires_at', (Time.now + authorization.expires_in).to_i)
       end
+    else
+      @client.key = ENV['api_key'] unless ENV['api_key'].nil?
     end
 
     authorization
@@ -148,7 +149,6 @@ class Googl
     IO.popen('pbpaste') { |clipboard| clipboard.read }
   end
 
-  # copied it from http://softover.com/UUID_in_Ruby_1.8
   def urlsafe_base64(n=nil, padding=false)
     s = [SecureRandom.random_bytes(n)].pack('m*')
     s.delete!("\n")
