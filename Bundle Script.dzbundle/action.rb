@@ -8,7 +8,7 @@
 # OptionsNIB: ChooseFolder
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.0
 # UniqueID: 1001
 
