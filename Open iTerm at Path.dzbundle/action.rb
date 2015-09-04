@@ -5,10 +5,9 @@
 # Creator: Sam Turner
 # URL: http://www.digi.ltd.uk
 # Events: Clicked, Dragged
-# KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 
@@ -30,20 +29,22 @@ def dragged
 
   puts dir
 
-  # Launch Terminal in desired directory
+  # Launch iTerm in desired directory
   if dir
     puts `osascript -so <<END
     tell application "iTerm"
-      activate
-      delay 0.2
-        tell current session of first window
-          create window with default profile
-          delay 0.2
-          write text "cd '#{dir}'"
+    activate
+    delay 0.2
+    set newWindow to (create window with default profile)
+    delay 0.2
+        tell current window
+            tell current session
+                write text "cd '#{dir}'"
+            end tell
         end tell
     end tell
 END`
-  else
+else
     # Could not figure out what the user wants. Dump to console and notify user.
     puts "Could not figure out what to do with data: #{$items.inspect}"
     $dz.fail("Not a file or directory path")
@@ -55,9 +56,9 @@ end
 def clicked
   puts `osascript -so <<END
   tell application "iTerm"
-    delay 0.2
-    create window with default profile
-  end tell
+  delay 0.2
+  set newWindow to (create window with default profile )
+end tell
 END`
-  $dz.url(false)
+$dz.url(false)
 end
