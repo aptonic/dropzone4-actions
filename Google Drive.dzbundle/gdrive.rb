@@ -41,7 +41,7 @@ class Gdrive
 
   def get_authorization
     if ENV['expires_at'].nil? or ENV['access_token'].nil?
-      $dz.error('Redo authorization', 'The authorization data is not complete. Please redo the authorization from the action\'s Edit screen')
+      $dz.error('Redo authorization', 'The authorization data is not complete. Please redo the authorization from the action\'s Edit screen.')
     end
 
     token_expiration_time_ms = ENV['expires_at'].to_i
@@ -61,7 +61,12 @@ class Gdrive
                                                      :client_secret => ENV['client_secret'],
                                                      :refresh_token => ENV['refresh_token']
                                                  })
-      authorization.fetch_access_token!
+      begin
+        authorization.fetch_access_token!
+      rescue Exception => e  
+        puts e.message  
+        $dz.error('Redo authorization', 'Authorization failed. Please redo the authorization from the action\'s Edit screen.')
+      end
 
       $dz.save_value('access_token', authorization.access_token)
       $dz.save_value('expires_at', (Time.now + authorization.expires_in).to_i)
@@ -71,6 +76,10 @@ class Gdrive
   end
 
   def upload_file (file_path, folder_id)
+    if File.directory?(file_path)
+      $dz.error("Uploading folders not supported", "The Google Drive action does not currently support uploading of folders. Email support@aptonic.com if you need this feature.")
+    end
+    
     file_name = file_path.split(File::SEPARATOR).last
     $dz.begin("Uploading #{file_name} to Google Drive...")
     content_type = `file -Ib #{file_path}`.gsub(/\n/, "")
