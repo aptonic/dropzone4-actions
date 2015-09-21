@@ -8,7 +8,7 @@
 # AuthScope: https://www.googleapis.com/auth/youtube.upload
 # Events: Dragged, Clicked
 # RunsSandboxed: Yes
-# Version: 1.6
+# Version: 1.7
 # UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
@@ -21,9 +21,9 @@ def dragged
   $dz.determinate(false)
 
   youtube.configure_client
+  privacy_status = youtube.read_privacy_status
 
   $items.each do |file|
-    privacy_status = youtube.read_privacy_status
     youtube.upload_video(file, privacy_status)
   end
 
