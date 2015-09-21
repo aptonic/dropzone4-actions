@@ -76,24 +76,27 @@ class Youtube
     $dz.begin("Uploading #{file_name} to YouTube...")
     content_type = `file -Ib \"#{file_path}\"`.gsub(/\n/, "")
 
-
-    file = @youtube.videos.insert.request_schema.new({
-                                                         :status => {
-                                                             :privacyStatus => privacy_status
-                                                         }
-                                                     })
+    body = {
+       :snippet => {
+         :title => File.basename(file_name, ".*"),
+       },
+       :status => {
+         :privacyStatus => privacy_status
+       }
+    }
 
     media = Google::APIClient::UploadIO.new(file_path, content_type)
     result = @client.execute(
         :api_method => @youtube.videos.insert,
-        :body_object => file,
+        :body_object => body,
         :media => media,
         :parameters => {
             :uploadType => 'multipart',
-            :part =>  ['status']
+            :part => body.keys.join(',')
         })
 
     unless result.success?
+      puts result.inspect
       $dz.error('Upload Failed', result.error_message)
     end
 
@@ -101,7 +104,7 @@ class Youtube
   end
 
   def read_privacy_status
-    output = $dz.cocoa_dialog("standard-dropdown --button1 \"OK\" --button2 \"Cancel\" --title \"Privacy status\" --text \"Would you like the video to be public, private or unlisted?\" --items \"public\" \"private\" \"unlisted\" ")
+    output = $dz.cocoa_dialog("standard-dropdown --button1 \"OK\" --button2 \"Cancel\" --title \"Privacy status\" --text \"Would you like the dropped video(s) to be public, private or unlisted?\" --items \"public\" \"private\" \"unlisted\" ")
     button, privacy_index = output.split("\n")
 
     if button == '2'
