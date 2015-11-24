@@ -4,7 +4,8 @@
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # Handles: Files
-# Version: 1.0
+# Events: Dragged
+# Version: 1.1
 # SkipConfig: Yes
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
