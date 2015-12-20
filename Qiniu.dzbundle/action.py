@@ -104,6 +104,8 @@ def clicked():
         if isFileExist(file_name):
             file_name = dz.inputbox("Filename already exist", "Enter filename without suffix:")
             file_name = file_name + '.' + imghdr.what(file_path)
+        else:
+            break
 
     dest_path = '%s/%s' % (os.path.dirname(file_path), file_name)
     shutil.move(file_path, dest_path)
