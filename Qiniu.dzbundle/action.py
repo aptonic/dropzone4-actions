@@ -9,7 +9,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # UniqueID: 0830
 # MinDropzoneVersion: 3.5
 
@@ -18,15 +18,39 @@ import sys
 import commands
 import shutil
 import imghdr
+import webbrowser
 from qiniu import Auth
 from qiniu import put_file
+from qiniu import BucketManager
 
-def upload_file(file_path, file_name):
+query = None
+def getAuth():
+    global query
+    if query != None:
+        return query
     access_key = os.environ['username']
     secret_key = os.environ['password']
-    q = Auth(access_key, secret_key)
+    query = Auth(access_key, secret_key)
+    return query
 
+def isFileExist(file_name):
+    q = getAuth()
+    # check if file already exist
     bucket_name = os.environ['server']
+    bucket = BucketManager(getAuth())
+    ret, info = bucket.stat(bucket_name, file_name)
+    if ret != None:
+        return True
+    else:
+        return False
+
+def uploadFile(file_path, file_name):
+    q = getAuth()
+    bucket_name = os.environ['server']
+
+    if isFileExist(file_name):
+        dz.fail("Filename already exist")
+
     token = q.upload_token(bucket_name, file_name)
     ret, info = put_file(token, file_name, file_path)
 
@@ -51,7 +75,7 @@ def dragged():
     # keep origin name
     file_path = items[0]
     file_name = os.path.basename(file_path)
-    base_url  = upload_file(file_path, file_name)
+    base_url  = uploadFile(file_path, file_name)
 
     if base_url:
         dz.finish("Upload Completed")
@@ -61,27 +85,35 @@ def dragged():
         dz.fail("Upload Failed")
         dz.percent(100)
         dz.url(False)
-
  
 def clicked():
     dz.percent(10)
-    
+
     file_path = dz.temp_folder() + '/qiniu_img_cache'
     current_path = os.path.dirname(os.path.realpath(__file__))
     command = '"%s/pngpaste" "%s"' % (current_path, file_path)
     status, output = commands.getstatusoutput(command)
     if (status != 0):
+        webbrowser.open("https://portal.qiniu.com/bucket/" + os.environ['server'] + "/resource")
         dz.fail(output)
 
     file_name = dz.inputbox("Filename Required", "Enter filename without suffix:")
     file_name = file_name + '.' + imghdr.what(file_path)
+
+    while True:
+        if isFileExist(file_name):
+            file_name = dz.inputbox("Filename already exist", "Enter filename without suffix:")
+            file_name = file_name + '.' + imghdr.what(file_path)
+        else:
+            break
+
     dest_path = '%s/%s' % (os.path.dirname(file_path), file_name)
     shutil.move(file_path, dest_path)
 
     dz.begin("Starting uploading...")
     dz.determinate(True)
 
-    base_url = upload_file(dest_path, file_name)
+    base_url = uploadFile(dest_path, file_name)
     if (base_url):
         dz.finish("Upload Completed")
         dz.percent(100)
