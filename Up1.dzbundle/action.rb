@@ -8,7 +8,7 @@
 # SkipConfig: Yes
 # RunsSandboxed: Yes
 # UniqueID: 2175601
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
@@ -49,7 +49,7 @@ def dragged
         $dz.begin("Loading file...")
         filename = $items[0]
         @input =  open(filename).read
-        mimetype = `file -b --mime-type #{filename}`.gsub(/\n/,"")
+        mimetype = `file -b --mime-type #{filename.gsub(/ /,"\\ ")}`.gsub(/\n/,"")
         basename = File.basename(filename)
       when 'text'
         @input = $items[0]
@@ -87,7 +87,6 @@ rescue Errno::ECONNREFUSED => e
 end
 
 def clicked
-  puts ENV['KEY_MODIFIERS']
   @input = $dz.read_clipboard
   if @input.empty?
     system("open #{server}")
