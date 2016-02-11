@@ -9,7 +9,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.1
+# Version: 1.2
 # UniqueID: 0830
 # MinDropzoneVersion: 3.5
 
@@ -23,6 +23,8 @@ from qiniu import Auth
 from qiniu import put_file
 from qiniu import BucketManager
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 query = None
 def getAuth():
     global query
