@@ -2,7 +2,7 @@
 # Name: Boxcar
 # Description: Send message to Boxcar App (https://boxcar.io/).
 # Creator: Dominique Da Silva
-# URL: http://www.agonia.fr
+# URL: https://inspira.io
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
