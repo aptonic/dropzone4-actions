@@ -2,7 +2,7 @@
 # Name: Pushover
 # Description: Send message via a Pushover notification (https://pushover.net/). Hold Alt Key to select a device or Shift Key to refresh devices list. 
 # Creator: Dominique Da Silva
-# URL: http://www.agonia.fr
+# URL: https://inspira.io
 # Events: Clicked, Dragged
 # KeyModifiers: Option, Shift
 # SkipConfig: No

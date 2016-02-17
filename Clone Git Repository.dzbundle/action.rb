@@ -3,7 +3,7 @@
 # Description: Drag the URL of a git repository onto this action and it will be cloned into the selected folder.\n\nHold the command key to select a different destination folder.
 # Handles: Text
 # Creator: Dominique Da Silva
-# URL: http://inspira.io
+# URL: https://inspira.io
 # OptionsNIB: ChooseFolder 
 # SkipConfig: No
 # RunsSandboxed: No
