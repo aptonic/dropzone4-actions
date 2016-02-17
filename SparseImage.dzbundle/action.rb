@@ -3,7 +3,7 @@
 # Description: Creates a Sparse Image with dropped files and places it on the Desktop.\nHolding the Option key while dragging creates an AES-256 bits encrypted Sparse image.
 # Handles: Files
 # Creator: Dominique Da Silva
-# URL: http://inspira.io
+# URL: https://inspira.io
 # Events: Clicked, Dragged
 # KeyModifiers: Option
 # SkipConfig: No
