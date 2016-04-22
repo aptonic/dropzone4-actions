@@ -6,10 +6,11 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.2
+# Version: 1.3
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
+# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'uri'
 require 'rest-client'
