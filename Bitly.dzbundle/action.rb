@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.3
+# Version: 1.4
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
@@ -25,8 +25,9 @@ def shorten(item)
   $dz.begin("Getting Bitly URL...")
   
   begin
-    url = URI.parse(item)
-    url = URI.parse("http://" + item) unless url.scheme
+    enc_url = URI.encode(item)
+    url = URI.parse(enc_url)
+    url = URI.parse("http://" + enc_url) unless url.scheme
   rescue URI::InvalidURIError
     $dz.fail("Invalid URL")
   end
