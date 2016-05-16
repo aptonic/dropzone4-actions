@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.4
+# Version: 1.5
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
@@ -17,6 +17,7 @@ require 'rest-client'
 require 'multi_json'
  
 def dragged
+  #test
   shorten($items[0])
 end
 
