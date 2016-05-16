@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.5
+# Version: 1.4
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
