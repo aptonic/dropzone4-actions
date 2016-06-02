@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: YouTube Downloader
-# Description: Allows you to quickly download videos from YouTube and many other sites. Downloaded videos are placed in the selected folder.\n\nDownloads the highest quality version of the video and audio possible - This means the video and audio are sometimes downloaded seperately and the two files are automatically merged back together after the download completes.\n\nDrag a video URL onto the action or copy a URL onto the clipboard and then click the action to initiate download.
+# Description: Allows you to quickly download videos from YouTube and many other video sites. Downloaded videos are placed in the selected folder.\n\nDownloads the highest quality version of the video and audio possible - This means the video and audio are sometimes downloaded seperately and the two files are automatically merged back together after the download completes.\n\nDrag a video URL onto the action or copy a URL onto the clipboard and then click the action to initiate download.
 # Handles: Text
 # Creator: Aptonic Software
 # URL: http://aptonic.com
@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
