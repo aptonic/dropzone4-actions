@@ -1,7 +1,7 @@
 SCP Upload
 ImageShack
 Dropbox
-YouTube
+YouTube Downloader
 Google Drive
 Rackspace Cloud Files
 Install Application
@@ -18,5 +18,6 @@ Open Terminal at Path
 Secure Eraser
 Mail Link
 Send iMessage With Attachment to Phone Number
+YouTube Uploader
 Bitly
 Bundle Script
