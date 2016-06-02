@@ -184,7 +184,7 @@ Video Selection:
 
 Download Options:
 
-    -r, --rate-limit LIMIT           Maximum download rate in bytes per second
+    -r, --limit-rate RATE            Maximum download rate in bytes per second
                                      (e.g. 50K or 4.2M)
     -R, --retries RETRIES            Number of retries (default is 10), or
                                      "infinite".

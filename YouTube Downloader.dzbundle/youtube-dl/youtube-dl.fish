@@ -39,7 +39,7 @@ complete --command youtube-dl --long-option yes-playlist --description 'Download
 complete --command youtube-dl --long-option age-limit --description 'Download only videos suitable for the given age'
 complete --command youtube-dl --long-option download-archive --description 'Download only videos not listed in the archive file. Record the IDs of all downloaded videos in it.' --require-parameter
 complete --command youtube-dl --long-option include-ads --description 'Download advertisements as well (experimental)'
-complete --command youtube-dl --long-option rate-limit --short-option r --description 'Maximum download rate in bytes per second (e.g. 50K or 4.2M)'
+complete --command youtube-dl --long-option limit-rate --short-option r --description 'Maximum download rate in bytes per second (e.g. 50K or 4.2M)'
 complete --command youtube-dl --long-option retries --short-option R --description 'Number of retries (default is %default), or "infinite".'
 complete --command youtube-dl --long-option fragment-retries --description 'Number of retries for a fragment (default is %default), or "infinite" (DASH only)'
 complete --command youtube-dl --long-option buffer-size --description 'Size of download buffer (e.g. 1024 or 16K) (default is %default)'
