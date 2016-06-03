@@ -7,8 +7,8 @@
 # OptionsNIB: ChooseFolder
 # Events: Clicked, Dragged
 # SkipConfig: No
-# RunsSandboxed: Yes
-# Version: 1.2
+# RunsSandboxed: No
+# Version: 1.3
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
