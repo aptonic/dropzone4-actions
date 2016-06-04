@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: YouTube Downloader
-# Description: Allows you to quickly download videos from YouTube and many other video sites. Downloaded videos are placed in the selected folder.\n\nDownloads the highest quality version of the video and audio possible - This means the video and audio are sometimes downloaded seperately and the two files are automatically merged back together after the download completes.\n\nDrag a video URL onto the action or copy a URL onto the clipboard and then click the action to initiate download.
+# Description: Allows you to quickly download videos from YouTube and many other video sites. Downloaded videos are placed in the chosen folder.\n\nDownloads the highest quality version of the video and audio possible - This means the video and audio are sometimes downloaded seperately and the two files are automatically merged back together after the download completes.\n\nDrag a video URL onto the action or copy a URL onto the clipboard and then click the action to initiate download.
 # Handles: Text
 # Creator: Aptonic Software
 # URL: http://aptonic.com
@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.4
+# Version: 1.5
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -101,7 +101,7 @@ def my_hook(d):
     
         if '_eta_str' in d and '_speed_str' in d:
             speed_info = " (" + d['_speed_str'] + " ETA: " + d['_eta_str'] + ")"
-            
+        filename = filename.encode('ascii', 'ignore').decode('ascii')
         dz.begin("Downloading " + filename + speed_info + "...")
         total_bytes = 0
         
