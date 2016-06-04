@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.3
+# Version: 1.4
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -18,6 +18,7 @@ import updater
 import os
 import traceback
 import re
+import utils
 
 def dragged():
     download_url(items[0])
@@ -38,13 +39,14 @@ def download_url(url):
         dz.fail("Not a valid video URL")
     
     dz.begin("Checking youtube-dl library is up to date...")
-    dz.determinate(False)
+    utils.set_determinate_progress(False)
 
     updater.update_youtubedl()
     
     dz.begin("Preparing to download video...")
-    dz.determinate(False)
-
+    utils.set_determinate_progress(False)
+    utils.reset_progress()
+    
     # Put ffmpeg in PATH for merging videos audio and video
     os.environ["PATH"] += os.pathsep + os.path.join(os.getcwd(), 'ffmpeg')
     
@@ -58,8 +60,6 @@ def download_url(url):
         'logger': MyLogger(),
         'progress_hooks': [my_hook]
     }
-
-    dz.determinate(True)
     
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -71,7 +71,6 @@ def download_url(url):
     dz.finish("Video Download Complete")
     dz.url(False)
         
-
 class MyLogger(object):
     def debug(self, msg):
         try:    
@@ -93,8 +92,31 @@ class MyLogger(object):
 
 def my_hook(d):
     if d['status'] == 'downloading':
-        dz.begin("Downloading " + os.path.basename(d['filename']) + "...")
-        dz.percent(100 * d['downloaded_bytes'] / d['total_bytes'])
+        speed_info = ""
+        
+        if 'filename' in d:
+            filename = os.path.basename(d['filename'])
+        else:
+            filename = ""
+    
+        if '_eta_str' in d and '_speed_str' in d:
+            speed_info = " (" + d['_speed_str'] + " ETA: " + d['_eta_str'] + ")"
+            
+        dz.begin("Downloading " + filename + speed_info + "...")
+        total_bytes = 0
+        
+        if 'downloaded_bytes' in d:
+            if 'total_bytes' in d:
+                total_bytes = d['total_bytes']
+            elif 'total_bytes_estimate' in d:
+                total_bytes = d['total_bytes_estimate']
+            
+            percent = int(100 * d['downloaded_bytes'] / total_bytes)
+            if percent > 0:
+                utils.set_determinate_progress(True)
+                utils.set_progress_percent(percent)
     
     if d['status'] == 'finished':
+        utils.set_determinate_progress(False)
+        utils.reset_progress()
         print('Download complete')

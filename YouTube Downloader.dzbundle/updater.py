@@ -7,6 +7,7 @@ import tarfile
 import os
 import shutil
 import re
+import utils
 
 def update_youtubedl():
     current_version = get_yt_downloader_version()
@@ -43,12 +44,24 @@ def update_youtubedl():
     filename = "update.tar.gz"
     
     dz.begin("Updating YouTube downloader...")
-    dz.determinate(True)
+    utils.set_determinate_progress(False)
+    
+    try:
+        os.remove(filename)
+    except OSError:
+        pass
+    
+    try:
+        shutil.rmtree('yt-tmp')
+    except Exception:
+        pass
     
     try:
         def reporthook(blocknum, blocksize, totalsize):
-            percent = blocknum * blocksize * 1e2 / totalsize
-            dz.percent(int(percent))
+            percent = int(blocknum * blocksize * 1e2 / totalsize)
+            if percent > 0 and percent <= 100:
+                utils.set_determinate_progress(True)
+                utils.set_progress_percent(percent)
         
         urllib.urlretrieve(version['tar'][0], filename, reporthook)
         
@@ -64,11 +77,7 @@ def update_youtubedl():
     if newcontent_hash != version['tar'][1]:
         print('ERROR: the downloaded file hash does not match. Aborting.')
         return
-    try:    
-        shutil.rmtree('yt-tmp')
-    except Exception:
-        pass
-        
+
     os.mkdir('yt-tmp');
         
     tar = tarfile.open(filename)

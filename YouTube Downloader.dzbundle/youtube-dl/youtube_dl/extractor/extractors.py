@@ -382,6 +382,7 @@ from .leeco import (
     LePlaylistIE,
     LetvCloudIE,
 )
+from .libraryofcongress import LibraryOfCongressIE
 from .libsyn import LibsynIE
 from .lifenews import (
     LifeNewsIE,
@@ -639,7 +640,10 @@ from .regiotv import RegioTVIE
 from .restudy import RestudyIE
 from .reuters import ReutersIE
 from .reverbnation import ReverbNationIE
-from .revision3 import Revision3IE
+from .revision3 import (
+    Revision3EmbedIE,
+    Revision3IE,
+)
 from .rice import RICEIE
 from .ringtv import RingTVIE
 from .ro220 import Ro220IE
@@ -678,6 +682,7 @@ from .screencast import ScreencastIE
 from .screencastomatic import ScreencastOMaticIE
 from .screenjunkies import ScreenJunkiesIE
 from .screenwavemedia import ScreenwaveMediaIE, TeamFourIE
+from .seeker import SeekerIE
 from .senateisvp import SenateISVPIE
 from .sendtonews import SendtoNewsIE
 from .servingsys import ServingSysIE
