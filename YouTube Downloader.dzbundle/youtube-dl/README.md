@@ -17,7 +17,7 @@ youtube-dl - download videos from youtube.com or other video platforms
 
 To install it right away for all UNIX users (Linux, OS X, etc.), type:
 
-    sudo curl https://yt-dl.org/latest/youtube-dl -o /usr/local/bin/youtube-dl
+    sudo curl -L https://yt-dl.org/latest/youtube-dl -o /usr/local/bin/youtube-dl
     sudo chmod a+rx /usr/local/bin/youtube-dl
 
 If you do not have curl, you can alternatively use a recent wget:
@@ -27,13 +27,19 @@ If you do not have curl, you can alternatively use a recent wget:
 
 Windows users can [download an .exe file](https://yt-dl.org/latest/youtube-dl.exe) and place it in any location on their [PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29) except for `%SYSTEMROOT%\System32` (e.g. **do not** put in `C:\Windows\System32`).
 
-OS X users can install **youtube-dl** with [Homebrew](http://brew.sh/).
+You can also use pip:
+
+    sudo pip install --upgrade youtube-dl
+    
+This command will update youtube-dl if you have already installed it. See the [pypi page](https://pypi.python.org/pypi/youtube_dl) for more information.
+
+OS X users can install youtube-dl with [Homebrew](http://brew.sh/):
 
     brew install youtube-dl
 
-You can also use pip:
+Or with [MacPorts](https://www.macports.org/):
 
-    sudo pip install youtube-dl
+    sudo port install youtube-dl
 
 Alternatively, refer to the [developer instructions](#developer-instructions) for how to check out and work with the git repository. For further options, including PGP signatures, see the [youtube-dl Download Page](https://rg3.github.io/youtube-dl/download.html).
 
@@ -249,7 +255,7 @@ which means you can modify it, redistribute it or use it however you like.
     --write-info-json                Write video metadata to a .info.json file
     --write-annotations              Write video annotations to a
                                      .annotations.xml file
-    --load-info FILE                 JSON file containing the video information
+    --load-info-json FILE            JSON file containing the video information
                                      (created with the "--write-info-json"
                                      option)
     --cookies FILE                   File to read cookies from and dump cookie
@@ -505,6 +511,9 @@ The basic usage is not to set any template arguments when downloading a single f
  - `autonumber`: Five-digit number that will be increased with each download, starting at zero
  - `playlist`: Name or id of the playlist that contains the video
  - `playlist_index`: Index of the video in the playlist padded with leading zeros according to the total length of the playlist
+ - `playlist_id`: Playlist identifier
+ - `playlist_title`: Playlist title
+
 
 Available for the video that belongs to some logical chapter or section:
  - `chapter`: Name or title of the chapter the video belongs to
@@ -543,6 +552,10 @@ To specify percent literal in output template use `%%`. To output to stdout use 
 The current default template is `%(title)s-%(id)s.%(ext)s`.
 
 In some cases, you don't want special characters such as 中, spaces, or &, such as when transferring the downloaded filename to a Windows system or the filename through an 8bit-unsafe channel. In these cases, add the `--restrict-filenames` flag to get a shorter title:
+
+#### Output template and Windows batch files
+
+If you are using output template inside a Windows batch file then you must escape plain percent characters (`%`) by doubling, so that `-o "%(title)s-%(id)s.%(ext)s"` should become `-o "%%(title)s-%%(id)s.%%(ext)s"`. However you should not touch `%`'s that are not plain characters, e.g. environment variables for expansion should stay intact: `-o "C:\%HOMEPATH%\Desktop\%%(title)s.%%(ext)s"`.
 
 #### Output template examples
 
@@ -842,6 +855,12 @@ It is *not* possible to detect whether a URL is supported or not. That's because
 
 If you want to find out whether a given URL is supported, simply call youtube-dl with it. If you get no videos back, chances are the URL is either not referring to a video or unsupported. You can find out which by examining the output (if you run youtube-dl on the console) or catching an `UnsupportedError` exception if you run it from a Python program.
 
+# Why do I need to go through that much red tape when filing bugs?
+
+Before we had the issue template, despite our extensive [bug reporting instructions](#bugs), about 80% of the issue reports we got were useless, for instance because people used ancient versions hundreds of releases old, because of simple syntactic errors (not in youtube-dl but in general shell usage), because the problem was alrady reported multiple times before, because people did not actually read an error message, even if it said "please install ffmpeg", because people did not mention the URL they were trying to download and many more simple, easy-to-avoid problems, many of whom were totally unrelated to youtube-dl.
+
+youtube-dl is an open-source project manned by too few volunteers, so we'd rather spend time fixing bugs where we are certain none of those simple problems apply, and where we can be reasonably confident to be able to reproduce the issue without asking the reporter repeatedly. As such, the output of `youtube-dl -v YOUR_URL_HERE` is really all that's required to file an issue. The issue template also guides you through some basic steps you can do, such as checking that your version of youtube-dl is current.
+
 # DEVELOPER INSTRUCTIONS
 
 Most users do not need to build youtube-dl and can [download the builds](http://rg3.github.io/youtube-dl/download.html) or get them from their distribution.
@@ -916,9 +935,9 @@ After you have ensured this site is distributing it's content legally, you can f
     ```
 5. Add an import in [`youtube_dl/extractor/extractors.py`](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/extractors.py).
 6. Run `python test/test_download.py TestDownload.test_YourExtractor`. This *should fail* at first, but you can continually re-run it until you're done. If you decide to add more than one test, then rename ``_TEST`` to ``_TESTS`` and make it into a list of dictionaries. The tests will then be named `TestDownload.test_YourExtractor`, `TestDownload.test_YourExtractor_1`, `TestDownload.test_YourExtractor_2`, etc.
-7. Have a look at [`youtube_dl/extractor/common.py`](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/common.py) for possible helper methods and a [detailed description of what your extractor should and may return](https://github.com/rg3/youtube-dl/blob/58525c94d547be1c8167d16c298bdd75506db328/youtube_dl/extractor/common.py#L68-L226). Add tests and code for as many as you want.
-8. Keep in mind that the only mandatory fields in info dict for successful extraction process are `id`, `title` and either `url` or `formats`, i.e. these are the critical data the extraction does not make any sense without. This means that [any field](https://github.com/rg3/youtube-dl/blob/58525c94d547be1c8167d16c298bdd75506db328/youtube_dl/extractor/common.py#L138-L226) apart from aforementioned mandatory ones should be treated **as optional** and extraction should be **tolerate** to situations when sources for these fields can potentially be unavailable (even if they always available at the moment) and **future-proof** in order not to break the extraction of general purpose mandatory fields. For example, if you have some intermediate dict `meta` that is a source of metadata and it has a key `summary` that you want to extract and put into resulting info dict as `description`, you should be ready that this key may be missing from the `meta` dict, i.e. you should extract it as `meta.get('summary')` and not `meta['summary']`. Similarly, you should pass `fatal=False` when extracting data from a webpage with `_search_regex/_html_search_regex`.
-9. Check the code with [flake8](https://pypi.python.org/pypi/flake8).
+7. Have a look at [`youtube_dl/extractor/common.py`](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/common.py) for possible helper methods and a [detailed description of what your extractor should and may return](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/common.py#L74-L252). Add tests and code for as many as you want.
+8. Keep in mind that the only mandatory fields in info dict for successful extraction process are `id`, `title` and either `url` or `formats`, i.e. these are the critical data the extraction does not make any sense without. This means that [any field](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/common.py#L148-L252) apart from aforementioned mandatory ones should be treated **as optional** and extraction should be **tolerate** to situations when sources for these fields can potentially be unavailable (even if they always available at the moment) and **future-proof** in order not to break the extraction of general purpose mandatory fields. For example, if you have some intermediate dict `meta` that is a source of metadata and it has a key `summary` that you want to extract and put into resulting info dict as `description`, you should be ready that this key may be missing from the `meta` dict, i.e. you should extract it as `meta.get('summary')` and not `meta['summary']`. Similarly, you should pass `fatal=False` when extracting data from a webpage with `_search_regex/_html_search_regex`.
+9. Check the code with [flake8](https://pypi.python.org/pypi/flake8). Also make sure your code works under all [Python](http://www.python.org/) versions claimed supported by youtube-dl, namely 2.6, 2.7, and 3.2+.
 10. When the tests pass, [add](http://git-scm.com/docs/git-add) the new files and [commit](http://git-scm.com/docs/git-commit) them and [push](http://git-scm.com/docs/git-push) the result, like this:
 
         $ git add youtube_dl/extractor/extractors.py
@@ -945,7 +964,7 @@ with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     ydl.download(['http://www.youtube.com/watch?v=BaW_jenozKc'])
 ```
 
-Most likely, you'll want to use various options. For a list of what can be done, have a look at [`youtube_dl/YoutubeDL.py`](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L121-L269). For a start, if you want to intercept youtube-dl's output, set a `logger` object.
+Most likely, you'll want to use various options. For a list of options available, have a look at [`youtube_dl/YoutubeDL.py`](https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L128-L278). For a start, if you want to intercept youtube-dl's output, set a `logger` object.
 
 Here's a more complete example of a program that outputs only errors (and a short message after the download is finished), and downloads/converts the video to an mp3 file:
 

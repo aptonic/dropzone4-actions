@@ -28,6 +28,7 @@
  - **AdobeTVVideo**
  - **AdultSwim**
  - **aenetworks**: A+E Networks: A&E, Lifetime, History.com, FYI Network
+ - **AfreecaTV**: afreecatv.com
  - **Aftonbladet**
  - **AirMozilla**
  - **AlJazeera**
@@ -253,6 +254,7 @@
  - **Globo**
  - **GloboArticle**
  - **GodTube**
+ - **GodTV**
  - **GoldenMoustache**
  - **Golem**
  - **GoogleDrive**
@@ -533,6 +535,7 @@
  - **revision3:embed**
  - **RICE**
  - **RingTV**
+ - **RockstarGames**
  - **RottenTomatoes**
  - **Roxwel**
  - **RTBF**
@@ -645,6 +648,7 @@
  - **Telegraaf**
  - **TeleMB**
  - **TeleTask**
+ - **Telewebion**
  - **TF1**
  - **TheIntercept**
  - **ThePlatform**
@@ -696,6 +700,7 @@
  - **TVPlay**: TV3Play and related services
  - **Tweakers**
  - **twitch:chapter**
+ - **twitch:clips**
  - **twitch:past_broadcasts**
  - **twitch:profile**
  - **twitch:stream**
@@ -738,6 +743,7 @@
  - **VideoPremium**
  - **VideoTt**: video.tt - Your True Tube (Currently broken)
  - **videoweed**: VideoWeed
+ - **Vidio**
  - **vidme**
  - **vidme:user**
  - **vidme:user:likes**
@@ -773,7 +779,6 @@
  - **VRT**
  - **vube**: Vube.com
  - **VuClip**
- - **vulture.com**
  - **Walla**
  - **washingtonpost**
  - **washingtonpost:article**
@@ -781,10 +786,8 @@
  - **WatchIndianPorn**: Watch Indian Porn
  - **WDR**
  - **wdr:mobile**
- - **WDRMaus**: Sendung mit der Maus
  - **WebOfStories**
  - **WebOfStoriesPlaylist**
- - **Weibo**
  - **WeiqiTV**: WQTV
  - **wholecloud**: WholeCloud
  - **Wimp**
@@ -792,10 +795,11 @@
  - **WNL**
  - **WorldStarHipHop**
  - **wrzuta.pl**
+ - **wrzuta.pl:playlist**
  - **WSJ**: Wall Street Journal
  - **XBef**
  - **XboxClips**
- - **XFileShare**: XFileShare based sites: DaClips, FileHoot, GorillaVid, MovPod, PowerWatch, Rapidvideo.ws, TheVideoBee, Vidto, Streamin.To
+ - **XFileShare**: XFileShare based sites: DaClips, FileHoot, GorillaVid, MovPod, PowerWatch, Rapidvideo.ws, TheVideoBee, Vidto, Streamin.To, XVIDSTAGE
  - **XHamster**
  - **XHamsterEmbed**
  - **xiami:album**: 虾米音乐 - 专辑
@@ -820,6 +824,7 @@
  - **Ynet**
  - **YouJizz**
  - **youku**: 优酷
+ - **youku:show**
  - **YouPorn**
  - **YourUpload**
  - **youtube**: YouTube.com

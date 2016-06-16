@@ -1,20 +1,24 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+import re
+
 from .common import InfoExtractor
 
 from ..utils import (
     determine_ext,
     float_or_none,
     int_or_none,
+    parse_filesize,
 )
 
 
 class LibraryOfCongressIE(InfoExtractor):
     IE_NAME = 'loc'
     IE_DESC = 'Library of Congress'
-    _VALID_URL = r'https?://(?:www\.)?loc\.gov/item/(?P<id>[0-9]+)'
-    _TEST = {
+    _VALID_URL = r'https?://(?:www\.)?loc\.gov/(?:item/|today/cyberlc/feature_wdesc\.php\?.*\brec=)(?P<id>[0-9]+)'
+    _TESTS = [{
+        # embedded via <div class="media-player"
         'url': 'http://loc.gov/item/90716351/',
         'md5': '353917ff7f0255aa6d4b80a034833de8',
         'info_dict': {
@@ -25,7 +29,35 @@ class LibraryOfCongressIE(InfoExtractor):
             'duration': 0,
             'view_count': int,
         },
-    }
+    }, {
+        # webcast embedded via mediaObjectId
+        'url': 'https://www.loc.gov/today/cyberlc/feature_wdesc.php?rec=5578',
+        'info_dict': {
+            'id': '5578',
+            'ext': 'mp4',
+            'title': 'Help! Preservation Training Needs Here, There & Everywhere',
+            'duration': 3765,
+            'view_count': int,
+            'subtitles': 'mincount:1',
+        },
+        'params': {
+            'skip_download': True,
+        },
+    }, {
+        # with direct download links
+        'url': 'https://www.loc.gov/item/78710669/',
+        'info_dict': {
+            'id': '78710669',
+            'ext': 'mp4',
+            'title': 'La vie et la passion de Jesus-Christ',
+            'duration': 0,
+            'view_count': int,
+            'formats': 'mincount:4',
+        },
+        'params': {
+            'skip_download': True,
+        },
+    }]
 
     def _real_extract(self, url):
         video_id = self._match_id(url)
@@ -34,17 +66,19 @@ class LibraryOfCongressIE(InfoExtractor):
         media_id = self._search_regex(
             (r'id=(["\'])media-player-(?P<id>.+?)\1',
              r'<video[^>]+id=(["\'])uuid-(?P<id>.+?)\1',
-             r'<video[^>]+data-uuid=(["\'])(?P<id>.+?)\1'),
+             r'<video[^>]+data-uuid=(["\'])(?P<id>.+?)\1',
+             r'mediaObjectId\s*:\s*(["\'])(?P<id>.+?)\1'),
             webpage, 'media id', group='id')
 
-        data = self._parse_json(
-            self._download_webpage(
-                'https://media.loc.gov/services/v1/media?id=%s&context=json' % media_id,
-                video_id),
+        data = self._download_json(
+            'https://media.loc.gov/services/v1/media?id=%s&context=json' % media_id,
             video_id)['mediaObject']
 
         derivative = data['derivatives'][0]
         media_url = derivative['derivativeUrl']
+
+        title = derivative.get('shortName') or data.get('shortName') or self._og_search_title(
+            webpage)
 
         # Following algorithm was extracted from setAVSource js function
         # found in webpage
@@ -61,6 +95,7 @@ class LibraryOfCongressIE(InfoExtractor):
                 'format_id': 'hls',
                 'ext': 'mp4',
                 'protocol': 'm3u8_native',
+                'quality': 1,
             }]
         elif 'vod/mp3:' in media_url:
             formats = [{
@@ -68,17 +103,41 @@ class LibraryOfCongressIE(InfoExtractor):
                 'vcodec': 'none',
             }]
 
+        download_urls = set()
+        for m in re.finditer(
+                r'<option[^>]+value=(["\'])(?P<url>.+?)\1[^>]+data-file-download=[^>]+>\s*(?P<id>.+?)(?:(?:&nbsp;|\s+)\((?P<size>.+?)\))?\s*<', webpage):
+            format_id = m.group('id').lower()
+            if format_id == 'gif':
+                continue
+            download_url = m.group('url')
+            if download_url in download_urls:
+                continue
+            download_urls.add(download_url)
+            formats.append({
+                'url': download_url,
+                'format_id': format_id,
+                'filesize_approx': parse_filesize(m.group('size')),
+            })
+
         self._sort_formats(formats)
 
-        title = derivative.get('shortName') or data.get('shortName') or self._og_search_title(webpage)
         duration = float_or_none(data.get('duration'))
         view_count = int_or_none(data.get('viewCount'))
+
+        subtitles = {}
+        cc_url = data.get('ccUrl')
+        if cc_url:
+            subtitles.setdefault('en', []).append({
+                'url': cc_url,
+                'ext': 'ttml',
+            })
 
         return {
             'id': video_id,
             'title': title,
-            'thumbnail': self._og_search_thumbnail(webpage),
+            'thumbnail': self._og_search_thumbnail(webpage, default=None),
             'duration': duration,
             'view_count': view_count,
             'formats': formats,
+            'subtitles': subtitles,
         }
