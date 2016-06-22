@@ -1970,7 +1970,7 @@ def js_to_json(code):
         '(?:[^'\\]*(?:\\\\|\\['"nurtbfx/\n]))*[^'\\]*'|
         /\*.*?\*/|,(?=\s*[\]}])|
         [a-zA-Z_][.a-zA-Z_0-9]*|
-        (?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:\s*:)?|
+        \b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:\s*:)?|
         [0-9]+(?=\s*:)
         ''', fix_kv, code)
 
@@ -2852,3 +2852,12 @@ def decode_packed_codes(code):
     return re.sub(
         r'\b(\w+)\b', lambda mobj: symbol_table[mobj.group(0)],
         obfucasted_code)
+
+
+def parse_m3u8_attributes(attrib):
+    info = {}
+    for (key, val) in re.findall(r'(?P<key>[A-Z0-9-]+)=(?P<val>"[^"]+"|[^",]+)(?:,|$)', attrib):
+        if val.startswith('"'):
+            val = val[1:-1]
+        info[key] = val
+    return info

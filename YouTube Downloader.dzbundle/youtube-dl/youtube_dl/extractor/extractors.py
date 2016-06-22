@@ -44,7 +44,6 @@ from .archiveorg import ArchiveOrgIE
 from .ard import (
     ARDIE,
     ARDMediathekIE,
-    SportschauIE,
 )
 from .arte import (
     ArteTvIE,
@@ -71,6 +70,8 @@ from .bandcamp import BandcampIE, BandcampAlbumIE
 from .bbc import (
     BBCCoUkIE,
     BBCCoUkArticleIE,
+    BBCCoUkIPlayerPlaylistIE,
+    BBCCoUkPlaylistIE,
     BBCIE,
 )
 from .beeg import BeegIE
@@ -108,6 +109,10 @@ from .camwithher import CamWithHerIE
 from .canalplus import CanalplusIE
 from .canalc2 import Canalc2IE
 from .canvas import CanvasIE
+from .carambatv import (
+    CarambaTVIE,
+    CarambaTVPageIE,
+)
 from .cbc import (
     CBCIE,
     CBCPlayerIE,
@@ -135,6 +140,7 @@ from .cliprs import ClipRsIE
 from .clipfish import ClipfishIE
 from .cliphunter import CliphunterIE
 from .clipsyndicate import ClipsyndicateIE
+from .closertotruth import CloserToTruthIE
 from .cloudy import CloudyIE
 from .clubic import ClubicIE
 from .clyp import ClypIE
@@ -512,7 +518,10 @@ from .nhl import (
     NHLVideocenterCategoryIE,
     NHLIE,
 )
-from .nick import NickIE
+from .nick import (
+    NickIE,
+    NickDeIE,
+)
 from .niconico import NiconicoIE, NiconicoPlaylistIE
 from .ninegag import NineGagIE
 from .noco import NocoIE
@@ -622,7 +631,10 @@ from .qqmusic import (
     QQMusicToplistIE,
     QQMusicPlaylistIE,
 )
-from .r7 import R7IE
+from .r7 import (
+    R7IE,
+    R7ArticleIE,
+)
 from .radiocanada import (
     RadioCanadaIE,
     RadioCanadaAudioVideoIE,
@@ -738,6 +750,7 @@ from .sportbox import (
     SportBoxEmbedIE,
 )
 from .sportdeutschland import SportDeutschlandIE
+from .sportschau import SportschauIE
 from .srgssr import (
     SRGSSRIE,
     SRGSSRPlayIE,
