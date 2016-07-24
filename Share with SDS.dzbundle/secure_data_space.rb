@@ -192,7 +192,7 @@ class SecureDataSpace
     # Create upload channel
     begin
       api = "/nodes/files/uploads"
-      if @path == "api/v3"
+      if @path == PATH
         response = RestClient.post "#{@host}#{@path}#{api}", {'parentId' => parent_id,'name' => file_name, 'size' => file_size, 'classification' => classification, 'expireAt' => expire_at, 'notes' => notes}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token}
       else
         if expire_at == nil
@@ -244,7 +244,7 @@ class SecureDataSpace
     
     begin
       api = "/shares/downloads"
-      if @path == "api/v3"
+      if @path == PATH
         response = RestClient.post "#{@host}#{@path}#{api}", {'nodeId' => node_id, 'name' => name, 'password' => password, 'notifyCreator' => notify_creator, 'expireAt' => expire_at, 'maxDownloads' => max_downloads, 'showCreatorName' => show_creator_name, 'showCreatorUsername' => show_creator_user_name, 'sendMail' => send_mail, 'mailRecipients' => mail_recipients, 'mailSubject' => mail_subject, 'mailBody' => mail_body}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token} 
       else
         if expire_at == nil
