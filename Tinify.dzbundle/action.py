@@ -3,7 +3,7 @@
 # Description: https://tinypng.com/
 # Handles: Files
 # Creator: ghui
-# URL: ghui.me
+# URL: http://ghui.me
 # Events: Dragged, Clicked
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
@@ -25,7 +25,7 @@ HAS_SHOWED = "has_showed"
 ###############################################################
 
 def dragged():
-    tinify.key = read_value('api_key') #How to check api_key is valid
+    tinify.key = read_value('api_key')
     suffix = get_suffix()
     print("1st suffix: " + suffix)
     upload_and_compress_images(items, suffix)
