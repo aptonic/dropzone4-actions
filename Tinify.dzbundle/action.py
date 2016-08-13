@@ -74,10 +74,10 @@ def check_img_is_valid(img_name):
 
 ######################################################################
 def clicked():
-    save_value(HAS_SHOWED, True)
     show_set_suffix_dialog()
 
 def show_set_suffix_dialog():
+    save_value(HAS_SHOWED, True)
     original_suffix = read_value(SUFFIX_KEY)
     output = dz.cocoa_dialog('standard-inputbox --title "Set suffix for the compressed image" --informative-text "Enter Suffix:" --float --text ' + original_suffix)
     button, input_value = output.splitlines()
