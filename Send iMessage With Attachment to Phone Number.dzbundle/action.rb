@@ -7,15 +7,19 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.3
+# Version: 1.4
 # MinDropzoneVersion: 3.0
 # UniqueID: 1021
 
 def dragged
   $dz.begin("Sending iMessage...")
   
-  # Try to get remote container name from saved values
-  phone_number = ENV['phone_number'].dup
+	# Try to get remote container name from saved values
+	unless ENV['phone_number']
+		phone_number = read_phone_number
+	else
+		phone_number = ENV['phone_number'].dup
+	end
 
   # If not available, then read it and save it
   if phone_number.to_s.strip.length == 0
