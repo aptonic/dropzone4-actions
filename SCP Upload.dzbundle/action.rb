@@ -8,7 +8,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: ExtendedLogin
 # DefaultPort: 22
-# Version: 1.4
+# Version: 1.5
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1009
