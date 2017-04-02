@@ -35,7 +35,7 @@ def dragged
     end
     
     # Remove quotes
-    items = file[1..-2]
+    items = [file[1..-2]]
     delete_zip = true
   else
     # Recursive upload      
@@ -46,7 +46,7 @@ def dragged
   $dz.determinate(false)
 
   remote_paths = SCPUploader.do_upload(items, ENV['remote_path'], $host_info)
-  ZipFiles.delete_zip(items) if delete_zip
+  ZipFiles.delete_zip(items[0]) if delete_zip
   
   # Put URL of uploaded file on pasteboard
   finish_text = "Upload Complete"
