@@ -6,7 +6,7 @@
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.4
+# Version: 1.5
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
@@ -33,7 +33,7 @@ def shorten(item)
   end
   
   begin
-    response = RestClient.get 'https://api-ssl.bitly.com/v3/shorten', {:params => {:login => ENV['username'], :apiKey => ENV['password'], :longUrl => url}}
+    response = RestClient.get 'https://api-ssl.bitly.com/v3/shorten', {:params => {:login => ENV['username'], :apiKey => ENV['password'], :longUrl => URI.unescape(url.to_s)}}
   rescue
     puts $!
     $dz.fail("Failed to connect to Bitly")
