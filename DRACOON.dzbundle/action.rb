@@ -1,23 +1,23 @@
 # Dropzone Action Info
-# Name: Share with Secure Data Space
-# Description: Upload a file to SSP Secure Data Space and create a share link (URL will be placed clipboard). Holding 'Command' (⌘) or 'Option' (⌥) will expire the uploaded file and its share link after 14 days, 'Control' (^) or 'Option' (⌥) will allow you to set a password for the share link. Holding 'Shift' (⇧) just uploads the file without sharing it. Clicking on this Action copies the latest share link to the clipboard.\nIcon is owned by SSP Europe GmbH.
+# Name: DRACOON
+# Description: Upload a file to DRACOON and create a Download Share (URL will be placed in clipboard). Holding 'Command' (⌘) or 'Option' (⌥) will expire the uploaded file and its Download Share after 14 days, 'Control' (^) or 'Option' (⌥) will allow you to set a password for the Download Share. Holding 'Shift' (⇧) just uploads the file without sharing it. Clicking on this Action copies the latest Share Link to the clipboard.\nIcon is property of DRACOON GmbH.
 # Handles: Files
 # Creator: Florian Scheuer
-# URL: https://github.com/F-Pseudonym/dropzone-share-with-sds
+# URL: https://github.com/F-Pseudonym/dropzone-share-with-dracoon
 # Events: Dragged, Clicked
 # KeyModifiers: Command, Control, Option, Shift
 # SkipConfig: No
 # RunsSandboxed: Yes
 # OptionsNIB: ExtendedLogin
-# Version: 1.7
+# Version: 1.8
 # MinDropzoneVersion: 3.0
 # UniqueID: 3920135319837973180911208394894
 
 
 require 'Date'
-require 'secure_data_space'
+require 'dracoon'
 
-DEFAULT_PATH = "Dropzone_Share" #if no remote path is set in config
+DEFAULT_PATH = "DRACOON for Dropzone" #if no remote path is set in config
 DEFAULT_VALIDITY = 14 #days
 
 
@@ -28,7 +28,7 @@ def dragged
     server = "https://" + server
   end
 
-  sds = SecureDataSpace.new server
+  dracoon = Dracoon.new server
 
       
   $dz.begin("Starting Preparations")
@@ -37,7 +37,7 @@ def dragged
   
   # User log-on
   begin
-    auth_token = sds.login ENV["username"], ENV["password"]
+    auth_token = dracoon.login ENV["username"], ENV["password"]
   rescue
     $dz.fail("Login error. Please check console for debug info.")
   end
@@ -62,7 +62,7 @@ def dragged
       end
       
       begin
-        unless sds.check_password_compliance share_password
+        unless dracoon.check_password_compliance share_password
           message = '"Please chose a valid password! (8+ characters, uppercase, lowercase, special chars)"'
           share_password = nil
         end
@@ -95,7 +95,7 @@ def dragged
   path.each do |name|
     # Get Data Rooms to retrieve room_id
     begin
-      nodes = sds.get_nodes_by_name name, container_id, depth_level = 0
+      nodes = dracoon.get_nodes_by_name name, container_id, depth_level = 0
     rescue
       $dz.fail("Error retrieving Folder info. Please check console for debug info.")
     end
@@ -114,13 +114,13 @@ def dragged
       # Create Room/Folder
       if container_id == 0
         begin
-          node = sds.create_room name
+          node = dracoon.create_room name
         rescue
           $dz.fail("Error creating Data Room. Please check console for debug info.")
         end
       else
         begin
-          node = sds.create_folder name, container_id
+          node = dracoon.create_folder name, container_id
         rescue
           $dz.fail("Error creating folder. Please check console for debug info.")
         end
@@ -138,7 +138,7 @@ def dragged
   if $items.count > 1
     name = DateTime.now.strftime('%FT%H-%M-%S.%L')
     begin
-      node = sds.create_folder name, container_id
+      node = dracoon.create_folder name, container_id
     rescue
       $dz.fail("Error creating folder. Please check console for debug info.")
     end
@@ -170,7 +170,7 @@ def dragged
     # Upload File
     begin
       $dz.begin("Uploading #{file_name}")
-      file_info = sds.upload_file File.new(file), container_id, expire_at = expiryDate
+      file_info = dracoon.upload_file File.new(file), container_id, expire_at = expiryDate
     rescue
       $dz.fail("Error uploading file. Please check console for debug info.")
     end
@@ -201,7 +201,7 @@ def dragged
     # Create share link
     begin
       $dz.begin("Creating Share Link")
-      share = sds.create_download_share id, share_name, share_password, false, expire_at = expiryDate
+      share = dracoon.create_download_share id, share_name, share_password, false, expire_at = expiryDate
       access_key = share["accessKey"]
     rescue
       $dz.fail("Error creating Share Link. Please check console for debug info.")
@@ -222,7 +222,7 @@ def dragged
   
   # User logout
   begin
-    sds.logout
+    dracoon.logout
   rescue
     $dz.fail("Error logging off. Please check console for debug info.")
   end
