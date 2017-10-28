@@ -1,15 +1,15 @@
 # Dropzone Action Info
 # Name: Clone Git Repository
-# Description: Drag the URL of a git repository onto this action and it will be cloned into the selected folder.\n\nHold the command key to select a different destination folder.
+# Description: Drag the URL of a git repository onto this action and it will be cloned into the selected folder.\n\nHold the command key to select a different destination folder. Hold Shift to clone all project history.
 # Handles: Text
 # Creator: Dominique Da Silva
 # URL: https://inspira.io
-# OptionsNIB: ChooseFolder 
+# OptionsNIB: ChooseFolder
 # SkipConfig: No
 # RunsSandboxed: No
 # Events: Dragged, Clicked
-# KeyModifiers: Command
-# Version: 1.3
+# KeyModifiers: Command, Shift
+# Version: 1.4
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1031
 
@@ -19,6 +19,7 @@ def dragged
 
   modifier = ENV['KEY_MODIFIERS']
   folder = ENV['path']
+  depth = "--depth 1"
   item = $items[0]
 
   if item =~ /\A#{URI::regexp}\z/
@@ -33,13 +34,19 @@ def dragged
       chosen_folder = $dz.cocoa_dialog("fileselect --title \"Select a folder to clone to\" --informative-text \"Select the folder where you want git to clone this project.\" --select-directories --debug --select-only-directories --string-output --with-directory \"#{folder}\" --no-newline")
       puts chosen_folder
       if chosen_folder.empty?
-        $dz.fail("You must select a folder") 
+        $dz.fail("You must select a folder")
       else
         folder = chosen_folder
       end
     end
-    
+
     absolute_path = File.join(folder, project_folder)
+
+    # Clone all Git project history
+    if modifier == "Shift"
+        puts "Cloning all Git project history."
+        depth = ""
+    end
 
     # Create directory if it doesn't already exist
     if File.exists?(absolute_path) and File.directory?(absolute_path)
@@ -60,7 +67,7 @@ def dragged
     $dz.determinate(false)
 
     # Do the actual clone
-    gitclone = `/usr/bin/git clone #{url} "#{absolute_path}" 2>&1`
+    gitclone = `/usr/bin/git clone #{depth} #{url} "#{absolute_path}" 2>&1`
     if ! $?.success?
       $dz.error("Git clone failed","Git failed to clone the repository:\n#{gitclone}")
       $dz.fail("Git failed to clone the repository.")
