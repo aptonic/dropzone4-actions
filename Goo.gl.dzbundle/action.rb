@@ -9,10 +9,9 @@
 # AuthScope: https://www.googleapis.com/auth/urlshortener
 # SkipValidation: Yes
 # RunsSandboxed: Yes
-# Version: 1.8
+# Version: 1.9
 # MinDropzoneVersion: 3.2.3
 # UniqueID: 1024
-# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'googl'
 
