@@ -1,20 +1,16 @@
-
 require 'rest_client'
 require 'json'
 require 'Date'
 require 'digest'
 require 'securerandom'
 require 'uri'
-require './secure_data_space_user'
 
 
-class SecureDataSpace
+class Dracoon
   attr_reader :host, :auth_token, :user
-  PATH = "/api/v3"
-  ADDITIONAL_PATH = "/api/v4"
+  PATH = "/api/v4"
   VALID_RESOLUTION_STRATEGIES = ['autorename', 'fail', 'overwrite']
-  VALID_LANGUAGES = ['de', 'en']
-
+  
 
   def initialize (host)
     @host = host.strip
@@ -36,45 +32,35 @@ class SecureDataSpace
       api_version = JSON.parse(response)["restApiVersion"]
       @path = PATH
     rescue
-      begin
-        response = RestClient.get "#{@host}/#{ADDITIONAL_PATH}#{api}", {:accept => :json}
-        api_version = JSON.parse(response)["restApiVersion"]
-        @path = ADDITIONAL_PATH
-      rescue
-        puts $!
-      end
+      puts $!
     end
     
-    if !api_version.start_with?("3.") && !api_version.start_with?("4.")
+    if !api_version.start_with?("4.")
       puts "FAIL. No supported API version at #{@path}: #{api_version}"
     end
     
   end
   
   
-  def to_s
-    @host
-  end
-
-
-  def login(username, password, create_user_object = true, language = nil)
-    if language != nil && !(VALID_LANGUAGES.include? language)
-      fail("Invalid resolution language.")
-    end
-    
+  def login(username, password)
     begin
       api = "/auth/login"
-      response = RestClient.post "#{@host}#{@path}#{api}", { 'login' => username, 'password' => password, 'language' => language }.to_json, {:content_type => :json, :accept => :json}
+      response = RestClient.post "#{@host}#{@path}#{api}", { 'login' => username, 'password' => password}.to_json, {:content_type => :json, :accept => :json}
       @auth_token = JSON.parse(response)["token"]
     rescue
       puts $!
       return nil
     end
     
-    if create_user_object
-      self.set_user_object
+    begin
+      api = "/user/account"
+      response = RestClient.get "#{@host}#{@path}#{api}", {:accept => :json, 'X-Sds-Auth-Token' => @auth_token}
+      @user_id = JSON.parse(response)["id"]
+    rescue
+      puts $!
+      return nil
     end
-    
+      
     @auth_token
   end
 
@@ -93,17 +79,6 @@ class SecureDataSpace
   end
 
 
-  def set_user_object
-    self.login_required
-    
-    if @user
-      @user
-    else
-      @user = SecureDataSpaceUser.new self, @auth_token, @path
-    end
-  end
-
-  
   def nodes(parent_id = 0, depth_level = 0, filter = nil, sort = nil, offset = nil, limit = nil)
     self.login_required
     
@@ -145,7 +120,7 @@ class SecureDataSpace
     self.login_required
     
     if admin_ids == nil
-      admin_ids = [@user.id]
+      admin_ids = [@user_id]
     end
     
     begin
@@ -192,16 +167,13 @@ class SecureDataSpace
     # Create upload channel
     begin
       api = "/nodes/files/uploads"
-      if @path == PATH
-        response = RestClient.post "#{@host}#{@path}#{api}", {'parentId' => parent_id,'name' => file_name, 'size' => file_size, 'classification' => classification, 'expireAt' => expire_at, 'notes' => notes}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token}
+      if expire_at == nil
+        expiration = nil
       else
-        if expire_at == nil
-          expiration = nil
-        else
-          expiration = {'expireAt' => expire_at.to_s, 'enableExpiration' => true}
-        end
-        response = RestClient.post "#{@host}#{@path}#{api}", {'parentId' => parent_id,'name' => file_name, 'size' => file_size, 'classification' => classification, 'expiration' => expiration, 'notes' => notes}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token}
+        expiration = {'expireAt' => expire_at.to_s, 'enableExpiration' => true}
       end
+      response = RestClient.post "#{@host}#{@path}#{api}", {'parentId' => parent_id,'name' => file_name, 'size' => file_size, 'classification' => classification, 'expiration' => expiration, 'notes' => notes}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token}
+
       @upload_id = JSON.parse(response)["uploadId"]
     rescue
       puts $!
@@ -244,16 +216,12 @@ class SecureDataSpace
     
     begin
       api = "/shares/downloads"
-      if @path == PATH
-        response = RestClient.post "#{@host}#{@path}#{api}", {'nodeId' => node_id, 'name' => name, 'password' => password, 'notifyCreator' => notify_creator, 'expireAt' => expire_at, 'maxDownloads' => max_downloads, 'showCreatorName' => show_creator_name, 'showCreatorUsername' => show_creator_user_name, 'sendMail' => send_mail, 'mailRecipients' => mail_recipients, 'mailSubject' => mail_subject, 'mailBody' => mail_body}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token} 
+      if expire_at == nil
+        expiration = nil
       else
-        if expire_at == nil
-          expiration = nil
-        else
-          expiration = {'expireAt' => expire_at.to_s, 'enableExpiration' => true}
-        end
-        response = RestClient.post "#{@host}#{@path}#{api}", {'nodeId' => node_id, 'name' => name, 'password' => password, 'notifyCreator' => notify_creator, 'expiration' => expiration, 'maxDownloads' => max_downloads, 'showCreatorName' => show_creator_name, 'showCreatorUsername' => show_creator_user_name, 'sendMail' => send_mail, 'mailRecipients' => mail_recipients, 'mailSubject' => mail_subject, 'mailBody' => mail_body}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token} 
+        expiration = {'expireAt' => expire_at.to_s, 'enableExpiration' => true}
       end
+      response = RestClient.post "#{@host}#{@path}#{api}", {'nodeId' => node_id, 'name' => name, 'password' => password, 'notifyCreator' => notify_creator, 'expiration' => expiration, 'maxDownloads' => max_downloads, 'showCreatorName' => show_creator_name, 'showCreatorUsername' => show_creator_user_name, 'sendMail' => send_mail, 'mailRecipients' => mail_recipients, 'mailSubject' => mail_subject, 'mailBody' => mail_body}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token} 
 
       share = JSON.parse(response)
     rescue
@@ -265,88 +233,7 @@ class SecureDataSpace
     share["link"] = link
     share
   end
-
-
-  def download_shares
-    self.login_required
-    
-    begin
-      api = "/shares/downloads"
-      response = RestClient.get "#{@host}#{@path}#{api}", {:accept => :json, 'X-Sds-Auth-Token' => @auth_token}
-      shares = JSON.parse(response)
-    rescue
-      puts $!
-      fail("Could not retrieve share list.")
-    end
-    shares
-  end
-
-  
-  def create_upload_share(target_id, name = nil, notify_creator = false, expire_at = nil, max_slots = nil, max_size = nil, send_mail = false, mail_recipients = nil, mail_subject = nil, mail_body = nil)
-    self.login_required
-    
-    if !target_id.is_a? Integer
-      fail("Target ID must be an Integer.")
-    end
-    
-    if name == nil
-      name = SecureRandom.uuid
-    end
-    
-    begin
-      api = "/shares/uploads"
-      response = RestClient.post "#{@host}#{@path}#{api}", {'targetId' => target_id, 'name' => name, 'notifyCreator' => notify_creator, 'expireAt' => expire_at, 'maxSlots' => max_slots, 'maxSize' => max_size, 'sendMail' => send_mail, 'mailRecipients' => mail_recipients, 'mailSubject' => mail_subject, 'mailBody' => mail_body}.to_json, {:content_type => :json, :accept => :json, 'X-Sds-Auth-Token' => @auth_token}
-      share = JSON.parse(response)
-    rescue
-      puts $!
-      fail("Could not create Upload Share")
-    end
-    
-    link = "#{@host}/#/public/shares-uploads/#{share["accessKey"]}"
-    share["link"] = link
-    share
-  end
-
-
-  def upload_shares
-    self.login_required
-    
-    begin
-      api = "/shares/uploads"
-      response = RestClient.get "#{@host}#{@path}#{api}", {:accept => :json, 'X-Sds-Auth-Token' => @auth_token}
-      shares = JSON.parse(response)
-    rescue
-      puts $!
-      fail("Could not retrieve share list.")
-    end
-    shares
-  end
-
-
-  def download_share_info(access_key)
-    begin
-      api = "/public/shares/downloads/#{access_key}"
-      response = RestClient.get "#{@host}#{@path}#{api}", {:accept => :json}
-      share = JSON.parse(response)
-    rescue
-      puts $!
-    end
-    share
-  end
-  
-
-
-  def upload_share_info(access_key)
-    begin
-      api = "/public/shares/uploads/#{access_key}"
-      response = RestClient.get "#{@host}#{@path}#{api}", {:accept => :json}
-      share = JSON.parse(response)
-    rescue
-      puts $!
-    end
-    share
-  end
-  
+ 
 
   def check_password_compliance(password)
     self.login_required
@@ -396,4 +283,3 @@ class SecureDataSpace
   
 
 end
-
