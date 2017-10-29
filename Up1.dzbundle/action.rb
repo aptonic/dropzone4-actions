@@ -8,9 +8,8 @@
 # SkipConfig: Yes
 # RunsSandboxed: Yes
 # UniqueID: 2175601
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.0
-# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'rubygems'
 require './bundler/setup'
