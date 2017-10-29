@@ -8,10 +8,9 @@
 # AuthScope: https://www.googleapis.com/auth/youtube.upload
 # Events: Dragged, Clicked
 # RunsSandboxed: Yes
-# Version: 1.7
+# Version: 1.8
 # UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
-# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'youtube'
 
