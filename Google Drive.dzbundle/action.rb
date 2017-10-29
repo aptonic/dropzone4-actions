@@ -9,10 +9,9 @@
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.8
+# Version: 1.9
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1020
-# RubyPath: /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby
 
 require 'gdrive'
 
