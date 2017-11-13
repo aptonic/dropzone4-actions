@@ -5,19 +5,20 @@
 # URL: https://inspira.io
 # Events: Clicked, Dragged
 # SkipConfig: No
-# RunsSandboxed: Yes
-# Version: 1.0
-# MinDropzoneVersion: 3.0
 # Handles: Text
 # OptionsNIB: APIKey
 # LoginTitle: Boxcar User API Key
+# RunsSandboxed: Yes
+# MinDropzoneVersion: 3.0
+# Version: 1.0
+# UniqueID: 7000
 
 require 'notification'
 
 def send(data)
 
 	$dz.begin("Sending message via Boxcar")
-	
+
 	notification = Notification.new('boxcar', ENV['api_key'])
 	notification.message = data.chomp
 	notification.sound = 'beep-soft'
