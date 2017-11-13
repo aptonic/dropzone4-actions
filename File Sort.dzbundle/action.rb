@@ -8,13 +8,15 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 require 'FileUtils'
 
 @folderlist = Array.new
 @destination = ""
+@log = ""
+@fail = ""
 
 def checkFilenameMatch(str)
 	titlePart = str.downcase
@@ -27,7 +29,7 @@ def dragged
 
 	folder      = ENV['path']
 	@folderlist = Dir.glob "#{folder}/*/"
-	
+
 	$items.each do |filepath|
 		filename = File.basename(filepath)
 		filetitle = File.basename(filepath,".*")
@@ -39,7 +41,7 @@ def dragged
 		puts filetitleArr.inspect
 
 		# First two words in filename
-		if filetitleArr.count >= 2 
+		if filetitleArr.count >= 2
 			@destination = checkFilenameMatch("#{filetitleArr[0]} #{filetitleArr[1]}")
 		end
 
@@ -50,7 +52,7 @@ def dragged
 				if part.length > 2 and part !~ /^[0-9]+$/
 					last2Parts.push(part)
 				end
-				if last2Parts.count == 2 then 
+				if last2Parts.count == 2 then
 					break
 				end
 			end
@@ -63,7 +65,7 @@ def dragged
 				if titlePart.length > 2 and titlePart !~ /^[0-9]+$/
 					@destination = checkFilenameMatch(titlePart)
 					if !@destination.nil? then break; end
-				end	
+				end
 			end
 		end
 
@@ -71,18 +73,24 @@ def dragged
 			puts "Found destination! Move file to #{@destination}"
 			$dz.begin("Moving \"#{filename}\" to #{@destination}...")
 			FileUtils.mv(filepath, @destination)
-			$dz.finish("#{filename} moved to #{@destination}")
 			system("open \"#{@destination}\"")
-			break
+			@log = "[Done] Moved \"#{filename}\" to #{File.basename(@destination)}.\n#{@log}"
 		else
-			$dz.fail("Folder for \"#{filename}\" not found!")
+			puts "Folder for \"#{filename}\" not found!"
+			@fail = "[Fail] Folder for \"#{filename}\" not found!\n#{@fail}"
 		end
 	end
 
+	if @fail.empty? then
+		$dz.finish("Finishing sorting files.")
+	else
+		$dz.finish("Finishing sorting files with errors.")
+	end
 	$dz.url(false)
+	$dz.alert("File Sort for "+File.basename(folder),"#{@log}--\n#{@fail}")
 end
 
 def clicked
   folder = ENV['path']
-  system("open #{folder}")
+  system("open \"#{folder}\"")
 end
