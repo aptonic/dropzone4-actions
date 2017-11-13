@@ -8,8 +8,9 @@
 # KeyModifiers: Option
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
 # MinDropzoneVersion: 3.0
+# Version: 1.0
+# UniqueID: 7003
 
 $tmpDir = $dz.temp_folder + '/dztmp-' + Time.now.usec.to_s
 
@@ -22,9 +23,9 @@ def dragged
 	# set the output file and volume name
 	imageName = fileName + '.sparseimage'
 	volumeName = fileName
-	
+
 	tmpSrcDir = "#{$tmpDir}/src";
-	
+
 	# set the output files
 	tmpSparseImage = "#{$tmpDir}/#{imageName}"
 	destination = ENV['HOME'] + '/Desktop'
@@ -34,7 +35,7 @@ def dragged
 		$dz.error("Directory Error.", "Unable to find the destination directory")
 		return
 	end
-	
+
 	# create the tmp directories and copy the files across
 	begin
 		# check to see if the file is a directory (and not an app), and if so then only copy the contents of that folder and not the parent dir like DropDMG
@@ -45,10 +46,10 @@ def dragged
 					# get the full path to the directory
 					files.push($items[0] + '/'  + file)
 				end
-			end	
+			end
 		end
 
-		# create the tmp dir where we will do all the work		
+		# create the tmp dir where we will do all the work
 		system("/bin/mkdir -p \"#{tmpSrcDir}\"")
 
 		# if we have passed in a directory and there are files in it, then copy those otherwise just copy the dragged src
@@ -69,17 +70,17 @@ def dragged
 
 	# create the image file, copy to the desktop and do some cleaning up
 	begin
-		
+
 		# create an encrypted sparse image if a modifier key is held down
 		if ENV["KEY_MODIFIERS"] != "Option"
 			$dz.determinate(false)
 			$dz.begin("Creating Sparse Image...")
-			system("hdiutil create -srcfolder \"#{tmpSrcDir}\" -format UDSP -size 1g -volname \"#{volumeName}\" \"#{tmpSparseImage}\" >& /dev/null") 
+			system("hdiutil create -srcfolder \"#{tmpSrcDir}\" -format UDSP -size 1g -volname \"#{volumeName}\" \"#{tmpSparseImage}\" >& /dev/null")
 		else
 			# get the password
 			output = $dz.cocoa_dialog('secure-standard-inputbox --float --title "Enter a new password to secure ' + imageName + '" --e --informative-text "If you forget this password you will not be able to access the files stored on this image.' + "\n\n" + 'Enter the password:" --button1 "Ok" --button2 "Cancel"')
 			button, password = output.split("\n")
-			
+
 			# stop on cancel
 			if button == "2"
 				cleanup
@@ -87,7 +88,7 @@ def dragged
 				$dz.url(false)
 				return
 			end
-			
+
 			$dz.determinate(false)
 			$dz.begin("Creating Encrypted Sparse Image...")
 
