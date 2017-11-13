@@ -1,17 +1,18 @@
 # Dropzone Action Info
 # Name: Pushover
-# Description: Send message via a Pushover notification (https://pushover.net/). Hold Alt Key to select a device or Shift Key to refresh devices list. 
+# Description: Send message via a Pushover notification (https://pushover.net/). Hold Alt Key to select a device or Shift Key to refresh devices list.
 # Creator: Dominique Da Silva
 # URL: https://inspira.io
 # Events: Clicked, Dragged
 # KeyModifiers: Option, Shift
 # SkipConfig: No
-# RunsSandboxed: Yes
-# Version: 1.1
-# MinDropzoneVersion: 3.0
 # Handles: Text
 # OptionsNIB: APIKey
 # LoginTitle: Pushover User API Key
+# RunsSandboxed: Yes
+# MinDropzoneVersion: 3.0
+# Version: 1.1
+# UniqueID: 7002
 
 require 'notification'
 
@@ -55,7 +56,7 @@ def send(data)
 		puts "Selected device: "+device
 		notification.device = device
 	end
-	
+
 	notification.push # send the message
 
 	$dz.finish("Message sent via Pushover")

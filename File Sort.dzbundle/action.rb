@@ -8,8 +8,9 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.1
 # MinDropzoneVersion: 3.0
+# Version: 1.1
+# UniqueID: 7001
 
 require 'FileUtils'
 
