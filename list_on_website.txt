@@ -1,7 +1,6 @@
 YouTube Downloader
 SCP Upload
 Bitly
-Dropbox
 Google Drive
 ImageShack
 Install Application
@@ -12,7 +11,6 @@ Image Search
 Finder Path
 Screensaver
 Say Text
-Sleep
 Desktop Picture
 Open Terminal at Path
 Mail Link
