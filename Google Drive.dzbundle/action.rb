@@ -2,14 +2,14 @@
 # Name: Google Drive
 # Description: Uploads files to Google Drive.
 # Handles: Files
-# Creator: Alexandru Chirițescu
-# URL: http://alexchiri.com
+# Creator: Aptonic Software
+# URL: http://aptonic.com
 # OptionsNIB: GoogleAuth
 # AuthScope: https://www.googleapis.com/auth/drive
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.9
+# Version: 2.0
 # MinDropzoneVersion: 3.2.1
 # UniqueID: 1020
 

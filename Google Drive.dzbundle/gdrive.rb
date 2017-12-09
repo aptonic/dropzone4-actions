@@ -1,42 +1,14 @@
-require 'bundler/setup'
-require 'google/api_client'
-require 'google/api_client/client_secrets'
-require 'google/api_client/auth/installed_app'
+require 'google/apis/drive_v2'
 
 class Gdrive
-  API_VERSION = 'v2'
-  CACHED_API_FILE = "drive-#{API_VERSION}.cache"
-  CREDENTIAL_STORE_FILE = 'oauth2.json'
+  Drive = Google::Apis::DriveV2
   Folder = Struct.new(:title, :folder_id)
 
   def configure_client
     $dz.begin('Connecting to Google Drive...')
-
-    unique_client_id = ENV['unique_client_id']
-    if unique_client_id.nil? or unique_client_id.to_s.strip.length == 0
-      unique_client_id = urlsafe_base64
-      $dz.save_value('unique_client_id', unique_client_id)
-    end
-
-    temp_file_base_path = "#{$dz.temp_folder}/#{unique_client_id}"
-
-    @client = Google::APIClient.new(:application_name => 'Dropzone 3 action for Google Drive',
-                                    :application_version => '1.0.0')
-    @client.authorization = get_authorization
-
-    @drive = nil
-    temp_cached_api_file = "#{temp_file_base_path}_#{CACHED_API_FILE}"
-    if File.exists? temp_cached_api_file
-      File.open(temp_cached_api_file) do |file|
-        @drive = Marshal.load(file)
-      end
-    else
-      @drive = @client.discovered_api('drive', API_VERSION)
-      File.open(temp_cached_api_file, 'w') do |file|
-        Marshal.dump(@drive, file)
-      end
-    end
-
+    
+    @drive = Drive::DriveService.new
+    @drive.authorization = get_authorization
   end
 
   def get_authorization
@@ -51,7 +23,7 @@ class Gdrive
                                                      :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
                                                      :client_id => ENV['client_id'],
                                                      :client_secret => ENV['client_secret'],
-                                                     :access_token => ENV['access_token']
+                                                     :refresh_token => ENV['refresh_token']
                                                  })
     else
       authorization = Signet::OAuth2::Client.new({
@@ -84,39 +56,24 @@ class Gdrive
     $dz.begin("Uploading #{file_name} to Google Drive...")
     content_type = `file -Ib #{file_path}`.gsub(/\n/, "")
 
-
-    file = @drive.files.insert.request_schema.new({
-                                                      :title => file_name,
-                                                      :mimeType => content_type,
-                                                      :parents => [{:id => folder_id}]
-                                                  })
-
-    media = Google::APIClient::UploadIO.new(file_path, content_type)
-    result = @client.execute(
-        :api_method => @drive.files.insert,
-        :body_object => file,
-        :media => media,
-        :parameters => {
-            :uploadType => 'multipart',
-            :alt => 'json'
-        })
-
-    unless result.success?
-      $dz.error(result.error_message)
+    file = Drive::File.new(title: file_name, :mime_type => content_type)
+    parent = Drive::ParentReference.new(id: folder_id, is_root: true)
+    file.parents = [parent]
+    
+    @drive.insert_file(file, :upload_source => file_path, :content_type => content_type) do |res, err|
+      if err
+        $dz.error("Upload Failed", err.message)
+      end
     end
   end
 
   def get_folders
-    result = @client.execute(
-        :api_method => @drive.files.list,
-        :parameters => {
-            :q => "'root' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
-        })
+    result = @drive.list_files(q: "'root' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false")
 
     # using an array and a struct to guarantee order
     folders = Array.new
-    result.data['items'].each { |item|
-      folders << Folder.new(item['title'], item['id'])
+    result.items.each { |item|
+      folders << Folder.new(item.title, item.id)
     }
 
     folders
@@ -192,28 +149,15 @@ class Gdrive
     $dz.begin("Creating new folder #{folder_name}...")
     content_type = 'application/vnd.google-apps.folder'
 
-    file = @drive.files.insert.request_schema.new({
-                                                      :title => folder_name,
-                                                      :mimeType => content_type
-                                                  })
-    result = @client.execute(
-        :api_method => @drive.files.insert,
-        :body_object => file
-    )
+    file = Drive::File.new(title: folder_name, :mime_type => content_type)
 
-    unless result.success?
-      $dz.error(result.error_message)
+    result = @drive.insert_file(file, :content_type => content_type) do |res, err|
+      if err
+        $dz.error("Failed to create folder", err.message)
+      end
     end
-
-    result.data['id']
+    
+    result.id
   end
 
-  # copied it from http://softover.com/UUID_in_Ruby_1.8
-  def urlsafe_base64(n=nil, padding=false)
-    s = [SecureRandom.random_bytes(n)].pack('m*')
-    s.delete!("\n")
-    s.tr!('+/', '-_')
-    s.delete!('=') unless padding
-    s
-  end
 end
