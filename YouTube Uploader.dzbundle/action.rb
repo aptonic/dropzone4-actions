@@ -2,13 +2,13 @@
 # Name: YouTube Uploader
 # Description: Uploads dragged videos to YouTube. \n\nYou can select the privacy level and after upload it opens the edit page of the video in the default browser.
 # Handles: Files
-# Creator: Alexandru Chirițescu
-# URL: http://alexchiri.com
+# Creator: Aptonic Software
+# URL: http://aptonic.com
 # OptionsNIB: GoogleAuth
 # AuthScope: https://www.googleapis.com/auth/youtube.upload
 # Events: Dragged, Clicked
 # RunsSandboxed: Yes
-# Version: 1.8
+# Version: 2.0
 # UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
 
