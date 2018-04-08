@@ -3,6 +3,7 @@
 # Description: Take a screenshot, add it to ~/Screenshots and add to Drop Bar
 # Creator: Gareth Evans
 # URL: http://yoursite.com
+# OptionsNIB: ChooseFolder
 # Events: Clicked
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
