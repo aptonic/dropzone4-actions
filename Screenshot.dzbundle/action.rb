@@ -9,6 +9,7 @@
 # RunsSandboxed: No
 # Version: 1.0
 # MinDropzoneVersion: 3.0
+# UniqueID: 1037
 
 def clicked
   # Create the Screenshots directory if not already present
