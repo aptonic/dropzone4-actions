@@ -12,13 +12,14 @@
 # UniqueID: 1037
 
 def clicked
-  # Create the Screenshots directory if not already present
-  system("mkdir ~/Screenshots")
+  # Create the Screenshots directory if not already present 
+  # system("mkdir ~/Screenshots") # No longer required with Options:NIB
   
   # Make a filename with the current time
   formatted_time = Time.now.strftime("%F at %I.%M.%S %p")
   filename = "Screen Shot " + formatted_time + ".png"
-  file_path = File.expand_path('~') + "/Screenshots/" + filename
+#  file_path = File.expand_path('~') + "/Screenshots/" + filename # commented out to allow user folder
+   file_path = ENV['EXTRA_PATH'] + "/" + filename
   
   # Capture screenshot
   system("screencapture -i \"" + file_path + "\"")
