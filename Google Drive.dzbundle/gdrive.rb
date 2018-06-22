@@ -95,32 +95,46 @@ class Gdrive
 
       # if there's a valid saved folder, then display it first and reorder array
       unless no_saved_folder
-        folder_names = "#{folder_names} \"#{saved_folder_name}\" "
+        folder_names += "p.option = #{saved_folder_name}\n"
         folders.insert(0, folders.delete_at(index_saved_folder_name))
       end
 
       # arrange the list of folders, don't display the saved folder name again
       folders.each do |folder|
         unless !no_saved_folder and saved_folder_name == folder.title
-          folder_names = "#{folder_names} \"#{folder.title}\" "
+          folder_names += "p.option = #{folder.title}\n"
         end
       end
+      
+      dropdown_config = "
+      *.title = Select a folder
+      p.type = popup
+      p.label = Which folder would like to upload the file(s) to?
+      p.width = 310
+      #{folder_names}
+      cb.type = cancelbutton
+      b.type = button
+      b.label = New Folder
+      "
+      result = $dz.pashua(dropdown_config)
 
-      output = $dz.cocoa_dialog("dropdown --button1 \"OK\" --button2 \"Cancel\"  --button3 \"New folder\" --title \"Select a folder\" --text \"In which folder would like to upload the file(s)?\" --items #{folder_names}")
-      button, folder_index = output.split("\n")
-
-      if button == '2'
-        $dz.fail('Cancelled')
+      if result['cb'] == "1"
+        $dz.fail("Cancelled")
       end
 
       # if the user wants to create a new folder, or use one of the existing ones
-      if button == '3'
+      if result['b'] == "1"
         folder_id = read_folder
       else
-        folder_index_int = Integer(folder_index)
-        selected_folder = folders[folder_index_int]
-        $dz.save_value('folder_name', selected_folder.title)
-        folder_id = selected_folder.folder_id
+        selected_folder = result['p']
+        $dz.save_value('folder_name', selected_folder)
+        
+        folders.each { |folder| 
+          if folder.title == selected_folder
+            folder_id = folder.folder_id
+            break
+          end
+        }
       end
     end
 
@@ -128,13 +142,8 @@ class Gdrive
   end
 
   def read_folder
-    output = $dz.cocoa_dialog("standard-inputbox --button1 \"OK\" --button2 \"Cancel\" --title \"Create new folder\" --informative-text \"Enter the name of the new folder, where the file(s) will be uploaded:\"")
-    button, folder_name = output.split("\n")
-
-    if button == '2'
-      $dz.fail('Cancelled')
-    end
-
+    folder_name = $dz.inputbox("Create new folder", "New folder name:", "Folder name")
+    
     if folder_name.to_s.strip.length == 0
       $dz.fail('You need to choose a folder!')
     end
