@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Behat">
+    <behat_settings>
+      <BehatSettings />
+    </behat_settings>
+  </component>
+  <component name="ComposerJsonPluginSettings">
+    <unboundedVersionInspectionSettings>
+      <excludedPackages />
+    </unboundedVersionInspectionSettings>
+    <customRepositories />
+  </component>
+  <component name="ComposerSettings">
+    <pharPath>/www/wptest/composer.phar</pharPath>
+    <phpPath>/usr/bin/php</phpPath>
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings load_method="PHPUNIT_PHAR" custom_loader_path="" phpunit_phar_path="$_PHP_$/phpunit.bat" />
+    </phpunit_settings>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 7.0.8" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="ruby-2.4.2-p198" project-jdk-type="RUBY_SDK" />
+  <component name="UnicodeBrowser">
+    <option name="fontName" value="Menlo" />
+  </component>
+</project>
