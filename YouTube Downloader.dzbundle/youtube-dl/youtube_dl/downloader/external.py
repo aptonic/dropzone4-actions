@@ -1,12 +1,16 @@
 from __future__ import unicode_literals
 
 import os.path
+import re
 import subprocess
 import sys
-import re
+import time
 
 from .common import FileDownloader
-from ..compat import compat_setenv
+from ..compat import (
+    compat_setenv,
+    compat_str,
+)
 from ..postprocessor.ffmpeg import FFmpegPostProcessor, EXT_TO_OUT_FORMATS
 from ..utils import (
     cli_option,
@@ -17,6 +21,7 @@ from ..utils import (
     encodeArgument,
     handle_youtubedl_headers,
     check_executable,
+    is_outdated_version,
 )
 
 
@@ -25,17 +30,33 @@ class ExternalFD(FileDownloader):
         self.report_destination(filename)
         tmpfilename = self.temp_name(filename)
 
-        retval = self._call_downloader(tmpfilename, info_dict)
+        try:
+            started = time.time()
+            retval = self._call_downloader(tmpfilename, info_dict)
+        except KeyboardInterrupt:
+            if not info_dict.get('is_live'):
+                raise
+            # Live stream downloading cancellation should be considered as
+            # correct and expected termination thus all postprocessing
+            # should take place
+            retval = 0
+            self.to_screen('[%s] Interrupted by user' % self.get_basename())
+
         if retval == 0:
-            fsize = os.path.getsize(encodeFilename(tmpfilename))
-            self.to_screen('\r[%s] Downloaded %s bytes' % (self.get_basename(), fsize))
-            self.try_rename(tmpfilename, filename)
-            self._hook_progress({
-                'downloaded_bytes': fsize,
-                'total_bytes': fsize,
+            status = {
                 'filename': filename,
                 'status': 'finished',
-            })
+                'elapsed': time.time() - started,
+            }
+            if filename != '-':
+                fsize = os.path.getsize(encodeFilename(tmpfilename))
+                self.to_screen('\r[%s] Downloaded %s bytes' % (self.get_basename(), fsize))
+                self.try_rename(tmpfilename, filename)
+                status.update({
+                    'downloaded_bytes': fsize,
+                    'total_bytes': fsize,
+                })
+            self._hook_progress(status)
             return True
         else:
             self.to_stderr('\n')
@@ -96,12 +117,28 @@ class CurlFD(ExternalFD):
         cmd = [self.exe, '--location', '-o', tmpfilename]
         for key, val in info_dict['http_headers'].items():
             cmd += ['--header', '%s: %s' % (key, val)]
+        cmd += self._bool_option('--continue-at', 'continuedl', '-', '0')
+        cmd += self._valueless_option('--silent', 'noprogress')
+        cmd += self._valueless_option('--verbose', 'verbose')
+        cmd += self._option('--limit-rate', 'ratelimit')
+        cmd += self._option('--retry', 'retries')
+        cmd += self._option('--max-filesize', 'max_filesize')
         cmd += self._option('--interface', 'source_address')
         cmd += self._option('--proxy', 'proxy')
         cmd += self._valueless_option('--insecure', 'nocheckcertificate')
         cmd += self._configuration_args()
         cmd += ['--', info_dict['url']]
         return cmd
+
+    def _call_downloader(self, tmpfilename, info_dict):
+        cmd = [encodeArgument(a) for a in self._make_cmd(tmpfilename, info_dict)]
+
+        self._debug_cmd(cmd)
+
+        # curl writes the progress to stderr so don't capture it.
+        p = subprocess.Popen(cmd)
+        p.communicate()
+        return p.returncode
 
 
 class AxelFD(ExternalFD):
@@ -182,6 +219,20 @@ class FFmpegFD(ExternalFD):
 
         args = [ffpp.executable, '-y']
 
+        for log_level in ('quiet', 'verbose'):
+            if self.params.get(log_level, False):
+                args += ['-loglevel', log_level]
+                break
+
+        seekable = info_dict.get('_seekable')
+        if seekable is not None:
+            # setting -seekable prevents ffmpeg from guessing if the server
+            # supports seeking(by adding the header `Range: bytes=0-`), which
+            # can cause problems in some cases
+            # https://github.com/rg3/youtube-dl/issues/11800#issuecomment-275037127
+            # http://trac.ffmpeg.org/ticket/6125#comment:10
+            args += ['-seekable', '1' if seekable else '0']
+
         args += self._configuration_args()
 
         # start_time = info_dict.get('start_time') or 0
@@ -204,6 +255,12 @@ class FFmpegFD(ExternalFD):
         if proxy:
             if not re.match(r'^[\da-zA-Z]+://', proxy):
                 proxy = 'http://%s' % proxy
+
+            if proxy.startswith('socks'):
+                self.report_warning(
+                    '%s does not support SOCKS proxies. Downloading is likely to fail. '
+                    'Consider adding --hls-prefer-native to your command.' % self.get_basename())
+
             # Since December 2015 ffmpeg supports -http_proxy option (see
             # http://git.videolan.org/?p=ffmpeg.git;a=commit;h=b4eb1f29ebddd60c41a2eb39f5af701e38e0d3fd)
             # We could switch to the following code if we are able to detect version properly
@@ -238,11 +295,17 @@ class FFmpegFD(ExternalFD):
                 args += ['-rtmp_live', 'live']
 
         args += ['-i', url, '-c', 'copy']
+
+        if self.params.get('test', False):
+            args += ['-fs', compat_str(self._TEST_FILE_SIZE)]
+
         if protocol in ('m3u8', 'm3u8_native'):
             if self.params.get('hls_use_mpegts', False) or tmpfilename == '-':
                 args += ['-f', 'mpegts']
             else:
-                args += ['-f', 'mp4', '-bsf:a', 'aac_adtstoasc']
+                args += ['-f', 'mp4']
+                if (ffpp.basename == 'ffmpeg' and is_outdated_version(ffpp._versions['ffmpeg'], '3.2', False)) and (not info_dict.get('acodec') or info_dict['acodec'].split('.')[0] in ('aac', 'mp4a')):
+                    args += ['-bsf:a', 'aac_adtstoasc']
         elif protocol == 'rtmp':
             args += ['-f', 'flv']
         else:
@@ -270,6 +333,7 @@ class FFmpegFD(ExternalFD):
 
 class AVconvFD(FFmpegFD):
     pass
+
 
 _BY_NAME = dict(
     (klass.get_basename(), klass)

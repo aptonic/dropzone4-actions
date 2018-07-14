@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding: utf-8
 from __future__ import unicode_literals
 
 from .ard import ARDMediathekIE
@@ -9,8 +9,9 @@ from ..utils import (
 
 
 class SRMediathekIE(ARDMediathekIE):
+    IE_NAME = 'sr:mediathek'
     IE_DESC = 'Saarländischer Rundfunk'
-    _VALID_URL = r'https?://sr-mediathek\.sr-online\.de/index\.php\?.*?&id=(?P<id>[0-9]+)'
+    _VALID_URL = r'https?://sr-mediathek(?:\.sr-online)?\.de/index\.php\?.*?&id=(?P<id>[0-9]+)'
 
     _TESTS = [{
         'url': 'http://sr-mediathek.sr-online.de/index.php?seite=7&id=28455',
@@ -19,7 +20,7 @@ class SRMediathekIE(ARDMediathekIE):
             'ext': 'mp4',
             'title': 'sportarena (26.10.2014)',
             'description': 'Ringen: KSV Köllerbach gegen Aachen-Walheim; Frauen-Fußball: 1. FC Saarbrücken gegen Sindelfingen; Motorsport: Rallye in Losheim; dazu: Interview mit Timo Bernhard; Turnen: TG Saar; Reitsport: Deutscher Voltigier-Pokal; Badminton: Interview mit Michael Fuchs ',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'thumbnail': r're:^https?://.*\.jpg$',
         },
         'skip': 'no longer available',
     }, {
@@ -34,7 +35,9 @@ class SRMediathekIE(ARDMediathekIE):
             # m3u8 download
             'skip_download': True,
         },
-        'expected_warnings': ['Unable to download f4m manifest']
+    }, {
+        'url': 'http://sr-mediathek.de/index.php?seite=7&id=7480',
+        'only_matching': True,
     }]
 
     def _real_extract(self, url):

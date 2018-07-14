@@ -1,7 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import base64
 import datetime
 import hashlib
 import re
@@ -9,6 +8,7 @@ import time
 
 from .common import InfoExtractor
 from ..compat import (
+    compat_b64decode,
     compat_ord,
     compat_str,
     compat_urllib_parse_urlencode,
@@ -20,16 +20,16 @@ from ..utils import (
     int_or_none,
     orderedSet,
     parse_iso8601,
-    sanitized_Request,
     str_or_none,
     url_basename,
+    urshift,
 )
 
 
 class LeIE(InfoExtractor):
     IE_DESC = '乐视网'
-    _VALID_URL = r'https?://(?:www\.le\.com/ptv/vplay|sports\.le\.com/video)/(?P<id>\d+)\.html'
-
+    _VALID_URL = r'https?://(?:www\.le\.com/ptv/vplay|(?:sports\.le|(?:www\.)?lesports)\.com/(?:match|video))/(?P<id>\d+)\.html'
+    _GEO_COUNTRIES = ['CN']
     _URL_TEMPLATE = 'http://www.le.com/ptv/vplay/%s.html'
 
     _TESTS = [{
@@ -50,7 +50,7 @@ class LeIE(InfoExtractor):
             'id': '1415246',
             'ext': 'mp4',
             'title': '美人天下01',
-            'description': 'md5:f88573d9d7225ada1359eaf0dbf8bcda',
+            'description': 'md5:28942e650e82ed4fcc8e4de919ee854d',
         },
         'params': {
             'hls_prefer_native': True,
@@ -68,30 +68,28 @@ class LeIE(InfoExtractor):
         'params': {
             'hls_prefer_native': True,
         },
-        'skip': 'Only available in China',
     }, {
         'url': 'http://sports.le.com/video/25737697.html',
         'only_matching': True,
+    }, {
+        'url': 'http://www.lesports.com/match/1023203003.html',
+        'only_matching': True,
+    }, {
+        'url': 'http://sports.le.com/match/1023203003.html',
+        'only_matching': True,
     }]
 
-    @staticmethod
-    def urshift(val, n):
-        return val >> n if val >= 0 else (val + 0x100000000) >> n
-
-    # ror() and calc_time_key() are reversed from a embedded swf file in KLetvPlayer.swf
+    # ror() and calc_time_key() are reversed from a embedded swf file in LetvPlayer.swf
     def ror(self, param1, param2):
         _loc3_ = 0
         while _loc3_ < param2:
-            param1 = self.urshift(param1, 1) + ((param1 & 1) << 31)
+            param1 = urshift(param1, 1) + ((param1 & 1) << 31)
             _loc3_ += 1
         return param1
 
     def calc_time_key(self, param1):
-        _loc2_ = 773625421
-        _loc3_ = self.ror(param1, _loc2_ % 13)
-        _loc3_ = _loc3_ ^ _loc2_
-        _loc3_ = self.ror(_loc3_, _loc2_ % 17)
-        return _loc3_
+        _loc2_ = 185025305
+        return self.ror(param1, _loc2_ % 17) ^ _loc2_
 
     # see M3U8Encryption class in KLetvPlayer.swf
     @staticmethod
@@ -113,75 +111,81 @@ class LeIE(InfoExtractor):
 
         return bytes(_loc7_)
 
-    def _real_extract(self, url):
-        media_id = self._match_id(url)
-        page = self._download_webpage(url, media_id)
-        params = {
-            'id': media_id,
-            'platid': 1,
-            'splatid': 101,
-            'format': 1,
-            'tkey': self.calc_time_key(int(time.time())),
-            'domain': 'www.le.com'
-        }
-        play_json_req = sanitized_Request(
-            'http://api.le.com/mms/out/video/playJson?' + compat_urllib_parse_urlencode(params)
-        )
-        cn_verification_proxy = self._downloader.params.get('cn_verification_proxy')
-        if cn_verification_proxy:
-            play_json_req.add_header('Ytdl-request-proxy', cn_verification_proxy)
-
-        play_json = self._download_json(
-            play_json_req,
-            media_id, 'Downloading playJson data')
-
+    def _check_errors(self, play_json):
         # Check for errors
-        playstatus = play_json['playstatus']
+        playstatus = play_json['msgs']['playstatus']
         if playstatus['status'] == 0:
             flag = playstatus['flag']
             if flag == 1:
-                msg = 'Country %s auth error' % playstatus['country']
+                self.raise_geo_restricted()
             else:
-                msg = 'Generic error. flag = %d' % flag
-            raise ExtractorError(msg, expected=True)
+                raise ExtractorError('Generic error. flag = %d' % flag, expected=True)
 
-        playurl = play_json['playurl']
+    def _real_extract(self, url):
+        media_id = self._match_id(url)
+        page = self._download_webpage(url, media_id)
 
-        formats = ['350', '1000', '1300', '720p', '1080p']
-        dispatch = playurl['dispatch']
+        play_json_flash = self._download_json(
+            'http://player-pc.le.com/mms/out/video/playJson',
+            media_id, 'Downloading flash playJson data', query={
+                'id': media_id,
+                'platid': 1,
+                'splatid': 105,
+                'format': 1,
+                'source': 1000,
+                'tkey': self.calc_time_key(int(time.time())),
+                'domain': 'www.le.com',
+                'region': 'cn',
+            },
+            headers=self.geo_verification_headers())
+        self._check_errors(play_json_flash)
 
-        urls = []
-        for format_id in formats:
-            if format_id in dispatch:
-                media_url = playurl['domain'][0] + dispatch[format_id][0]
-                media_url += '&' + compat_urllib_parse_urlencode({
+        def get_flash_urls(media_url, format_id):
+            nodes_data = self._download_json(
+                media_url, media_id,
+                'Download JSON metadata for format %s' % format_id,
+                query={
                     'm3v': 1,
                     'format': 1,
                     'expect': 3,
-                    'rateid': format_id,
+                    'tss': 'ios',
                 })
 
-                nodes_data = self._download_json(
-                    media_url, media_id,
-                    'Download JSON metadata for format %s' % format_id)
+            req = self._request_webpage(
+                nodes_data['nodelist'][0]['location'], media_id,
+                note='Downloading m3u8 information for format %s' % format_id)
 
-                req = self._request_webpage(
-                    nodes_data['nodelist'][0]['location'], media_id,
-                    note='Downloading m3u8 information for format %s' % format_id)
+            m3u8_data = self.decrypt_m3u8(req.read())
 
-                m3u8_data = self.decrypt_m3u8(req.read())
+            return {
+                'hls': encode_data_uri(m3u8_data, 'application/vnd.apple.mpegurl'),
+            }
 
-                url_info_dict = {
-                    'url': encode_data_uri(m3u8_data, 'application/vnd.apple.mpegurl'),
-                    'ext': determine_ext(dispatch[format_id][1]),
-                    'format_id': format_id,
-                    'protocol': 'm3u8',
+        extracted_formats = []
+        formats = []
+        playurl = play_json_flash['msgs']['playurl']
+        play_domain = playurl['domain'][0]
+
+        for format_id, format_data in playurl.get('dispatch', []).items():
+            if format_id in extracted_formats:
+                continue
+            extracted_formats.append(format_id)
+
+            media_url = play_domain + format_data[0]
+            for protocol, format_url in get_flash_urls(media_url, format_id).items():
+                f = {
+                    'url': format_url,
+                    'ext': determine_ext(format_data[1]),
+                    'format_id': '%s-%s' % (protocol, format_id),
+                    'protocol': 'm3u8_native' if protocol == 'hls' else 'http',
+                    'quality': int_or_none(format_id),
                 }
 
                 if format_id[-1:] == 'p':
-                    url_info_dict['height'] = int_or_none(format_id[:-1])
+                    f['height'] = int_or_none(format_id[:-1])
 
-                urls.append(url_info_dict)
+                formats.append(f)
+        self._sort_formats(formats, ('height', 'quality', 'format_id'))
 
         publish_time = parse_iso8601(self._html_search_regex(
             r'发布时间&nbsp;([^<>]+) ', page, 'publish time', default=None),
@@ -190,7 +194,7 @@ class LeIE(InfoExtractor):
 
         return {
             'id': media_id,
-            'formats': urls,
+            'formats': formats,
             'title': playurl['title'],
             'thumbnail': playurl['pic'],
             'description': description,
@@ -325,7 +329,7 @@ class LetvCloudIE(InfoExtractor):
                 raise ExtractorError('Letv cloud returned an unknwon error')
 
         def b64decode(s):
-            return base64.b64decode(s.encode('utf-8')).decode('utf-8')
+            return compat_b64decode(s).decode('utf-8')
 
         formats = []
         for media in play_json['data']['video_info']['media'].values():
@@ -344,8 +348,8 @@ class LetvCloudIE(InfoExtractor):
         return formats
 
     def _real_extract(self, url):
-        uu_mobj = re.search('uu=([\w]+)', url)
-        vu_mobj = re.search('vu=([\w]+)', url)
+        uu_mobj = re.search(r'uu=([\w]+)', url)
+        vu_mobj = re.search(r'vu=([\w]+)', url)
 
         if not uu_mobj or not vu_mobj:
             raise ExtractorError('Invalid URL: %s' % url, expected=True)

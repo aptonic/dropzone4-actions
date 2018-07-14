@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding: utf-8
 from __future__ import unicode_literals
 
 import re
@@ -6,15 +6,18 @@ import re
 from .common import InfoExtractor
 from ..compat import (
     compat_parse_qs,
+    compat_str,
     compat_urllib_parse_urlparse,
 )
 from ..utils import (
+    ExtractorError,
     find_xpath_attr,
-    unified_strdate,
     get_element_by_attribute,
     int_or_none,
     NO_DEFAULT,
     qualities,
+    try_get,
+    unified_strdate,
 )
 
 # There are different sources of video in arte.tv, the extraction process
@@ -79,6 +82,16 @@ class ArteTVBaseIE(InfoExtractor):
         info = self._download_json(json_url, video_id)
         player_info = info['videoJsonPlayer']
 
+        vsr = try_get(player_info, lambda x: x['VSR'], dict)
+        if not vsr:
+            error = None
+            if try_get(player_info, lambda x: x['custom_msg']['type']) == 'error':
+                error = try_get(
+                    player_info, lambda x: x['custom_msg']['msg'], compat_str)
+            if not error:
+                error = 'Video %s is not available' % player_info.get('VID') or video_id
+            raise ExtractorError(error, expected=True)
+
         upload_date_str = player_info.get('shootingDate')
         if not upload_date_str:
             upload_date_str = (player_info.get('VRA') or player_info.get('VDA') or '').split(' ')[0]
@@ -107,7 +120,7 @@ class ArteTVBaseIE(InfoExtractor):
         langcode = LANGS.get(lang, lang)
 
         formats = []
-        for format_id, format_dict in player_info['VSR'].items():
+        for format_id, format_dict in vsr.items():
             f = dict(format_dict)
             versionCode = f.get('versionCode')
             l = re.escape(langcode)
@@ -180,13 +193,16 @@ class ArteTVBaseIE(InfoExtractor):
 
 class ArteTVPlus7IE(ArteTVBaseIE):
     IE_NAME = 'arte.tv:+7'
-    _VALID_URL = r'https?://(?:(?:www|sites)\.)?arte\.tv/[^/]+/(?P<lang>fr|de|en|es)/(?:[^/]+/)*(?P<id>[^/?#&]+)'
+    _VALID_URL = r'https?://(?:(?:www|sites)\.)?arte\.tv/(?:[^/]+/)?(?P<lang>fr|de|en|es)/(?:videos/)?(?:[^/]+/)*(?P<id>[^/?#&]+)'
 
     _TESTS = [{
         'url': 'http://www.arte.tv/guide/de/sendungen/XEN/xenius/?vid=055918-015_PLUS7-D',
         'only_matching': True,
     }, {
         'url': 'http://sites.arte.tv/karambolage/de/video/karambolage-22',
+        'only_matching': True,
+    }, {
+        'url': 'http://www.arte.tv/de/videos/048696-000-A/der-kluge-bauch-unser-zweites-gehirn',
         'only_matching': True,
     }]
 
@@ -410,6 +426,22 @@ class ArteTVEmbedIE(ArteTVPlus7IE):
         return self._extract_from_json_url(json_url, video_id, lang)
 
 
+class TheOperaPlatformIE(ArteTVPlus7IE):
+    IE_NAME = 'theoperaplatform'
+    _VALID_URL = r'https?://(?:www\.)?theoperaplatform\.eu/(?P<lang>fr|de|en|es)/(?P<id>[^/?#&]+)'
+
+    _TESTS = [{
+        'url': 'http://www.theoperaplatform.eu/de/opera/verdi-otello',
+        'md5': '970655901fa2e82e04c00b955e9afe7b',
+        'info_dict': {
+            'id': '060338-009-A',
+            'ext': 'mp4',
+            'title': 'Verdi - OTELLO',
+            'upload_date': '20160927',
+        },
+    }]
+
+
 class ArteTVPlaylistIE(ArteTVBaseIE):
     IE_NAME = 'arte.tv:playlist'
     _VALID_URL = r'https?://(?:www\.)?arte\.tv/guide/(?P<lang>fr|de|en|es)/[^#]*#collection/(?P<id>PL-\d+)'
@@ -419,6 +451,7 @@ class ArteTVPlaylistIE(ArteTVBaseIE):
         'info_dict': {
             'id': 'PL-013263',
             'title': 'Areva & Uramin',
+            'description': 'md5:a1dc0312ce357c262259139cfd48c9bf',
         },
         'playlist_mincount': 6,
     }, {

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 from __future__ import unicode_literals
 
 
@@ -31,7 +31,8 @@ class EmbedThumbnailPP(FFmpegPostProcessor):
         temp_filename = prepend_extension(filename, 'temp')
 
         if not info.get('thumbnails'):
-            raise EmbedThumbnailPPError('Thumbnail was not found. Nothing to do.')
+            self._downloader.to_screen('[embedthumbnail] There aren\'t any thumbnails to embed')
+            return [], info
 
         thumbnail_filename = info['thumbnails'][-1]['filename']
 
@@ -40,7 +41,7 @@ class EmbedThumbnailPP(FFmpegPostProcessor):
                 'Skipping embedding the thumbnail because the file is missing.')
             return [], info
 
-        if info['ext'] in ('mp3', 'mkv'):
+        if info['ext'] == 'mp3':
             options = [
                 '-c', 'copy', '-map', '0', '-map', '1',
                 '-metadata:s:v', 'title="Album cover"', '-metadata:s:v', 'comment="Cover (Front)"']

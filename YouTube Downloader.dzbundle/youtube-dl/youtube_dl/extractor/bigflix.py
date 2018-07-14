@@ -1,32 +1,25 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import base64
 import re
 
 from .common import InfoExtractor
-from ..compat import compat_urllib_parse_unquote
+from ..compat import (
+    compat_b64decode,
+    compat_urllib_parse_unquote,
+)
 
 
 class BigflixIE(InfoExtractor):
     _VALID_URL = r'https?://(?:www\.)?bigflix\.com/.+/(?P<id>[0-9]+)'
     _TESTS = [{
-        'url': 'http://www.bigflix.com/Hindi-movies/Action-movies/Singham-Returns/16537',
-        'md5': 'ec76aa9b1129e2e5b301a474e54fab74',
-        'info_dict': {
-            'id': '16537',
-            'ext': 'mp4',
-            'title': 'Singham Returns',
-            'description': 'md5:3d2ba5815f14911d5cc6a501ae0cf65d',
-        }
-    }, {
         # 2 formats
         'url': 'http://www.bigflix.com/Tamil-movies/Drama-movies/Madarasapatinam/16070',
         'info_dict': {
             'id': '16070',
             'ext': 'mp4',
             'title': 'Madarasapatinam',
-            'description': 'md5:63b9b8ed79189c6f0418c26d9a3452ca',
+            'description': 'md5:9f0470b26a4ba8e824c823b5d95c2f6b',
             'formats': 'mincount:2',
         },
         'params': {
@@ -48,8 +41,8 @@ class BigflixIE(InfoExtractor):
             webpage, 'title')
 
         def decode_url(quoted_b64_url):
-            return base64.b64decode(compat_urllib_parse_unquote(
-                quoted_b64_url).encode('ascii')).decode('utf-8')
+            return compat_b64decode(compat_urllib_parse_unquote(
+                quoted_b64_url)).decode('utf-8')
 
         formats = []
         for height, encoded_url in re.findall(

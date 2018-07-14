@@ -19,6 +19,7 @@ class TF1IE(InfoExtractor):
             # Sometimes wat serves the whole file with the --test option
             'skip_download': True,
         },
+        'expected_warnings': ['HTTP Error 404'],
     }, {
         'url': 'http://www.tfou.fr/chuggington/videos/le-grand-mysterioso-chuggington-7085291-739.html',
         'info_dict': {
@@ -48,6 +49,6 @@ class TF1IE(InfoExtractor):
         video_id = self._match_id(url)
         webpage = self._download_webpage(url, video_id)
         wat_id = self._html_search_regex(
-            r'(["\'])(?:https?:)?//www\.wat\.tv/embedframe/.*?(?P<id>\d{8}).*?\1',
+            r'(["\'])(?:https?:)?//www\.wat\.tv/embedframe/.*?(?P<id>\d{8})\1',
             webpage, 'wat id', group='id')
         return self.url_result('wat:%s' % wat_id, 'Wat')

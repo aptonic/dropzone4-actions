@@ -8,11 +8,13 @@ from .xstream import XstreamIE
 from ..utils import (
     ExtractorError,
     float_or_none,
+    try_get,
 )
 
 
 class VGTVIE(XstreamIE):
     IE_DESC = 'VGTV, BTTV, FTV, Aftenposten and Aftonbladet'
+    _GEO_BYPASS = False
 
     _HOST_TO_APPNAME = {
         'vgtv.no': 'vgtv',
@@ -21,6 +23,8 @@ class VGTVIE(XstreamIE):
         'fvn.no/fvntv': 'fvntv',
         'aftenposten.no/webtv': 'aptv',
         'ap.vgtv.no/webtv': 'aptv',
+        'tv.aftonbladet.se/abtv': 'abtv',
+        'www.aftonbladet.se/tv': 'abtv',
     }
 
     _APP_NAME_TO_VENDOR = {
@@ -29,6 +33,7 @@ class VGTVIE(XstreamIE):
         'satv': 'sa',
         'fvntv': 'fvn',
         'aptv': 'ap',
+        'abtv': 'ab',
     }
 
     _VALID_URL = r'''(?x)
@@ -38,8 +43,9 @@ class VGTVIE(XstreamIE):
                     )
                     /?
                     (?:
-                        \#!/(?:video|live)/|
-                        embed?.*id=
+                        (?:\#!/)?(?:video|live)/|
+                        embed?.*id=|
+                        a(?:rticles)?/
                     )|
                     (?P<appname>
                         %s
@@ -57,7 +63,7 @@ class VGTVIE(XstreamIE):
                 'ext': 'mp4',
                 'title': 'Hevnen er søt: Episode 10 - Abu',
                 'description': 'md5:e25e4badb5f544b04341e14abdc72234',
-                'thumbnail': 're:^https?://.*\.jpg',
+                'thumbnail': r're:^https?://.*\.jpg',
                 'duration': 648.000,
                 'timestamp': 1404626400,
                 'upload_date': '20140706',
@@ -72,7 +78,7 @@ class VGTVIE(XstreamIE):
                 'ext': 'flv',
                 'title': 'OPPTAK: VGTV følger EM-kvalifiseringen',
                 'description': 'md5:3772d9c0dc2dff92a886b60039a7d4d3',
-                'thumbnail': 're:^https?://.*\.jpg',
+                'thumbnail': r're:^https?://.*\.jpg',
                 'duration': 9103.0,
                 'timestamp': 1410113864,
                 'upload_date': '20140907',
@@ -92,7 +98,7 @@ class VGTVIE(XstreamIE):
                 'ext': 'mp4',
                 'title': 'V75 fra Solvalla 30.05.15',
                 'description': 'md5:b3743425765355855f88e096acc93231',
-                'thumbnail': 're:^https?://.*\.jpg',
+                'thumbnail': r're:^https?://.*\.jpg',
                 'duration': 25966,
                 'timestamp': 1432975582,
                 'upload_date': '20150530',
@@ -129,6 +135,27 @@ class VGTVIE(XstreamIE):
             'url': 'http://ap.vgtv.no/webtv#!/video/111084/de-nye-bysyklene-lettere-bedre-gir-stoerre-hjul-og-feste-til-mobil',
             'only_matching': True,
         },
+        {
+            # geoblocked
+            'url': 'http://www.vgtv.no/#!/video/127205/inside-the-mind-of-favela-funk',
+            'only_matching': True,
+        },
+        {
+            'url': 'http://tv.aftonbladet.se/abtv/articles/36015',
+            'only_matching': True,
+        },
+        {
+            'url': 'https://www.aftonbladet.se/tv/a/36015',
+            'only_matching': True,
+        },
+        {
+            'url': 'abtv:140026',
+            'only_matching': True,
+        },
+        {
+            'url': 'http://www.vgtv.no/video/84196/hevnen-er-soet-episode-10-abu',
+            'only_matching': True,
+        },
     ]
 
     def _real_extract(self, url):
@@ -156,13 +183,15 @@ class VGTVIE(XstreamIE):
 
         streams = data['streamUrls']
         stream_type = data.get('streamType')
-
+        is_live = stream_type == 'live'
         formats = []
 
         hls_url = streams.get('hls')
         if hls_url:
             formats.extend(self._extract_m3u8_formats(
-                hls_url, video_id, 'mp4', m3u8_id='hls', fatal=False))
+                hls_url, video_id, 'mp4',
+                entry_protocol='m3u8' if is_live else 'm3u8_native',
+                m3u8_id='hls', fatal=False))
 
         hds_url = streams.get('hds')
         if hds_url:
@@ -183,7 +212,7 @@ class VGTVIE(XstreamIE):
             format_info = {
                 'url': mp4_url,
             }
-            mobj = re.search('(\d+)_(\d+)_(\d+)', mp4_url)
+            mobj = re.search(r'(\d+)_(\d+)_(\d+)', mp4_url)
             if mobj:
                 tbr = int(mobj.group(3))
                 format_info.update({
@@ -196,17 +225,24 @@ class VGTVIE(XstreamIE):
 
         info['formats'].extend(formats)
 
+        if not info['formats']:
+            properties = try_get(
+                data, lambda x: x['streamConfiguration']['properties'], list)
+            if properties and 'geoblocked' in properties:
+                raise self.raise_geo_restricted(
+                    countries=[host.rpartition('.')[-1].partition('/')[0].upper()])
+
         self._sort_formats(info['formats'])
 
         info.update({
             'id': video_id,
-            'title': self._live_title(data['title']) if stream_type == 'live' else data['title'],
+            'title': self._live_title(data['title']) if is_live else data['title'],
             'description': data['description'],
             'thumbnail': data['images']['main'] + '?t[]=900x506q80',
             'timestamp': data['published'],
             'duration': float_or_none(data['duration'], 1000),
             'view_count': data['displays'],
-            'is_live': True if stream_type == 'live' else False,
+            'is_live': is_live,
         })
         return info
 
@@ -223,7 +259,7 @@ class BTArticleIE(InfoExtractor):
             'ext': 'mp4',
             'title': 'Alrekstad internat',
             'description': 'md5:dc81a9056c874fedb62fc48a300dac58',
-            'thumbnail': 're:^https?://.*\.jpg',
+            'thumbnail': r're:^https?://.*\.jpg',
             'duration': 191,
             'timestamp': 1289991323,
             'upload_date': '20101117',

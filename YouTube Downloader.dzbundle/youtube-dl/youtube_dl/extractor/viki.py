@@ -1,11 +1,12 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import json
-import time
-import hmac
 import hashlib
+import hmac
 import itertools
+import json
+import re
+import time
 
 from .common import InfoExtractor
 from ..utils import (
@@ -22,10 +23,11 @@ class VikiBaseIE(InfoExtractor):
     _API_QUERY_TEMPLATE = '/v4/%sapp=%s&t=%s&site=www.viki.com'
     _API_URL_TEMPLATE = 'http://api.viki.io%s&sig=%s'
 
-    _APP = '65535a'
+    _APP = '100005a'
     _APP_VERSION = '2.2.5.1428709186'
-    _APP_SECRET = '-$iJ}@p7!G@SyU/je1bEyWg}upLu-6V6-Lg9VD(]siH,r.,m-r|ulZ,U4LC/SeR)'
+    _APP_SECRET = 'MM_d*yP@`&1@]@!AVrXf_o-HVEnoTnm$O-ti4[G~$JDI/Dc-&piU&z&5.;:}95=Iad'
 
+    _GEO_BYPASS = False
     _NETRC_MACHINE = 'viki'
 
     _token = None
@@ -76,14 +78,17 @@ class VikiBaseIE(InfoExtractor):
     def _check_errors(self, data):
         for reason, status in data.get('blocking', {}).items():
             if status and reason in self._ERRORS:
+                message = self._ERRORS[reason]
+                if reason == 'geo':
+                    self.raise_geo_restricted(msg=message)
                 raise ExtractorError('%s said: %s' % (
-                    self.IE_NAME, self._ERRORS[reason]), expected=True)
+                    self.IE_NAME, message), expected=True)
 
     def _real_initialize(self):
         self._login()
 
     def _login(self):
-        (username, password) = self._get_login_info()
+        username, password = self._get_login_info()
         if username is None:
             return
 
@@ -94,7 +99,7 @@ class VikiBaseIE(InfoExtractor):
 
         login = self._call_api(
             'sessions.json', None,
-            'Logging in as %s' % username, post_data=login_form)
+            'Logging in', post_data=login_form)
 
         self._token = login.get('token')
         if not self._token:
@@ -130,7 +135,7 @@ class VikiIE(VikiBaseIE):
     }, {
         # clip
         'url': 'http://www.viki.com/videos/1067139v-the-avengers-age-of-ultron-press-conference',
-        'md5': 'feea2b1d7b3957f70886e6dfd8b8be84',
+        'md5': '86c0b5dbd4d83a6611a79987cc7a1989',
         'info_dict': {
             'id': '1067139v',
             'ext': 'mp4',
@@ -156,15 +161,11 @@ class VikiIE(VikiBaseIE):
             'like_count': int,
             'age_limit': 13,
         },
-        'params': {
-            # m3u8 download
-            'skip_download': True,
-        },
         'skip': 'Blocked in the US',
     }, {
         # episode
         'url': 'http://www.viki.com/videos/44699v-boys-over-flowers-episode-1',
-        'md5': '1f54697dabc8f13f31bf06bb2e4de6db',
+        'md5': '5fa476a902e902783ac7a4d615cdbc7a',
         'info_dict': {
             'id': '44699v',
             'ext': 'mp4',
@@ -200,7 +201,7 @@ class VikiIE(VikiBaseIE):
     }, {
         # non-English description
         'url': 'http://www.viki.com/videos/158036v-love-in-magic',
-        'md5': '013dc282714e22acf9447cad14ff1208',
+        'md5': '1713ae35df5a521b31f6dc40730e7c9c',
         'info_dict': {
             'id': '158036v',
             'ext': 'mp4',
@@ -280,13 +281,38 @@ class VikiIE(VikiBaseIE):
             height = int_or_none(self._search_regex(
                 r'^(\d+)[pP]$', format_id, 'height', default=None))
             for protocol, format_dict in stream_dict.items():
+                # rtmps URLs does not seem to work
+                if protocol == 'rtmps':
+                    continue
+                format_url = format_dict['url']
                 if format_id == 'm3u8':
-                    formats.extend(self._extract_m3u8_formats(
-                        format_dict['url'], video_id, 'mp4', 'm3u8_native',
-                        m3u8_id='m3u8-%s' % protocol, fatal=False))
+                    m3u8_formats = self._extract_m3u8_formats(
+                        format_url, video_id, 'mp4',
+                        entry_protocol='m3u8_native',
+                        m3u8_id='m3u8-%s' % protocol, fatal=False)
+                    # Despite CODECS metadata in m3u8 all video-only formats
+                    # are actually video+audio
+                    for f in m3u8_formats:
+                        if f.get('acodec') == 'none' and f.get('vcodec') != 'none':
+                            f['acodec'] = None
+                    formats.extend(m3u8_formats)
+                elif format_url.startswith('rtmp'):
+                    mobj = re.search(
+                        r'^(?P<url>rtmp://[^/]+/(?P<app>.+?))/(?P<playpath>mp4:.+)$',
+                        format_url)
+                    if not mobj:
+                        continue
+                    formats.append({
+                        'format_id': 'rtmp-%s' % format_id,
+                        'ext': 'flv',
+                        'url': mobj.group('url'),
+                        'play_path': mobj.group('playpath'),
+                        'app': mobj.group('app'),
+                        'page_url': url,
+                    })
                 else:
                     formats.append({
-                        'url': format_dict['url'],
+                        'url': format_url,
                         'format_id': '%s-%s' % (format_id, protocol),
                         'height': height,
                     })

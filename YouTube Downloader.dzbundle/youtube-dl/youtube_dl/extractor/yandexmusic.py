@@ -34,8 +34,8 @@ class YandexMusicBaseIE(InfoExtractor):
             'youtube-dl with --cookies',
             expected=True)
 
-    def _download_webpage(self, *args, **kwargs):
-        webpage = super(YandexMusicBaseIE, self)._download_webpage(*args, **kwargs)
+    def _download_webpage_handle(self, *args, **kwargs):
+        webpage = super(YandexMusicBaseIE, self)._download_webpage_handle(*args, **kwargs)
         if 'Нам очень жаль, но&nbsp;запросы, поступившие с&nbsp;вашего IP-адреса, похожи на&nbsp;автоматические.' in webpage:
             self._raise_captcha()
         return webpage
@@ -57,14 +57,14 @@ class YandexMusicTrackIE(YandexMusicBaseIE):
         'info_dict': {
             'id': '4878838',
             'ext': 'mp3',
-            'title': 'Carlo Ambrosio & Fabio Di Bari, Carlo Ambrosio - Gypsy Eyes 1',
+            'title': 'Carlo Ambrosio, Carlo Ambrosio & Fabio Di Bari - Gypsy Eyes 1',
             'filesize': 4628061,
             'duration': 193.04,
             'track': 'Gypsy Eyes 1',
             'album': 'Gypsy Soul',
             'album_artist': 'Carlo Ambrosio',
-            'artist': 'Carlo Ambrosio & Fabio Di Bari, Carlo Ambrosio',
-            'release_year': '2009',
+            'artist': 'Carlo Ambrosio, Carlo Ambrosio & Fabio Di Bari',
+            'release_year': 2009,
         },
         'skip': 'Travis CI servers blocked by YandexMusic',
     }
@@ -74,6 +74,12 @@ class YandexMusicTrackIE(YandexMusicBaseIE):
             'http://music.yandex.ru/api/v1.5/handlers/api-jsonp.jsx?action=getTrackSrc&p=download-info/%s'
             % storage_dir,
             track_id, 'Downloading track location JSON')
+
+        # Each string is now wrapped in a list, this is probably only temporarily thus
+        # supporting both scenarios (see https://github.com/rg3/youtube-dl/issues/10193)
+        for k, v in data.items():
+            if v and isinstance(v, list):
+                data[k] = v[0]
 
         key = hashlib.md5(('XGRlBW9FXlekgbPrRHuSiA' + data['path'][1:] + data['s']).encode('utf-8')).hexdigest()
         storage = storage_dir.split('.')
@@ -114,7 +120,7 @@ class YandexMusicTrackIE(YandexMusicBaseIE):
                 track_info.update({
                     'album': album.get('title'),
                     'album_artist': extract_artist(album.get('artists')),
-                    'release_year': compat_str(year) if year else None,
+                    'release_year': int_or_none(year),
                 })
 
         track_artist = extract_artist(track.get('artists'))
@@ -228,7 +234,8 @@ class YandexMusicPlaylistIE(YandexMusicPlaylistBaseIE):
                 'overembed': 'false',
             })['playlist']
 
-        tracks, track_ids = playlist['tracks'], map(compat_str, playlist['trackIds'])
+        tracks = playlist['tracks']
+        track_ids = [compat_str(track_id) for track_id in playlist['trackIds']]
 
         # tracks dictionary shipped with playlist.jsx API is limited to 150 tracks,
         # missing tracks should be retrieved manually.

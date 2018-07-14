@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding: utf-8
 
 from __future__ import unicode_literals
 
@@ -32,7 +32,7 @@ class DaumIE(InfoExtractor):
             'title': '마크 헌트 vs 안토니오 실바',
             'description': 'Mark Hunt vs Antonio Silva',
             'upload_date': '20131217',
-            'thumbnail': 're:^https?://.*\.(?:jpg|png)',
+            'thumbnail': r're:^https?://.*\.(?:jpg|png)',
             'duration': 2117,
             'view_count': int,
             'comment_count': int,
@@ -45,7 +45,7 @@ class DaumIE(InfoExtractor):
             'title': '1297회, \'아빠 아들로 태어나길 잘 했어\' 민수, 감동의 눈물[아빠 어디가] 20150118',
             'description': 'md5:79794514261164ff27e36a21ad229fc5',
             'upload_date': '20150604',
-            'thumbnail': 're:^https?://.*\.(?:jpg|png)',
+            'thumbnail': r're:^https?://.*\.(?:jpg|png)',
             'duration': 154,
             'view_count': int,
             'comment_count': int,
@@ -61,27 +61,37 @@ class DaumIE(InfoExtractor):
             'title': '01-Korean War ( Trouble on the horizon )',
             'description': '\nKorean War 01\nTrouble on the horizon\n전쟁의 먹구름',
             'upload_date': '20080223',
-            'thumbnail': 're:^https?://.*\.(?:jpg|png)',
+            'thumbnail': r're:^https?://.*\.(?:jpg|png)',
             'duration': 249,
             'view_count': int,
             'comment_count': int,
+        },
+    }, {
+        # Requires dte_type=WEB (#9972)
+        'url': 'http://tvpot.daum.net/v/s3794Uf1NZeZ1qMpGpeqeRU',
+        'md5': 'a8917742069a4dd442516b86e7d66529',
+        'info_dict': {
+            'id': 's3794Uf1NZeZ1qMpGpeqeRU',
+            'ext': 'mp4',
+            'title': '러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny) [쇼! 음악중심] 508회 20160611',
+            'description': '러블리즈 - Destiny (나의 지구) (Lovelyz - Destiny)\n\n[쇼! 음악중심] 20160611, 507회',
+            'upload_date': '20160611',
         },
     }]
 
     def _real_extract(self, url):
         video_id = compat_urllib_parse_unquote(self._match_id(url))
-        query = compat_urllib_parse_urlencode({'vid': video_id})
         movie_data = self._download_json(
-            'http://videofarm.daum.net/controller/api/closed/v1_2/IntegratedMovieData.json?' + query,
-            video_id, 'Downloading video formats info')
+            'http://videofarm.daum.net/controller/api/closed/v1_2/IntegratedMovieData.json',
+            video_id, 'Downloading video formats info', query={'vid': video_id, 'dte_type': 'WEB'})
 
         # For urls like http://m.tvpot.daum.net/v/65139429, where the video_id is really a clipid
         if not movie_data.get('output_list', {}).get('output_list') and re.match(r'^\d+$', video_id):
             return self.url_result('http://tvpot.daum.net/clip/ClipView.do?clipid=%s' % video_id)
 
         info = self._download_xml(
-            'http://tvpot.daum.net/clip/ClipInfoXml.do?' + query, video_id,
-            'Downloading video info')
+            'http://tvpot.daum.net/clip/ClipInfoXml.do', video_id,
+            'Downloading video info', query={'vid': video_id})
 
         formats = []
         for format_el in movie_data['output_list']['output_list']:
@@ -129,7 +139,7 @@ class DaumClipIE(InfoExtractor):
             'title': 'DOTA 2GETHER 시즌2 6회 - 2부',
             'description': 'DOTA 2GETHER 시즌2 6회 - 2부',
             'upload_date': '20130831',
-            'thumbnail': 're:^https?://.*\.(?:jpg|png)',
+            'thumbnail': r're:^https?://.*\.(?:jpg|png)',
             'duration': 3868,
             'view_count': int,
         },

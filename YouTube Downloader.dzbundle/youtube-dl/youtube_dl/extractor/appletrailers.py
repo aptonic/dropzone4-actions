@@ -7,6 +7,8 @@ from .common import InfoExtractor
 from ..compat import compat_urlparse
 from ..utils import (
     int_or_none,
+    parse_duration,
+    unified_strdate,
 )
 
 
@@ -16,7 +18,8 @@ class AppleTrailersIE(InfoExtractor):
     _TESTS = [{
         'url': 'http://trailers.apple.com/trailers/wb/manofsteel/',
         'info_dict': {
-            'id': 'manofsteel',
+            'id': '5111',
+            'title': 'Man of Steel',
         },
         'playlist': [
             {
@@ -67,9 +70,19 @@ class AppleTrailersIE(InfoExtractor):
     }, {
         'url': 'http://trailers.apple.com/trailers/magnolia/blackthorn/',
         'info_dict': {
-            'id': 'blackthorn',
+            'id': '4489',
+            'title': 'Blackthorn',
         },
         'playlist_mincount': 2,
+        'expected_warnings': ['Unable to download JSON metadata'],
+    }, {
+        # json data only available from http://trailers.apple.com/trailers/feeds/data/15881.json
+        'url': 'http://trailers.apple.com/trailers/fox/kungfupanda3/',
+        'info_dict': {
+            'id': '15881',
+            'title': 'Kung Fu Panda 3',
+        },
+        'playlist_mincount': 4,
     }, {
         'url': 'http://trailers.apple.com/ca/metropole/autrui/',
         'only_matching': True,
@@ -84,6 +97,45 @@ class AppleTrailersIE(InfoExtractor):
         mobj = re.match(self._VALID_URL, url)
         movie = mobj.group('movie')
         uploader_id = mobj.group('company')
+
+        webpage = self._download_webpage(url, movie)
+        film_id = self._search_regex(r"FilmId\s*=\s*'(\d+)'", webpage, 'film id')
+        film_data = self._download_json(
+            'http://trailers.apple.com/trailers/feeds/data/%s.json' % film_id,
+            film_id, fatal=False)
+
+        if film_data:
+            entries = []
+            for clip in film_data.get('clips', []):
+                clip_title = clip['title']
+
+                formats = []
+                for version, version_data in clip.get('versions', {}).items():
+                    for size, size_data in version_data.get('sizes', {}).items():
+                        src = size_data.get('src')
+                        if not src:
+                            continue
+                        formats.append({
+                            'format_id': '%s-%s' % (version, size),
+                            'url': re.sub(r'_(\d+p\.mov)', r'_h\1', src),
+                            'width': int_or_none(size_data.get('width')),
+                            'height': int_or_none(size_data.get('height')),
+                            'language': version[:2],
+                        })
+                self._sort_formats(formats)
+
+                entries.append({
+                    'id': movie + '-' + re.sub(r'[^a-zA-Z0-9]', '', clip_title).lower(),
+                    'formats': formats,
+                    'title': clip_title,
+                    'thumbnail': clip.get('screen') or clip.get('thumb'),
+                    'duration': parse_duration(clip.get('runtime') or clip.get('faded')),
+                    'upload_date': unified_strdate(clip.get('posted')),
+                    'uploader_id': uploader_id,
+                })
+
+            page_data = film_data.get('page', {})
+            return self.playlist_result(entries, film_id, page_data.get('movie_title'))
 
         playlist_url = compat_urlparse.urljoin(url, 'includes/playlists/itunes.inc')
 
@@ -127,7 +179,7 @@ class AppleTrailersIE(InfoExtractor):
             formats = []
             for format in settings['metadata']['sizes']:
                 # The src is a file pointing to the real video file
-                format_url = re.sub(r'_(\d*p.mov)', r'_h\1', format['src'])
+                format_url = re.sub(r'_(\d*p\.mov)', r'_h\1', format['src'])
                 formats.append({
                     'url': format_url,
                     'format': format['type'],
@@ -210,7 +262,7 @@ class AppleTrailersSectionIE(InfoExtractor):
             'title': 'Most Popular',
             'id': 'mostpopular',
         },
-        'playlist_mincount': 80,
+        'playlist_mincount': 30,
     }, {
         'url': 'http://trailers.apple.com/#section=moviestudios',
         'info_dict': {

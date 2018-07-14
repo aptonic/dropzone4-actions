@@ -1,10 +1,14 @@
 from __future__ import unicode_literals
 
-import json
 import re
 
 from .common import InfoExtractor
-from ..utils import ExtractorError
+from ..utils import (
+    ExtractorError,
+    float_or_none,
+    int_or_none,
+    unified_timestamp,
+)
 
 
 class FunnyOrDieIE(InfoExtractor):
@@ -17,7 +21,11 @@ class FunnyOrDieIE(InfoExtractor):
             'ext': 'mp4',
             'title': 'Heart-Shaped Box: Literal Video Version',
             'description': 'md5:ea09a01bc9a1c46d9ab696c01747c338',
-            'thumbnail': 're:^http:.*\.jpg$',
+            'thumbnail': r're:^http:.*\.jpg$',
+            'uploader': 'DASjr',
+            'timestamp': 1317904928,
+            'upload_date': '20111006',
+            'duration': 318.3,
         },
     }, {
         'url': 'http://www.funnyordie.com/embed/e402820827',
@@ -26,7 +34,12 @@ class FunnyOrDieIE(InfoExtractor):
             'ext': 'mp4',
             'title': 'Please Use This Song (Jon Lajoie)',
             'description': 'Please use this to sell something.  www.jonlajoie.com',
-            'thumbnail': 're:^http:.*\.jpg$',
+            'thumbnail': r're:^http:.*\.jpg$',
+            'timestamp': 1398988800,
+            'upload_date': '20140502',
+        },
+        'params': {
+            'skip_download': True,
         },
     }, {
         'url': 'http://www.funnyordie.com/articles/ebf5e34fc8/10-hours-of-walking-in-nyc-as-a-man',
@@ -51,19 +64,44 @@ class FunnyOrDieIE(InfoExtractor):
 
         formats = []
 
-        formats.extend(self._extract_m3u8_formats(
-            m3u8_url, video_id, 'mp4', 'm3u8_native', m3u8_id='hls', fatal=False))
+        m3u8_formats = self._extract_m3u8_formats(
+            m3u8_url, video_id, 'mp4', 'm3u8_native',
+            m3u8_id='hls', fatal=False)
+        source_formats = list(filter(
+            lambda f: f.get('vcodec') != 'none', m3u8_formats))
 
-        bitrates = [int(bitrate) for bitrate in re.findall(r'[,/]v(\d+)[,/]', m3u8_url)]
+        bitrates = [int(bitrate) for bitrate in re.findall(r'[,/]v(\d+)(?=[,/])', m3u8_url)]
         bitrates.sort()
 
-        for bitrate in bitrates:
-            for link in links:
-                formats.append({
-                    'url': self._proto_relative_url('%s%d.%s' % (link[0], bitrate, link[1])),
-                    'format_id': '%s-%d' % (link[1], bitrate),
-                    'vbr': bitrate,
-                })
+        if source_formats:
+            self._sort_formats(source_formats)
+
+        for bitrate, f in zip(bitrates, source_formats or [{}] * len(bitrates)):
+            for path, ext in links:
+                ff = f.copy()
+                if ff:
+                    if ext != 'mp4':
+                        ff = dict(
+                            [(k, v) for k, v in ff.items()
+                             if k in ('height', 'width', 'format_id')])
+                    ff.update({
+                        'format_id': ff['format_id'].replace('hls', ext),
+                        'ext': ext,
+                        'protocol': 'http',
+                    })
+                else:
+                    ff.update({
+                        'format_id': '%s-%d' % (ext, bitrate),
+                        'vbr': bitrate,
+                    })
+                ff['url'] = self._proto_relative_url(
+                    '%s%d.%s' % (path, bitrate, ext))
+                formats.append(ff)
+        self._check_formats(formats, video_id)
+
+        formats.extend(m3u8_formats)
+        self._sort_formats(
+            formats, field_preference=('height', 'width', 'tbr', 'format_id'))
 
         subtitles = {}
         for src, src_lang in re.findall(r'<track kind="captions" src="([^"]+)" srclang="([^"]+)"', webpage):
@@ -72,15 +110,53 @@ class FunnyOrDieIE(InfoExtractor):
                 'url': 'http://www.funnyordie.com%s' % src,
             }]
 
-        post_json = self._search_regex(
-            r'fb_post\s*=\s*(\{.*?\});', webpage, 'post details')
-        post = json.loads(post_json)
+        timestamp = unified_timestamp(self._html_search_meta(
+            'uploadDate', webpage, 'timestamp', default=None))
+
+        uploader = self._html_search_regex(
+            r'<h\d[^>]+\bclass=["\']channel-preview-name[^>]+>(.+?)</h',
+            webpage, 'uploader', default=None)
+
+        title, description, thumbnail, duration = [None] * 4
+
+        medium = self._parse_json(
+            self._search_regex(
+                r'jsonMedium\s*=\s*({.+?});', webpage, 'JSON medium',
+                default='{}'),
+            video_id, fatal=False)
+        if medium:
+            title = medium.get('title')
+            duration = float_or_none(medium.get('duration'))
+            if not timestamp:
+                timestamp = unified_timestamp(medium.get('publishDate'))
+
+        post = self._parse_json(
+            self._search_regex(
+                r'fb_post\s*=\s*(\{.*?\});', webpage, 'post details',
+                default='{}'),
+            video_id, fatal=False)
+        if post:
+            if not title:
+                title = post.get('name')
+            description = post.get('description')
+            thumbnail = post.get('picture')
+
+        if not title:
+            title = self._og_search_title(webpage)
+        if not description:
+            description = self._og_search_description(webpage)
+        if not duration:
+            duration = int_or_none(self._html_search_meta(
+                ('video:duration', 'duration'), webpage, 'duration', default=False))
 
         return {
             'id': video_id,
-            'title': post['name'],
-            'description': post.get('description'),
-            'thumbnail': post.get('picture'),
+            'title': title,
+            'description': description,
+            'thumbnail': thumbnail,
+            'uploader': uploader,
+            'timestamp': timestamp,
+            'duration': duration,
             'formats': formats,
             'subtitles': subtitles,
         }

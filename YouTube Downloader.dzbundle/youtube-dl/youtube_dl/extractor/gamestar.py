@@ -6,67 +6,60 @@ import re
 from .common import InfoExtractor
 from ..utils import (
     int_or_none,
-    parse_duration,
-    str_to_int,
-    unified_strdate,
+    remove_end,
 )
 
 
 class GameStarIE(InfoExtractor):
-    _VALID_URL = r'https?://www\.gamestar\.de/videos/.*,(?P<id>[0-9]+)\.html'
-    _TEST = {
+    _VALID_URL = r'https?://(?:www\.)?game(?P<site>pro|star)\.de/videos/.*,(?P<id>[0-9]+)\.html'
+    _TESTS = [{
         'url': 'http://www.gamestar.de/videos/trailer,3/hobbit-3-die-schlacht-der-fuenf-heere,76110.html',
-        'md5': '96974ecbb7fd8d0d20fca5a00810cea7',
+        'md5': 'ee782f1f8050448c95c5cacd63bc851c',
         'info_dict': {
             'id': '76110',
             'ext': 'mp4',
             'title': 'Hobbit 3: Die Schlacht der Fünf Heere - Teaser-Trailer zum dritten Teil',
-            'description': 'Der Teaser-Trailer zu Hobbit 3: Die Schlacht der Fünf Heere zeigt einige Szenen aus dem dritten Teil der Saga und kündigt den vollständigen Trailer an.',
-            'thumbnail': 'http://images.gamestar.de/images/idgwpgsgp/bdb/2494525/600x.jpg',
+            'description': 'Der Teaser-Trailer zu Hobbit 3: Die Schlacht der Fünf Heere zeigt einige Szenen aus dem dritten Teil der Saga und kündigt den...',
+            'thumbnail': r're:^https?://.*\.jpg$',
+            'timestamp': 1406542380,
             'upload_date': '20140728',
-            'duration': 17
+            'duration': 17,
         }
-    }
+    }, {
+        'url': 'http://www.gamepro.de/videos/top-10-indie-spiele-fuer-nintendo-switch-video-tolle-nindies-games-zum-download,95316.html',
+        'only_matching': True,
+    }, {
+        'url': 'http://www.gamestar.de/videos/top-10-indie-spiele-fuer-nintendo-switch-video-tolle-nindies-games-zum-download,95316.html',
+        'only_matching': True,
+    }]
 
     def _real_extract(self, url):
-        video_id = self._match_id(url)
+        mobj = re.match(self._VALID_URL, url)
+        site = mobj.group('site')
+        video_id = mobj.group('id')
+
         webpage = self._download_webpage(url, video_id)
 
-        og_title = self._og_search_title(webpage)
-        title = re.sub(r'\s*- Video (bei|-) GameStar\.de$', '', og_title)
+        # TODO: there are multiple ld+json objects in the webpage,
+        # while _search_json_ld finds only the first one
+        json_ld = self._parse_json(self._search_regex(
+            r'(?s)<script[^>]+type=(["\'])application/ld\+json\1[^>]*>(?P<json_ld>[^<]+VideoObject[^<]+)</script>',
+            webpage, 'JSON-LD', group='json_ld'), video_id)
+        info_dict = self._json_ld(json_ld, video_id)
+        info_dict['title'] = remove_end(
+            info_dict['title'], ' - Game%s' % site.title())
 
-        url = 'http://gamestar.de/_misc/videos/portal/getVideoUrl.cfm?premium=0&videoId=' + video_id
-
-        description = self._og_search_description(webpage).strip()
-
-        thumbnail = self._proto_relative_url(
-            self._og_search_thumbnail(webpage), scheme='http:')
-
-        upload_date = unified_strdate(self._html_search_regex(
-            r'<span style="float:left;font-size:11px;">Datum: ([0-9]+\.[0-9]+\.[0-9]+)&nbsp;&nbsp;',
-            webpage, 'upload_date', fatal=False))
-
-        duration = parse_duration(self._html_search_regex(
-            r'&nbsp;&nbsp;Länge: ([0-9]+:[0-9]+)</span>', webpage, 'duration',
-            fatal=False))
-
-        view_count = str_to_int(self._html_search_regex(
-            r'&nbsp;&nbsp;Zuschauer: ([0-9\.]+)&nbsp;&nbsp;', webpage,
-            'view_count', fatal=False))
-
+        view_count = int_or_none(json_ld.get('interactionCount'))
         comment_count = int_or_none(self._html_search_regex(
-            r'>Kommentieren \(([0-9]+)\)</a>', webpage, 'comment_count',
-            fatal=False))
+            r'<span>Kommentare</span>\s*<span[^>]+class=["\']count[^>]+>\s*\(\s*([0-9]+)',
+            webpage, 'comment count', fatal=False))
 
-        return {
+        info_dict.update({
             'id': video_id,
-            'title': title,
-            'url': url,
+            'url': 'http://gamestar.de/_misc/videos/portal/getVideoUrl.cfm?premium=0&videoId=' + video_id,
             'ext': 'mp4',
-            'thumbnail': thumbnail,
-            'description': description,
-            'upload_date': upload_date,
-            'duration': duration,
             'view_count': view_count,
             'comment_count': comment_count
-        }
+        })
+
+        return info_dict

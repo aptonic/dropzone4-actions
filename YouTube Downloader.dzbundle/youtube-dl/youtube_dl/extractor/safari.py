@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding: utf-8
 from __future__ import unicode_literals
 
 import re
@@ -16,7 +16,6 @@ from ..utils import (
 
 class SafariBaseIE(InfoExtractor):
     _LOGIN_URL = 'https://www.safaribooksonline.com/accounts/login/'
-    _SUCCESSFUL_LOGIN_REGEX = r'<a href="/accounts/logout/"[^>]*>Sign Out</a>'
     _NETRC_MACHINE = 'safari'
 
     _API_BASE = 'https://www.safaribooksonline.com/api/v1'
@@ -28,22 +27,24 @@ class SafariBaseIE(InfoExtractor):
         self._login()
 
     def _login(self):
-        # We only need to log in once for courses or individual videos
-        if self.LOGGED_IN:
-            return
-
-        (username, password) = self._get_login_info()
+        username, password = self._get_login_info()
         if username is None:
             return
 
         headers = std_headers.copy()
         if 'Referer' not in headers:
             headers['Referer'] = self._LOGIN_URL
-        login_page_request = sanitized_Request(self._LOGIN_URL, headers=headers)
 
         login_page = self._download_webpage(
-            login_page_request, None,
-            'Downloading login form')
+            self._LOGIN_URL, None, 'Downloading login form', headers=headers)
+
+        def is_logged(webpage):
+            return any(re.search(p, webpage) for p in (
+                r'href=["\']/accounts/logout/', r'>Sign Out<'))
+
+        if is_logged(login_page):
+            self.LOGGED_IN = True
+            return
 
         csrf = self._html_search_regex(
             r"name='csrfmiddlewaretoken'\s+value='([^']+)'",
@@ -60,22 +61,27 @@ class SafariBaseIE(InfoExtractor):
         request = sanitized_Request(
             self._LOGIN_URL, urlencode_postdata(login_form), headers=headers)
         login_page = self._download_webpage(
-            request, None, 'Logging in as %s' % username)
+            request, None, 'Logging in')
 
-        if re.search(self._SUCCESSFUL_LOGIN_REGEX, login_page) is None:
+        if not is_logged(login_page):
             raise ExtractorError(
                 'Login failed; make sure your credentials are correct and try again.',
                 expected=True)
 
-        SafariBaseIE.LOGGED_IN = True
-
-        self.to_screen('Login successful')
+        self.LOGGED_IN = True
 
 
 class SafariIE(SafariBaseIE):
     IE_NAME = 'safari'
     IE_DESC = 'safaribooksonline.com online video'
-    _VALID_URL = r'https?://(?:www\.)?safaribooksonline\.com/library/view/[^/]+/(?P<course_id>[^/]+)/(?P<part>part\d+)\.html'
+    _VALID_URL = r'''(?x)
+                        https?://
+                            (?:www\.)?safaribooksonline\.com/
+                            (?:
+                                library/view/[^/]+/(?P<course_id>[^/]+)/(?P<part>[^/?\#&]+)\.html|
+                                videos/[^/]+/[^/]+/(?P<reference_id>[^-]+-[^/?\#&]+)
+                            )
+                    '''
 
     _TESTS = [{
         'url': 'https://www.safaribooksonline.com/library/view/hadoop-fundamentals-livelessons/9780133392838/part00.html',
@@ -92,22 +98,44 @@ class SafariIE(SafariBaseIE):
         # non-digits in course id
         'url': 'https://www.safaribooksonline.com/library/view/create-a-nodejs/100000006A0210/part00.html',
         'only_matching': True,
+    }, {
+        'url': 'https://www.safaribooksonline.com/library/view/learning-path-red/9780134664057/RHCE_Introduction.html',
+        'only_matching': True,
+    }, {
+        'url': 'https://www.safaribooksonline.com/videos/python-programming-language/9780134217314/9780134217314-PYMC_13_00',
+        'only_matching': True,
     }]
+
+    _PARTNER_ID = '1926081'
+    _UICONF_ID = '29375172'
 
     def _real_extract(self, url):
         mobj = re.match(self._VALID_URL, url)
-        video_id = '%s/%s' % (mobj.group('course_id'), mobj.group('part'))
 
-        webpage = self._download_webpage(url, video_id)
-        reference_id = self._search_regex(
-            r'data-reference-id=(["\'])(?P<id>.+?)\1',
-            webpage, 'kaltura reference id', group='id')
-        partner_id = self._search_regex(
-            r'data-partner-id=(["\'])(?P<id>.+?)\1',
-            webpage, 'kaltura widget id', group='id')
-        ui_id = self._search_regex(
-            r'data-ui-id=(["\'])(?P<id>.+?)\1',
-            webpage, 'kaltura uiconf id', group='id')
+        reference_id = mobj.group('reference_id')
+        if reference_id:
+            video_id = reference_id
+            partner_id = self._PARTNER_ID
+            ui_id = self._UICONF_ID
+        else:
+            video_id = '%s-%s' % (mobj.group('course_id'), mobj.group('part'))
+
+            webpage, urlh = self._download_webpage_handle(url, video_id)
+
+            mobj = re.match(self._VALID_URL, urlh.geturl())
+            reference_id = mobj.group('reference_id')
+            if not reference_id:
+                reference_id = self._search_regex(
+                    r'data-reference-id=(["\'])(?P<id>(?:(?!\1).)+)\1',
+                    webpage, 'kaltura reference id', group='id')
+            partner_id = self._search_regex(
+                r'data-partner-id=(["\'])(?P<id>(?:(?!\1).)+)\1',
+                webpage, 'kaltura widget id', default=self._PARTNER_ID,
+                group='id')
+            ui_id = self._search_regex(
+                r'data-ui-id=(["\'])(?P<id>(?:(?!\1).)+)\1',
+                webpage, 'kaltura uiconf id', default=self._UICONF_ID,
+                group='id')
 
         query = {
             'wid': '_%s' % partner_id,
@@ -132,12 +160,15 @@ class SafariIE(SafariBaseIE):
 
 class SafariApiIE(SafariBaseIE):
     IE_NAME = 'safari:api'
-    _VALID_URL = r'https?://(?:www\.)?safaribooksonline\.com/api/v1/book/(?P<course_id>[^/]+)/chapter(?:-content)?/(?P<part>part\d+)\.html'
+    _VALID_URL = r'https?://(?:www\.)?safaribooksonline\.com/api/v1/book/(?P<course_id>[^/]+)/chapter(?:-content)?/(?P<part>[^/?#&]+)\.html'
 
-    _TEST = {
+    _TESTS = [{
         'url': 'https://www.safaribooksonline.com/api/v1/book/9780133392838/chapter/part00.html',
         'only_matching': True,
-    }
+    }, {
+        'url': 'https://www.safaribooksonline.com/api/v1/book/9780134664057/chapter/RHCE_Introduction.html',
+        'only_matching': True,
+    }]
 
     def _real_extract(self, url):
         mobj = re.match(self._VALID_URL, url)
@@ -151,7 +182,19 @@ class SafariCourseIE(SafariBaseIE):
     IE_NAME = 'safari:course'
     IE_DESC = 'safaribooksonline.com online courses'
 
-    _VALID_URL = r'https?://(?:www\.)?safaribooksonline\.com/(?:library/view/[^/]+|api/v1/book)/(?P<id>[^/]+)/?(?:[#?]|$)'
+    _VALID_URL = r'''(?x)
+                    https?://
+                        (?:
+                            (?:www\.)?safaribooksonline\.com/
+                            (?:
+                                library/view/[^/]+|
+                                api/v1/book|
+                                videos/[^/]+
+                            )|
+                            techbus\.safaribooksonline\.com
+                        )
+                        /(?P<id>[^/]+)
+                    '''
 
     _TESTS = [{
         'url': 'https://www.safaribooksonline.com/library/view/hadoop-fundamentals-livelessons/9780133392838/',
@@ -164,7 +207,18 @@ class SafariCourseIE(SafariBaseIE):
     }, {
         'url': 'https://www.safaribooksonline.com/api/v1/book/9781449396459/?override_format=json',
         'only_matching': True,
+    }, {
+        'url': 'http://techbus.safaribooksonline.com/9780134426365',
+        'only_matching': True,
+    }, {
+        'url': 'https://www.safaribooksonline.com/videos/python-programming-language/9780134217314',
+        'only_matching': True,
     }]
+
+    @classmethod
+    def suitable(cls, url):
+        return (False if SafariIE.suitable(url) or SafariApiIE.suitable(url)
+                else super(SafariCourseIE, cls).suitable(url))
 
     def _real_extract(self, url):
         course_id = self._match_id(url)

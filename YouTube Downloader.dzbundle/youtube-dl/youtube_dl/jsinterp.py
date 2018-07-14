@@ -6,6 +6,7 @@ import re
 
 from .utils import (
     ExtractorError,
+    remove_quotes,
 )
 
 _OPERATORS = [
@@ -57,7 +58,6 @@ class JSInterpreter(object):
 
     def interpret_expression(self, expr, local_vars, allow_recursion):
         expr = expr.strip()
-
         if expr == '':  # Empty expression
             return None
 
@@ -121,11 +121,19 @@ class JSInterpreter(object):
             pass
 
         m = re.match(
-            r'(?P<var>%s)\.(?P<member>[^(]+)(?:\(+(?P<args>[^()]*)\))?$' % _NAME_RE,
+            r'(?P<in>%s)\[(?P<idx>.+)\]$' % _NAME_RE, expr)
+        if m:
+            val = local_vars[m.group('in')]
+            idx = self.interpret_expression(
+                m.group('idx'), local_vars, allow_recursion - 1)
+            return val[idx]
+
+        m = re.match(
+            r'(?P<var>%s)(?:\.(?P<member>[^(]+)|\[(?P<member2>[^]]+)\])\s*(?:\(+(?P<args>[^()]*)\))?$' % _NAME_RE,
             expr)
         if m:
             variable = m.group('var')
-            member = m.group('member')
+            member = remove_quotes(m.group('member') or m.group('member2'))
             arg_str = m.group('args')
 
             if variable in local_vars:
@@ -173,14 +181,6 @@ class JSInterpreter(object):
 
             return obj[member](argvals)
 
-        m = re.match(
-            r'(?P<in>%s)\[(?P<idx>.+)\]$' % _NAME_RE, expr)
-        if m:
-            val = local_vars[m.group('in')]
-            idx = self.interpret_expression(
-                m.group('idx'), local_vars, allow_recursion - 1)
-            return val[idx]
-
         for op, opfunc in _OPERATORS:
             m = re.match(r'(?P<x>.+?)%s(?P<y>.+)' % re.escape(op), expr)
             if not m:
@@ -198,12 +198,12 @@ class JSInterpreter(object):
             return opfunc(x, y)
 
         m = re.match(
-            r'^(?P<func>%s)\((?P<args>[a-zA-Z0-9_$,]+)\)$' % _NAME_RE, expr)
+            r'^(?P<func>%s)\((?P<args>[a-zA-Z0-9_$,]*)\)$' % _NAME_RE, expr)
         if m:
             fname = m.group('func')
             argvals = tuple([
                 int(v) if v.isdigit() else local_vars[v]
-                for v in m.group('args').split(',')])
+                for v in m.group('args').split(',')]) if len(m.group('args')) > 0 else tuple()
             if fname not in self._functions:
                 self._functions[fname] = self.extract_function(fname)
             return self._functions[fname](argvals)
@@ -211,28 +211,32 @@ class JSInterpreter(object):
         raise ExtractorError('Unsupported JS expression %r' % expr)
 
     def extract_object(self, objname):
+        _FUNC_NAME_RE = r'''(?:[a-zA-Z$0-9]+|"[a-zA-Z$0-9]+"|'[a-zA-Z$0-9]+')'''
         obj = {}
         obj_m = re.search(
-            (r'(?:var\s+)?%s\s*=\s*\{' % re.escape(objname)) +
-            r'\s*(?P<fields>([a-zA-Z$0-9]+\s*:\s*function\(.*?\)\s*\{.*?\}(?:,\s*)?)*)' +
-            r'\}\s*;',
+            r'''(?x)
+                (?<!this\.)%s\s*=\s*{\s*
+                    (?P<fields>(%s\s*:\s*function\s*\(.*?\)\s*{.*?}(?:,\s*)?)*)
+                }\s*;
+            ''' % (re.escape(objname), _FUNC_NAME_RE),
             self.code)
         fields = obj_m.group('fields')
         # Currently, it only supports function definitions
         fields_m = re.finditer(
-            r'(?P<key>[a-zA-Z$0-9]+)\s*:\s*function'
-            r'\((?P<args>[a-z,]+)\){(?P<code>[^}]+)}',
+            r'''(?x)
+                (?P<key>%s)\s*:\s*function\s*\((?P<args>[a-z,]+)\){(?P<code>[^}]+)}
+            ''' % _FUNC_NAME_RE,
             fields)
         for f in fields_m:
             argnames = f.group('args').split(',')
-            obj[f.group('key')] = self.build_function(argnames, f.group('code'))
+            obj[remove_quotes(f.group('key'))] = self.build_function(argnames, f.group('code'))
 
         return obj
 
     def extract_function(self, funcname):
         func_m = re.search(
             r'''(?x)
-                (?:function\s+%s|[{;,]%s\s*=\s*function|var\s+%s\s*=\s*function)\s*
+                (?:function\s+%s|[{;,]\s*%s\s*=\s*function|var\s+%s\s*=\s*function)\s*
                 \((?P<args>[^)]*)\)\s*
                 \{(?P<code>[^}]+)\}''' % (
                 re.escape(funcname), re.escape(funcname), re.escape(funcname)),

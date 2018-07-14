@@ -1,27 +1,32 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import hashlib
 import time
+import hashlib
+import re
+
 from .common import InfoExtractor
-from ..utils import (ExtractorError, unescapeHTML)
-from ..compat import (compat_str, compat_basestring)
+from ..utils import (
+    ExtractorError,
+    unescapeHTML,
+    unified_strdate,
+    urljoin,
+)
 
 
 class DouyuTVIE(InfoExtractor):
     IE_DESC = '斗鱼'
-    _VALID_URL = r'https?://(?:www\.)?douyu(?:tv)?\.com/(?P<id>[A-Za-z0-9]+)'
+    _VALID_URL = r'https?://(?:www\.)?douyu(?:tv)?\.com/(?:[^/]+/)*(?P<id>[A-Za-z0-9]+)'
     _TESTS = [{
         'url': 'http://www.douyutv.com/iseven',
         'info_dict': {
             'id': '17732',
             'display_id': 'iseven',
             'ext': 'flv',
-            'title': 're:^清晨醒脑！T-ara根本停不下来！ [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$',
-            'description': 're:.*m7show@163\.com.*',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'title': 're:^清晨醒脑！根本停不下来！ [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$',
+            'description': r're:.*m7show@163\.com.*',
+            'thumbnail': r're:^https?://.*\.jpg$',
             'uploader': '7师傅',
-            'uploader_id': '431925',
             'is_live': True,
         },
         'params': {
@@ -35,9 +40,8 @@ class DouyuTVIE(InfoExtractor):
             'ext': 'flv',
             'title': 're:^小漠从零单排记！——CSOL2躲猫猫 [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$',
             'description': 'md5:746a2f7a253966a06755a912f0acc0d2',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'thumbnail': r're:^https?://.*\.jpg$',
             'uploader': 'douyu小漠',
-            'uploader_id': '3769985',
             'is_live': True,
         },
         'params': {
@@ -50,11 +54,10 @@ class DouyuTVIE(InfoExtractor):
             'id': '17732',
             'display_id': '17732',
             'ext': 'flv',
-            'title': 're:^清晨醒脑！T-ara根本停不下来！ [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$',
-            'description': 're:.*m7show@163\.com.*',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'title': 're:^清晨醒脑！根本停不下来！ [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$',
+            'description': r're:.*m7show@163\.com.*',
+            'thumbnail': r're:^https?://.*\.jpg$',
             'uploader': '7师傅',
-            'uploader_id': '431925',
             'is_live': True,
         },
         'params': {
@@ -62,6 +65,10 @@ class DouyuTVIE(InfoExtractor):
         },
     }, {
         'url': 'http://www.douyu.com/xiaocang',
+        'only_matching': True,
+    }, {
+        # \"room_id\"
+        'url': 'http://www.douyu.com/t/lpl',
         'only_matching': True,
     }]
 
@@ -73,76 +80,122 @@ class DouyuTVIE(InfoExtractor):
         else:
             page = self._download_webpage(url, video_id)
             room_id = self._html_search_regex(
-                r'"room_id"\s*:\s*(\d+),', page, 'room id')
+                r'"room_id\\?"\s*:\s*(\d+),', page, 'room id')
 
-        config = None
-        # Douyu API sometimes returns error "Unable to load the requested class: eticket_redis_cache"
-        # Retry with different parameters - same parameters cause same errors
-        for i in range(5):
-            prefix = 'room/%s?aid=android&client_sys=android&time=%d' % (
-                room_id, int(time.time()))
-            auth = hashlib.md5((prefix + '1231').encode('ascii')).hexdigest()
+        # Grab metadata from mobile API
+        room = self._download_json(
+            'http://m.douyu.com/html5/live?roomId=%s' % room_id, video_id,
+            note='Downloading room info')['data']
 
-            config_page = self._download_webpage(
-                'http://www.douyutv.com/api/v1/%s&auth=%s' % (prefix, auth),
-                video_id)
-            try:
-                config = self._parse_json(config_page, video_id, fatal=False)
-            except ExtractorError:
-                # Wait some time before retrying to get a different time() value
-                self._sleep(1, video_id, msg_template='%(video_id)s: Error occurs. '
-                                                      'Waiting for %(timeout)s seconds before retrying')
-                continue
-            else:
-                break
-        if config is None:
-            raise ExtractorError('Unable to fetch API result')
-
-        data = config['data']
-
-        error_code = config.get('error', 0)
-        if error_code is not 0:
-            error_desc = 'Server reported error %i' % error_code
-            if isinstance(data, (compat_str, compat_basestring)):
-                error_desc += ': ' + data
-            raise ExtractorError(error_desc, expected=True)
-
-        show_status = data.get('show_status')
         # 1 = live, 2 = offline
-        if show_status == '2':
-            raise ExtractorError(
-                'Live stream is offline', expected=True)
+        if room.get('show_status') == '2':
+            raise ExtractorError('Live stream is offline', expected=True)
 
-        base_url = data['rtmp_url']
-        live_path = data['rtmp_live']
+        # Grab the URL from PC client API
+        # The m3u8 url from mobile API requires re-authentication every 5 minutes
+        tt = int(time.time())
+        signContent = 'lapi/live/thirdPart/getPlay/%s?aid=pcclient&rate=0&time=%d9TUk5fjjUjg9qIMH3sdnh' % (room_id, tt)
+        sign = hashlib.md5(signContent.encode('ascii')).hexdigest()
+        video_url = self._download_json(
+            'http://coapi.douyucdn.cn/lapi/live/thirdPart/getPlay/' + room_id,
+            video_id, note='Downloading video URL info',
+            query={'rate': 0}, headers={
+                'auth': sign,
+                'time': str(tt),
+                'aid': 'pcclient'
+            })['data']['live_url']
 
-        title = self._live_title(unescapeHTML(data['room_name']))
-        description = data.get('show_details')
-        thumbnail = data.get('room_src')
-
-        uploader = data.get('nickname')
-        uploader_id = data.get('owner_uid')
-
-        multi_formats = data.get('rtmp_multi_bitrate')
-        if not isinstance(multi_formats, dict):
-            multi_formats = {}
-        multi_formats['live'] = live_path
-
-        formats = [{
-            'url': '%s/%s' % (base_url, format_path),
-            'format_id': format_id,
-            'preference': 1 if format_id == 'live' else 0,
-        } for format_id, format_path in multi_formats.items()]
-        self._sort_formats(formats)
+        title = self._live_title(unescapeHTML(room['room_name']))
+        description = room.get('show_details')
+        thumbnail = room.get('room_src')
+        uploader = room.get('nickname')
 
         return {
             'id': room_id,
             'display_id': video_id,
+            'url': video_url,
             'title': title,
             'description': description,
             'thumbnail': thumbnail,
             'uploader': uploader,
-            'uploader_id': uploader_id,
-            'formats': formats,
             'is_live': True,
+        }
+
+
+class DouyuShowIE(InfoExtractor):
+    _VALID_URL = r'https?://v(?:mobile)?\.douyu\.com/show/(?P<id>[0-9a-zA-Z]+)'
+
+    _TESTS = [{
+        'url': 'https://v.douyu.com/show/rjNBdvnVXNzvE2yw',
+        'md5': '0c2cfd068ee2afe657801269b2d86214',
+        'info_dict': {
+            'id': 'rjNBdvnVXNzvE2yw',
+            'ext': 'mp4',
+            'title': '陈一发儿：砒霜 我有个室友系列！04-01 22点场',
+            'duration': 7150.08,
+            'thumbnail': r're:^https?://.*\.jpg$',
+            'uploader': '陈一发儿',
+            'uploader_id': 'XrZwYelr5wbK',
+            'uploader_url': 'https://v.douyu.com/author/XrZwYelr5wbK',
+            'upload_date': '20170402',
+        },
+    }, {
+        'url': 'https://vmobile.douyu.com/show/rjNBdvnVXNzvE2yw',
+        'only_matching': True,
+    }]
+
+    def _real_extract(self, url):
+        url = url.replace('vmobile.', 'v.')
+        video_id = self._match_id(url)
+
+        webpage = self._download_webpage(url, video_id)
+
+        room_info = self._parse_json(self._search_regex(
+            r'var\s+\$ROOM\s*=\s*({.+});', webpage, 'room info'), video_id)
+
+        video_info = None
+
+        for trial in range(5):
+            # Sometimes Douyu rejects our request. Let's try it more times
+            try:
+                video_info = self._download_json(
+                    'https://vmobile.douyu.com/video/getInfo', video_id,
+                    query={'vid': video_id},
+                    headers={
+                        'Referer': url,
+                        'x-requested-with': 'XMLHttpRequest',
+                    })
+                break
+            except ExtractorError:
+                self._sleep(1, video_id)
+
+        if not video_info:
+            raise ExtractorError('Can\'t fetch video info')
+
+        formats = self._extract_m3u8_formats(
+            video_info['data']['video_url'], video_id,
+            entry_protocol='m3u8_native', ext='mp4')
+
+        upload_date = unified_strdate(self._html_search_regex(
+            r'<em>上传时间：</em><span>([^<]+)</span>', webpage,
+            'upload date', fatal=False))
+
+        uploader = uploader_id = uploader_url = None
+        mobj = re.search(
+            r'(?m)<a[^>]+href="/author/([0-9a-zA-Z]+)".+?<strong[^>]+title="([^"]+)"',
+            webpage)
+        if mobj:
+            uploader_id, uploader = mobj.groups()
+            uploader_url = urljoin(url, '/author/' + uploader_id)
+
+        return {
+            'id': video_id,
+            'title': room_info['name'],
+            'formats': formats,
+            'duration': room_info.get('duration'),
+            'thumbnail': room_info.get('pic'),
+            'upload_date': upload_date,
+            'uploader': uploader,
+            'uploader_id': uploader_id,
+            'uploader_url': uploader_url,
         }
