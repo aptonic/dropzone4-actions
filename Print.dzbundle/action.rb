@@ -5,7 +5,7 @@
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.1
+# Version: 1.2
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
@@ -69,17 +69,43 @@ def get_printer
   end
     
   lpstat_output = output.split("\n")
-  printers = ""
+  printer_options = ""
+  printers = []
+  lpstat_printers = []
   return "use_default_printer" if lpstat_output.length == 1
-  lpstat_output.each {|printer| printers = printers + " \"" + printer.split(" ")[2].gsub("_", " ")[0..-2] + "\""}
-  s = ($items.length > 1 ? "s" : "")
-  result = $dz.cocoa_dialog("dropdown --title \"Print #{$items.length} Item#{s}\" --text \"Select Printer:\" --items #{printers} --button1 \"OK\" --button2 \"Cancel\" --string-output")
-  output_split = result.split("\n")
   
-  if output_split[0] == "Cancel"
+  lpstat_output.each {|printer| 
+    printer_friendly_name = printer.split(" ")[2].gsub("_", " ")[0..-2]
+    printers << printer_friendly_name
+    lpstat_printers << printer.split(" ")[2][0..-2]
+    printer_options += "p.option = " + printer_friendly_name + "\n"
+  }
+  
+  s = ($items.length > 1 ? "s" : "")
+  
+  printer_select_config = "
+  *.title = Print #{$items.length} Item#{s}
+  p.type = popup
+  p.label = Select Printer:
+  p.width = 310
+  #{printer_options}
+  cb.type = cancelbutton
+  "
+
+  result = $dz.pashua(printer_select_config)
+  
+  if result['cb'] == "1"
     $dz.fail("Cancelled")
   else
-    return output_split[1].gsub(" ", "_")
+    selected_lpstat_printer = ""
+    printers.each_with_index {|printer,index|
+      if (result['p'].gsub(" ", "") == printer.gsub(" ", ""))
+        selected_lpstat_printer = lpstat_printers[index]
+        break
+      end
+    }
+    
+    return selected_lpstat_printer
   end
 end
 
