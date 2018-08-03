@@ -3,8 +3,8 @@
 # Description: Resize all images to a maximum width of 1024 pixels.  Uses built in Mac Commands.  No prerequisites to install.
 # Handles: Files
 # Events: Dragged
-# Creator: Maverick Stoklosa
-# URL: http://github.com/maverick2000/dropzone3_resize_1024px
+# Creator: M
+# URL:
 # SkipConfig: Yes
 # RunsSandboxed: No
 # Version: 1.0
