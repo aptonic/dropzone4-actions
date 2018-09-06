@@ -27,22 +27,31 @@ def dragged
 		requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" \"#{filepath}\"/\"#{basename}\".mp4"
 		if ENV['KEY_MODIFIERS'] == "Command" # Codec copy
 			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -codec copy \"#{filepath}\"/\"#{basename}\".mp4"
+			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
 			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -codec:video libx265 \"#{filepath}\"/\"#{basename}\".mp4"
+			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
 			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -vn -codec copy \"#{filepath}\"/\"#{basename}\".m4a"
+			filepath += "/" + basename + ".m4a"
+		else
+			filepath += "/" + basename + ".mp4"
 		end
 		ret = system(requestString)
 		
+		puts filepath
+		
 		if !ret
-			failString = "Have you installed ffmpeg? Or is your input valid?"
+			failString = "Have you installed ffmpeg? Is your input valid?"
 			if ENV['KEY_MODIFIERS'] == "Command" # Codec copy
-				failString += " Input video codec not compatible with MP4 container. Possibly source file is MP4 file already."
+				failString += "\nInput video codec not compatible with MP4 container. Possibly source file is MP4 file already."
 				elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
-				failString += " Maybe you don't have the libx265 library for ffmpeg installed. Possibly source file is MP4 file already."
+				failString += "\nMaybe you don't have the libx265 library for ffmpeg installed. Possibly source file is MP4 file already."
 				elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
-				failString += " Input audio codec is not aac."
+				failString += "\nInput audio codec is not aac."
 			end
+			
+			$dz.error("Error", failString)
 			
 			$dz.fail(failString)
 		else
@@ -63,9 +72,8 @@ end
 def clicked
 	if ENV['filepath']
 		path = ENV['filepath']
-		if !File.directory?(path)
-			$dz.error("Invalid output directory")
-		end
-		`open #{path}`
+		puts path
+		`osascript -e 'tell application "Finder" to reveal the POSIX file "#{path}"' >& /dev/null`
+		`osascript -e 'tell application "Finder" to activate' >& /dev/null`
 	end
 end
