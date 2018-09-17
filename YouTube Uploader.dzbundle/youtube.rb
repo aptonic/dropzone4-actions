@@ -2,7 +2,7 @@ require 'google/apis/youtube_v3'
 
 class Youtube
   Youtube = Google::Apis::YoutubeV3
-  
+
   def configure_client
     $dz.begin('Connecting to YouTube...')
 
@@ -34,8 +34,8 @@ class Youtube
                                                  })
       begin
         authorization.fetch_access_token!
-      rescue Exception => e  
-        puts e.message  
+      rescue Exception => e
+        puts e.message
         $dz.error('Redo authorization', 'Authorization failed. Please redo the authorization from the action\'s Edit screen.')
       end
 
@@ -65,22 +65,30 @@ class Youtube
   end
 
   def read_privacy_status
-    output = $dz.cocoa_dialog("standard-dropdown --button1 \"OK\" --button2 \"Cancel\" --title \"Privacy status\" --text \"Would you like the dropped video(s) to be public, private or unlisted?\" --items \"public\" \"private\" \"unlisted\" ")
-    button, privacy_index = output.split("\n")
+    last_privacy = if ENV['privacy'].nil? then 'Unlisted' else ENV['privacy'] end
+    pconfig = "
+        *.title = Youtube Uploader
+        privacy.type = popup
+        privacy.label = Would you like the dropped video(s) to be public, private or unlisted?
+        privacy.option = Public
+        privacy.option = Private
+        privacy.option = Unlisted
+        privacy.default = #{last_privacy}
+        bc.type = cancelbutton
+        bc.default = Cancel
+        db.type = defaultbutton
+        db.label = Upload
+    "
 
-    if button == '2'
-      $dz.fail('Cancelled')
+    result = $dz.pashua(pconfig)
+
+    if result['bc'] == '1'
+      $dz.fail('Upload cancelled')
     end
 
-    case privacy_index
-      when '1'
-        privacy_status = 'private'
-      when '2'
-        privacy_status = 'unlisted'
-      else
-        privacy_status = 'public'
-    end
+    privacy_status = result['privacy']
+    $dz.save_value('privacy', privacy_status)
 
-    privacy_status
+    privacy_status.downcase
   end
 end
