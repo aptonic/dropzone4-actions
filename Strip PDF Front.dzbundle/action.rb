@@ -7,8 +7,8 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
-# MinDropzoneVersion: 3.0
+# Version: 1.2
+# MinDropzoneVersion: 3.6
 
 def dragged
   # Get the routines global variables.
@@ -24,7 +24,12 @@ def dragged
 
   # Below line switches the progress display to determinate mode so we can show progress
   $dz.determinate(true)
-
+  
+  #
+  # Tell Dropzone what percentage is done.
+  #
+  $dz.percent(0)
+  
   #
   # Create the temporary directory for the originals.
   #
@@ -48,7 +53,7 @@ def dragged
     #
     # Convert the image file.
     #
-    `/usr/local/bin/convert  -background white -quality 80% -alpha background -alpha off +dither -colors 512 -flatten -transparent none -resize #{$size} \"#{tmpDir}/#{filename}-0000.ppm\" \"#{tmpDir}/#{filename}#{$ext}\";`
+    `/usr/local/bin/convert  -background white -quality 80% -alpha background -alpha off +dither -colors 512 -flatten -transparent none -resize #{$size} \"#{tmpDir}/#{filename}-0000.ppm\" \"#{tmpDir}/../#{filename}#{$ext}\";`
 
     FileUtils.rm "#{tmpDir}/#{filename}-0000.ppm"
 
@@ -62,6 +67,11 @@ def dragged
     #
     result = "Finished those PDFs."
   end
+  
+  #
+  # Remove the temperary directory.
+  #
+  `rmdir "#{tmpDir}"`
 
   # The below line tells Dropzone to end with a notification center notification with the text "Task Complete"
   $dz.finish(result)
@@ -76,62 +86,42 @@ def clicked
   #
 
   #
-  # Set the default return string to the error condition.
-  #
-  result = "Sorry, you canceled out."
-
-  #
   # Request the width of the graphic.
   #
-  button1, width =$dz.cocoa_dialog('standard-inputbox --title "PDF Picture: Graphic Width" --e --informative-text "What width? "').split("\n")
+  config = "
+    *.title = PDF Picture
+    gf.type = popup
+    gf.option = .jpg
+    gf.option = .png
+    gf.option = .gif
+    gf.label = What graphics format?
+    gw.type = textfield
+    gw.label = What width size in px?
+  "
+  result = $dz.pashua(config)
+  ext = result["gf"]
+  width = result["gw"]
 
   #
-  # See if the user canceled out. Do not continue if they cancel.
+  # Write the data file. Do not append, but delete and write fresh!
   #
-  if button1 != "2"
-    #
-    # Ask for the graphic file type to end up with.
-    #
-    button2, extnum =$dz.cocoa_dialog('standard-dropdown --title "PDF Picture: Graphic Format" --text "What Graphic Format?" --items ".jpg" ".png" ".gif" ').split("\n")
+  $dz.save_value("image_width", width)
+  $dz.save_value("image_ext", ext)
 
-    #
-    # See if the user canceled out. Do not continue if they cancel.
-    #
-    if button2 != "2"
-      #
-      # Change the dropdown number to a string.
-      #
-      case extnum.to_i
-      when 0
-        ext = ".jpg"
-      when 1
-        ext = ".png"
-      when 2
-        ext = ".gif"
-      end
+  #
+  # Tell the user by setting the return string to what the user gave.
+  #
+  result = "Size: #{width} px, Ext: #{ext}"
 
-      #
-      # Write the data file. Do not append, but delete and write fresh!
-      #
-      $dz.save_value("image_width", width)
-      $dz.save_value("image_ext", ext)
+  #
+  # Tell the user that it is done.
+  #
+  $dz.finish(result)
 
-      #
-      # Tell the user by setting the return string to what the user gave.
-      #
-      result = "Size: #{width} px, Ext: #{ext}"
-
-      #
-      # Tell the user that it is done.
-      #
-      $dz.finish(result)
-
-      #
-      # Finish out the dropzone protocal. If you want a url in the clipboard, pass it
-      # here. If you just want to copy text to the clipboard, use $dz.text() instead.
-      # Either $dz.url() or $dz.text() has to be the last thing in the clicked method.
-      #
-      $dz.url(false)
-    end
-  end
+  #
+  # Finish out the dropzone protocal. If you want a url in the clipboard, pass it
+  # here. If you just want to copy text to the clipboard, use $dz.text() instead.
+  # Either $dz.url() or $dz.text() has to be the last thing in the clicked method.
+  #
+  $dz.url(false)
 end
