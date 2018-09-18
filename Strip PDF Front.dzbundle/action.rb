@@ -7,8 +7,8 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.2
-# MinDropzoneVersion: 3.6
+# Version: 1.0
+# MinDropzoneVersion: 3.0
 
 def dragged
   # Get the routines global variables.
@@ -84,6 +84,8 @@ def clicked
   # save it in the configuration file. We will save data in the
   # ~/Library/Application Support/Dropzone/Destination Data/CompressFiles.txt
   #
+  $size = defined?( ENV['image_width'] ) ? ENV['image_width'] : 400
+  $ext = defined?( ENV['image_ext'] ) ? ENV['image_ext'] : 'jpg'
 
   #
   # Request the width of the graphic.
@@ -94,9 +96,11 @@ def clicked
     gf.option = .jpg
     gf.option = .png
     gf.option = .gif
-    gf.label = What graphics format?
+    gf.default = #{$ext}
+    gw.label = What graphics format?
     gw.type = textfield
     gw.label = What width size in px?
+    gw.default = #{$size}
   "
   result = $dz.pashua(config)
   ext = result["gf"]
