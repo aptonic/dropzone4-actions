@@ -1,0 +1,66 @@
+/*
+ * Will be the CSS file for the Basic Theme
+ */
+
+body {
+	background-color: rgba(79, 150, 200, 0.4);
+}
+
+.slide {
+	color: rgb(221, 239, 252);
+	background-color: rgba(79, 150, 200, 0.4);
+}
+
+.slide h1, .slide h2, .slide h3, .slide h4, .slide h5, .slide h6, .slide p, .slide ol li, .slide ul li {
+	font-family: Times;
+}
+
+.background {
+	opacity        : 	.80;
+}
+
+.slide h1 {
+	font-size: 10em;
+}
+
+.slide h2 {
+	font-size: 8em;
+}
+
+.slide h3 {
+	font-size: 6em;
+}
+
+.slide h4 {
+	font-size: 4em;
+}
+
+.slide h5 {
+	font-size: 2em;
+}
+
+.slide h6 {
+	font-size: 1em;
+}
+
+.slide p {
+	font-size: 2em;
+}
+
+.slide ol {
+	list-style: decimal-leading-zero;
+	text-align: left;
+}
+
+.slide ol li {
+	font-size: 2em;
+}
+
+.slide ul {
+	list-style: disc;
+	text-align: left;
+}
+
+.slide ul li {
+	font-size: 2em;
+}

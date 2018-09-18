@@ -113,6 +113,8 @@ def clicked
 	# save it in the configuration file. We will save data in the
 	# ~/Library/Application Support/Dropzone/Destination Data/CompressFiles.txt
 	#
+	$size = ENV['image_width']
+	$ext = ENV['image_ext']
 
 	#
 	# Ask for the graphic file type to end up with.
@@ -123,9 +125,11 @@ def clicked
 		gf.option = .jpg
 		gf.option = .png
 		gf.option = .gif
+		gf.default = #{$ext}
   		gf.label = What graphics format?
   		gw.type = textfield
   		gw.label = What size in px?
+  		gw.default = #{$size}
 		"
 	result = $dz.pashua(config)
 	ext = result["gf"]
