@@ -6,7 +6,7 @@
 # KeyModifiers: Option
 # Creator: Megan Cooke
 # URL: http://www.insanekitty.co.uk
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: No
 # UniqueID: 1028
 # MinDropzoneVersion: 3.0
@@ -22,9 +22,9 @@ def dragged
 	# set the output dmg and volume name
 	dmgName = fileName + '.dmg'
 	volumeName = fileName
-	
+
 	tmpSrcDir = "#{$tmpDir}/src";
-	
+
 	# set the output files
 	tmpDmg = "#{$tmpDir}/#{dmgName}"
 	destination = ENV['HOME'] + '/Desktop'
@@ -34,7 +34,7 @@ def dragged
 		$dz.error("Directory Error.", "Unable to find the destination directory")
 		return
 	end
-	
+
 	# create the tmp directories and copy the files across
 	begin
 		# check to see if the file is a directory (and not an app), and if so then only copy the contents of that folder and not the parent dir like DropDMG
@@ -45,10 +45,10 @@ def dragged
 					# get the full path to the directory
 					files.push($items[0] + '/'  + file)
 				end
-			end	
+			end
 		end
 
-		# create the tmp dir where we will do all the work		
+		# create the tmp dir where we will do all the work
 		system("/bin/mkdir -p \"#{tmpSrcDir}\"")
 
 		# if we have passed in a directory and there are files in it, then copy those otherwise just copy the dragged src
@@ -69,7 +69,7 @@ def dragged
 
 	# create the dmg file, copy to the desktop and do some cleaning up
 	begin
-		
+
 		# create an encrypted DMG file if a modifier key is held down
 		if ENV["KEY_MODIFIERS"] != "Option"
 			$dz.determinate(false)
@@ -77,17 +77,28 @@ def dragged
 			system("hdiutil create \"#{tmpDmg}\" -volname \"#{volumeName}\" -srcfolder \"#{tmpSrcDir}\" -ov >& /dev/null")
 		else
 			# get the password
-			output = $dz.cocoa_dialog('secure-standard-inputbox ‑‑float --title "Enter a new password to secure ' + dmgName + '" --e --informative-text "If you forget this password you will not be able to access the files stored on this image.' + "\n\n" + 'Enter the password:" --button1 "Ok" --button2 "Cancel"')
-			button, password = output.split("\n")
-			
+			pconfig = "
+				*.title = DMG Image Password
+				p.type = textfield
+				p.label = Enter a new password to secure \"#{dmgName}\"
+				p.mandatory = true
+				i.type = text
+				i.default = If you forget this password you will not be able to access the files stored on this image.
+				bc.type = cancelbutton
+				bc.default = Cancel
+			"
+			$dz.begin("Waiting for the DMG Image password...")
+			output = $dz.pashua(pconfig)
+			password = output['p']
+
 			# stop on cancel
-			if button == "2"
+			if output['bc'] == '1'
 				cleanup
 				$dz.finish("Cancelled")
 				$dz.url(false)
 				return
 			end
-			
+
 			$dz.determinate(false)
 			$dz.begin("Creating Encrypted DMG file...")
 
