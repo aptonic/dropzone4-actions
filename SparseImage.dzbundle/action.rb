@@ -3,19 +3,19 @@
 # Description: Creates a Sparse Image with dropped files and places it on the Desktop.\nHolding the Option key while dragging creates an AES-256 bits encrypted Sparse image.
 # Handles: Files
 # Creator: Dominique Da Silva
-# URL: https://inspira.io
+# URL: https://apps.inspira.io
 # Events: Clicked, Dragged
 # KeyModifiers: Option
 # SkipConfig: No
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
-# Version: 1.0
+# Version: 1.1
 # UniqueID: 7003
 
 $tmpDir = $dz.temp_folder + '/dztmp-' + Time.now.usec.to_s
 
 def dragged
-  fileName = $dz.inputbox("New Sparse Image File", "Enter name for new Sparse file:", "Sparse Name")
+	fileName = $dz.inputbox("New Sparse Image File", "Enter name for new Sparse file:", "Sparse Name")
 
 	# output name (remove the filename and any other chars that could be potentially dangerous)
 	fileName = File.basename(fileName, '.*').gsub(/[^a-zA-Z0-9\.\s-]/, '')
@@ -71,20 +71,42 @@ def dragged
 	# create the image file, copy to the desktop and do some cleaning up
 	begin
 
+		puts "Temporary source directory: #{tmpSrcDir}"
+
+		$dz.begin("Calculating final Image Size...")
+
+		folder_size = Dir.glob(File.join(tmpSrcDir, '**', '*'))
+					.map{ |f| File.size(f) }
+					.inject(:+)
+		sparse_size = [1, (folder_size / 1000000000.0).ceil].max.to_s + "g"
+
+		puts "Calculated folder size #{folder_size/1000000.0}Mb, creating an image of #{sparse_size}."
+
 		# create an encrypted sparse image if a modifier key is held down
 		if ENV["KEY_MODIFIERS"] != "Option"
 			$dz.determinate(false)
 			$dz.begin("Creating Sparse Image...")
-			system("hdiutil create -srcfolder \"#{tmpSrcDir}\" -format UDSP -size 1g -volname \"#{volumeName}\" \"#{tmpSparseImage}\" >& /dev/null")
+			system("hdiutil create -srcfolder \"#{tmpSrcDir}\" -format UDSP -size #{sparse_size} -volname \"#{volumeName}\" \"#{tmpSparseImage}\" >& /dev/null")
 		else
 			# get the password
-			output = $dz.cocoa_dialog('secure-standard-inputbox --float --title "Enter a new password to secure ' + imageName + '" --e --informative-text "If you forget this password you will not be able to access the files stored on this image.' + "\n\n" + 'Enter the password:" --button1 "Ok" --button2 "Cancel"')
-			button, password = output.split("\n")
+			pconfig = "
+				*.title = Secure Sparse Image
+				p.type = textfield
+				p.label = Enter a new password to secure \"#{imageName}\"
+				p.mandatory = true
+				i.type = text
+				i.default = If you forget this password you will not be able to access the files stored on this AES-256 encrypted image.
+				bc.type = cancelbutton
+				bc.default = Cancel
+			"
+			$dz.begin("Waiting for the Sparse Image password...")
+			output = $dz.pashua(pconfig)
+			password = output['p']
 
 			# stop on cancel
-			if button == "2"
+			if output['bc'] == '1'
 				cleanup
-				$dz.finish("Cancelled")
+				$dz.fail("Sparse Image creation cancelled.")
 				$dz.url(false)
 				return
 			end
@@ -92,7 +114,7 @@ def dragged
 			$dz.determinate(false)
 			$dz.begin("Creating Encrypted Sparse Image...")
 
-			system("echo \"#{password}\\0\" | hdiutil create -srcfolder \"#{tmpSrcDir}\" -encryption \"AES-256\" -stdinpass -size 1g -format UDSP -volname \"#{volumeName}\" \"#{tmpSparseImage}\" -ov >& /dev/null")
+			system("echo \"#{password}\\0\" | hdiutil create -srcfolder \"#{tmpSrcDir}\" -encryption \"AES-256\" -stdinpass -size #{sparse_size} -format UDSP -volname \"#{volumeName}\" \"#{tmpSparseImage}\" -ov >& /dev/null")
 		end
 
 		# move the Image to the desktop

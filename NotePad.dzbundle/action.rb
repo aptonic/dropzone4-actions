@@ -9,8 +9,8 @@
 # UniqueID: 394873920485738920
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
-# MinDropzoneVersion: 3.0
+# Version: 1.2
+# MinDropzoneVersion: 3.6
 require 'net/http'
 require 'json'
 
@@ -70,35 +70,38 @@ def dragged
 end
 
 def clicked
+  notepadid = defined?( ENV['notepadid'] ) ? ENV['notepadid'] : "1"
+  append = defined?( ENV['append'] ) ? ENV['append'] : "a"
+
   #
   # Get a NotePad ID from the user.
   #
-  qstr = "standard-inputbox --title \"NotePad\" --e --informative-text \"Which Pad (1-9)?\" "
-
-  button1, index = $dz.cocoa_dialog(qstr).split("\n")
-  notepadid = index.to_i
-  if(notepadid > 9)
-    notepadid = 9
-  elsif (notepadid < 1)
-    notepadid = 1
-  end
+  config = "
+    *.title = ScriptPad
+    id.label = Which note to save to?
+    id.type = popup
+    id.option = 1
+    id.option = 2
+    id.option = 3
+    id.option = 4
+    id.option = 5
+    id.option = 6
+    id.option = 7
+    id.option = 8
+    id.option = 9
+    id.default = #{notepadid}
+    append.label = Append or Overwrite (a or w)?
+    append.type = textfield
+    append.default = #{append}
+  "
+  result = $dz.pashua(config)
+  notepadid = result["id"].to_i
+  append = result["append"]
 
   #
   # Set the NotePad ID.
   #
   $dz.save_value("notepadid", notepadid)
-
-  #
-  # Get a type of copy (append or overwrite) from the user.
-  #
-  qstr = "standard-inputbox --title \"NotePad\" --e --informative-text \"Append or Overwrite (a or w)?\" "
-
-  button2, append =$dz.cocoa_dialog(qstr).split("\n")
-
-  #
-  # Set the NotePad ID.
-  #
-  $dz.save_value("append", append)
 
   #
   # Tell the user what they selected.
@@ -107,8 +110,14 @@ def clicked
     appendtext = "and to append the text."
   else
     appendtext = "and to overwrite the text."
-    append = 'a'
+    append = 'w'
   end
-  $dz.finish("You selected NotePadID '#{notepadid}' #{appendtext}")
+
+  #
+  # Set the NotePad ID.
+  #
+  $dz.save_value("append", append)
+
+  $dz.finish("NotePadID '#{notepadid}' #{appendtext}")
   $dz.url(false)
 end
