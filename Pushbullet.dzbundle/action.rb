@@ -8,13 +8,13 @@
 # OptionsNIB: APIKey
 # KeyModifiers: Option
 # LoginTitle: API Key (Copy from Pushbullet account setting)
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1032
 
 require 'rubygems'
- 
+
 def handle_errors(line)
   if line[0..4] == "curl:"
     if line[6..-1] =~ /Couldn't resolve/
@@ -54,7 +54,7 @@ def curl_it(cmd)
         if file_percent_raw != nil
           file_percent = file_percent_raw.to_i
           if last_output != file_percent
-            $dz.percent(file_percent) 
+            $dz.percent(file_percent)
             $dz.determinate(false) if file_percent == 100
           end
           last_output = file_percent
@@ -81,25 +81,40 @@ def select_device
   $dz.begin("Getting device list...")
 
   ret = curl_it('https://api.pushbullet.com/api/devices')
-  items = '--items'
+
+  devices = {}
+  poptions = ''
+
+  # {"id"=>0000000, "iden"=>"00000000", "extras"=>{"manufacturer"=>"Apple", "model"=>"Mac", "android_version"=>"", "sdk_version"=>"", "app_version"=>"4"}}
   ret['devices'].each do |device|
-    items << " \"#{device['extras']['model']}:#{device['iden']}\" "
+    devices[device['extras']['model']] = device['iden']
   end
-  title = 'Pushbullet'
-  text = 'Select target device:'
-  dialog_output = $dz.cocoa_dialog("standard-dropdown --title #{title} --text #{text} #{items} --string-output")
-  button, text = dialog_output.split("\n")
-  if text.nil? or button == 'Cancel'
+
+  # Populate option popup
+  devices.keys.each {|device|
+    poptions << "device.option = #{device}\n"
+  }
+  pconfig = "
+    *.title = Pushbullet
+    device.type = popup
+    #{poptions}
+    device.label = Select target device:
+    bc.type = cancelbutton
+    bc.label = Cancel
+  "
+  result = $dz.pashua(pconfig)
+
+  if result['bc'] == '1'
     $dz.finish('Cancelled')
     $dz.url(false)
     Process.exit
   end
-  text.split(':')[-1]
+
+  devices[result['device']]
 end
 
 
 def dragged
-
 
   if ENV["KEY_MODIFIERS"] == "Option" or not ENV.has_key?("device_iden")
     $dz.save_value("device_iden", select_device)

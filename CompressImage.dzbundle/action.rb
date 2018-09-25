@@ -5,9 +5,9 @@
 # Events: Clicked, Dragged
 # Creator: Richard Guay <raguay@customct.com>
 # RunsSandboxed: Yes
-# Version: 1.1
+# Version: 1.2
 # URL: http://customct.com
-# MinDropzoneVersion: 3.0
+# MinDropzoneVersion: 3.6
 # UniqueID: 1008
 
 require 'fileutils'
@@ -113,64 +113,48 @@ def clicked
 	# save it in the configuration file. We will save data in the
 	# ~/Library/Application Support/Dropzone/Destination Data/CompressFiles.txt
 	#
+	$size = ENV['image_width']
+	$ext = ENV['image_ext']
 
 	#
-	# Set the default return string to the error condition.
+	# Ask for the graphic file type to end up with.
 	#
-	result = "Sorry, you canceled out."
+	config = "
+		*.title = Compress Files
+		gf.type = popup
+		gf.option = .jpg
+		gf.option = .png
+		gf.option = .gif
+		gf.default = #{$ext}
+  		gf.label = What graphics format?
+  		gw.type = textfield
+  		gw.label = What size in px?
+  		gw.default = #{$size}
+		"
+	result = $dz.pashua(config)
+	ext = result["gf"]
+	width = result["gw"]
 
 	#
-	# Request the width of the graphic.
+	# Write the data file. Do not append, but delete and write fresh!
 	#
-	button1, width =$dz.cocoa_dialog('standard-inputbox --title "Compress Files: Graphic Width" --e --informative-text "What width? "').split("\n")
+	$dz.save_value("image_width", width)
+	$dz.save_value("image_ext", ext)
 
 	#
-	# See if the user canceled out. Do not continue if they cancel.
+	# Tell the user by setting the return string to what the user gave.
 	#
-	if button1 != "2"
-		#
-		# Ask for the graphic file type to end up with.
-		#
-		button2, extnum =$dz.cocoa_dialog('standard-dropdown --title "Compress Files: Graphic Format" --text "What Graphic Format?" --items ".jpg" ".png" ".gif" ').split("\n")
+	result = "Size: #{width} px, Ext: #{ext}"
 
-		#
-		# See if the user canceled out. Do not continue if they cancel.
-		#
-		if button2 != "2"
-			#
-			# Change the dropdown number to a string.
-			#
-			case extnum.to_i
-			when 0
-				ext = ".jpg"
-			when 1
-				ext = ".png"
-			when 2
-				ext = ".gif"
-			end
+	#
+	# Tell the user that it is done.
+	#
+	$dz.finish(result)
 
-			#
-			# Write the data file. Do not append, but delete and write fresh!
-			#
-			$dz.save_value("image_width", width)
-			$dz.save_value("image_ext", ext)
-
-			#
-			# Tell the user by setting the return string to what the user gave.
-			#
-			result = "Size: #{width} px, Ext: #{ext}"
-
-			#
-			# Tell the user that it is done.
-			#
-			$dz.finish(result)
-
-			#
-			# Finish out the dropzone protocal. If you want a url in the clipboard, pass it
-			# here. If you just want to copy text to the clipboard, use $dz.text() instead.
-			# Either $dz.url() or $dz.text() has to be the last thing in the clicked method.
-			#
-			$dz.url(false)
-		end
-	end
+	#
+	# Finish out the dropzone protocal. If you want a url in the clipboard, pass it
+	# here. If you just want to copy text to the clipboard, use $dz.text() instead.
+	# Either $dz.url() or $dz.text() has to be the last thing in the clicked method.
+	#
+	$dz.url(false)
 end
