@@ -1,11 +1,11 @@
 # Dropzone Action Info
 # Name: Say Text
-# Description: Text dragged onto this action will be read aloud to you.\nClick the action to read text on the clipboard.
+# Description: Text dragged onto this action will be read aloud to you. 12234556\nClick the action to read text on the clipboard.
 # Events: Dragged, Clicked
 # Handles: Text
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.0
+# Version: 1.1
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1023
