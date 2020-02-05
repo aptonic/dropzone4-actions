@@ -1,12 +1,12 @@
 # Dropzone Action Info
 # Name: Bitly
-# Description: A dropped URL will be converted to a Bit.ly URL. Password is your API key which can be found at http://bit.ly/a/your_api_key
+# Description: A dropped URL will be converted to a Bit.ly URL. Test again. Password is your API key which can be found at http://bit.ly/a/your_api_key
 # Handles: Text
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # OptionsNIB: Login
 # LoginTitle: Bitly Login Details
-# Version: 1.8
+# Version: 1.9
 # RunsSandboxed: Yes
 # MinDropzoneVersion: 3.0
 # UniqueID: 1013
