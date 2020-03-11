@@ -1,7 +1,5 @@
 YouTube Downloader
 SCP Upload
-Bitly
-Google Drive
 ImageShack
 Install Application
 Zip Files
@@ -16,5 +14,3 @@ Open Terminal at Path
 Mail Link
 Send iMessage With Attachment to Phone Number
 YouTube Uploader
-Rackspace Cloud Files
-Bundle Script
