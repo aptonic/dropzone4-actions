@@ -3,4 +3,5 @@ require 'rbconfig'
 ruby_engine = defined?(RUBY_ENGINE) ? RUBY_ENGINE : 'ruby'
 ruby_version = RbConfig::CONFIG["ruby_version"]
 path = File.expand_path('..', __FILE__)
-$:.unshift "#{path}/../#{ruby_engine}/#{ruby_version}/gems/gist-4.4.2/lib"
+$:.unshift "#{path}/"
+$:.unshift "#{path}/../#{ruby_engine}/#{ruby_version}/gems/gist-5.1.0/lib"

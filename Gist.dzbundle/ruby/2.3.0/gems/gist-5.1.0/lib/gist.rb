@@ -12,18 +12,18 @@ end
 module Gist
   extend self
 
-  VERSION = '4.4.2'
+  VERSION = '5.1.0'
 
   # A list of clipboard commands with copy and paste support.
   CLIPBOARD_COMMANDS = {
+    'pbcopy'  => 'pbpaste',
     'xclip'   => 'xclip -o',
     'xsel -i' => 'xsel -o',
-    'pbcopy'  => 'pbpaste',
-    'putclip' => 'getclip'
+    'putclip' => 'getclip',
   }
 
   GITHUB_API_URL   = URI("https://api.github.com/")
-  GIT_IO_URL       = URI("http://git.io")
+  GIT_IO_URL       = URI("https://git.io")
 
   GITHUB_BASE_PATH = ""
   GHE_BASE_PATH    = "/api/v3"
@@ -44,7 +44,7 @@ module Gist
   module AuthTokenFile
     def self.filename
       if ENV.key?(URL_ENV_NAME)
-        File.expand_path "~/.gist.#{ENV[URL_ENV_NAME].gsub(/[^a-z.]/, '')}"
+        File.expand_path "~/.gist.#{ENV[URL_ENV_NAME].gsub(/:/, '.').gsub(/[^a-z0-9.]/, '')}"
       else
         File.expand_path "~/.gist"
       end
@@ -76,8 +76,12 @@ module Gist
   #
   # @see http://developer.github.com/v3/gists/
   def gist(content, options = {})
-    filename = options[:filename] || "a.rb"
+    filename = options[:filename] || default_filename
     multi_gist({filename => content}, options)
+  end
+
+  def default_filename
+    "gistfile1.txt"
   end
 
   # Upload a gist to https://gist.github.com
@@ -92,6 +96,7 @@ module Gist
   # @option options [String] :update  the URL or id of a gist to update
   # @option options [Boolean] :copy  (false) Copy resulting URL to clipboard, if successful.
   # @option options [Boolean] :open  (false) Open the resulting URL in a browser.
+  # @option options [Boolean] :skip_empty (false) Skip gisting empty files.
   # @option options [Symbol] :output (:all) The type of return value you'd like:
   #   :html_url gives a String containing the url to the gist in a browser
   #   :short_url gives a String contianing a  git.io url that redirects to html_url
@@ -103,6 +108,13 @@ module Gist
   #
   # @see http://developer.github.com/v3/gists/
   def multi_gist(files, options={})
+    if options[:anonymous]
+      raise 'Anonymous gists are no longer supported. Please log in with `gist --login`. ' \
+        '(GitHub now requires credentials to gist https://bit.ly/2GBBxKw)'
+    else
+      access_token = (options[:access_token] || auth_token())
+    end
+
     json = {}
 
     json[:description] = options[:description] if options[:description]
@@ -110,22 +122,23 @@ module Gist
     json[:files] = {}
 
     files.each_pair do |(name, content)|
-      raise "Cannot gist empty files" if content.to_s.strip == ""
-      json[:files][File.basename(name)] = {:content => content}
+      if content.to_s.strip == ""
+        raise "Cannot gist empty files" unless options[:skip_empty]
+      else
+        name = name == "-" ? default_filename : File.basename(name)
+        json[:files][name] = {:content => content}
+      end
     end
 
+    return if json[:files].empty? && options[:skip_empty]
+
     existing_gist = options[:update].to_s.split("/").last
-    if options[:anonymous]
-      access_token = nil
-    else
-      access_token = (options[:access_token] || auth_token())
-    end
 
     url = "#{base_path}/gists"
     url << "/" << CGI.escape(existing_gist) if existing_gist.to_s != ''
-    url << "?access_token=" << CGI.escape(access_token) if access_token.to_s != ''
 
     request = Net::HTTP::Post.new(url)
+    request['Authorization'] = "token #{access_token}" if access_token.to_s != ''
     request.body = JSON.dump(json)
     request.content_type = 'application/json'
 
@@ -161,9 +174,10 @@ module Gist
     if user == ""
       access_token = auth_token()
       if access_token.to_s != ''
-        url << "/gists?access_token=" << CGI.escape(access_token)
+        url << "/gists"
 
         request = Net::HTTP::Get.new(url)
+        request['Authorization'] = "token #{access_token}"
         response = http(api_url, request)
 
         pretty_gist(response)
@@ -188,8 +202,8 @@ module Gist
     if user == ""
       access_token = auth_token()
       if access_token.to_s != ''
-        url << "/gists?per_page=100&access_token=" << CGI.escape(access_token)
-        get_gist_pages(url)
+        url << "/gists?per_page=100"
+        get_gist_pages(url, access_token)
       else
         raise Error, "Not authenticated. Use 'gist --login' to login or 'gist -l username' to view public gists."
       end
@@ -201,9 +215,56 @@ module Gist
 
   end
 
-  def get_gist_pages(url)
+  def read_gist(id, file_name=nil)
+    url = "#{base_path}/gists/#{id}"
+
+    access_token = auth_token()
 
     request = Net::HTTP::Get.new(url)
+    request['Authorization'] = "token #{access_token}" if access_token.to_s != ''
+    response = http(api_url, request)
+
+    if response.code == '200'
+      body = JSON.parse(response.body)
+      files = body["files"]
+
+      if file_name
+        file = files[file_name]
+        raise Error, "Gist with id of #{id} and file #{file_name} does not exist." unless file
+      else
+        file = files.values.first
+      end
+
+      puts file["content"]
+    else
+      raise Error, "Gist with id of #{id} does not exist."
+    end
+  end
+
+  def delete_gist(id)
+    id = id.split("/").last
+    url = "#{base_path}/gists/#{id}"
+
+    access_token = auth_token()
+    if access_token.to_s != ''
+      request = Net::HTTP::Delete.new(url)
+      request["Authorization"] = "token #{access_token}"
+      response = http(api_url, request)
+    else
+      raise Error, "Not authenticated. Use 'gist --login' to login."
+    end
+
+    if response.code == '204'
+      puts "Deleted!"
+    else
+      raise Error, "Gist with id of #{id} does not exist."
+    end
+  end
+
+  def get_gist_pages(url, access_token = "")
+
+    request = Net::HTTP::Get.new(url)
+    request['Authorization'] = "token #{access_token}" if access_token.to_s != ''
     response = http(api_url, request)
     pretty_gist(response)
 
@@ -211,7 +272,7 @@ module Gist
 
     if link_header
       links = Hash[ link_header.gsub(/(<|>|")/, "").split(',').map { |link| link.split('; rel=') } ].invert
-      get_gist_pages(links['next']) if links['next']
+      get_gist_pages(links['next'], access_token) if links['next']
     end
 
   end
@@ -241,10 +302,12 @@ module Gist
   # @param [String] url
   # @return [String] shortened url, or long url if shortening fails
   def shorten(url)
-    request = Net::HTTP::Post.new("/")
+    request = Net::HTTP::Post.new("/create")
     request.set_form_data(:url => url)
     response = http(GIT_IO_URL, request)
     case response.code
+    when "200"
+      URI.join(GIT_IO_URL, response.body).to_s
     when "201"
       response['Location']
     else
@@ -282,7 +345,7 @@ module Gist
   # @option credentials [String] :password
   # @see http://developer.github.com/v3/oauth/
   def login!(credentials={})
-    puts "Obtaining OAuth2 access_token from github."
+    puts "Obtaining OAuth2 access_token from GitHub."
     loop do
       print "GitHub username: "
       username = credentials[:username] || $stdin.gets.strip
@@ -317,7 +380,7 @@ module Gist
 
       if Net::HTTPCreated === response
         AuthTokenFile.write JSON.parse(response.body)['token']
-        puts "Success! #{ENV[URL_ENV_NAME] || "https://github.com/"}settings/applications"
+        puts "Success! #{ENV[URL_ENV_NAME] || "https://github.com/"}settings/tokens"
         return
       elsif Net::HTTPUnauthorized === response
         puts "Error: #{JSON.parse(response.body)['message']}"
