@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    gist (4.4.2)
+    gist (5.1.0)
 
 PLATFORMS
   ruby
@@ -10,4 +10,4 @@ DEPENDENCIES
   gist
 
 BUNDLED WITH
-   1.10.6
+   1.15.4
