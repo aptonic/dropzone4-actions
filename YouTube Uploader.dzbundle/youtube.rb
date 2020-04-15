@@ -50,6 +50,7 @@ class Youtube
     file_name = file_path.split(File::SEPARATOR).last
     $dz.begin("Uploading #{file_name} to YouTube...")
     content_type = `file -Ib \"#{file_path}\"`.gsub(/\n/, "")
+    content_type = content_type.split('; ')[0]
 
     metadata  = {
      snippet: {
@@ -59,7 +60,7 @@ class Youtube
        privacy_status: privacy_status
      }
     }
-    result = @youtube.insert_video('snippet,status', metadata, upload_source: file_path)
+    result = @youtube.insert_video('snippet,status', metadata, content_type: (content_type.start_with?('video/') ? content_type : nil), upload_source: file_path)
 
     system("open 'https://www.youtube.com/edit?o=U&video_id=#{result.id}'")
   end
