@@ -6,7 +6,10 @@ class Youtube
   def configure_client
     $dz.begin('Connecting to YouTube...')
 
+    Google::Apis::RequestOptions.default.retries = 5
     @youtube = Youtube::YouTubeService.new
+    @youtube.client_options.send_timeout_sec = 1200
+    @youtube.client_options.open_timeout_sec = 1200
     @youtube.authorization = get_authorization
   end
 
