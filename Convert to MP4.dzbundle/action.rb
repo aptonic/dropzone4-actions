@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Convert to MP4
-# Description: Converts the dropped videos to the MP4 format using ffmpeg. Alt-Drag to trash source files after conversion. Hold down Shift to convert to HEVC. Hold down Command to only change container without converting. Hold down Control to extract audio (only works with aac).
+# Description: Converts the dropped videos to the MP4 format using ffmpeg. Hold down Option to trash source files after conversion. Hold down Shift to convert to HEVC. Hold down Command to only change container without converting. Hold down Control to extract audio (only works with aac).
 # Creator: Melvin Gundlach
 # URL: http://www.melvin-gundlach.de
 # Events: Clicked, Dragged
@@ -8,7 +8,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # RunsSandboxed: Yes
 # SkipConfig: Yes
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.0
 # UniqueID: 23451
 
@@ -29,7 +29,7 @@ def dragged
 			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -codec copy \"#{filepath}\"/\"#{basename}\".mp4"
 			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
-			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -codec:video libx265 \"#{filepath}\"/\"#{basename}\".mp4"
+			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -c:v libx265 -tag:v hvc1 \"#{filepath}\"/\"#{basename}\".mp4"
 			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
 			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -vn -codec copy \"#{filepath}\"/\"#{basename}\".m4a"
