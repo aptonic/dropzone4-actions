@@ -20,6 +20,7 @@ from ..utils import (
     merge_dicts,
     parse_duration,
     smuggle_url,
+    url_or_none,
     xpath_with_ns,
     xpath_element,
     xpath_text,
@@ -76,10 +77,10 @@ class ITVIE(InfoExtractor):
             return etree.SubElement(element, _add_ns(name))
 
         production_id = (
-            params.get('data-video-autoplay-id') or
-            '%s#001' % (
-                params.get('data-video-episode-id') or
-                video_id.replace('a', '/')))
+            params.get('data-video-autoplay-id')
+            or '%s#001' % (
+                params.get('data-video-episode-id')
+                or video_id.replace('a', '/')))
 
         req_env = etree.Element(_add_ns('soapenv:Envelope'))
         _add_sub_element(req_env, 'soapenv:Header')
@@ -250,8 +251,8 @@ class ITVIE(InfoExtractor):
                     for sub in subs:
                         if not isinstance(sub, dict):
                             continue
-                        href = sub.get('Href')
-                        if isinstance(href, compat_str):
+                        href = url_or_none(sub.get('Href'))
+                        if href:
                             extract_subtitle(href)
                 if not info.get('duration'):
                     info['duration'] = parse_duration(video_data.get('Duration'))

@@ -20,6 +20,7 @@ from ..utils import (
     int_or_none,
     js_to_json,
     limit_length,
+    parse_count,
     sanitized_Request,
     try_get,
     urlencode_postdata,
@@ -56,7 +57,7 @@ class FacebookIE(InfoExtractor):
     _CHROME_USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
 
     _VIDEO_PAGE_TEMPLATE = 'https://www.facebook.com/video/video.php?v=%s'
-    _VIDEO_PAGE_TAHOE_TEMPLATE = 'https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true'
+    _VIDEO_PAGE_TAHOE_TEMPLATE = 'https://www.facebook.com/video/tahoe/async/%s/?chain=true&isvideo=true&payloadtype=primary'
 
     _TESTS = [{
         'url': 'https://www.facebook.com/video.php?v=637842556329505&fref=nf',
@@ -75,7 +76,7 @@ class FacebookIE(InfoExtractor):
         'info_dict': {
             'id': '274175099429670',
             'ext': 'mp4',
-            'title': 'Asif Nawab Butt posted a video to his Timeline.',
+            'title': 're:^Asif Nawab Butt posted a video',
             'uploader': 'Asif Nawab Butt',
             'upload_date': '20140506',
             'timestamp': 1399398998,
@@ -133,7 +134,7 @@ class FacebookIE(InfoExtractor):
     }, {
         # have 1080P, but only up to 720p in swf params
         'url': 'https://www.facebook.com/cnn/videos/10155529876156509/',
-        'md5': '0d9813160b146b3bc8744e006027fcc6',
+        'md5': '9571fae53d4165bbbadb17a94651dcdc',
         'info_dict': {
             'id': '10155529876156509',
             'ext': 'mp4',
@@ -142,6 +143,7 @@ class FacebookIE(InfoExtractor):
             'upload_date': '20161030',
             'uploader': 'CNN',
             'thumbnail': r're:^https?://.*',
+            'view_count': int,
         },
     }, {
         # bigPipe.onPageletArrive ... onPageletArrive pagelet_group_mall
@@ -149,7 +151,7 @@ class FacebookIE(InfoExtractor):
         'info_dict': {
             'id': '1417995061575415',
             'ext': 'mp4',
-            'title': 'md5:a7b86ca673f51800cd54687b7f4012fe',
+            'title': 'md5:1db063d6a8c13faa8da727817339c857',
             'timestamp': 1486648217,
             'upload_date': '20170209',
             'uploader': 'Yaroslav Korpan',
@@ -176,7 +178,7 @@ class FacebookIE(InfoExtractor):
         'info_dict': {
             'id': '1396382447100162',
             'ext': 'mp4',
-            'title': 'md5:e2d2700afdf84e121f5d0f999bad13a3',
+            'title': 'md5:19a428bbde91364e3de815383b54a235',
             'timestamp': 1486035494,
             'upload_date': '20170202',
             'uploader': 'Elisabeth Ahtn',
@@ -332,7 +334,7 @@ class FacebookIE(InfoExtractor):
         if not video_data:
             server_js_data = self._parse_json(
                 self._search_regex(
-                    r'bigPipe\.onPageletArrive\(({.+?})\)\s*;\s*}\s*\)\s*,\s*["\']onPageletArrive\s+(?:stream_pagelet|pagelet_group_mall|permalink_video_pagelet)',
+                    r'bigPipe\.onPageletArrive\(({.+?})\)\s*;\s*}\s*\)\s*,\s*["\']onPageletArrive\s+(?:pagelet_group_mall|permalink_video_pagelet|hyperfeed_story_id_\d+)',
                     webpage, 'js data', default='{}'),
                 video_id, transform_source=js_to_json, fatal=False)
             video_data = extract_from_jsmods_instances(server_js_data)
@@ -353,7 +355,6 @@ class FacebookIE(InfoExtractor):
             tahoe_data = self._download_webpage(
                 self._VIDEO_PAGE_TAHOE_TEMPLATE % video_id, video_id,
                 data=urlencode_postdata({
-                    '__user': 0,
                     '__a': 1,
                     '__pc': self._search_regex(
                         r'pkg_cohort["\']\s*:\s*["\'](.+?)["\']', webpage,
@@ -361,6 +362,9 @@ class FacebookIE(InfoExtractor):
                     '__rev': self._search_regex(
                         r'client_revision["\']\s*:\s*(\d+),', webpage,
                         'client revision', default='3944515'),
+                    'fb_dtsg': self._search_regex(
+                        r'"DTSGInitialData"\s*,\s*\[\]\s*,\s*{\s*"token"\s*:\s*"([^"]+)"',
+                        webpage, 'dtsg token', default=''),
                 }),
                 headers={
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -375,6 +379,7 @@ class FacebookIE(InfoExtractor):
         if not video_data:
             raise ExtractorError('Cannot parse data')
 
+        subtitles = {}
         formats = []
         for f in video_data:
             format_id = f['stream_type']
@@ -398,8 +403,16 @@ class FacebookIE(InfoExtractor):
             if dash_manifest:
                 formats.extend(self._parse_mpd_formats(
                     compat_etree_fromstring(compat_urllib_parse_unquote_plus(dash_manifest))))
+            subtitles_src = f[0].get('subtitles_src')
+            if subtitles_src:
+                subtitles.setdefault('en', []).append({'url': subtitles_src})
         if not formats:
             raise ExtractorError('Cannot find video formats')
+
+        # Downloads with browser's User-Agent are rate limited. Working around
+        # with non-browser User-Agent.
+        for f in formats:
+            f.setdefault('http_headers', {})['User-Agent'] = 'facebookexternalhit/1.1'
 
         self._sort_formats(formats)
 
@@ -420,11 +433,15 @@ class FacebookIE(InfoExtractor):
         uploader = clean_html(get_element_by_id(
             'fbPhotoPageAuthorName', webpage)) or self._search_regex(
             r'ownerName\s*:\s*"([^"]+)"', webpage, 'uploader',
-            fatal=False) or self._og_search_title(webpage, fatal=False)
+            default=None) or self._og_search_title(webpage, fatal=False)
         timestamp = int_or_none(self._search_regex(
             r'<abbr[^>]+data-utime=["\'](\d+)', webpage,
             'timestamp', default=None))
-        thumbnail = self._og_search_thumbnail(webpage)
+        thumbnail = self._html_search_meta(['og:image', 'twitter:image'], webpage)
+
+        view_count = parse_count(self._search_regex(
+            r'\bviewCount\s*:\s*["\']([\d,.]+)', webpage, 'view count',
+            default=None))
 
         info_dict = {
             'id': video_id,
@@ -433,6 +450,8 @@ class FacebookIE(InfoExtractor):
             'uploader': uploader,
             'timestamp': timestamp,
             'thumbnail': thumbnail,
+            'view_count': view_count,
+            'subtitles': subtitles,
         }
 
         return webpage, info_dict
@@ -447,15 +466,18 @@ class FacebookIE(InfoExtractor):
             return info_dict
 
         if '/posts/' in url:
-            entries = [
-                self.url_result('facebook:%s' % vid, FacebookIE.ie_key())
-                for vid in self._parse_json(
-                    self._search_regex(
-                        r'(["\'])video_ids\1\s*:\s*(?P<ids>\[.+?\])',
-                        webpage, 'video ids', group='ids'),
-                    video_id)]
+            video_id_json = self._search_regex(
+                r'(["\'])video_ids\1\s*:\s*(?P<ids>\[.+?\])', webpage, 'video ids', group='ids',
+                default='')
+            if video_id_json:
+                entries = [
+                    self.url_result('facebook:%s' % vid, FacebookIE.ie_key())
+                    for vid in self._parse_json(video_id_json, video_id)]
+                return self.playlist_result(entries, video_id)
 
-            return self.playlist_result(entries, video_id)
+            # Single Video?
+            video_id = self._search_regex(r'video_id:\s*"([0-9]+)"', webpage, 'single video id')
+            return self.url_result('facebook:%s' % video_id, FacebookIE.ie_key())
         else:
             _, info_dict = self._extract_from_url(
                 self._VIDEO_PAGE_TEMPLATE % video_id,

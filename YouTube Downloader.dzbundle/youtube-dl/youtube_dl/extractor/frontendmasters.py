@@ -11,6 +11,7 @@ from ..compat import (
 from ..utils import (
     ExtractorError,
     parse_duration,
+    url_or_none,
     urlencode_postdata,
 )
 
@@ -80,7 +81,7 @@ class FrontendMastersPageBaseIE(FrontendMastersBaseIE):
         chapters = []
         lesson_elements = course.get('lessonElements')
         if isinstance(lesson_elements, list):
-            chapters = [e for e in lesson_elements if isinstance(e, compat_str)]
+            chapters = [url_or_none(e) for e in lesson_elements if url_or_none(e)]
         return chapters
 
     @staticmethod
@@ -93,8 +94,8 @@ class FrontendMastersPageBaseIE(FrontendMastersBaseIE):
         chapter_number = None
         index = lesson.get('index')
         element_index = lesson.get('elementIndex')
-        if (isinstance(index, int) and isinstance(element_index, int) and
-                index < element_index):
+        if (isinstance(index, int) and isinstance(element_index, int)
+                and index < element_index):
             chapter_number = element_index - index
         chapter = (chapters[chapter_number - 1]
                    if chapter_number - 1 < len(chapters) else None)
