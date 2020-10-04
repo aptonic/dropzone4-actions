@@ -7,7 +7,7 @@
 # Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 def dragged
