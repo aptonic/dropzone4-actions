@@ -1,7 +1,6 @@
 # Dropzone Action Info
 # Name: Trash
-# Description: An action to throw items into the trash if Finder is running. Otherwise,
-#                     it simply deletes them using the command line.
+# Description: An action to throw items into the trash if Finder is running. Otherwise, it simply deletes them using the command line.
 # Handles: Files
 # Creator: Richard Guay
 # URL: http://customct.com
@@ -38,7 +37,7 @@ def dragged
     if finderR =~ /not running/ then
         `rm -Rf "#{file}"`
     else
-    	`./trash "#{file}"`
+    	`./trash -va "#{file}"`
 	end
 
     #
