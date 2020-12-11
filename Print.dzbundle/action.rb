@@ -5,10 +5,11 @@
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.2
+# Version: 1.3
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
+
 
 $printing_tmp_folder = "#{$dz.temp_folder}/Dropzone-Printing"
 
@@ -83,11 +84,19 @@ def get_printer
   
   s = ($items.length > 1 ? "s" : "")
   
+  # Get default printer
+  d = ""
+  output = ""
+  output = `lpstat -d 2>&1`
+  d = output.split(" ")[3].gsub("_", " ")
+
+  # Added p.default to select the default printer
   printer_select_config = "
   *.title = Print #{$items.length} Item#{s}
   p.type = popup
   p.label = Select Printer:
   p.width = 310
+  p.default = #{d}
   #{printer_options}
   cb.type = cancelbutton
   "
