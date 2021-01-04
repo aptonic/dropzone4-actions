@@ -8,7 +8,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # RunsSandboxed: Yes
 # SkipConfig: Yes
-# Version: 1.2
+# Version: 1.3
 # MinDropzoneVersion: 3.0
 # UniqueID: 23451
 
@@ -17,6 +17,17 @@ def dragged
 	$dz.determinate(true)
 	$dz.percent(0)
 	currentFileNumber = 0
+
+	ffmpegPath = nil
+	if File.file?("/usr/local/bin/ffmpeg")
+		ffmpegPath = "/usr/local/bin/ffmpeg"
+	elsif File.file?("/opt/homebrew/bin/ffmpeg")
+		ffmpegPath = "/opt/homebrew/bin/ffmpeg"
+	else
+		errorMessage = "No ffmpeg installation found."
+		$dz.error("Error", errorMessage)
+		$dz.fail(errorMessage)
+	end
 	
 	$items.each { |itemX|
 		basename = File.basename(itemX, ".*")
@@ -24,15 +35,15 @@ def dragged
 		filepath = File.dirname(itemX)
 		puts filepath
 		
-		requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" \"#{filepath}\"/\"#{basename}\".mp4"
+		requestString = "#{ffmpegPath} -i \"#{itemX}\" \"#{filepath}\"/\"#{basename}\".mp4"
 		if ENV['KEY_MODIFIERS'] == "Command" # Codec copy
-			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -codec copy \"#{filepath}\"/\"#{basename}\".mp4"
+			requestString = "#{ffmpegPath} -i \"#{itemX}\" -codec copy \"#{filepath}\"/\"#{basename}\".mp4"
 			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
-			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -c:v libx265 -tag:v hvc1 \"#{filepath}\"/\"#{basename}\".mp4"
+			requestString = "#{ffmpegPath} -i \"#{itemX}\" -c:v libx265 -tag:v hvc1 \"#{filepath}\"/\"#{basename}\".mp4"
 			filepath += "/" + basename + ".mp4"
 		elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
-			requestString = "/usr/local/bin/ffmpeg -i \"#{itemX}\" -vn -codec copy \"#{filepath}\"/\"#{basename}\".m4a"
+			requestString = "#{ffmpegPath} -i \"#{itemX}\" -vn -codec copy \"#{filepath}\"/\"#{basename}\".m4a"
 			filepath += "/" + basename + ".m4a"
 		else
 			filepath += "/" + basename + ".mp4"
@@ -42,12 +53,12 @@ def dragged
 		puts filepath
 		
 		if !ret
-			failString = "Have you installed ffmpeg? Is your input valid?"
+			failString = "Invalid input."
 			if ENV['KEY_MODIFIERS'] == "Command" # Codec copy
 				failString += "\nInput video codec not compatible with MP4 container. Possibly source file is MP4 file already."
-				elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
+			elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
 				failString += "\nMaybe you don't have the libx265 library for ffmpeg installed. Possibly source file is MP4 file already."
-				elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
+			elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
 				failString += "\nInput audio codec is not aac."
 			end
 			
