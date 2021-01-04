@@ -56,9 +56,9 @@ def dragged
 			failString = "Invalid input."
 			if ENV['KEY_MODIFIERS'] == "Command" # Codec copy
 				failString += "\nInput video codec not compatible with MP4 container. Possibly source file is MP4 file already."
-				elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
+			elsif ENV['KEY_MODIFIERS'] == "Shift" # x265
 				failString += "\nMaybe you don't have the libx265 library for ffmpeg installed. Possibly source file is MP4 file already."
-				elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
+			elsif ENV['KEY_MODIFIERS'] == "Control" # Excract m4a audio
 				failString += "\nInput audio codec is not aac."
 			end
 			
