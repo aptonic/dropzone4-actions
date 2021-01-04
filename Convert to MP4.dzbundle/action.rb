@@ -8,7 +8,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # RunsSandboxed: Yes
 # SkipConfig: Yes
-# Version: 1.2
+# Version: 1.3
 # MinDropzoneVersion: 3.0
 # UniqueID: 23451
 
