@@ -12,4 +12,3 @@ Desktop Picture
 Open Terminal at Path
 Mail Link
 Send iMessage With Attachment to Phone Number
-YouTube Uploader
