@@ -65,7 +65,7 @@ class Youtube
     }
     result = @youtube.insert_video('snippet,status', metadata, content_type: (content_type.start_with?('video/') ? content_type : nil), upload_source: file_path)
 
-    system("open 'https://www.youtube.com/edit?o=U&video_id=#{result.id}'")
+    system("open 'https://studio.youtube.com/video/#{result.id}/edit'")
   end
 
   def read_privacy_status
