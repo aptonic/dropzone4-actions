@@ -4,6 +4,7 @@ Install Application
 Zip Files
 Create DMG File
 Print
+YouTube Uploader
 Image Search
 Finder Path
 Screensaver
