@@ -39,6 +39,7 @@ import zlib
 from .compat import (
     compat_HTMLParseError,
     compat_HTMLParser,
+    compat_HTTPError,
     compat_basestring,
     compat_chr,
     compat_cookiejar,
@@ -2458,7 +2459,7 @@ class XAttrMetadataError(YoutubeDLError):
 
         # Parsing code and msg
         if (self.code in (errno.ENOSPC, errno.EDQUOT)
-                or 'No space left' in self.msg or 'Disk quota excedded' in self.msg):
+                or 'No space left' in self.msg or 'Disk quota exceeded' in self.msg):
             self.reason = 'NO_SPACE'
         elif self.code == errno.E2BIG or 'Argument list too long' in self.msg:
             self.reason = 'VALUE_TOO_LONG'
@@ -2879,12 +2880,60 @@ class YoutubeDLCookieProcessor(compat_urllib_request.HTTPCookieProcessor):
 
 
 class YoutubeDLRedirectHandler(compat_urllib_request.HTTPRedirectHandler):
-    if sys.version_info[0] < 3:
-        def redirect_request(self, req, fp, code, msg, headers, newurl):
-            # On python 2 urlh.geturl() may sometimes return redirect URL
-            # as byte string instead of unicode. This workaround allows
-            # to force it always return unicode.
-            return compat_urllib_request.HTTPRedirectHandler.redirect_request(self, req, fp, code, msg, headers, compat_str(newurl))
+    """YoutubeDL redirect handler
+
+    The code is based on HTTPRedirectHandler implementation from CPython [1].
+
+    This redirect handler solves two issues:
+     - ensures redirect URL is always unicode under python 2
+     - introduces support for experimental HTTP response status code
+       308 Permanent Redirect [2] used by some sites [3]
+
+    1. https://github.com/python/cpython/blob/master/Lib/urllib/request.py
+    2. https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
+    3. https://github.com/ytdl-org/youtube-dl/issues/28768
+    """
+
+    http_error_301 = http_error_303 = http_error_307 = http_error_308 = compat_urllib_request.HTTPRedirectHandler.http_error_302
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        """Return a Request or None in response to a redirect.
+
+        This is called by the http_error_30x methods when a
+        redirection response is received.  If a redirection should
+        take place, return a new Request to allow http_error_30x to
+        perform the redirect.  Otherwise, raise HTTPError if no-one
+        else should try to handle this url.  Return None if you can't
+        but another Handler might.
+        """
+        m = req.get_method()
+        if (not (code in (301, 302, 303, 307, 308) and m in ("GET", "HEAD")
+                 or code in (301, 302, 303) and m == "POST")):
+            raise compat_HTTPError(req.full_url, code, msg, headers, fp)
+        # Strictly (according to RFC 2616), 301 or 302 in response to
+        # a POST MUST NOT cause a redirection without confirmation
+        # from the user (of urllib.request, in this case).  In practice,
+        # essentially all clients do redirect in this case, so we do
+        # the same.
+
+        # On python 2 urlh.geturl() may sometimes return redirect URL
+        # as byte string instead of unicode. This workaround allows
+        # to force it always return unicode.
+        if sys.version_info[0] < 3:
+            newurl = compat_str(newurl)
+
+        # Be conciliant with URIs containing a space.  This is mainly
+        # redundant with the more complete encoding done in http_error_302(),
+        # but it is kept for compatibility with other callers.
+        newurl = newurl.replace(' ', '%20')
+
+        CONTENT_HEADERS = ("content-length", "content-type")
+        # NB: don't use dict comprehension for python 2.6 compatibility
+        newheaders = dict((k, v) for k, v in req.headers.items()
+                          if k.lower() not in CONTENT_HEADERS)
+        return compat_urllib_request.Request(
+            newurl, headers=newheaders, origin_req_host=req.origin_req_host,
+            unverifiable=True)
 
 
 def extract_timezone(date_str):
@@ -3640,7 +3689,7 @@ def url_or_none(url):
     if not url or not isinstance(url, compat_str):
         return None
     url = url.strip()
-    return url if re.match(r'^(?:[a-zA-Z][\da-zA-Z.+-]*:)?//', url) else None
+    return url if re.match(r'^(?:(?:https?|rt(?:m(?:pt?[es]?|fp)|sp[su]?)|mms|ftps?):)?//', url) else None
 
 
 def parse_duration(s):
@@ -4078,7 +4127,7 @@ def js_to_json(code):
         v = m.group(0)
         if v in ('true', 'false', 'null'):
             return v
-        elif v.startswith('/*') or v.startswith('//') or v == ',':
+        elif v.startswith('/*') or v.startswith('//') or v.startswith('!') or v == ',':
             return ""
 
         if v[0] in ("'", '"'):
@@ -4088,12 +4137,12 @@ def js_to_json(code):
                 '\\\n': '',
                 '\\x': '\\u00',
             }.get(m.group(0), m.group(0)), v[1:-1])
-
-        for regex, base in INTEGER_TABLE:
-            im = re.match(regex, v)
-            if im:
-                i = int(im.group(1), base)
-                return '"%d":' % i if v.endswith(':') else '%d' % i
+        else:
+            for regex, base in INTEGER_TABLE:
+                im = re.match(regex, v)
+                if im:
+                    i = int(im.group(1), base)
+                    return '"%d":' % i if v.endswith(':') else '%d' % i
 
         return '"%s"' % v
 
@@ -4103,7 +4152,8 @@ def js_to_json(code):
         {comment}|,(?={skip}[\]}}])|
         (?:(?<![0-9])[eE]|[a-df-zA-DF-Z_])[.a-zA-Z_0-9]*|
         \b(?:0[xX][0-9a-fA-F]+|0+[0-7]+)(?:{skip}:)?|
-        [0-9]+(?={skip}:)
+        [0-9]+(?={skip}:)|
+        !+
         '''.format(comment=COMMENT_RE, skip=SKIP_RE), fix_kv, code)
 
 
@@ -4198,6 +4248,7 @@ def mimetype2ext(mt):
         'vnd.ms-sstr+xml': 'ism',
         'quicktime': 'mov',
         'mp2t': 'ts',
+        'x-wav': 'wav',
     }.get(res, res)
 
 
@@ -4205,10 +4256,10 @@ def parse_codecs(codecs_str):
     # http://tools.ietf.org/html/rfc6381
     if not codecs_str:
         return {}
-    splited_codecs = list(filter(None, map(
+    split_codecs = list(filter(None, map(
         lambda str: str.strip(), codecs_str.strip().strip(',').split(','))))
     vcodec, acodec = None, None
-    for full_codec in splited_codecs:
+    for full_codec in split_codecs:
         codec = full_codec.split('.')[0]
         if codec in ('avc1', 'avc2', 'avc3', 'avc4', 'vp9', 'vp8', 'hev1', 'hev2', 'h263', 'h264', 'mp4v', 'hvc1', 'av01', 'theora'):
             if not vcodec:
@@ -4219,10 +4270,10 @@ def parse_codecs(codecs_str):
         else:
             write_string('WARNING: Unknown codec %s\n' % full_codec, sys.stderr)
     if not vcodec and not acodec:
-        if len(splited_codecs) == 2:
+        if len(split_codecs) == 2:
             return {
-                'vcodec': splited_codecs[0],
-                'acodec': splited_codecs[1],
+                'vcodec': split_codecs[0],
+                'acodec': split_codecs[1],
             }
     else:
         return {
@@ -5461,7 +5512,7 @@ def encode_base_n(num, n, table=None):
 
 def decode_packed_codes(code):
     mobj = re.search(PACKED_CODES_RE, code)
-    obfucasted_code, base, count, symbols = mobj.groups()
+    obfuscated_code, base, count, symbols = mobj.groups()
     base = int(base)
     count = int(count)
     symbols = symbols.split('|')
@@ -5474,7 +5525,7 @@ def decode_packed_codes(code):
 
     return re.sub(
         r'\b(\w+)\b', lambda mobj: symbol_table[mobj.group(0)],
-        obfucasted_code)
+        obfuscated_code)
 
 
 def caesar(s, alphabet, shift):
@@ -5704,3 +5755,20 @@ def random_birthday(year_field, month_field, day_field):
         month_field: str(random_date.month),
         day_field: str(random_date.day),
     }
+
+
+def clean_podcast_url(url):
+    return re.sub(r'''(?x)
+        (?:
+            (?:
+                chtbl\.com/track|
+                media\.blubrry\.com| # https://create.blubrry.com/resources/podcast-media-download-statistics/getting-started/
+                play\.podtrac\.com
+            )/[^/]+|
+            (?:dts|www)\.podtrac\.com/(?:pts/)?redirect\.[0-9a-z]{3,4}| # http://analytics.podtrac.com/how-to-measure
+            flex\.acast\.com|
+            pd(?:
+                cn\.co| # https://podcorn.com/analytics-prefix/
+                st\.fm # https://podsights.com/docs/
+            )/e
+        )/''', '', url)

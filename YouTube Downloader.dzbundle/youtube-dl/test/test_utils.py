@@ -21,6 +21,7 @@ from youtube_dl.utils import (
     encode_base_n,
     caesar,
     clean_html,
+    clean_podcast_url,
     date_from_str,
     DateRange,
     detect_exe_version,
@@ -554,6 +555,11 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(url_or_none('http$://foo.de'), None)
         self.assertEqual(url_or_none('http://foo.de'), 'http://foo.de')
         self.assertEqual(url_or_none('//foo.de'), '//foo.de')
+        self.assertEqual(url_or_none('s3://foo.de'), None)
+        self.assertEqual(url_or_none('rtmpte://foo.de'), 'rtmpte://foo.de')
+        self.assertEqual(url_or_none('mms://foo.de'), 'mms://foo.de')
+        self.assertEqual(url_or_none('rtspu://foo.de'), 'rtspu://foo.de')
+        self.assertEqual(url_or_none('ftps://foo.de'), 'ftps://foo.de')
 
     def test_parse_age_limit(self):
         self.assertEqual(parse_age_limit(None), None)
@@ -803,6 +809,8 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(mimetype2ext('text/vtt'), 'vtt')
         self.assertEqual(mimetype2ext('text/vtt;charset=utf-8'), 'vtt')
         self.assertEqual(mimetype2ext('text/html; charset=utf-8'), 'html')
+        self.assertEqual(mimetype2ext('audio/x-wav'), 'wav')
+        self.assertEqual(mimetype2ext('audio/x-wav;codec=pcm'), 'wav')
 
     def test_month_by_name(self):
         self.assertEqual(month_by_name(None), None)
@@ -935,6 +943,28 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(d['x'], 1)
         self.assertEqual(d['y'], 'a')
 
+        # Just drop ! prefix for now though this results in a wrong value
+        on = js_to_json('''{
+            a: !0,
+            b: !1,
+            c: !!0,
+            d: !!42.42,
+            e: !!![],
+            f: !"abc",
+            g: !"",
+            !42: 42
+        }''')
+        self.assertEqual(json.loads(on), {
+            'a': 0,
+            'b': 1,
+            'c': 0,
+            'd': 42.42,
+            'e': [],
+            'f': "abc",
+            'g': "",
+            '42': 42
+        })
+
         on = js_to_json('["abc", "def",]')
         self.assertEqual(json.loads(on), ['abc', 'def'])
 
@@ -991,6 +1021,12 @@ class TestUtil(unittest.TestCase):
 
         on = js_to_json('{42:4.2e1}')
         self.assertEqual(json.loads(on), {'42': 42.0})
+
+        on = js_to_json('{ "0x40": "0x40" }')
+        self.assertEqual(json.loads(on), {'0x40': '0x40'})
+
+        on = js_to_json('{ "040": "040" }')
+        self.assertEqual(json.loads(on), {'040': '040'})
 
     def test_js_to_json_malformed(self):
         self.assertEqual(js_to_json('42a1'), '42"a1"')
@@ -1434,6 +1470,10 @@ Line 1
         self.assertEqual(get_elements_by_attribute('class', 'foo bar', html), ['nice', 'also nice'])
         self.assertEqual(get_elements_by_attribute('class', 'foo', html), [])
         self.assertEqual(get_elements_by_attribute('class', 'no-such-foo', html), [])
+
+    def test_clean_podcast_url(self):
+        self.assertEqual(clean_podcast_url('https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW7835899191.mp3'), 'https://traffic.megaphone.fm/HSW7835899191.mp3')
+        self.assertEqual(clean_podcast_url('https://play.podtrac.com/npr-344098539/edge1.pod.npr.org/anon.npr-podcasts/podcast/npr/waitwait/2020/10/20201003_waitwait_wwdtmpodcast201003-015621a5-f035-4eca-a9a1-7c118d90bc3c.mp3'), 'https://edge1.pod.npr.org/anon.npr-podcasts/podcast/npr/waitwait/2020/10/20201003_waitwait_wwdtmpodcast201003-015621a5-f035-4eca-a9a1-7c118d90bc3c.mp3')
 
 
 if __name__ == '__main__':

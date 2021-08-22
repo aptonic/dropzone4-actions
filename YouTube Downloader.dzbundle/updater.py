@@ -1,5 +1,5 @@
-import urllib
-import urllib2
+from urllib.request import urlretrieve
+import urllib.request
 import traceback
 import hashlib
 import json
@@ -17,7 +17,7 @@ def update_youtubedl():
     
     # Check if there is a new version
     try:
-        newversion = urllib2.urlopen(VERSION_URL).read().decode('utf-8').strip()
+        newversion = urllib.request.urlopen(VERSION_URL).read().decode('utf-8').strip()
     except Exception:
         print(traceback.format_exc())
         print('ERROR: can\'t find the current version. Please try again later.')
@@ -27,7 +27,7 @@ def update_youtubedl():
         return
     
     try:
-        versions_info = urllib2.urlopen(JSON_URL).read().decode('utf-8')
+        versions_info = urllib.request.urlopen(JSON_URL).read().decode('utf-8')
         versions_info = json.loads(versions_info)
     except Exception:
         print(traceback.format_exc())
@@ -63,7 +63,7 @@ def update_youtubedl():
                 utils.set_determinate_progress(True)
                 utils.set_progress_percent(percent)
         
-        urllib.urlretrieve(version['tar'][0], filename, reporthook)
+        urlretrieve(version['tar'][0], filename, reporthook)
         
     except Exception:
         print(traceback.format_exc())

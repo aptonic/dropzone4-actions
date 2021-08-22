@@ -8,8 +8,9 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.9
+# Version: 2.0
 # MinDropzoneVersion: 3.5
+# PythonPath: /usr/bin/python3
 # UniqueID: 1036
 
 from __future__ import unicode_literals
