@@ -26,7 +26,7 @@ def dragged():
 
 def clicked():
     url = dz.read_clipboard()
-    download_url(url)
+    download_url(url.decode('utf-8'))
 
 def download_url(url):
     regex = re.compile(
