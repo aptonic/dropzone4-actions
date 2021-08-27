@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.0
+# Version: 2.1
 # MinDropzoneVersion: 3.5
 # PythonPath: /usr/bin/python3
 # UniqueID: 1036
