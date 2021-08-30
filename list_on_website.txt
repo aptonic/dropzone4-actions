@@ -1,5 +1,4 @@
 YouTube Downloader
-SCP Upload
 Install Application
 Zip Files
 Create DMG File
