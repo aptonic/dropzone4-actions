@@ -1,5 +1,11 @@
-from urllib.request import urlretrieve
-import urllib.request
+try:
+    from urllib.request import urlretrieve
+    import urllib.request
+except ImportError:
+    # Python 2 fallback
+    import urllib
+    import urllib2
+    
 import traceback
 import hashlib
 import json
@@ -8,6 +14,7 @@ import os
 import shutil
 import re
 import utils
+import sys
 
 def update_youtubedl():
     current_version = get_yt_downloader_version()
@@ -15,9 +22,14 @@ def update_youtubedl():
     VERSION_URL = UPDATE_URL + 'LATEST_VERSION'
     JSON_URL = UPDATE_URL + 'versions.json'
     
+    python_version = sys.version_info[0]
+    
     # Check if there is a new version
     try:
-        newversion = urllib.request.urlopen(VERSION_URL).read().decode('utf-8').strip()
+        if python_version == 3:
+            newversion = urllib.request.urlopen(VERSION_URL).read().decode('utf-8').strip()
+        else:
+            newversion = urllib2.urlopen(VERSION_URL).read().decode('utf-8').strip()
     except Exception:
         print(traceback.format_exc())
         print('ERROR: can\'t find the current version. Please try again later.')
@@ -27,7 +39,10 @@ def update_youtubedl():
         return
     
     try:
-        versions_info = urllib.request.urlopen(JSON_URL).read().decode('utf-8')
+        if python_version == 3:
+            versions_info = urllib.request.urlopen(JSON_URL).read().decode('utf-8')
+        else:
+            versions_info = urllib2.urlopen(JSON_URL).read().decode('utf-8')
         versions_info = json.loads(versions_info)
     except Exception:
         print(traceback.format_exc())
@@ -63,7 +78,10 @@ def update_youtubedl():
                 utils.set_determinate_progress(True)
                 utils.set_progress_percent(percent)
         
-        urlretrieve(version['tar'][0], filename, reporthook)
+        if python_version == 3:
+            urlretrieve(version['tar'][0], filename, reporthook)
+        else:
+            urllib.urlretrieve(version['tar'][0], filename, reporthook)
         
     except Exception:
         print(traceback.format_exc())
