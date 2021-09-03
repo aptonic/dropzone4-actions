@@ -11,4 +11,5 @@ Say Text
 Desktop Picture
 Open Terminal at Path
 Mail Link
+Mail Link Using Thunderbird
 Send iMessage With Attachment to Phone Number
