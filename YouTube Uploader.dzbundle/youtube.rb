@@ -52,7 +52,8 @@ class Youtube
   def upload_video (file_path, privacy_status)
     file_name = file_path.split(File::SEPARATOR).last
     $dz.begin("Uploading #{file_name} to YouTube...")
-    content_type = `file -Ib \"#{file_path}\"`.gsub(/\n/, "")
+    file_path_escaped = file_path.gsub(/["`$\\]/){ |s| '\\' + s }
+    content_type = `file -Ib \"#{file_path_escaped}\"`.gsub(/\n/, "")
     content_type = content_type.split('; ')[0]
 
     metadata  = {
