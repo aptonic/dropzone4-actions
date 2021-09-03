@@ -8,7 +8,7 @@
 # AuthScope: https://www.googleapis.com/auth/youtube.upload
 # Events: Dragged, Clicked
 # RunsSandboxed: Yes
-# Version: 2.6
+# Version: 2.7
 # UniqueID: 1026
 # MinDropzoneVersion: 3.2.1
 
