@@ -5,6 +5,7 @@ Create DMG File
 Print
 YouTube Uploader
 Image Search
+Search Mac App Store
 Finder Path
 Screensaver
 Say Text
