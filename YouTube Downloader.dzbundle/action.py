@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.2
+# Version: 2.3
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
