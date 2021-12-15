@@ -9,6 +9,7 @@ Search Mac App Store
 Finder Path
 Screensaver
 Say Text
+Add to SideNotes
 Desktop Picture
 Open Terminal at Path
 Mail Link
