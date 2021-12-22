@@ -1,6 +1,7 @@
 YouTube Downloader
 Install Application
 Zip Files
+Unzip Files
 Create DMG File
 Print
 YouTube Uploader
