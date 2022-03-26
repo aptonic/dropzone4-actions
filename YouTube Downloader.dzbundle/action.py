@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.5
+# Version: 2.6
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -48,7 +48,7 @@ def download_url(url):
     utils.reset_progress()
     
     # Put ffmpeg in PATH for merging videos audio and video
-    if os.environ["apple_silicon"]:
+    if 'apple_silicon' in os.environ:
         os.environ["PATH"] += os.pathsep + os.path.join(os.getcwd(), 'ffmpeg-arm')
     else:
         os.environ["PATH"] += os.pathsep + os.path.join(os.getcwd(), 'ffmpeg')
