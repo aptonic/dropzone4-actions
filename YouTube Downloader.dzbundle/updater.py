@@ -18,43 +18,31 @@ import sys
 
 def update_youtubedl():
     current_version = get_yt_downloader_version()
-    UPDATE_URL = 'https://rg3.github.io/youtube-dl/update/'
-    VERSION_URL = UPDATE_URL + 'LATEST_VERSION'
-    JSON_URL = UPDATE_URL + 'versions.json'
+    VERSION_JSON_URL = 'https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest'
     
     python_version = sys.version_info[0]
     
     # Check if there is a new version
     try:
         if python_version == 3:
-            newversion = urllib.request.urlopen(VERSION_URL).read().decode('utf-8').strip()
+            versions_result = urllib.request.urlopen(VERSION_JSON_URL).read().decode('utf-8').strip()
         else:
-            newversion = urllib2.urlopen(VERSION_URL).read().decode('utf-8').strip()
+            versions_result = urllib2.urlopen(VERSION_JSON_URL).read().decode('utf-8').strip()
+        versions_info = json.loads(versions_result)
     except Exception:
         print(traceback.format_exc())
-        print('ERROR: can\'t find the current version. Please try again later.')
-        return
-    if newversion == current_version:
-        print('youtube-dl is up-to-date (v' + current_version + ')')
+        print('ERROR: Could not download latest version info. Please try again later.')
         return
     
-    try:
-        if python_version == 3:
-            versions_info = urllib.request.urlopen(JSON_URL).read().decode('utf-8')
-        else:
-            versions_info = urllib2.urlopen(JSON_URL).read().decode('utf-8')
-        versions_info = json.loads(versions_info)
-    except Exception:
-        print(traceback.format_exc())
-        print('ERROR: Could not download versions.json. Please try again later.')
+    version_id = versions_info['tag_name']
+    print(f'Latest version: {version_id}, Current version: {current_version}')
+    if version_tuple(current_version) >= version_tuple(version_id):
+        print(f'yt-dlp is up to date ({current_version})')
         return
-        
-    print('Attempting to update youtube-dl') 
-
-    version_id = versions_info['latest']
+    
+    version_download_url = (get_version(versions_info))['browser_download_url']
     
     print('Updating to version ' + version_id + ' ...')
-    version = versions_info['versions'][version_id]
     
     filename = "update.tar.gz"
     
@@ -79,9 +67,9 @@ def update_youtubedl():
                 utils.set_progress_percent(percent)
         
         if python_version == 3:
-            urlretrieve(version['tar'][0], filename, reporthook)
+            urlretrieve(version_download_url, filename, reporthook)
         else:
-            urllib.urlretrieve(version['tar'][0], filename, reporthook)
+            urllib.urlretrieve(version_download_url, filename, reporthook)
         
     except Exception:
         print(traceback.format_exc())
@@ -92,18 +80,18 @@ def update_youtubedl():
         newcontent = updatefile.read()
 
     newcontent_hash = hashlib.sha256(newcontent).hexdigest()
-    if newcontent_hash != version['tar'][1]:
+    if newcontent_hash != get_sha256sum(versions_info):
         print('ERROR: the downloaded file hash does not match. Aborting.')
         return
 
-    os.mkdir('yt-tmp');
+    os.mkdir('yt-dlp-tmp');
         
     tar = tarfile.open(filename)
-    tar.extractall("./yt-tmp")
+    tar.extractall("./yt-dlp-tmp")
     tar.close()
     
-    # Sanity check - does downloaded youtube-dl contain an __init.py__
-    check_path = 'yt-tmp/youtube-dl/youtube_dl/__init__.py'
+    # Sanity check - does downloaded yt-dlp contain an __init.py__
+    check_path = 'yt-dlp-tmp/yt-dlp/yt_dlp/__init__.py'
     if os.path.exists(check_path):
         print('Extracted update looks good.')
     else:
@@ -111,19 +99,45 @@ def update_youtubedl():
         return
     
     # Delete existing library and move new one into place
-    shutil.rmtree('youtube-dl')
-    shutil.move('yt-tmp/youtube-dl', 'youtube-dl')
-    shutil.rmtree('yt-tmp')
+    shutil.rmtree('yt-dlp')
+    shutil.move('yt-dlp-tmp/yt-dlp', 'yt-dlp')
+    shutil.rmtree('yt-dlp-tmp')
     os.remove('update.tar.gz')
     
     # Get new version from youtube_dl, we can't reload all youtube_dl dependencies so we will do actual download in another python instance
     old_version = current_version
     new_version = get_yt_downloader_version()
-    print('Successfully updated youtube-dl library version from ' + old_version + ' to ' + new_version)
+    print('Successfully updated yt-dlp library version from ' + old_version + ' to ' + new_version)
     
-    
+def version_tuple(version_str):
+    return tuple(map(int, version_str.split('.')))
+
+def get_version(version_info):
+    return next(i for i in version_info['assets'] if i['name'] == 'yt-dlp.tar.gz')
+
+def get_sha256sum(version_info):
+    python_version = sys.version_info[0]
+    filename = 'yt-dlp.tar.gz'
+    urlh = next(
+        (i for i in version_info['assets'] if i['name'] in ('SHA2-256SUMS')),
+        {}).get('browser_download_url')
+    if not urlh:
+        return None
+        
+    try:
+        if python_version == 3:
+            hash_data = urllib.request.urlopen(urlh).read().decode('utf-8')
+        else:
+            hash_data = urllib2.urlopen(urlh).read().decode('utf-8')
+    except Exception:
+        print(traceback.format_exc())
+        print('ERROR: Could not download hash info. Please try again later.')
+        return None
+        
+    return dict(ln.split()[::-1] for ln in hash_data.splitlines()).get(filename)
+
 def get_yt_downloader_version():
-    VERSIONFILE = 'youtube-dl/youtube_dl/version.py'
+    VERSIONFILE = 'yt-dlp/yt_dlp/version.py'
     initfile_lines = open(VERSIONFILE, 'rt').readlines()
     VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
     for line in initfile_lines:

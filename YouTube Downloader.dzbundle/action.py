@@ -3,12 +3,12 @@
 # Description: Allows you to quickly download videos from YouTube and many other video sites. Downloaded videos are placed in the chosen folder.\n\nDownloads the highest quality version of the video and audio possible - This means the video and audio are sometimes downloaded seperately and the two files are automatically merged back together after the download completes.\n\nDrag a video URL onto the action or copy a URL onto the clipboard and then click the action to initiate download.
 # Handles: Text
 # Creator: Aptonic Software
-# URL: http://aptonic.com
+# URL: https://aptonic.com
 # OptionsNIB: ChooseFolder
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.6
+# Version: 2.7
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -54,8 +54,9 @@ def download_url(url):
         os.environ["PATH"] += os.pathsep + os.path.join(os.getcwd(), 'ffmpeg')
     
     # Download URL from clipboard
-    sys.path.append("youtube-dl")
-    import youtube_dl
+    sys.path.append("yt-dlp")
+
+    from yt_dlp import YoutubeDL
     
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
@@ -65,7 +66,7 @@ def download_url(url):
     }
     
     try:
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
     except Exception as e:
         print(traceback.format_exc())
