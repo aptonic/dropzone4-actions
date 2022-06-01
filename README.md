@@ -234,7 +234,7 @@ def clicked():
     dz.url(False)
 ```
 
-Like the Ruby API, you can call the Dropzone API methods on the global dz object. All the \$dz Ruby API methods documented in the following sections can also be called from Python, the only difference is you should remove the \$ sign from the front of the dz, so instead of doing:
+Like the Ruby API, you can call the Dropzone API methods on the global dz object. All the ```$dz``` Ruby API methods documented in the following sections can also be called from Python, the only difference is you should remove the $ sign from the front of the dz, so instead of doing:
 
 ```ruby
 $dz.begin("Starting some task...")
