@@ -44,7 +44,6 @@ This repository works in conjunction with the [dropzone4-actions-zipped](https:/
 - [OptionsNIBs](#optionsnibs)
 - [Included Ruby gems](#included-ruby-gems)
 - [Bundling Ruby gems along with your action](#bundling-ruby-gems-along-with-your-action)
-- [Bundling your own Ruby libs and helper executables](#bundling-your-own-ruby-libs-and-helper-executables)
 - [RubyPath metadata field](#rubypath-metadata-field)
 - [CurlUploader Ruby library](#curluploader-ruby-library)
 - [Customizing your actions icon](#customizing-your-actions-icon)
@@ -84,13 +83,13 @@ The values entered here will be used to generate the metadata section at the top
 # Description: Describes what your action will do.
 # Handles: Files
 # Creator: Your name
-# URL: http://yoursite.com
+# URL: https://yoursite.com
 # Events: Clicked, Dragged
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: Yes
 # Version: 1.0
-# MinDropzoneVersion: 3.0
+# MinDropzoneVersion: 4.0
 
 def dragged
   puts $items.inspect
@@ -126,7 +125,7 @@ In the template action you will notice that two Ruby methods have been created f
 
 ### Copy and Edit an existing action
 
-The other way you can develop a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new User Action and open the duplicated action for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications. All of the built-in Dropzone actions (except for the OS X sharing services like AirDrop, Twitter, Facebook etc.) can be copied and edited this way and you can also copy and edit any user actions you have installed. This is a great way to see how other actions work and to get code snippets that might be useful in your own actions.
+The other way you can develop a new action is by right clicking on an existing action in the grid and clicking 'Copy and Edit Script' - This will duplicate the underlying action bundle as a new action and open the duplicated action for editing. This is useful if you want to create an action with a similar purpose to an existing action but with some modifications. This is a great way to see how other actions work and to get code snippets that might be useful in your own actions. Note that 'Copy and Edit Script' is not available for all actions.
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/copy-and-edit.png)
 
@@ -204,13 +203,13 @@ This would result in the following example action.py:
 # Description: A Python action!
 # Handles: Files
 # Creator: Your name
-# URL: http://yoursite.com
+# URL: https://yoursite.com
 # Events: Clicked, Dragged
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: Yes
 # Version: 1.0
-# MinDropzoneVersion: 3.5
+# MinDropzoneVersion: 4.0
 
 import time
 
@@ -235,7 +234,7 @@ def clicked():
     dz.url(False)
 ```
 
-Like the Ruby API, you can call the Dropzone API methods on the global dz object. All the $dz Ruby API methods documented in the following sections can also be called from Python, the only difference is you should remove the $ sign from the front of the dz, so instead of doing:
+Like the Ruby API, you can call the Dropzone API methods on the global dz object. All the \$dz Ruby API methods documented in the following sections can also be called from Python, the only difference is you should remove the \$ sign from the front of the dz, so instead of doing:
 
 ```ruby
 $dz.begin("Starting some task...")
@@ -276,13 +275,13 @@ Here's an example action.py that requires a username and password when adding it
 # Name: Python OptionsNIB Test
 # Description: Shows how to access OptionsNIBs variables when using Python.
 # Creator: Your name
-# URL: http://aptonic.com
+# URL: https://aptonic.com
 # OptionsNIB: Login
 # Events: Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
 # Version: 1.0
-# MinDropzoneVersion: 3.5
+# MinDropzoneVersion: 4.0
 
 import time
 import os
@@ -295,24 +294,16 @@ def clicked():
 
 ### Using an alternative Python version
 
-When trying to import a Python library you may find that you can import a library fine when using Python from the Terminal, but then when you try and import the same library in Dropzone you get an error something like the following:
+Dropzone comes bundled with Python 3.10 and it uses this internally bundled version to run actions.
 
-```
-Traceback (most recent call last):
-  File "/Applications/Dropzone 4.app/Contents/Actions/lib/python_runner.py", line 9, in <module>
-import action
-  File "/Users/john/Library/Application Support/Dropzone 4/Actions/Dzbundles.dzbundle/action.py", line 15, in <module>
-    import tkinter
-ImportError: No module named tkinter
-```
-
-This can occur if you have an alternative version of Python (e.g. Python 3) installed. By default Dropzone will be using the Python at /usr/bin/python to run your script. To fix this you can override the Python version Dropzone uses to run your action by using the PythonPath metadata option. You can use this as follows:
+You can override the Python version Dropzone uses to run your action by using the PythonPath metadata option. You can use this as follows:
 
 ```ruby
 # PythonPath: /usr/local/bin/python3
 ```
 
-Adding that line in your action metadata would tell Dropzone to run your action with the Python at /usr/local/bin/python3 rather than the default system Python. This is the default install path for Python 3 so adding the line above should fix import problems in most cases. The only downside is that your action will not work on other Macs that don't have Python installed in the same path.
+Adding that line in your action metadata would tell Dropzone to run your action with the Python located at /usr/local/bin/python3.
+Note that specifying your own Python version will mean that the action will only work on your own system and you will not be able to share it with others.
 
 ## Providing Status Updates
 
@@ -483,7 +474,7 @@ clipboard_contents = $dz.read_clipboard
 
 ### $dz.add_dropbar(items)
 
-Since Dropzone version 3.6 you can add items to Drop Bar using the API. This can be useful if your action produces a file output - Call this method to make the output file available for easy dragging somewhere else. Note that Drop Bar just keeps references to files and not the files themselves so a file needs to exist somewhere else on the filesystem for it to be added to and dragged out of Drop Bar.
+You can add items to Drop Bar using the API. This can be useful if your action produces a file output - Call this method to make the output file available for easy dragging somewhere else. Note that Drop Bar just keeps references to files and not the files themselves so a file needs to exist somewhere else on the filesystem for it to be added to and dragged out of Drop Bar.
 
 To add a file to Drop Bar, simply call the $dz.add_dropbar method with an array of files you want to add. A new Drop Bar will be created in the Dropzone grid with the file(s) that you pass to this method.
 
@@ -740,14 +731,13 @@ The following Ruby gems are distributed along with the Dropzone application bund
 - [httparty](https://github.com/jnunemaker/httparty/blob/master/README.md) - Makes http fun again!
 - [faraday](https://github.com/lostisland/faraday) - Faraday is an HTTP client lib that provides a common interface over many adapters (such as Net::HTTP)
 - [excon](https://github.com/excon/excon/blob/master/README.md) - Usable, fast, simple Ruby HTTP 1.1
-- [fog](http://fog.io/) - The Ruby cloud services library 
 - [aws-sdk](http://aws.amazon.com/sdk-for-ruby/) - AWS SDK for Ruby 
 - [multi_json](https://github.com/intridea/multi_json/blob/master/README.md) - A generic swappable back-end for JSON handling
 - [google-api-client](https://github.com/google/google-api-ruby-client) - Access many different Google APIs. Currently used by the Google Drive and YouTube actions.
 
 You can find examples and documentation for these gems from the links above.
 
-Require the above gems at the top of action.rb to use them. These bundled gems have been tested and confirmed to work correctly with the default Ruby setup under OS X 10.12 and 10.13. 
+Require the above gems at the top of action.rb to use them. 
 Here is an example action (excluding the required metadata) that retrieves the URL http://example.com using the included rest-client gem and prints it to the Dropzone debug console:
 
 ```ruby
@@ -758,11 +748,9 @@ def clicked
 end
 ```
 
-*NOTE: When using included Ruby gems you can simply require them directly. Do not add a require 'bundler/setup' line before requiring gems included with Dropzone as this is already done for you and requiring bundler again can cause problems in some cases.*
-
 ## Bundling Ruby gems along with your action
 
-If your action needs gems that are not included with the system Ruby or with Dropzone then you can download and run this [bundle-gems.sh](https://gist.github.com/aptonic/27f869d4c3647cb51725) script to download the gems listed in a Gemfile into your action bundle. You must have the bundler gem installed to use this script, you can install bundler by running:
+If your action needs gems that are not included with Dropzone then you can download and run this [bundle-gems.sh](https://gist.github.com/aptonic/27f869d4c3647cb51725) script to download the gems listed in a Gemfile into your action bundle. You must have the bundler gem installed to use this script, you can install bundler by running:
 
 ```ruby
 gem install bundler
@@ -797,30 +785,9 @@ Now require the gem:
 require 'chunky_png'
 ```
 
-## Bundling your own Ruby libs and helper executables
-
-You can include Ruby libs needed by your action by placing them inside your action bundle. Before running your action, runner.rb changes the working directory to the inside of your action bundle. This means you can do require 'libname' where libname is the name of a .rb file inside your action bundle. There is an example of this in the [Flickr Upload](https://github.com/aptonic/dropzone4-actions/tree/master/Flickr%20Upload.dzbundle) bundle. The Flickr Upload action also demonstrates how to launch an application or command line tool bundled with your action. 
-
 ## RubyPath metadata field
 
-When Dropzone runs an action, the version of Ruby it uses depends on the version of OS X Dropzone is being run under. The table below shows which Ruby version is run for each OS X version:
-
-<table>
-	<th>
-		OS X Version
-	</th>
-	<th>
-		Ruby Version Dropzone Uses
-	</th>
-	<tr>
-		<td>10.12</td>
-		<td>/usr/bin/ruby - Ruby 2.</td>
-	</tr>
-	<tr>
-		<td>10.13</td>
-		<td>/usr/bin/ruby - Ruby 2.3.3.</td>
-	</tr>
-</table>
+Dropzone comes bundled with ruby 2.6.8 and it uses this internally bundled version to run actions.
 
 You can override the used Ruby version by specifying the RubyPath metadata field in your action metadata.
 For example you could specify a custom ruby version you installed using rvm:
@@ -833,7 +800,7 @@ Note that specifying your own Ruby version will mean that the action will only w
 
 ## CurlUploader Ruby library
 
-Some web services (such as Imgur and ImageShack) allow you to upload a file by posting it to a particular URL. To achieve this, Dropzone provides a Ruby wrapper around the curl command line tool included with OS X. The reason for using command line curl is that it provides upload progress as the file is sent. Upload progress is not offered by the built in Ruby libraries such as 'net/http' and so a solution was needed that worked out of the box on all versions of OS X and didn't rely on libraries (such as libcurl) that required compilation of native extensions.
+Some web services (such as Imgur) allow you to upload a file by posting it to a particular URL. To achieve this, Dropzone provides a Ruby wrapper around the curl command line tool included with macOS.
 
 Here's an example that uses the CurlUploader library to upload an image to Imgur. Action metadata is not shown (the below would also need # OptionsNIB: Imgur specified in the metadata as this causes the client_id environment variable required by Imgur for anonymous uploading to be set). You can change the upload_url and other options as needed to work with your own web service. 
 
@@ -964,7 +931,7 @@ All recognized metadata options are described below:
 	<tr>
 		<td>OptionsNIB</td>
 		<td>A optional configuration panel that can be shown when adding the action to collect needed info such as a username, password or API key<br/>
-			Currently available OptionsNIBs are: Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder, ChooseApplication and GoogleAuth.<br/>
+			Currently available OptionsNIBs are: Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder and ChooseApplication.<br/>
 			See the <a href="#optionsnibs">OptionsNIBs section</a> for an explanation of how to use these.</td>
 		<td>No</td>
 	</tr>
@@ -980,7 +947,7 @@ All recognized metadata options are described below:
 	</tr>
 	<tr>
 		<td>RunsSandboxed</td>
-		<td>If your action does things that are incompatible with OS X sandboxing (such as running AppleScript or writing to arbitrary directories) then set this to No. Users of the non-Mac App Store version of Dropzone 4 will be able to run your action as normal but users of the Mac App Store version of Dropzone 4 will be prompted to transition to the non-Mac App Store version of the app.</td>
+		<td>If your action does things that are incompatible with macOS sandboxing (such as running AppleScript or writing to arbitrary directories) then set this to No. Users of the non-Mac App Store version of Dropzone 4 will be able to run your action as normal but users of the Mac App Store version of Dropzone 4 will be prompted to transition to the non-Mac App Store version of the app.</td>
 		<td>Yes</td>
 	</tr>
 	<tr>
@@ -1020,12 +987,7 @@ All recognized metadata options are described below:
 	</tr>
 	<tr>
 		<td>PythonPath</td>
-		<td>The default Python used by Dropzone actions is Python 2.7 (located at /usr/bin/python) under all OS X versions. You can use this metadata field to override this and specify a custom Python path. More info about this option can be found in the <a href="#using-an-alternative-python-version">Using an alternative Python version section</a> above. If you have installed Python 3 and want to use this instead you generally want to set this to /usr/local/bin/python3</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>AuthScope</td>
-		<td>This field is only applicable if your action uses the GoogleAuth OptionsNIB which allows authorization using OAuth 2 in order to use a particular Google service. For an example that uses this option, see the <a href="https://github.com/aptonic/dropzone4-actions/blob/master/Google%20Drive.dzbundle/action.rb">Google Drive</a> action code. A list of possible scopes can be found <a href="http://hayageek.com/google-oauth-scope-list/">here.</a></td>
+		<td>The default Python used by Dropzone actions is Python 3.10 which is included with Dropzone. You can use this metadata field to override this and specify a custom Python path. More info about this option can be found in the <a href="#using-an-alternative-python-version">Using an alternative Python version section</a> above.</td>
 		<td>No</td>
 	</tr>
 </table>
