@@ -7,7 +7,7 @@
 # Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.1
+# Version: 1.2
 # UniqueID 100300
 # MinDropzoneVersion: 4.0
 # OptionsNIB: APIKey
@@ -46,7 +46,6 @@ def upload_and_compress_images(paths):
         dz.url(False)
     else:
         dz.fail("Image" + s + " Failed to Compress")
-    
 
 def rename(full_path, append_text):
     dir = os.path.dirname(full_path)
@@ -55,7 +54,7 @@ def rename(full_path, append_text):
     new_name = array[0] + append_text + array[1]
     new_path = dir + "/" + new_name
     return new_path
-    
+
 def check_img_types_valid(paths):
     for path in paths:
         name = os.path.basename(path).lower()
