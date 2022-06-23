@@ -7,8 +7,8 @@
 # Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.2
-# UniqueID 100300
+# Version: 1.3
+# UniqueID: 100300
 # MinDropzoneVersion: 4.0
 # OptionsNIB: APIKey
 # OptionsTitle: Tinify Config
