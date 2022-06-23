@@ -930,9 +930,14 @@ All recognized metadata options are described below:
 	</tr>
 	<tr>
 		<td>OptionsNIB</td>
-		<td>A optional configuration panel that can be shown when adding the action to collect needed info such as a username, password or API key<br/>
+		<td>A optional configuration view that can be shown when adding the action to collect needed info such as a username, password or API key<br/>
 			Currently available OptionsNIBs are: Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder and ChooseApplication.<br/>
 			See the <a href="#optionsnibs">OptionsNIBs section</a> for an explanation of how to use these.</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>OptionsTitle</td>
+		<td>An optional title to display above the configuration view when using an OptionsNIB. You can provide a string for this such as "Service Login Details".</td>
 		<td>No</td>
 	</tr>
 	<tr>
@@ -968,11 +973,6 @@ All recognized metadata options are described below:
 	<tr>
 		<td>KeyModifiers</td>
 		<td>A comma separated list of key modifiers your action supports. When the user drags a file onto your action they can hold a particular modifier key including Command, Option, Control or Shift. The held modifier will be passed to your script in the ENV['KEY_MODIFIERS'] variable and you can modify the behavior of your action based on the held key. A example of valid values for this field would be "Option" or "Command, Option, Control, Shift" (without quotes).</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>LoginTitle</td>
-		<td>The Login, APIKey and UsernameAPIKey OptionsNIBs allow you to specify an optional title above the fields. You can provide a string for this such as "Service Login Details". If not specified then it defaults to 'Login Details'</td>
 		<td>No</td>
 	</tr>
 	<tr>
