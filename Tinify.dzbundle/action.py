@@ -6,7 +6,7 @@
 # URL: https://aptonic.com
 # Events: Dragged
 # SkipConfig: No
-# RunsSandboxed: Yes
+# RunsSandboxed: No
 # Version: 1.1
 # UniqueID 100300
 # MinDropzoneVersion: 4.0
