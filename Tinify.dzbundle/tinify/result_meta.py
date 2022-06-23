@@ -7,15 +7,17 @@ class ResultMeta(object):
 
     @property
     def width(self):
-        return int(self._meta['Image-Width'])
+        value = self._meta.get('Image-Width')
+        return value and int(value)
 
     @property
     def height(self):
-        return int(self._meta['Image-Height'])
+        value = self._meta.get('Image-Height')
+        return value and int(value)
 
     @property
     def location(self):
-        return self._meta['Location']
+        return self._meta.get('Location')
 
     def __len__(self):
-        return self.size
+        return self.size or 0

@@ -12,6 +12,7 @@ class tinify(object):
         self._client = None
         self._key = None
         self._app_identifier = None
+        self._proxy = None
         self._compression_count = None
 
     @property
@@ -33,6 +34,15 @@ class tinify(object):
         self._client = None
 
     @property
+    def proxy(self):
+        return self._key
+
+    @proxy.setter
+    def proxy(self, value):
+        self._proxy = value
+        self._client = None
+
+    @property
     def compression_count(self):
         return self._compression_count
 
@@ -47,7 +57,7 @@ class tinify(object):
         if not self._client:
             with self._lock:
                 if not self._client:
-                    self._client = Client(self._key, self._app_identifier)
+                    self._client = Client(self._key, self._app_identifier, self._proxy)
 
         return self._client
 
@@ -58,6 +68,10 @@ class tinify(object):
     def validate(self):
         try:
             self.get_client().request('post', '/shrink')
+        except AccountError as err:
+            if err.status == 429:
+                return True
+            raise err
         except ClientError:
             return True
 

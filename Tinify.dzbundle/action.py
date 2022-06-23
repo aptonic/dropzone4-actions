@@ -1,63 +1,52 @@
 # Dropzone Action Info
 # Name: Tinify
-# Description: https://tinypng.com/
+# Description: Greatly reduces PNG, JPEG or WEBP file sizes using the\nhttps://tinypng.com API.\n\nYou can get an API key at https://tinypng.com/developers
 # Handles: Files
-# Creator: ghui
-# URL: http://ghui.me
-# Events: Dragged, Clicked
-# KeyModifiers: Command, Option, Control, Shift
+# Creator: Aptonic
+# URL: https://aptonic.com
+# Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # UniqueID 100300
-# MinDropzoneVersion: 3.5
-# PythonPath: /usr/local/bin/python3
-# LoginTitle: Tinify Config
+# MinDropzoneVersion: 4.0
 # OptionsNIB: APIKey
+# OptionsTitle: Tinify Config
 
 import time
 import os
 import tinify
 
-
-SUFFIX_KEY = "suffix"
-HAS_SHOWED = "has_showed"
-###############################################################
-
 def dragged():
-    tinify.key = read_value('api_key')
-    suffix = get_suffix()
-    print("1st suffix: " + suffix)
-    upload_and_compress_images(items, suffix)
+    tinify.key = os.environ["api_key"]
+    upload_and_compress_images(items)
 
-######################################################################
-
-def get_suffix():
-    suffix = read_value(SUFFIX_KEY).strip()
-    has_showed = read_value(HAS_SHOWED)
-    if (not suffix) and (not has_showed): #First time show Warning dialog
-        suffix = show_set_suffix_dialog()
-    if suffix == 'nil':
-        suffix = ''
-    return suffix
-
-
-def upload_and_compress_images(paths, suffix):
+def upload_and_compress_images(paths):
+    if not check_img_types_valid(paths):
+        dz.fail("You must drag PNG, JPG or WEBP files to convert")
+    
+    dz.determinate(False)
+    output_paths = []
+    
     for index, path in enumerate(paths):
+        # Use Tinify API to compress dragged image
         name = os.path.basename(path)
-        valid = check_img_is_valid(name)
-        if valid:
-            # do upload
-            dz.determinate(False)
-            progress = "(" + repr(index + 1) + "/" + repr(len(paths)) + ") "
-            dz.begin(progress + "Compressing: " + name + " ...")
-            source_img = tinify.from_file(path)
-            if suffix:
-                path = rename(path, suffix)
-            source_img.to_file(path)
-            compressed_name = os.path.basename(path)
-            dz.finish("Image: " + name + " Compressed -> " + compressed_name)
-            dz.url(False)
+        progress = "(" + repr(index + 1) + "/" + repr(len(paths)) + ") "
+        dz.begin(progress + "Compressing: " + name + "...")
+        source_img = tinify.from_file(path)
+        destination_path = rename(path, "-1")
+        source_img.to_file(destination_path)
+        if os.path.exists(destination_path):
+            output_paths.append(destination_path)
+        
+    s = "s" if len(items) > 1 else ""
+        
+    if len(output_paths) == len(items):
+        dz.finish("Image" + s + " Successfully Compressed")
+        dz.url(False)
+    else:
+        dz.fail("Image" + s + " Failed to Compress")
+    
 
 def rename(full_path, append_text):
     dir = os.path.dirname(full_path)
@@ -67,40 +56,9 @@ def rename(full_path, append_text):
     new_path = dir + "/" + new_name
     return new_path
     
-def check_img_is_valid(img_name):
-    if not img_name.endswith(".png") and not img_name.endswith(".jpg"):
-        return False
+def check_img_types_valid(paths):
+    for path in paths:
+        name = os.path.basename(path).lower()
+        if not name.endswith(".png") and not name.endswith(".jpg") and not name.endswith(".webp"):
+            return False
     return True
-
-######################################################################
-def clicked():
-    show_set_suffix_dialog()
-
-def show_set_suffix_dialog():
-    save_value(HAS_SHOWED, True)
-    original_suffix = read_value(SUFFIX_KEY)
-    output = dz.cocoa_dialog('standard-inputbox --title "Set suffix for the compressed image" --informative-text "Enter Suffix:" --float --text ' + original_suffix)
-    button, input_value = output.splitlines()
-    button = button.strip().decode('utf-8')
-    input_value = input_value.strip().decode('utf-8')
-    if not input_value:
-        input_value = 'nil'
-    print('input value: ' + input_value)
-    print('button : ' + button)
-    if button == '1':
-        save_value(SUFFIX_KEY, input_value)
-    return input_value
-
-def save_value(key, value):
-    dz.save_value(key, value)
-
-def read_value(key):
-    try:
-        value = os.environ[key]
-    except:
-        value = ''
-    if key == SUFFIX_KEY:
-        if value == 'nil':
-            value = ''
-    return value
-

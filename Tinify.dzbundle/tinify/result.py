@@ -20,11 +20,12 @@ class Result(ResultMeta):
 
     @property
     def size(self):
-        return int(self._meta['Content-Length'])
+        value = self._meta.get('Content-Length')
+        return value and int(value)
 
     @property
     def media_type(self):
-        return self._meta['Content-Type']
+        return self._meta.get('Content-Type')
 
     @property
     def content_type(self):
