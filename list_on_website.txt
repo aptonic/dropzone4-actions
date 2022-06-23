@@ -2,6 +2,7 @@ YouTube Downloader
 Install Application
 Zip Files
 Unzip Files
+Tinify
 Create DMG File
 Print
 YouTube Uploader
