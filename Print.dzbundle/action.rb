@@ -5,7 +5,7 @@
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.3
+# Version: 1.4
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
@@ -48,13 +48,14 @@ def dragged
     else
       # Open the relevant app with AppleScript, print the file and quit
       if ["xlsx", "xls", "xlsm"].include?(ext)
-        run_app_and_print(printer, "Microsoft Excel", "sheet", item)
+        $dz.error("Microsoft Excel Printing", "Printing from Excel is not available currently as Excel does not support printing via AppleScript.")
+        #run_app_and_print(printer, "Microsoft Excel", "sheet", item, true)
       elsif ["ppt", "pptx", "pptm"].include?(ext)
-        run_app_and_print(printer, "Microsoft PowerPoint", "presentation", item)
+        run_app_and_print(printer, "Microsoft PowerPoint", "presentation", item, true)
       elsif ["docm", "dotx", "dot", "dotm", "doc", "docx"].include?(ext)
-        run_app_and_print(printer, "Microsoft Word", "document", item)
+        run_app_and_print(printer, "Microsoft Word", "document", item, true)
       elsif ["pages"].include?(ext)
-        run_app_and_print(printer, "Pages", "document", item)
+        run_app_and_print(printer, "Pages", "document", item, false)
       end
     end
   end
@@ -118,15 +119,22 @@ def get_printer
   end
 end
 
-def run_app_and_print(printer, app_name, item_name, path)
+def run_app_and_print(printer, app_name, item_name, path, is_office)
   path.gsub!("\"", "\\\"")
   printer.gsub!("\"", "\\\"")
   printer_applescript = (printer == "use_default_printer" ? "" : "target printer:\"#{printer}\", ")
-  error_handling = (app_name =~ /PowerPoint/ ? "}" : ", error handling:standard} without print dialog")
+  
+  if is_office
+    # MS broke AppleScript and passing properties are no longer a thing, apparently
+    print_cmd_applescript = "print the front #{item_name} without print dialog"
+  else
+    print_cmd_applescript = "print the front #{item_name} with properties {#{printer_applescript}copies:1}"
+  end
+  
 result=`osascript -so <<END
 tell application "#{app_name}"
 	open POSIX file "#{path}"
-	print the front #{item_name} with properties {#{printer_applescript}copies:1#{error_handling}
+	#{print_cmd_applescript}
 	quit
 end tell
 END`
