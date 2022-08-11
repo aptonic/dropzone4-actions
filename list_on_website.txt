@@ -3,6 +3,7 @@ Install Application
 Zip Files
 Unzip Files
 Tinify
+Instagram Downloader
 Create DMG File
 Print
 YouTube Uploader
