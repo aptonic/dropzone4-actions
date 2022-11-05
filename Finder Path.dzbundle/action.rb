@@ -7,13 +7,15 @@
 # Handles: Files
 # SkipConfig: Yes
 # RunsSandboxed: No
-# Version: 1.2
+# Version: 1.3
 # MinDropzoneVersion: 3.0
 # UniqueID: 1003
 
+require 'shellwords'
+
 def dragged
   file_path_list = ""
-  $items.each {|item| file_path_list += item.strip + "\n"}
+  $items.each {|item| file_path_list += Shellwords.shellescape(item.strip) + "\n"}
   
   s = ($items.length > 1 ? "s" : "")
   $dz.finish("Path" + s + " copied")
