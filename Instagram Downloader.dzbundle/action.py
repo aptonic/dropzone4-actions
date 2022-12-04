@@ -8,7 +8,7 @@
 # OptionsNIB: InstagramDownloader
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 4.4.4
 # UniqueID: 1020
 
@@ -21,7 +21,7 @@ import os.path
 
 
 def dragged():
-    m = re.search(r"instagram.com/p/(.*)/", items[0])
+    m = re.search("instagram.com/p/(.*)", items[0])
 
     if m is None:
         dz.error("Invalid Instagram Post URL", "The URL was not valid. You must use this action with a URL like https://www.instagram.com/p/post")
