@@ -8,7 +8,7 @@
 # OptionsNIB: InstagramDownloader
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 4.4.4
 # UniqueID: 1020
 
@@ -46,7 +46,7 @@ def dragged():
 
     os.chdir(os.environ['path'])
 
-    post = Post.from_shortcode(L.context, m.group(1))
+    post = Post.from_shortcode(L.context, m.group(1).split("/", 1)[0])
     
     filename = post.pcaption.strip('. ')
     suffix = 1

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: instaloader
-Version: 4.9.2
+Version: 4.9.5
 Summary: Download pictures (or videos) along with their captions and other metadata from Instagram.
 Home-page: https://instaloader.github.io/
 Author: Alexander Graf, André Koch-Kramer
@@ -22,6 +22,8 @@ Classifier: Programming Language :: Python :: 3 :: Only
 Classifier: Topic :: Internet
 Classifier: Topic :: Multimedia :: Graphics
 Requires-Python: >=3.6
+License-File: LICENSE
+License-File: AUTHORS.md
 Requires-Dist: requests (>=2.4)
 
 .. image:: https://raw.githubusercontent.com/instaloader/instaloader/master/docs/logo_heading.png
@@ -152,6 +154,9 @@ Supporters
 ----------
 
 .. current-sponsors-start
+
+| Instaloader is proudly sponsored by
+|  `@socialmethod <https://github.com/socialmethod>`__
 
 See `Alex' GitHub Sponsors <https://github.com/sponsors/aandergr>`__ page for
 how you can sponsor the development of Instaloader!
