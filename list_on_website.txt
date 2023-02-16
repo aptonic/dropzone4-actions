@@ -4,6 +4,7 @@ Zip Files
 Unzip Files
 Tinify
 Instagram Downloader
+Add to SideNotes
 Create DMG File
 Print
 YouTube Uploader
@@ -12,7 +13,6 @@ Search Mac App Store
 Finder Path
 Screensaver
 Say Text
-Add to SideNotes
 Desktop Picture
 Open Terminal at Path
 Mail Link
