@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Add to SideNotes
-# Description: Creates a new note in SideNotes
+# Description: Creates a new note in SideNotes.\nGet SideNotes at https://www.apptorium.com/sidenotes
 # Handles: Files, Text
 # Creator: Apptorium
 # URL: https://www.apptorium.com/sidenotes
@@ -8,7 +8,7 @@
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 3544670229
 
