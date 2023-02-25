@@ -1,11 +1,11 @@
 YouTube Downloader
 YouTube Download Audio
-Install Application
-Zip Files
-Unzip Files
 Tinify
 Instagram Downloader
+Zip Files
+Unzip Files
 Add to SideNotes
+Install Application
 Create DMG File
 Print
 YouTube Uploader
