@@ -1,7 +1,6 @@
 YouTube Downloader
 YouTube Download Audio
 Tinify
-Instagram Downloader
 Zip Files
 Unzip Files
 Add to SideNotes
