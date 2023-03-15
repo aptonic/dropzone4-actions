@@ -7,7 +7,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 def dragged
@@ -30,33 +30,14 @@ def dragged
     
   # Launch VS Code in desired directory
   if dir
-    puts `osascript -so <<END
-    tell application "Terminal"
-      activate
-      delay 0.2
-      tell application "System Events"
-        tell process "Terminal" to keystroke "t" using command down
-      end
-      delay 0.2
-      do script "cd '#{dir}'; code .; clear;" in selected tab of front window
-      delay 5
-      quit
-    end tell
-END`
+    system("open", "-na", "Visual Studio Code", "--args", dir)
   else
     # Could not figure out what the user wants. Dump to console and notify user.
     puts "Could not figure out what to do with data: #{$items.inspect}"
     $dz.fail("Not a file or directory path")
   end
-  
-  $dz.url(false)
 end
 
 def clicked
-  puts `osascript -so <<END
-  tell application "Code"
-    activate
-  end tell
-END`
-  $dz.url(false)
+  system("open", "-na", "Visual Studio Code", "--args", '-n')
 end
