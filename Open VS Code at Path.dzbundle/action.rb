@@ -7,7 +7,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 1.1
+# Version: 1.2
 # MinDropzoneVersion: 3.0
 
 def dragged
@@ -15,7 +15,7 @@ def dragged
     
   case ENV['dragged_type']
   when 'files'
-    # If it's a directory then cd to that directory, otherwise we will cd to the directory the file is in
+    # If it's a file we will use the directory the file is in
     if File.directory?($items[0])
       dir = $items[0]
     else
@@ -25,12 +25,22 @@ def dragged
     # Verify that this is a directory path
     dir = $items[0] if File.directory?($items[0])
   end
-  
-  puts dir
     
   # Launch VS Code in desired directory
   if dir
-    system("open", "-na", "Visual Studio Code", "--args", dir)
+    puts `osascript -so <<END
+    tell application "Terminal"
+      activate
+      delay 0.2
+      tell application "System Events"
+        tell process "Terminal" to keystroke "t" using command down
+      end
+      delay 0.2
+      do script "code '#{dir}';" in selected tab of front window
+      delay 5
+      quit
+    end tell
+END`
   else
     # Could not figure out what the user wants. Dump to console and notify user.
     puts "Could not figure out what to do with data: #{$items.inspect}"
@@ -39,5 +49,9 @@ def dragged
 end
 
 def clicked
-  system("open", "-na", "Visual Studio Code", "--args", '-n')
+  puts `osascript -so <<END
+  tell application "Code"
+    activate
+  end tell
+END`
 end
