@@ -34,7 +34,7 @@ keeping up to date with the original project
     -   Extractor Options
 -   CONFIGURATION
     -   Configuration file encoding
-    -   Authentication with .netrc file
+    -   Authentication with netrc
     -   Notes about environment variables
 -   OUTPUT TEMPLATE
     -   Output template examples
@@ -59,9 +59,8 @@ keeping up to date with the original project
 
 NEW FEATURES
 
--   Merged with youtube-dl v2021.12.17+ commit/2dd6c6e (exceptions) and
-    youtube-dlc v2020.11.11-3+ commit/f9401f2: You get all the features
-    and patches of youtube-dlc in addition to the latest youtube-dl
+-   Forked from yt-dlc@f9401f2 and merged with youtube-dl@42f2d4
+    (exceptions)
 
 -   SponsorBlock Integration: You can mark/remove sponsor sections in
     YouTube videos by utilizing the SponsorBlock API
@@ -82,8 +81,7 @@ NEW FEATURES
 
     -   Supports Clips, Stories (ytstories:<channel UCID>), Search
         (including filters)*, YouTube Music Search, Channel-specific
-        search, Search prefixes (ytsearch:, ytsearchdate:)*, Mixes,
-        YouTube Music Albums/Channels (except self-uploaded music), and
+        search, Search prefixes (ytsearch:, ytsearchdate:)*, Mixes, and
         Feeds (:ytfav, :ytwatchlater, :ytsubs, :ythistory, :ytrec,
         :ytnotif)
     -   Fix for n-sig based throttling *
@@ -137,7 +135,7 @@ NEW FEATURES
 -   Other new options: Many new options have been added such as --alias,
     --print, --concat-playlist, --wait-for-video, --retry-sleep,
     --sleep-requests, --convert-thumbnails, --force-download-archive,
-    --force-overwrites, --break-on-reject etc
+    --force-overwrites, --break-match-filter etc
 
 -   Improvements: Regex and other operators in --format/--match-filter,
     multiple --postprocessor-args and --downloader-args, faster archive
@@ -147,7 +145,11 @@ NEW FEATURES
 -   Plugins: Extractors and PostProcessors can be loaded from an
     external file. See plugins for details
 
--   Self-updater: The releases can be updated using yt-dlp -U
+-   Self updater: The releases can be updated using yt-dlp -U, and
+    downgraded using --update-to if required
+
+-   Nightly builds: Automated nightly builds can be used with
+    --update-to nightly
 
 See changelog or commits for the full list of changes
 
@@ -158,6 +160,9 @@ Differences in default behavior
 Some of yt-dlp's default options are different from that of youtube-dl
 and youtube-dlc:
 
+-   yt-dlp supports only Python 3.7+, and may remove support for more
+    versions as they become EOL; while youtube-dl still supports Python
+    2.6+ and 3.2+
 -   The options --auto-number (-A), --title (-t) and --literal (-l), no
     longer work. See removed options for details
 -   avconv is not supported as an alternative to ffmpeg
@@ -225,7 +230,7 @@ and youtube-dlc:
 -   Thumbnail embedding in mp4 is done with mutagen if possible. Use
     --compat-options embed-thumbnail-atomicparsley to force the use of
     AtomicParsley instead
--   Some private fields such as filenames are removed by default from
+-   Some internal metadata such as filenames are removed by default from
     the infojson. Use --no-clean-infojson or
     --compat-options no-clean-infojson to revert this
 -   When --embed-subs and --write-subs are used together, the subtitles
@@ -245,37 +250,66 @@ and youtube-dlc:
     ~~aria2c~~). You can use
     --compat-options no-external-downloader-progress to get the
     downloader output as-is
+-   yt-dlp versions between 2021.09.01 and 2023.01.02 applies
+    --match-filter to nested playlists. This was an unintentional
+    side-effect of 8f18ac and is fixed in d7b460. Use
+    --compat-options playlist-match-filter to revert this
 
 For ease of use, a few more compat options are available:
 
 -   --compat-options all: Use all compat options (Do NOT use)
 -   --compat-options youtube-dl: Same as
-    --compat-options all,-multistreams
+    --compat-options all,-multistreams,-playlist-match-filter
 -   --compat-options youtube-dlc: Same as
-    --compat-options all,-no-live-chat,-no-youtube-channel-redirect
+    --compat-options all,-no-live-chat,-no-youtube-channel-redirect,-playlist-match-filter
 -   --compat-options 2021: Same as
     --compat-options 2022,no-certifi,filename-sanitization,no-youtube-prefer-utc-upload-date
 -   --compat-options 2022: Same as
-    --compat-options no-external-downloader-progress. Use this to enable
-    all future compat options
+    --compat-options playlist-match-filter,no-external-downloader-progress.
+    Use this to enable all future compat options
 
 INSTALLATION
 
 [Windows] [Unix] [MacOS] [PyPi] [Source Tarball] [Other variants] [All
 versions]
 
-You can install yt-dlp using the binaries, PIP or one using a
+You can install yt-dlp using the binaries, pip or one using a
 third-party package manager. See the wiki for detailed instructions
 
 UPDATE
 
 You can use yt-dlp -U to update if you are using the release binaries
 
-If you installed with PIP, simply re-run the same command that was used
+If you installed with pip, simply re-run the same command that was used
 to install the program
 
 For other third-party package managers, see the wiki or refer their
 documentation
+
+There are currently two release channels for binaries, stable and
+nightly. stable is the default channel, and many of its changes have
+been tested by users of the nightly channel. The nightly channel has
+releases built after each push to the master branch, and will have the
+most recent fixes and additions, but also have more risk of regressions.
+They are available in their own repo.
+
+When using --update/-U, a release binary will only update to its current
+channel. --update-to CHANNEL can be used to switch to a different
+channel when a newer version is available. --update-to [CHANNEL@]TAG can
+also be used to upgrade or downgrade to specific tags from a channel.
+
+You may also use --update-to <repository> (<owner>/<repository>) to
+update to a channel on a completely different repository. Be careful
+with what repository you are updating to though, there is no
+verification done for binaries from different repositories.
+
+Example usage: * yt-dlp --update-to nightly change to nightly channel
+and update to its latest release * yt-dlp --update-to stable@2023.02.17
+upgrade/downgrade to release to stable channel tag 2023.02.17 *
+yt-dlp --update-to 2023.01.06 upgrade/downgrade to tag 2023.01.06 if it
+exists on the current channel *
+yt-dlp --update-to example/yt-dlp@2023.03.01 upgrade/downgrade to the
+release from the example/yt-dlp repository, tag 2023.03.01
 
 RELEASE FILES
 
@@ -330,14 +364,23 @@ Alternatives
 
 Misc
 
-  File            Description
-  --------------- -----------------------
-  yt-dlp.tar.gz   Source tarball
-  SHA2-512SUMS    GNU-style SHA512 sums
-  SHA2-256SUMS    GNU-style SHA256 sums
+  File               Description
+  ------------------ ------------------------------------
+  yt-dlp.tar.gz      Source tarball
+  SHA2-512SUMS       GNU-style SHA512 sums
+  SHA2-512SUMS.sig   GPG signature file for SHA512 sums
+  SHA2-256SUMS       GNU-style SHA256 sums
+  SHA2-256SUMS.sig   GPG signature file for SHA256 sums
 
-Note: The manpages, shell completion files etc. are available in the
-source tarball
+The public key that can be used to verify the GPG signatures is
+available here Example usage:
+
+    curl -L https://github.com/yt-dlp/yt-dlp/raw/master/public.key | gpg --import
+    gpg --verify SHA2-256SUMS.sig SHA2-256SUMS
+    gpg --verify SHA2-512SUMS.sig SHA2-512SUMS
+
+Note: The manpages, shell completion (autocomplete) files etc. are
+available inside the source tarball
 
 DEPENDENCIES
 
@@ -463,18 +506,25 @@ simply run setup.py py2exe
 
 Related scripts
 
--   devscripts/update-version.py [revision] - Update the version number
-    based on current date
--   devscripts/set-variant.py variant [-M update_message] - Set the
-    build variant of the executable
+-   devscripts/update-version.py - Update the version number based on
+    current date.
+-   devscripts/set-variant.py - Set the build variant of the executable.
+-   devscripts/make_changelog.py - Create a markdown changelog using
+    short commit messages and update CONTRIBUTORS file.
 -   devscripts/make_lazy_extractors.py - Create lazy extractors. Running
     this before building the binaries (any variant) will improve their
     startup performance. Set the environment variable
     YTDLP_NO_LAZY_EXTRACTORS=1 if you wish to forcefully disable lazy
     extractor loading.
 
-You can also fork the project on GitHub and run your fork's build
-workflow to automatically build a full release
+Note: See their --help for more info.
+
+Forking the project
+
+If you fork the project on GitHub, you can run your fork's build
+workflow to automatically build the selected version(s) as artifacts.
+Alternatively, you can run the release workflow or enable the nightly
+workflow to create full (pre-)releases.
 
 USAGE AND OPTIONS
 
@@ -488,6 +538,11 @@ General Options:
     --version                       Print program version and exit
     -U, --update                    Update this program to the latest version
     --no-update                     Do not check for updates (default)
+    --update-to [CHANNEL]@[TAG]     Upgrade/downgrade to a specific version.
+                                    CHANNEL can be a repository as well. CHANNEL
+                                    and TAG default to "stable" and "latest"
+                                    respectively if omitted; See "UPDATE" for
+                                    details. Supported channels: stable, nightly
     -i, --ignore-errors             Ignore download and postprocessing errors.
                                     The download will be considered successful
                                     even if the postprocessing fails
@@ -533,7 +588,8 @@ General Options:
                                     configuration files
     --flat-playlist                 Do not extract the videos of a playlist,
                                     only list them
-    --no-flat-playlist              Extract the videos of a playlist
+    --no-flat-playlist              Fully extract the videos of a playlist
+                                    (default)
     --live-from-start               Download livestreams from the start.
                                     Currently only supported for YouTube
                                     (Experimental)
@@ -545,8 +601,12 @@ General Options:
     --no-wait-for-video             Do not wait for scheduled streams (default)
     --mark-watched                  Mark videos watched (even with --simulate)
     --no-mark-watched               Do not mark videos watched (default)
-    --no-colors                     Do not emit color codes in output (Alias:
-                                    --no-colours)
+    --color [STREAM:]POLICY         Whether to emit color codes in output,
+                                    optionally prefixed by the STREAM (stdout or
+                                    stderr) to apply the setting to. Can be one
+                                    of "always", "auto" (default), "never", or
+                                    "no_color" (use non color terminal
+                                    sequences). Can be used multiple times
     --compat-options OPTS           Options that can help keep compatibility
                                     with youtube-dl or youtube-dlc
                                     configurations by reverting some of the
@@ -589,15 +649,11 @@ Geo-restriction:
                                     specified by --proxy (or none, if the option
                                     is not present) is used for the actual
                                     downloading
-    --geo-bypass                    Bypass geographic restriction via faking
-                                    X-Forwarded-For HTTP header (default)
-    --no-geo-bypass                 Do not bypass geographic restriction via
-                                    faking X-Forwarded-For HTTP header
-    --geo-bypass-country CODE       Force bypass geographic restriction with
-                                    explicitly provided two-letter ISO 3166-2
-                                    country code
-    --geo-bypass-ip-block IP_BLOCK  Force bypass geographic restriction with
-                                    explicitly provided IP block in CIDR notation
+    --xff VALUE                     How to fake X-Forwarded-For HTTP header to
+                                    try bypassing geographic restriction. One of
+                                    "default" (only when known to be useful),
+                                    "never", an IP block in CIDR notation, or a
+                                    two-letter ISO 3166-2 country code
 
 Video Selection:
 
@@ -616,10 +672,9 @@ Video Selection:
                                     SIZE, e.g. 50k or 44.6M
     --date DATE                     Download only videos uploaded on this date.
                                     The date can be "YYYYMMDD" or in the format 
-                                    [now|today|yesterday][-
-                                    N[day|week|month|year]]. E.g. "--date
-                                    today-2weeks" downloads only videos uploaded
-                                    on the same day two weeks ago
+                                    [now|today|yesterday][-N[day|week|month|year]].
+                                    E.g. "--date today-2weeks" downloads only
+                                    videos uploaded on the same day two weeks ago
     --datebefore DATE               Download only videos uploaded on or before
                                     this date. The date formats accepted is the
                                     same as --date
@@ -646,7 +701,10 @@ Video Selection:
                                     dogs" (caseless). Use "--match-filter -" to
                                     interactively ask whether to download each
                                     video
-    --no-match-filter               Do not use generic video filter (default)
+    --no-match-filters              Do not use any --match-filter (default)
+    --break-match-filters FILTER    Same as "--match-filters" but stops the
+                                    download process when a video is rejected
+    --no-break-match-filters        Do not use any --break-match-filters (default)
     --no-playlist                   Download only the video, if the URL refers
                                     to a video and a playlist
     --yes-playlist                  Download the playlist, if the URL refers to
@@ -660,11 +718,9 @@ Video Selection:
     --max-downloads NUMBER          Abort after downloading NUMBER files
     --break-on-existing             Stop the download process when encountering
                                     a file that is in the archive
-    --break-on-reject               Stop the download process when encountering
-                                    a file that has been filtered out
     --break-per-input               Alters --max-downloads, --break-on-existing,
-                                    --break-on-reject, and autonumber to reset
-                                    per input URL
+                                    --break-match-filter, and autonumber to
+                                    reset per input URL
     --no-break-per-input            --break-on-existing and similar options
                                     terminates the entire download queue
     --skip-playlist-after-errors N  Number of allowed failures until the rest of
@@ -733,12 +789,14 @@ Download Options:
     --no-hls-use-mpegts             Do not use the mpegts container for HLS
                                     videos. This is default when not downloading
                                     live streams
-    --download-sections REGEX       Download only chapters whose title matches
-                                    the given regular expression. Time ranges
-                                    prefixed by a "*" can also be used in place
-                                    of chapters to download the specified range.
-                                    Needs ffmpeg. This option can be used
-                                    multiple times to download multiple
+    --download-sections REGEX       Download only chapters that match the
+                                    regular expression. A "*" prefix denotes
+                                    time-range instead of chapter. Negative
+                                    timestamps are calculated from the end.
+                                    "*from-url" can be used to download between
+                                    the "start_time" and "end_time" extracted
+                                    from the URL. Needs ffmpeg. This option can
+                                    be used multiple times to download multiple
                                     sections, e.g. --download-sections
                                     "*10:15-inf" --download-sections "intro"
     --downloader [PROTO:]NAME       Name or path of the external downloader to
@@ -823,9 +881,8 @@ Filesystem Options:
                                     --write-description etc. (default)
     --no-write-playlist-metafiles   Do not write playlist metadata when using
                                     --write-info-json, --write-description etc.
-    --clean-info-json               Remove some private fields such as filenames
-                                    from the infojson. Note that it could still
-                                    contain some personal information (default)
+    --clean-info-json               Remove some internal metadata such as
+                                    filenames from the infojson (default)
     --no-clean-info-json            Write all fields to the infojson
     --write-comments                Retrieve video comments to be placed in the
                                     infojson. The comments are fetched even
@@ -853,7 +910,7 @@ Filesystem Options:
                                     By default, all containers of the most
                                     recently accessed profile are used.
                                     Currently supported keyrings are: basictext,
-                                    gnomekeyring, kwallet
+                                    gnomekeyring, kwallet, kwallet5, kwallet6
     --no-cookies-from-browser       Do not load cookies from browser (default)
     --cache-dir DIR                 Location in the filesystem where yt-dlp can
                                     store some downloaded information (such as
@@ -884,6 +941,7 @@ Verbosity and Simulation Options:
 
     -q, --quiet                     Activate quiet mode. If used with --verbose,
                                     print the log to stderr
+    --no-quiet                      Deactivate quiet mode. (Default)
     --no-warnings                   Ignore warnings
     -s, --simulate                  Do not download the video and do not write
                                     anything to disk
@@ -1040,6 +1098,8 @@ Authentication Options:
     --netrc-location PATH           Location of .netrc authentication data;
                                     either the path or its containing directory.
                                     Defaults to ~/.netrc
+    --netrc-cmd NETRC_CMD           Command to execute to get the credentials
+                                    for an extractor.
     --video-password PASSWORD       Video password (vimeo, youku)
     --ap-mso MSO                    Adobe Pass multiple-system operator (TV
                                     provider) identifier, use --ap-list-mso for
@@ -1170,13 +1230,10 @@ Post-Processing Options:
                                     that of --use-postprocessor (default:
                                     after_move). Same syntax as the output
                                     template can be used to pass any field as
-                                    arguments to the command. After download, an
-                                    additional field "filepath" that contains
-                                    the final path of the downloaded file is
-                                    also available, and if no fields are passed,
-                                    %(filepath,_filename|)q is appended to the
-                                    end of the command. This option can be used
-                                    multiple times
+                                    arguments to the command. If no fields are
+                                    passed, %(filepath,_filename|)q is appended
+                                    to the end of the command. This option can
+                                    be used multiple times
     --no-exec                       Remove any previously defined --exec
     --convert-subs FORMAT           Convert the subtitles to another format
                                     (currently supported: ass, lrc, srt, vtt)
@@ -1229,7 +1286,7 @@ SponsorBlock Options:
 
 Make chapter entries for, or remove various segments (sponsor,
 introductions, etc.) from downloaded YouTube videos using the
-SponsorBlock API (https://sponsor.ajay.app)
+SponsorBlock API
 
     --sponsorblock-mark CATS        SponsorBlock categories to create chapters
                                     for, separated by commas. Available
@@ -1353,7 +1410,7 @@ If you want your file to be decoded differently, add # coding: ENCODING
 to the beginning of the file (e.g. # coding: shift-jis). There must be
 no characters before that, even spaces or BOM.
 
-Authentication with .netrc file
+Authentication with netrc
 
 You may also want to configure automatic credentials storage for
 extractors that support authentication (by providing login and password
@@ -1381,6 +1438,19 @@ To activate authentication with the .netrc file you should pass --netrc
 to yt-dlp or place it in the configuration file.
 
 The default location of the .netrc file is ~ (see below).
+
+As an alternative to using the .netrc file, which has the disadvantage
+of keeping your passwords in a plain text file, you can configure a
+custom shell command to provide the credentials for an extractor. This
+is done by providing the --netrc-cmd parameter, it shall output the
+credentials in the netrc format and return 0 on success, other values
+will be treated as an error. {} in the command will be replaced by the
+name of the extractor to make it possible to select the credentials for
+the right extractor.
+
+E.g. To use an encrypted .netrc file stored as .authinfo.gpg
+
+    yt-dlp --netrc-cmd 'gpg --decrypt ~/.authinfo.gpg' https://www.youtube.com/watch?v=BaW_jenozKc
 
 Notes about environment variables
 
@@ -1442,10 +1512,12 @@ have some special formatting:
     E.g. %(release_date>%Y,upload_date>%Y|Unknown)s
 
 5.  Replacement: A replacement value can be specified using a &
-    separator. If the field is not empty, this replacement value will be
-    used instead of the actual field content. This is done after
-    alternate fields are considered; thus the replacement is used if any
-    of the alternative fields is not empty.
+    separator according to the str.format mini-language. If the field is
+    not empty, this replacement value will be used instead of the actual
+    field content. This is done after alternate fields are considered;
+    thus the replacement is used if any of the alternative fields is not
+    empty. E.g. %(chapters&has chapters|no chapters)s,
+    %(title&TITLE={:>20}|NO TITLE)s
 
 6.  Default: A literal default value can be specified for when the field
     is empty using a | separator. This overrides
@@ -1513,6 +1585,8 @@ The available fields are:
 -   channel (string): Full name of the channel the video is uploaded on
 -   channel_id (string): Id of the channel
 -   channel_follower_count (numeric): Number of followers of the channel
+-   channel_is_verified (boolean): Whether the channel is verified on
+    the platform
 -   location (string): Physical location where the video was filmed
 -   duration (numeric): Length of the video in seconds
 -   duration_string (string): Length of the video (HH:mm:ss)
@@ -1632,6 +1706,10 @@ Available only when used in --print:
 -   automatic_captions_table (table): The automatic subtitle format
     table as printed by --list-subs
 
+Available only after the video is downloaded (post_process/after_move):
+
+-   filepath: Actual path of downloaded video file
+
 Available only in --sponsorblock-chapter-title:
 
 -   start_time (numeric): Start time of the chapter in seconds
@@ -1696,7 +1774,7 @@ Output template examples
     $ yt-dlp -o "%(upload_date>%Y)s/%(title)s.%(ext)s" "https://www.youtube.com/playlist?list=PLwiyx1dc3P2JR9N8gQaQN_BCvlSlap7re"
 
     # Prefix playlist index with " - " separator, but only if it is available
-    $ yt-dlp -o '%(playlist_index|)s%(playlist_index& - |)s%(title)s.%(ext)s' BaW_jenozKc "https://www.youtube.com/user/TheLinuxFoundation/playlists"
+    $ yt-dlp -o "%(playlist_index&{} - |)s%(title)s.%(ext)s" BaW_jenozKc "https://www.youtube.com/user/TheLinuxFoundation/playlists"
 
     # Download all playlists of YouTube channel/user keeping each playlist in separate directory:
     $ yt-dlp -o "%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" "https://www.youtube.com/user/TheLinuxFoundation/playlists"
@@ -2129,7 +2207,7 @@ This option also has a few special uses:
 -   You can download an additional URL based on the metadata of the
     currently downloaded video. To do this, set the field
     additional_urls to the URL that you want to download. E.g.
-    --parse-metadata "description:(?P<additional_urls>https?://www\.vimeo\.com/\d+)
+    --parse-metadata "description:(?P<additional_urls>https?://www\.vimeo\.com/\d+)"
     will download the first vimeo video found in the description
 
 -   You can use this to change the metadata that is embedded in the
@@ -2190,7 +2268,7 @@ Modifying metadata examples
     $ yt-dlp --parse-metadata ":(?P<meta_synopsis>)"
 
     # Remove "formats" field from the infojson by setting it to an empty string
-    $ yt-dlp --parse-metadata ":(?P<formats>)" -j
+    $ yt-dlp --parse-metadata "video::(?P<formats>)" --write-info-json
 
     # Replace all spaces and "_" in title and uploader with a `-`
     $ yt-dlp --replace-in-metadata "title,uploader" "[ _]" "-"
@@ -2219,8 +2297,8 @@ youtube
 -   player_client: Clients to extract video data from. The main clients
     are web, android and ios with variants _music, _embedded,
     _embedscreen, _creator (e.g. web_embedded); and mweb and tv_embedded
-    (agegate bypass) with no variants. By default, android,web is used,
-    but tv_embedded and creator variants are added as required for
+    (agegate bypass) with no variants. By default, ios,android,web is
+    used, but tv_embedded and creator variants are added as required for
     age-gated videos. Similarly, the music variants are added for
     music.youtube.com urls. You can use all to use all the clients, and
     default for the default clients.
@@ -2239,6 +2317,9 @@ youtube
     -   E.g. all,all,1000,10 will get a maximum of 1000 replies total,
         with up to 10 replies per thread. 1000,all,100 will get a
         maximum of 1000 comments, with a maximum of 100 replies total
+-   include_duplicate_formats: Extract formats with identical content
+    but different URLs or protocol. This is useful if some of the
+    formats are unavailable or throttled.
 -   include_incomplete_formats: Extract formats that cannot be
     downloaded completely (live dash and post-live m3u8)
 -   innertube_host: Innertube API host to use for all API requests; e.g.
@@ -2258,7 +2339,19 @@ youtubetab (YouTube playlists, channels, feeds, etc.)
 generic
 
 -   fragment_query: Passthrough any query in mpd/m3u8 manifest URLs to
-    their fragments. Does not apply to ffmpeg
+    their fragments if no value is provided, or else apply the query
+    string given as fragment_query=VALUE. Does not apply to ffmpeg
+-   variant_query: Passthrough the master m3u8 URL query to its variant
+    playlist URLs if no value is provided, or else apply the query
+    string given as variant_query=VALUE
+-   hls_key: An HLS AES-128 key URI or key (as hex), and optionally the
+    IV (as hex), in the form of (URI|KEY)[,IV]; e.g.
+    generic:hls_key=ABCDEF1234567980,0xFEDCBA0987654321. Passing any of
+    these values will force usage of the native HLS downloader and
+    override the corresponding values found in the m3u8 playlist
+-   is_live: Bypass live HLS detection and manually set live_status - a
+    value of false will set not_live, any other value (or no value) will
+    set is_live
 
 funimation
 
@@ -2319,8 +2412,26 @@ rokfinchannel
 
 twitter
 
--   force_graphql: Force usage of the GraphQL API. By default it will
-    only be used if login cookies are provided
+-   legacy_api: Force usage of the legacy Twitter API instead of the
+    GraphQL API for tweet extraction. Has no effect if login cookies are
+    passed
+
+wrestleuniverse
+
+-   device_id: UUID value assigned by the website and used to enforce
+    device limits for paid livestream content. Can be found in browser
+    local storage
+
+twitch
+
+-   client_id: Client ID value to be sent with GraphQL requests, e.g.
+    twitch:client_id=kimne78kx3ncx6brgo4mv6wki5h1ko
+
+nhkradirulive (NHK らじる★らじる LIVE)
+
+-   area: Which regional variation to extract. Valid areas are: sapporo,
+    sendai, tokyo, nagoya, osaka, hiroshima, matsuyama, fukuoka.
+    Defaults to tokyo
 
 Note: These options may be changed/removed in the future without concern
 for backward compatibility
@@ -2373,7 +2484,8 @@ Plugins can be installed using various methods and locations.
         -   /etc/yt-dlp/plugins/<package name>/yt_dlp_plugins/
         -   /etc/yt-dlp-plugins/<package name>/yt_dlp_plugins/
 2.  Executable location: Plugin packages can similarly be installed in a
-    yt-dlp-plugins directory under the executable location:
+    yt-dlp-plugins directory under the executable location (recommended
+    for portable installations):
     -   Binary: where <root-dir>/yt-dlp.exe,
         <root-dir>/yt-dlp-plugins/<package name>/yt_dlp_plugins/
     -   Source: where <root-dir>/yt_dlp/__main__.py,
@@ -2573,7 +2685,7 @@ Use a custom format selector
 
     import yt_dlp
 
-    URL = ['https://www.youtube.com/watch?v=BaW_jenozKc']
+    URLS = ['https://www.youtube.com/watch?v=BaW_jenozKc']
 
     def format_selector(ctx):
         """ Select the best video and the best audio that won't result in an mkv.
@@ -2641,12 +2753,14 @@ due to their ease of use
     --reject-title REGEX             --match-filter "title !~= (?i)REGEX"
     --min-views COUNT                --match-filter "view_count >=? COUNT"
     --max-views COUNT                --match-filter "view_count <=? COUNT"
+    --break-on-reject                Use --break-match-filter
     --user-agent UA                  --add-header "User-Agent:UA"
     --referer URL                    --add-header "Referer:URL"
     --playlist-start NUMBER          -I NUMBER:
     --playlist-end NUMBER            -I :NUMBER
     --playlist-reverse               -I ::-1
     --no-playlist-reverse            Default
+    --no-colors                      --color no_color
 
 Not recommended
 
@@ -2671,6 +2785,10 @@ are other alternatives to achieve the same
     --youtube-skip-hls-manifest      --extractor-args "youtube:skip=hls" (Alias: --no-youtube-include-hls-manifest)
     --youtube-include-dash-manifest  Default (Alias: --no-youtube-skip-dash-manifest)
     --youtube-include-hls-manifest   Default (Alias: --no-youtube-skip-hls-manifest)
+    --geo-bypass                     --xff "default"
+    --no-geo-bypass                  --xff "never"
+    --geo-bypass-country CODE        --xff CODE
+    --geo-bypass-ip-block IP_BLOCK   --xff IP_BLOCK
 
 Developer options
 
