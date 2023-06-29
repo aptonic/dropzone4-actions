@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     int_or_none,
@@ -79,7 +76,6 @@ class On24IE(InfoExtractor):
                     'vcodec': 'none',
                     'acodec': 'wav'
                 })
-        self._sort_formats(formats)
 
         return {
             'id': event_id,

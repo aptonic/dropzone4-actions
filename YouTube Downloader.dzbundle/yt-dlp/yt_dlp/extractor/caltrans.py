@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 
 
@@ -30,7 +27,6 @@ class CaltransIE(InfoExtractor):
         video_stream = self._search_regex(r'videoStreamURL\s*=\s*"([^"]+)"', global_vars, 'Video Stream URL', fatal=False)
 
         formats = self._extract_m3u8_formats(video_stream, video_id, 'ts', live=True)
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

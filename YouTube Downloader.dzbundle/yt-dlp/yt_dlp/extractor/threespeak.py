@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -60,7 +57,6 @@ class ThreeSpeakIE(InfoExtractor):
                 'quality': 11,
                 'format_note': 'Original file',
             })
-        self._sort_formats(formats)
         return {
             'id': id,
             'title': data_json.get('title') or data_json.get('root_title'),

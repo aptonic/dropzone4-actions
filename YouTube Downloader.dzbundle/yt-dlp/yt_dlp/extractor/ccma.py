@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     clean_html,
@@ -84,7 +81,6 @@ class CCMAIE(InfoExtractor):
                 'url': media_url,
                 'vcodec': 'none' if media_type == 'audio' else None,
             })
-        self._sort_formats(formats)
 
         informacio = media['informacio']
         title = informacio['titol']

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from base64 import b64decode
 
 from .common import InfoExtractor
@@ -104,7 +101,6 @@ class MicrosoftStreamIE(InfoExtractor):
                     playlist['playbackUrl'], video_id, ism_id='mss',
                     fatal=False, headers=headers))
         formats = [merge_dicts(f, {'language': language}) for f in formats]
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

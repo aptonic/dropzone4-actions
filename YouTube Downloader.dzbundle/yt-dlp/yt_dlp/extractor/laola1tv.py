@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
 import re
 
@@ -52,7 +49,6 @@ class Laola1TvEmbedIE(InfoExtractor):
         formats = self._extract_akamai_formats(
             '%s?hdnea=%s' % (token_attrib['url'], token_attrib['auth']),
             video_id)
-        self._sort_formats(formats)
         return formats
 
     def _real_extract(self, url):
@@ -121,7 +117,7 @@ class Laola1TvEmbedIE(InfoExtractor):
         }
 
 
-class Laola1TvBaseIE(Laola1TvEmbedIE):
+class Laola1TvBaseIE(Laola1TvEmbedIE):  # XXX: Do not subclass from concrete IE
     def _extract_video(self, url):
         display_id = self._match_id(url)
         webpage = self._download_webpage(url, display_id)

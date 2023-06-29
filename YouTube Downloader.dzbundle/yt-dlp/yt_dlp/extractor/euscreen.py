@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 
 from ..utils import (
@@ -48,7 +45,6 @@ class EUScreenIE(InfoExtractor):
         formats = [{
             'url': source['src'],
         } for source in video_json.get('sources', [])]
-        self._sort_formats(formats)
 
         return {
             'id': id,

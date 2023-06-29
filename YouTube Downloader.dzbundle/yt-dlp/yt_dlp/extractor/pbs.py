@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -663,7 +660,6 @@ class PBSIE(InfoExtractor):
         for f in formats:
             if (f.get('format_note') or '').endswith(' AD'):  # Audio description
                 f['language_preference'] = -10
-        self._sort_formats(formats)
 
         rating_str = info.get('rating')
         if rating_str is not None:

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     try_get,
@@ -60,7 +57,6 @@ class PlanetMarathiIE(InfoExtractor):
                 asset_title = id.replace('-', ' ')
             asset_id = f'{asset["sk"]}_{id}'.replace('#', '-')
             formats, subtitles = self._extract_m3u8_formats_and_subtitles(asset['mediaAssetURL'], asset_id)
-            self._sort_formats(formats)
             entries.append({
                 'id': asset_id,
                 'title': asset_title,

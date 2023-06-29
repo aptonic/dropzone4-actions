@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import compat_str
 from ..utils import (
@@ -120,7 +117,6 @@ class EggheadLessonIE(EggheadBaseIE):
                 formats.append({
                     'url': format_url,
                 })
-        self._sort_formats(formats)
 
         return {
             'id': lesson_id,

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import (
     compat_parse_qs,
@@ -76,7 +73,6 @@ class ArnesIE(InfoExtractor):
                 'width': int_or_none(media.get('width')),
                 'height': int_or_none(media.get('height')),
             })
-        self._sort_formats(formats)
 
         channel = video.get('channel') or {}
         channel_id = channel.get('url')
@@ -93,7 +89,7 @@ class ArnesIE(InfoExtractor):
             'timestamp': parse_iso8601(video.get('creationTime')),
             'channel': channel.get('name'),
             'channel_id': channel_id,
-            'channel_url': format_field(channel_id, template=f'{self._BASE_URL}/?channel=%s'),
+            'channel_url': format_field(channel_id, None, f'{self._BASE_URL}/?channel=%s'),
             'duration': float_or_none(video.get('duration'), 1000),
             'view_count': int_or_none(video.get('views')),
             'tags': video.get('hashtags'),

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     int_or_none,
@@ -74,8 +71,6 @@ class XinpianchangIE(InfoExtractor):
                     'height': int_or_none(prog.get('height')),
                     'ext': 'mp4',
                 } for prog in v if prog.get('url') or []])
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

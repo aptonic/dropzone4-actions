@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
@@ -57,7 +55,6 @@ class MirrativIE(MirrativBaseIE):
             hls_url, video_id,
             ext='mp4', entry_protocol='m3u8_native',
             m3u8_id='hls', live=is_live)
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from itertools import zip_longest
 import re
 
@@ -25,11 +22,8 @@ class LinkedInBaseIE(InfoExtractor):
     _NETRC_MACHINE = 'linkedin'
     _logged_in = False
 
-    def _real_initialize(self):
+    def _perform_login(self, username, password):
         if self._logged_in:
-            return
-        email, password = self._get_login_info()
-        if email is None:
             return
 
         login_page = self._download_webpage(
@@ -39,7 +33,7 @@ class LinkedInBaseIE(InfoExtractor):
             default='https://www.linkedin.com/uas/login-submit', group='url'))
         data = self._hidden_inputs(login_page)
         data.update({
-            'session_key': email,
+            'session_key': username,
             'session_password': password,
         })
         login_submit_page = self._download_webpage(
@@ -105,7 +99,7 @@ class LinkedInIE(LinkedInBaseIE):
         video_id = self._match_id(url)
         webpage = self._download_webpage(url, video_id)
 
-        title = self._html_search_regex(r'<title>([^<]+)</title>', webpage, 'title')
+        title = self._html_extract_title(webpage)
         description = clean_html(get_element_by_class('share-update-card__update-text', webpage))
         like_count = int_or_none(get_element_by_class('social-counts-reactions__social-counts-numRections', webpage))
         creator = strip_or_none(clean_html(get_element_by_class('comment__actor-name', webpage)))
@@ -116,8 +110,6 @@ class LinkedInIE(LinkedInBaseIE):
             'ext': mimetype2ext(source.get('type')),
             'tbr': float_or_none(source.get('data-bitrate'), scale=1000),
         } for source in sources]
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,
@@ -193,10 +185,6 @@ class LinkedInLearningIE(LinkedInLearningBaseIE):
                 streaming_url, video_slug, 'mp4',
                 'm3u8_native', m3u8_id='hls', fatal=False))
 
-        # It seems like this would be correctly handled by default
-        # However, unless someone can confirm this, the old
-        # behaviour is being kept as-is
-        self._sort_formats(formats, ('res', 'source_preference'))
         subtitles = {}
         duration = int_or_none(video_data.get('durationInSeconds'))
         transcript_lines = try_get(video_data, lambda x: x['transcript']['lines'], expected_type=list)
@@ -214,6 +202,10 @@ class LinkedInLearningIE(LinkedInLearningBaseIE):
             'timestamp': float_or_none(video_data.get('publishedOn'), 1000),
             'duration': duration,
             'subtitles': subtitles,
+            # It seems like this would be correctly handled by default
+            # However, unless someone can confirm this, the old
+            # behaviour is being kept as-is
+            '_format_sort_fields': ('res', 'source_preference')
         }
 
 

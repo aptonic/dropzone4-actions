@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
 
 from .common import InfoExtractor
@@ -63,7 +60,6 @@ class MuenchenTVIE(InfoExtractor):
                 'format_id': format_id,
                 'preference': -100 if '.smil' in s['file'] else 0,  # Strictly inferior than all other formats?
             })
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

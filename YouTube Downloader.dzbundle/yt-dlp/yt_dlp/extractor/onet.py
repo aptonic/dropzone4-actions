@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -83,7 +80,6 @@ class OnetBaseIE(InfoExtractor):
                                 'vbr': float_or_none(f.get('video_bitrate')),
                             })
                         formats.append(http_f)
-        self._sort_formats(formats)
 
         meta = video.get('meta', {})
 

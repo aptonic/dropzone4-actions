@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.7
+# Version: 2.8
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -19,6 +19,7 @@ import os
 import traceback
 import re
 import utils
+
 
 def dragged():
     download_url(items[0])
@@ -107,18 +108,18 @@ def my_hook(d):
             speed_info = " (" + d['_speed_str'] + " ETA: " + d['_eta_str'] + ")"
         filename = filename.encode('ascii', 'ignore').decode('ascii')
         dz.begin("Downloading " + filename + speed_info + "...")
-        total_bytes = 0
-        
-        if 'downloaded_bytes' in d:
-            if 'total_bytes' in d:
-                total_bytes = d['total_bytes']
-            elif 'total_bytes_estimate' in d:
-                total_bytes = d['total_bytes_estimate']
-            
-            percent = int(100 * d['downloaded_bytes'] / total_bytes)
-            if percent > 0:
+
+        if '_percent_str' in d:
+            p = d['_percent_str']
+            p = p.replace('%','').strip()
+            progress = int(float(p))
+
+            if progress <= 100:
                 utils.set_determinate_progress(True)
-                utils.set_progress_percent(percent)
+                utils.set_progress_percent(progress)
+            else:
+                utils.set_determinate_progress(False)
+                utils.reset_progress()
     
     if d['status'] == 'finished':
         utils.set_determinate_progress(False)

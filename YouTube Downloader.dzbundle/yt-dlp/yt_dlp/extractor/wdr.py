@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -106,8 +103,6 @@ class WDRIE(InfoExtractor):
                         a_format['ext'] = ext
                     formats.append(a_format)
 
-        self._sort_formats(formats)
-
         caption_url = media_resource.get('captionURL')
         if caption_url:
             subtitles['de'] = [{
@@ -136,7 +131,7 @@ class WDRIE(InfoExtractor):
         }
 
 
-class WDRPageIE(WDRIE):
+class WDRPageIE(WDRIE):  # XXX: Do not subclass from concrete IE
     _MAUS_REGEX = r'https?://(?:www\.)wdrmaus.de/(?:[^/]+/)*?(?P<maus_id>[^/?#.]+)(?:/?|/index\.php5|\.php5)$'
     _PAGE_REGEX = r'/(?:mediathek/)?(?:[^/]+/)*(?P<display_id>[^/]+)\.html'
     _VALID_URL = r'https?://(?:www\d?\.)?(?:(?:kinder\.)?wdr\d?|sportschau)\.de' + _PAGE_REGEX + '|' + _MAUS_REGEX

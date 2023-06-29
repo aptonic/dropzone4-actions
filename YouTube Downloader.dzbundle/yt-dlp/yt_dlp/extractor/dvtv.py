@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -145,7 +142,6 @@ class DVTVIE(InfoExtractor):
                         'format_id': join_nonempty('http', ext, label),
                         'height': int_or_none(height),
                     })
-        self._sort_formats(formats)
 
         return {
             'id': data.get('mediaid') or video_id,

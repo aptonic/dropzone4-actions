@@ -1,7 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-
 from .common import InfoExtractor
 from ..compat import (
     compat_urllib_parse_urlencode,
@@ -71,7 +67,6 @@ class IvideonIE(InfoExtractor):
             'ext': 'flv',
             'quality': quality(format_id),
         } for format_id in self._QUALITIES]
-        self._sort_formats(formats)
 
         return {
             'id': server_id,

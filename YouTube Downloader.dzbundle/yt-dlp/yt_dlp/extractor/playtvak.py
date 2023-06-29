@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import (
     compat_urlparse,
@@ -163,7 +160,6 @@ class PlaytvakIE(InfoExtractor):
                 'quality': quality(fmt.get('quality')),
                 'preference': preference,
             })
-        self._sort_formats(formats)
 
         title = item['title']
         is_live = item['type'] == 'stream'

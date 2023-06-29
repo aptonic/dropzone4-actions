@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .dplay import DPlayIE
 from ..compat import compat_urlparse
 from ..utils import (
@@ -9,7 +6,7 @@ from ..utils import (
 )
 
 
-class Tele5IE(DPlayIE):
+class Tele5IE(DPlayIE):  # XXX: Do not subclass from concrete IE
     _VALID_URL = r'https?://(?:www\.)?tele5\.de/(?:[^/]+/)*(?P<id>[^/?#&]+)'
     _GEO_COUNTRIES = ['DE']
     _TESTS = [{

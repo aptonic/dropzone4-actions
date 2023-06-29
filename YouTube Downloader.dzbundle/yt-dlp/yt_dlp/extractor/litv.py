@@ -1,14 +1,11 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
 
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
     int_or_none,
-    traverse_obj,
     smuggle_url,
+    traverse_obj,
     unsmuggle_url,
 )
 
@@ -116,7 +113,7 @@ class LiTVIE(InfoExtractor):
             entry_protocol='m3u8_native', m3u8_id='hls')
         for a_format in formats:
             # LiTV HLS segments doesn't like compressions
-            a_format.setdefault('http_headers', {})['Youtubedl-no-compression'] = True
+            a_format.setdefault('http_headers', {})['Accept-Encoding'] = 'identity'
 
         title = program_info['title'] + program_info.get('secondaryMark', '')
         description = program_info.get('description')

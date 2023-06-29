@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
@@ -67,7 +64,6 @@ class PicartoIE(InfoExtractor):
                 formats.append({
                     'url': source_url,
                 })
-        self._sort_formats(formats)
 
         mature = metadata.get('adult')
         if mature is None:
@@ -117,7 +113,6 @@ class PicartoVodIE(InfoExtractor):
         formats = self._extract_m3u8_formats(
             vod_info['vod'], video_id, 'mp4', entry_protocol='m3u8_native',
             m3u8_id='hls')
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

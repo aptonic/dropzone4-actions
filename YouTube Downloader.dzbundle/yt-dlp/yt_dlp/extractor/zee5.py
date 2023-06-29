@@ -1,15 +1,16 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
+import time
+import uuid
 
 from .common import InfoExtractor
 from ..compat import compat_str
 from ..utils import (
     ExtractorError,
     int_or_none,
+    jwt_decode_hs256,
     parse_age_limit,
     str_or_none,
+    try_call,
     try_get,
     unified_strdate,
     unified_timestamp,
@@ -24,25 +25,25 @@ class Zee5IE(InfoExtractor):
                         https?://(?:www\.)?zee5\.com/(?:[^#?]+/)?
                         (?:
                             (?:tv-shows|kids|web-series|zee5originals)(?:/[^#/?]+){3}
-                            |movies/[^#/?]+
+                            |(?:movies|kids|videos|news|music-videos)/(?!kids-shows)[^#/?]+
                         )/(?P<display_id>[^#/?]+)/
                      )
                      (?P<id>[^#/?]+)/?(?:$|[?#])
                      '''
     _TESTS = [{
-        'url': 'https://www.zee5.com/movies/details/krishna-the-birth/0-0-63098',
+        'url': 'https://www.zee5.com/movies/details/adavari-matalaku-ardhale-verule/0-0-movie_1143162669',
         'info_dict': {
-            'id': '0-0-63098',
+            'id': '0-0-movie_1143162669',
             'ext': 'mp4',
-            'display_id': 'krishna-the-birth',
-            'title': 'Krishna - The Birth',
-            'duration': 4368,
+            'display_id': 'adavari-matalaku-ardhale-verule',
+            'title': 'Adavari Matalaku Ardhale Verule',
+            'duration': 9360,
             'description': compat_str,
-            'alt_title': 'Krishna - The Birth',
+            'alt_title': 'Adavari Matalaku Ardhale Verule',
             'uploader': 'Zee Entertainment Enterprises Ltd',
-            'release_date': '20060101',
-            'upload_date': '20060101',
-            'timestamp': 1136073600,
+            'release_date': '20070427',
+            'upload_date': '20070427',
+            'timestamp': 1177632000,
             'thumbnail': r're:^https?://.*\.jpg$',
             'episode_number': 0,
             'episode': 'Episode 0',
@@ -85,40 +86,49 @@ class Zee5IE(InfoExtractor):
     }, {
         'url': 'https://www.zee5.com/web-series/details/mithya/0-6-4z587408/maine-dekhi-hai-uski-mrityu/0-1-6z587412',
         'only_matching': True
+    }, {
+        'url': 'https://www.zee5.com/kids/kids-movies/maya-bommalu/0-0-movie_1040370005',
+        'only_matching': True
+    }, {
+        'url': 'https://www.zee5.com/news/details/jana-sena-chief-pawan-kalyan-shows-slippers-to-ysrcp-leaders/0-0-newsauto_6ettj4242oo0',
+        'only_matching': True
+    }, {
+        'url': 'https://www.zee5.com/music-videos/details/adhento-gaani-vunnapaatuga-jersey-nani-shraddha-srinath/0-0-56973',
+        'only_matching': True
     }]
-    _DETAIL_API_URL = 'https://spapi.zee5.com/singlePlayback/getDetails?content_id={}&device_id={}&platform_name=desktop_web&country=IN&check_parental_control=false'
-    _DEVICE_ID = 'iIxsxYf40cqO3koIkwzKHZhnJzHN13zb'
+    _DEVICE_ID = str(uuid.uuid4())
     _USER_TOKEN = None
     _LOGIN_HINT = 'Use "--username <mobile_number>" to login using otp or "--username token" and "--password <user_token>" to login using user token.'
     _NETRC_MACHINE = 'zee5'
     _GEO_COUNTRIES = ['IN']
+    _USER_COUNTRY = None
 
-    def _login(self):
-        username, password = self._get_login_info()
-        if username:
-            if len(username) == 10 and username.isdigit() and self._USER_TOKEN is None:
-                self.report_login()
-                otp_request_json = self._download_json('https://b2bapi.zee5.com/device/sendotp_v1.php?phoneno=91{}'.format(username),
-                                                       None, note='Sending OTP')
-                if otp_request_json['code'] == 0:
-                    self.to_screen(otp_request_json['message'])
-                else:
-                    raise ExtractorError(otp_request_json['message'], expected=True)
-                otp_code = self._get_tfa_info('OTP')
-                otp_verify_json = self._download_json('https://b2bapi.zee5.com/device/verifyotp_v1.php?phoneno=91{}&otp={}&guest_token={}&platform=web'.format(username, otp_code, self._DEVICE_ID),
-                                                      None, note='Verifying OTP', fatal=False)
-                if not otp_verify_json:
-                    raise ExtractorError('Unable to verify OTP.', expected=True)
-                self._USER_TOKEN = otp_verify_json.get('token')
-                if not self._USER_TOKEN:
-                    raise ExtractorError(otp_request_json['message'], expected=True)
-            elif username.lower() == 'token' and len(password) > 1198:
-                self._USER_TOKEN = password
+    def _perform_login(self, username, password):
+        if len(username) == 10 and username.isdigit() and self._USER_TOKEN is None:
+            self.report_login()
+            otp_request_json = self._download_json(f'https://b2bapi.zee5.com/device/sendotp_v1.php?phoneno=91{username}',
+                                                   None, note='Sending OTP')
+            if otp_request_json['code'] == 0:
+                self.to_screen(otp_request_json['message'])
             else:
-                raise ExtractorError(self._LOGIN_HINT, expected=True)
+                raise ExtractorError(otp_request_json['message'], expected=True)
+            otp_code = self._get_tfa_info('OTP')
+            otp_verify_json = self._download_json(f'https://b2bapi.zee5.com/device/verifyotp_v1.php?phoneno=91{username}&otp={otp_code}&guest_token={self._DEVICE_ID}&platform=web',
+                                                  None, note='Verifying OTP', fatal=False)
+            if not otp_verify_json:
+                raise ExtractorError('Unable to verify OTP.', expected=True)
+            self._USER_TOKEN = otp_verify_json.get('token')
+            if not self._USER_TOKEN:
+                raise ExtractorError(otp_request_json['message'], expected=True)
+        elif username.lower() == 'token' and try_call(lambda: jwt_decode_hs256(password)):
+            self._USER_TOKEN = password
+        else:
+            raise ExtractorError(self._LOGIN_HINT, expected=True)
 
-    def _real_initialize(self):
-        self._login()
+        token = jwt_decode_hs256(self._USER_TOKEN)
+        if token.get('exp', 0) <= int(time.time()):
+            raise ExtractorError('User token has expired', expected=True)
+        self._USER_COUNTRY = token.get('current_country')
 
     def _real_extract(self, url):
         video_id, display_id = self._match_valid_url(url).group('id', 'display_id')
@@ -134,8 +144,13 @@ class Zee5IE(InfoExtractor):
             data['X-Z5-Guest-Token'] = self._DEVICE_ID
 
         json_data = self._download_json(
-            self._DETAIL_API_URL.format(video_id, self._DEVICE_ID),
-            video_id, headers={'content-type': 'application/json'}, data=json.dumps(data).encode('utf-8'))
+            'https://spapi.zee5.com/singlePlayback/getDetails/secure', video_id, query={
+                'content_id': video_id,
+                'device_id': self._DEVICE_ID,
+                'platform_name': 'desktop_web',
+                'country': self._USER_COUNTRY or self.get_param('geo_bypass_country') or 'IN',
+                'check_parental_control': False,
+            }, headers={'content-type': 'application/json'}, data=json.dumps(data).encode('utf-8'))
         asset_data = json_data['assetDetails']
         show_data = json_data.get('showDetails', {})
         if 'premium' in asset_data['business_type']:
@@ -143,7 +158,6 @@ class Zee5IE(InfoExtractor):
         if not asset_data.get('hls_url'):
             self.raise_login_required(self._LOGIN_HINT, metadata_available=True, method=None)
         formats, m3u8_subs = self._extract_m3u8_formats_and_subtitles(asset_data['hls_url'], video_id, 'mp4', fatal=False)
-        self._sort_formats(formats)
 
         subtitles = {}
         for sub in asset_data.get('subtitle_url', []):
@@ -182,7 +196,7 @@ class Zee5SeriesIE(InfoExtractor):
                      (?:
                         zee5:series:|
                         https?://(?:www\.)?zee5\.com/(?:[^#?]+/)?
-                        (?:tv-shows|web-series|kids|zee5originals)(?:/[^#/?]+){2}/
+                        (?:tv-shows|web-series|kids|zee5originals)/(?!kids-movies)(?:[^#/?]+/){2}
                      )
                      (?P<id>[^#/?]+)(?:/episodes)?/?(?:$|[?#])
                      '''
@@ -232,13 +246,13 @@ class Zee5SeriesIE(InfoExtractor):
             'X-Access-Token': access_token_request['token'],
             'Referer': 'https://www.zee5.com/',
         }
-        show_url = 'https://gwapi.zee5.com/content/tvshow/{}?translation=en&country=IN'.format(show_id)
+        show_url = f'https://gwapi.zee5.com/content/tvshow/{show_id}?translation=en&country=IN'
 
         page_num = 0
         show_json = self._download_json(show_url, video_id=show_id, headers=headers)
         for season in show_json.get('seasons') or []:
             season_id = try_get(season, lambda x: x['id'], compat_str)
-            next_url = 'https://gwapi.zee5.com/content/tvshow/?season_id={}&type=episode&translation=en&country=IN&on_air=false&asset_subtype=tvshow&page=1&limit=100'.format(season_id)
+            next_url = f'https://gwapi.zee5.com/content/tvshow/?season_id={season_id}&type=episode&translation=en&country=IN&on_air=false&asset_subtype=tvshow&page=1&limit=100'
             while next_url:
                 page_num += 1
                 episodes_json = self._download_json(

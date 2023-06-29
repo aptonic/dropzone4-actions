@@ -1,5 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
 from .common import InfoExtractor
 from ..utils import (
     clean_html,
@@ -103,7 +101,6 @@ class KooIE(InfoExtractor):
         if not formats:
             self.raise_no_formats('No video/audio found at the provided url.', expected=True)
 
-        self._sort_formats(formats)
         return {
             'id': id,
             'title': clean_html(item_json.get('title')),

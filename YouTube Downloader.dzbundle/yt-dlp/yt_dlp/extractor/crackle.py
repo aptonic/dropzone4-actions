@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals, division
-
 import hashlib
 import hmac
 import re
@@ -180,7 +177,6 @@ class CrackleIE(InfoExtractor):
                 })
         if not formats and has_drm:
             self.report_drm(video_id)
-        self._sort_formats(formats)
 
         description = media.get('Description')
         duration = int_or_none(media.get(

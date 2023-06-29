@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import functools
 import re
 
@@ -94,7 +92,6 @@ class NBAWatchBaseIE(NBACVPBaseIE):
                 formats.extend(cvp_info['formats'])
                 info = merge_dicts(info, cvp_info)
 
-        self._sort_formats(formats)
         info['formats'] = formats
         return info
 
@@ -320,7 +317,6 @@ class NBABaseIE(NBACVPBaseIE):
                     subtitles = self._merge_subtitles(subtitles, cvp_info['subtitles'])
                     info = merge_dicts(info, cvp_info)
 
-            self._sort_formats(formats)
         else:
             info.update(self._embed_url_result(team, video['videoId']))
 

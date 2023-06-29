@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import js_to_json
 
@@ -45,8 +42,6 @@ class PeerTVIE(InfoExtractor):
         m3u8_url = self._parse_json(m3u8_url, video_id, transform_source=js_to_json)
 
         formats = self._extract_m3u8_formats(m3u8_url, video_id, m3u8_id='hls')
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

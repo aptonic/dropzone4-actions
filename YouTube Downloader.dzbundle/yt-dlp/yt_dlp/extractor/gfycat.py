@@ -1,8 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-import re
-
 from .common import InfoExtractor
 from ..utils import (
     int_or_none,
@@ -13,7 +8,8 @@ from ..utils import (
 
 
 class GfycatIE(InfoExtractor):
-    _VALID_URL = r'(?i)https?://(?:(?:www|giant|thumbs)\.)?gfycat\.com/(?:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\."\']+)'
+    _VALID_URL = r'https?://(?:(?:www|giant|thumbs)\.)?gfycat\.com/(?i:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\."\']+)'
+    _EMBED_REGEX = [rf'<(?:iframe|source)[^>]+\bsrc=["\'](?P<url>{_VALID_URL})']
     _TESTS = [{
         'url': 'http://gfycat.com/DeadlyDecisiveGermanpinscher',
         'info_dict': {
@@ -85,14 +81,6 @@ class GfycatIE(InfoExtractor):
         'only_matching': True
     }]
 
-    @staticmethod
-    def _extract_urls(webpage):
-        return [
-            mobj.group('url')
-            for mobj in re.finditer(
-                r'<(?:iframe|source)[^>]+\bsrc=["\'](?P<url>%s)' % GfycatIE._VALID_URL,
-                webpage)]
-
     def _real_extract(self, url):
         video_id = self._match_id(url)
 
@@ -139,7 +127,6 @@ class GfycatIE(InfoExtractor):
                 'filesize': filesize,
                 'quality': quality(format_id),
             })
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

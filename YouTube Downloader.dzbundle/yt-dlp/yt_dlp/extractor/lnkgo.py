@@ -1,11 +1,7 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-
 from .common import InfoExtractor
+from ..compat import compat_str
 from ..utils import (
     clean_html,
-    compat_str,
     format_field,
     int_or_none,
     parse_iso8601,
@@ -71,7 +67,6 @@ class LnkGoIE(InfoExtractor):
         formats = self._extract_m3u8_formats(
             self._M3U8_TEMPL % (prefix, video_info['videoUrl'], video_info.get('secureTokenParams') or ''),
             video_id, 'mp4', 'm3u8_native')
-        self._sort_formats(formats)
 
         return {
             'id': video_id,
@@ -153,7 +148,6 @@ class LnkIE(InfoExtractor):
             formats.extend(fmts)
             subtitles = self._merge_subtitles(subtitles, subs)
 
-        self._sort_formats(formats)
         return {
             'id': id,
             'title': video_json.get('title'),

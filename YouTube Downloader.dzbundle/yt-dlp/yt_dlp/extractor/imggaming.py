@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
 
 from .common import InfoExtractor
@@ -21,24 +18,25 @@ class ImgGamingBaseIE(InfoExtractor):
     _REALM = None
     _VALID_URL_TEMPL = r'https?://(?P<domain>%s)/(?P<type>live|playlist|video)/(?P<id>\d+)(?:\?.*?\bplaylistId=(?P<playlist_id>\d+))?'
 
-    def _real_initialize(self):
+    def _initialize_pre_login(self):
         self._HEADERS = {
             'Realm': 'dce.' + self._REALM,
             'x-api-key': self._API_KEY,
         }
 
-        email, password = self._get_login_info()
-        if email is None:
-            self.raise_login_required()
-
+    def _perform_login(self, username, password):
         p_headers = self._HEADERS.copy()
         p_headers['Content-Type'] = 'application/json'
         self._HEADERS['Authorization'] = 'Bearer ' + self._download_json(
             self._API_BASE + 'login',
             None, 'Logging in', data=json.dumps({
-                'id': email,
+                'id': username,
                 'secret': password,
             }).encode(), headers=p_headers)['authorisationToken']
+
+    def _real_initialize(self):
+        if not self._HEADERS.get('Authorization'):
+            self.raise_login_required(method='password')
 
     def _call_api(self, path, media_id):
         return self._download_json(
@@ -105,7 +103,6 @@ class ImgGamingBaseIE(InfoExtractor):
                 formats.extend(self._extract_mpd_formats(
                     media_url, media_id, mpd_id='dash', fatal=False,
                     headers=self._MANIFEST_HEADERS))
-        self._sort_formats(formats)
 
         subtitles = {}
         for subtitle in video_data.get('subtitles', []):

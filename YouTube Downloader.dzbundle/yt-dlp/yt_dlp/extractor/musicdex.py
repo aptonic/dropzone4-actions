@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     date_from_str,
@@ -100,7 +97,7 @@ class MusicdexAlbumIE(MusicdexBaseIE):
         }
 
 
-class MusicdexPageIE(MusicdexBaseIE):
+class MusicdexPageIE(MusicdexBaseIE):  # XXX: Conventionally, base classes should end with BaseIE/InfoExtractor
     def _entries(self, id):
         next_page_url = self._API_URL % id
         while next_page_url:

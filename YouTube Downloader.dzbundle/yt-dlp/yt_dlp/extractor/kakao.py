@@ -1,7 +1,3 @@
-# coding: utf-8
-
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import compat_HTTPError
 from ..utils import (
@@ -109,6 +105,7 @@ class KakaoIE(InfoExtractor):
                     resp = self._parse_json(e.cause.read().decode(), video_id)
                     if resp.get('code') == 'GeoBlocked':
                         self.raise_geo_restricted()
+                raise
 
             fmt_url = traverse_obj(fmt_url_json, ('videoLocation', 'url'))
             if not fmt_url:
@@ -123,7 +120,6 @@ class KakaoIE(InfoExtractor):
                 'filesize': int_or_none(fmt.get('filesize')),
                 'tbr': int_or_none(fmt.get('kbps')),
             })
-        self._sort_formats(formats)
 
         thumbs = []
         for thumb in clip.get('clipChapterThumbnailList') or []:

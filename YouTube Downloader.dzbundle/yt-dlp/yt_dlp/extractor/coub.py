@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
@@ -106,8 +103,6 @@ class CoubIE(InfoExtractor):
                 'format_id': '%s-audio' % MOBILE,
                 'source_preference': preference_key(MOBILE),
             })
-
-        self._sort_formats(formats)
 
         thumbnail = coub.get('picture')
         duration = float_or_none(coub.get('duration'))

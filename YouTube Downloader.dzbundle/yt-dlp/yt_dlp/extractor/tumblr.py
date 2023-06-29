@@ -1,7 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
@@ -247,11 +243,7 @@ class TumblrIE(InfoExtractor):
 
     _ACCESS_TOKEN = None
 
-    def _real_initialize(self):
-        self.get_access_token()
-        self._login()
-
-    def get_access_token(self):
+    def _initialize_pre_login(self):
         login_page = self._download_webpage(
             self._LOGIN_URL, None, 'Downloading login page', fatal=False)
         if login_page:
@@ -260,11 +252,7 @@ class TumblrIE(InfoExtractor):
         if not self._ACCESS_TOKEN:
             self.report_warning('Failed to get access token; metadata will be missing and some videos may not work')
 
-    def _login(self):
-        username, password = self._get_login_info()
-        if not username:
-            return
-
+    def _perform_login(self, username, password):
         if not self._ACCESS_TOKEN:
             return
 
@@ -370,7 +358,6 @@ class TumblrIE(InfoExtractor):
             'height': int_or_none(
                 media_json.get('height') or self._og_search_property('video:height', webpage, default=None)),
         }]
-        self._sort_formats(formats)
 
         # the url we're extracting from might be an original post or it might be a reblog.
         # if it's a reblog, og:description will be the reblogger's comment, not the uploader's.

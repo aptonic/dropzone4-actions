@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import compat_urlparse
 from ..utils import (
@@ -164,8 +161,6 @@ class MDRIE(InfoExtractor):
                         f['vcodec'] = 'none'
 
                     formats.append(f)
-
-        self._sort_formats(formats)
 
         description = xpath_text(doc, './broadcast/broadcastDescription', 'description')
         timestamp = parse_iso8601(

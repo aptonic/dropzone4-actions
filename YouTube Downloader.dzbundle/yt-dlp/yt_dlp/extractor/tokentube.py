@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import functools
 import re
 
@@ -97,8 +94,6 @@ class TokentubeIE(InfoExtractor):
                        or self._html_search_meta(('og:description', 'description', 'twitter:description'), webpage))
 
         description = remove_end(description, 'Category')
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

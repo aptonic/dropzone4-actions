@@ -1,7 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-
 from .common import InfoExtractor
 from ..utils import (
     ExtractorError,
@@ -132,7 +128,6 @@ class SRGSSRIE(InfoExtractor):
                     'url': podcast_url,
                     'quality': q(quality),
                 })
-        self._sort_formats(formats)
 
         if media_type == 'video':
             for sub in (media_data.get('subtitleList') or []):

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import (
     parse_duration,
@@ -49,8 +46,6 @@ class NoodleMagazineIE(InfoExtractor):
             'quality': source.get('label'),
             'ext': source.get('type'),
         } for source in playlist_info.get('sources')]
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

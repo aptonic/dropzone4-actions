@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import json
 import random
 import time
@@ -196,8 +193,6 @@ class RCTIPlusIE(RCTIPlusBaseIE):
         for f in formats:
             if 'akamaized' in f['url'] or 'cloudfront' in f['url']:
                 f.setdefault('http_headers', {})['Referer'] = 'https://www.rctiplus.com/'  # Referer header is required for akamai/cloudfront CDNs
-
-        self._sort_formats(formats)
 
         return {
             'id': video_meta.get('product_id') or video_json.get('product_id'),

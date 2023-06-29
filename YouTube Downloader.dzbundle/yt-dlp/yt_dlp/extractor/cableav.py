@@ -1,4 +1,3 @@
-# coding: utf-8
 from .common import InfoExtractor
 
 
@@ -23,7 +22,6 @@ class CableAVIE(InfoExtractor):
         video_url = self._og_search_video_url(webpage, secure=False)
 
         formats = self._extract_m3u8_formats(video_url, video_id, 'mp4')
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

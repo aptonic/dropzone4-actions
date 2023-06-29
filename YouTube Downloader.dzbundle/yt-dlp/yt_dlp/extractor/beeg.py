@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 
 from ..utils import (
@@ -77,8 +75,6 @@ class BeegIE(InfoExtractor):
             for f in current_formats:
                 f['height'] = height
             formats.extend(current_formats)
-
-        self._sort_formats(formats)
 
         return {
             'id': video_id,

@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -73,8 +70,8 @@ class ArcPublishingIE(InfoExtractor):
         ], 'video-api-cdn.%s.arcpublishing.com/api'),
     ]
 
-    @staticmethod
-    def _extract_urls(webpage):
+    @classmethod
+    def _extract_embed_urls(cls, url, webpage):
         entries = []
         # https://arcpublishing.atlassian.net/wiki/spaces/POWA/overview
         for powa_el in re.findall(r'(<div[^>]+class="[^"]*\bpowa\b[^"]*"[^>]+data-uuid="%s"[^>]*>)' % ArcPublishingIE._UUID_REGEX, webpage):
@@ -147,7 +144,6 @@ class ArcPublishingIE(InfoExtractor):
                     'url': s_url,
                     'quality': -10,
                 })
-        self._sort_formats(formats)
 
         subtitles = {}
         for subtitle in (try_get(video, lambda x: x['subtitles']['urls'], list) or []):

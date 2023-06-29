@@ -1,10 +1,6 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
-
 from .common import InfoExtractor
+from ..compat import compat_str
 from ..utils import (
-    compat_str,
     float_or_none,
     int_or_none,
     smuggle_url,
@@ -77,6 +73,8 @@ class STVPlayerIE(InfoExtractor):
             })
 
         programme = result.get('programme') or {}
+        if programme.get('drmEnabled'):
+            self.report_drm(video_id)
 
         return {
             '_type': 'url_transparent',

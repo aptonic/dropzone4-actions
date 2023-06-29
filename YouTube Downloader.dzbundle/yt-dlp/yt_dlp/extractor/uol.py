@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..compat import (
     compat_str,
@@ -110,7 +107,6 @@ class UOLIE(InfoExtractor):
                 'url': f_url,
                 'quality': quality(format_id),
             })
-        self._sort_formats(formats)
 
         tags = []
         for tag in video_data.get('tags', []):

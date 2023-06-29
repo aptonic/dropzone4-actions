@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -126,7 +123,6 @@ class NovaEmbedIE(InfoExtractor):
 
         if not formats and has_drm:
             self.report_drm(video_id)
-        self._sort_formats(formats)
 
         title = self._og_search_title(
             webpage, default=None) or self._search_regex(
@@ -311,7 +307,6 @@ class NovaIE(InfoExtractor):
             formats = [{
                 'url': video_url,
             }]
-        self._sort_formats(formats)
 
         title = mediafile.get('meta', {}).get('title') or self._og_search_title(webpage)
         thumbnail = config.get('poster')

@@ -1,7 +1,3 @@
-# coding: utf-8
-
-from __future__ import unicode_literals
-
 import itertools
 
 from .common import InfoExtractor
@@ -129,7 +125,7 @@ class DaumClipIE(DaumBaseIE):
             self._KAKAO_EMBED_BASE + video_id, 'Kakao', video_id)
 
 
-class DaumListIE(InfoExtractor):
+class DaumListIE(InfoExtractor):  # XXX: Conventionally, base classes should end with BaseIE/InfoExtractor
     def _get_entries(self, list_id, list_id_type):
         name = None
         entries = []

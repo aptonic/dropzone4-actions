@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from ..utils import int_or_none
 
@@ -62,7 +59,6 @@ class KelbyOneIE(InfoExtractor):
                     subtitles.setdefault('en', []).append({
                         'url': track['file'],
                     })
-            self._sort_formats(formats)
             yield {
                 'id': video_id,
                 'title': item['title'],

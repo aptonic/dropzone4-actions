@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 from .common import InfoExtractor
 from .vk import VKIE
 from ..compat import compat_b64decode
@@ -89,7 +86,6 @@ class BIQLEIE(InfoExtractor):
                     'height': int_or_none(height),
                     'ext': ext,
                 })
-        self._sort_formats(formats)
 
         thumbnails = []
         for k, v in item.items():

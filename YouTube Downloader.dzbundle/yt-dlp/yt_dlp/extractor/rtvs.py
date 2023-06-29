@@ -1,6 +1,3 @@
-# coding: utf-8
-from __future__ import unicode_literals
-
 import re
 
 from .common import InfoExtractor
@@ -75,7 +72,6 @@ class RTVSIE(InfoExtractor):
             formats = [{'url': traverse_obj(data, ('playlist', 0, 'sources', 0, 'src'))}]
         else:
             formats = self._extract_m3u8_formats(traverse_obj(data, ('playlist', 0, 'sources', 0, 'src')), video_id)
-        self._sort_formats(formats)
 
         return {
             'id': video_id,
