@@ -20,7 +20,6 @@ import tinify
 def dragged():
     tinify.key = os.environ["api_key"]
     upload_and_compress_images(items)
-    print("Testing 12345689")
 
 def upload_and_compress_images(paths):
     if not check_img_types_valid(paths):
