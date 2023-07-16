@@ -1568,7 +1568,8 @@ should end, as specified in the URL
 was completed
 .IP \[bu] 2
 \f[C]autonumber\f[R] (numeric): Number that will be increased with each
-download, starting at \f[C]--autonumber-start\f[R]
+download, starting at \f[C]--autonumber-start\f[R], padded with leading
+zeros to 5 digits
 .IP \[bu] 2
 \f[C]video_autonumber\f[R] (numeric): Number that will be increased with
 each video
@@ -1978,7 +1979,8 @@ will ignore \f[C]best\f[R] and download only \f[C]bestaudio\f[R].
 .PP
 You can also filter the video formats by putting a condition in
 brackets, as in \f[C]-f \[dq]best[height=720]\[dq]\f[R] (or
-\f[C]-f \[dq][filesize>10M]\[dq]\f[R]).
+\f[C]-f \[dq][filesize>10M]\[dq]\f[R] since filters without a selector
+are interpreted as \f[C]best\f[R]).
 .PP
 The following numeric meta fields can be used with comparisons
 \f[C]<\f[R], \f[C]<=\f[R], \f[C]>\f[R], \f[C]>=\f[R], \f[C]=\f[R]
@@ -2059,9 +2061,9 @@ filtering.
 Formats for which the value is not known are excluded unless you put a
 question mark (\f[C]?\f[R]) after the operator.
 You can combine format filters, so
-\f[C]-f \[dq][height<=?720][tbr>500]\[dq]\f[R] selects up to 720p videos
-(or videos where the height is not known) with a bitrate of at least 500
-KBit/s.
+\f[C]-f \[dq]bv[height<=?720][tbr>500]\[dq]\f[R] selects up to 720p
+videos (or videos where the height is not known) with a bitrate of at
+least 500 KBit/s.
 You can also use the filters with \f[C]all\f[R] to download all formats
 that satisfy the filter, e.g.
 \f[C]-f \[dq]all[vcodec=none]\[dq]\f[R] selects all audio-only formats.
@@ -2576,12 +2578,11 @@ up to 10 replies per thread.
 maximum of 100 replies total
 .RE
 .IP \[bu] 2
-\f[C]include_duplicate_formats\f[R]: Extract formats with identical
-content but different URLs or protocol.
-This is useful if some of the formats are unavailable or throttled.
-.IP \[bu] 2
-\f[C]include_incomplete_formats\f[R]: Extract formats that cannot be
-downloaded completely (live dash and post-live m3u8)
+\f[C]formats\f[R]: Change the types of formats to return.
+\f[C]dashy\f[R] (convert HTTP to DASH), \f[C]duplicate\f[R] (identical
+content but different URLs or protocol; includes \f[C]dashy\f[R]),
+\f[C]incomplete\f[R] (cannot be downloaded completely - live dash and
+post-live m3u8)
 .IP \[bu] 2
 \f[C]innertube_host\f[R]: Innertube API host to use for all API
 requests; e.g.
@@ -2689,12 +2690,7 @@ with, e.g.
 \f[C]tab\f[R]: Which tab to download - one of \f[C]new\f[R],
 \f[C]top\f[R], \f[C]videos\f[R], \f[C]podcasts\f[R], \f[C]streams\f[R],
 \f[C]stacks\f[R]
-.SS twitter
-.IP \[bu] 2
-\f[C]legacy_api\f[R]: Force usage of the legacy Twitter API instead of
-the GraphQL API for tweet extraction.
-Has no effect if login cookies are passed
-.SS wrestleuniverse
+.SS stacommu, wrestleuniverse
 .IP \[bu] 2
 \f[C]device_id\f[R]: UUID value assigned by the website and used to
 enforce device limits for paid livestream content.
@@ -3154,7 +3150,11 @@ with YoutubeDL() as ydl:
 .PP
 Most likely, you\[aq]ll want to use various options.
 For a list of options available, have a look at
-\f[C]yt_dlp/YoutubeDL.py\f[R].
+\f[C]yt_dlp/YoutubeDL.py\f[R] or \f[C]help(yt_dlp.YoutubeDL)\f[R] in a
+Python shell.
+If you are already familiar with the CLI, you can use
+\f[C]devscripts/cli_to_api.py\f[R] (https://github.com/yt-dlp/yt-dlp/blob/master/devscripts/cli_to_api.py)
+to translate any CLI switches to \f[C]YoutubeDL\f[R] params.
 .PP
 \f[B]Tip\f[R]: If you are porting your code from youtube-dl to yt-dlp,
 one important point to look out for is that we do not guarantee the
@@ -3351,7 +3351,7 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 Forked from
 \f[B]yt-dlc\[at]f9401f2\f[R] (https://github.com/blackjack4494/yt-dlc/commit/f9401f2a91987068139c5f757b12fc711d4c0cee)
 and merged with
-\f[B]youtube-dl\[at]42f2d4\f[R] (https://github.com/yt-dlp/yt-dlp/commit/42f2d4)
+\f[B]youtube-dl\[at]42f2d4\f[R] (https://github.com/ytdl-org/youtube-dl/commit/07af47960f3bb262ead02490ce65c8c45c01741e)
 (exceptions (https://github.com/yt-dlp/yt-dlp/issues/21))
 .IP \[bu] 2
 \f[B]SponsorBlock Integration\f[R]: You can mark/remove sponsor sections

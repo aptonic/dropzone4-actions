@@ -1622,7 +1622,8 @@ The available fields are:
 -   epoch (numeric): Unix epoch of when the information extraction was
     completed
 -   autonumber (numeric): Number that will be increased with each
-    download, starting at --autonumber-start
+    download, starting at --autonumber-start, padded with leading zeros
+    to 5 digits
 -   video_autonumber (numeric): Number that will be increased with each
     video
 -   n_entries (numeric): Total number of extracted items in the playlist
@@ -1915,7 +1916,8 @@ only bestaudio.
 Filtering Formats
 
 You can also filter the video formats by putting a condition in
-brackets, as in -f "best[height=720]" (or -f "[filesize>10M]").
+brackets, as in -f "best[height=720]" (or -f "[filesize>10M]" since
+filters without a selector are interpreted as best).
 
 The following numeric meta fields can be used with comparisons <, <=, >,
 >=, = (equals), != (not equals):
@@ -1965,10 +1967,11 @@ made available by the extractor can also be used for filtering.
 
 Formats for which the value is not known are excluded unless you put a
 question mark (?) after the operator. You can combine format filters, so
--f "[height<=?720][tbr>500]" selects up to 720p videos (or videos where
-the height is not known) with a bitrate of at least 500 KBit/s. You can
-also use the filters with all to download all formats that satisfy the
-filter, e.g. -f "all[vcodec=none]" selects all audio-only formats.
+-f "bv[height<=?720][tbr>500]" selects up to 720p videos (or videos
+where the height is not known) with a bitrate of at least 500 KBit/s.
+You can also use the filters with all to download all formats that
+satisfy the filter, e.g. -f "all[vcodec=none]" selects all audio-only
+formats.
 
 Format selectors can also be grouped using parentheses; e.g.
 -f "(mp4,webm)[height<480]" will download the best pre-merged mp4 and
@@ -2317,11 +2320,10 @@ youtube
     -   E.g. all,all,1000,10 will get a maximum of 1000 replies total,
         with up to 10 replies per thread. 1000,all,100 will get a
         maximum of 1000 comments, with a maximum of 100 replies total
--   include_duplicate_formats: Extract formats with identical content
-    but different URLs or protocol. This is useful if some of the
-    formats are unavailable or throttled.
--   include_incomplete_formats: Extract formats that cannot be
-    downloaded completely (live dash and post-live m3u8)
+-   formats: Change the types of formats to return. dashy (convert HTTP
+    to DASH), duplicate (identical content but different URLs or
+    protocol; includes dashy), incomplete (cannot be downloaded
+    completely - live dash and post-live m3u8)
 -   innertube_host: Innertube API host to use for all API requests; e.g.
     studio.youtube.com, youtubei.googleapis.com. Note that cookies
     exported from one subdomain will not work on others
@@ -2410,13 +2412,7 @@ rokfinchannel
 -   tab: Which tab to download - one of new, top, videos, podcasts,
     streams, stacks
 
-twitter
-
--   legacy_api: Force usage of the legacy Twitter API instead of the
-    GraphQL API for tweet extraction. Has no effect if login cookies are
-    passed
-
-wrestleuniverse
+stacommu, wrestleuniverse
 
 -   device_id: UUID value assigned by the website and used to enforce
     device limits for paid livestream content. Can be found in browser
@@ -2549,7 +2545,10 @@ like this:
         ydl.download(URLS)
 
 Most likely, you'll want to use various options. For a list of options
-available, have a look at yt_dlp/YoutubeDL.py.
+available, have a look at yt_dlp/YoutubeDL.py or help(yt_dlp.YoutubeDL)
+in a Python shell. If you are already familiar with the CLI, you can use
+devscripts/cli_to_api.py to translate any CLI switches to YoutubeDL
+params.
 
 Tip: If you are porting your code from youtube-dl to yt-dlp, one
 important point to look out for is that we do not guarantee the return

@@ -1137,6 +1137,7 @@
  - **puhutv:serie**
  - **Puls4**
  - **Pyvideo**
+ - **QDance**: [*qdance*](## "netrc machine")
  - **QingTing**
  - **qqmusic**: QQ音乐
  - **qqmusic:album**: QQ音乐 - 专辑
@@ -1364,6 +1365,8 @@
  - **sr:mediathek**: Saarländischer Rundfunk
  - **SRGSSR**
  - **SRGSSRPlay**: srf.ch, rts.ch, rsi.ch, rtr.ch and swissinfo.ch play sites
+ - **StacommuLive**: [*stacommu*](## "netrc machine")
+ - **StacommuVOD**: [*stacommu*](## "netrc machine")
  - **StagePlusVODConcert**: [*stageplus*](## "netrc machine")
  - **stanfordoc**: Stanford Open ClassRoom
  - **StarTrek**
@@ -1648,6 +1651,8 @@
  - **vk**: [*vk*](## "netrc machine") VK
  - **vk:uservideos**: [*vk*](## "netrc machine") VK - User's Videos
  - **vk:wallpost**: [*vk*](## "netrc machine")
+ - **VKPlay**
+ - **VKPlayLive**
  - **vm.tiktok**
  - **Vocaroo**
  - **Vodlocker**
@@ -1801,7 +1806,6 @@
  - **youtube:​search:date**: YouTube search, newest videos first; "ytsearchdate:" prefix
  - **youtube:search_url**: YouTube search URLs with sorting and filter support
  - **youtube:​shorts:pivot:audio**: YouTube Shorts audio pivot (Shorts using audio of a given video)
- - **youtube:stories**: YouTube channel stories; "ytstories:" prefix
  - **youtube:subscriptions**: YouTube subscriptions feed; ":ytsubs" keyword (requires cookies)
  - **youtube:tab**: YouTube Tabs
  - **youtube:user**: YouTube user videos; "ytuser:" prefix
