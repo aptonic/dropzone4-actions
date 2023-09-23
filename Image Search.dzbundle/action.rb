@@ -1,13 +1,13 @@
 # Dropzone Action Info
 # Name: Image Search
-# Description: Dropped images will be searched for using Google Image Search.
+# Description: Dropped images will be searched for using Google Lens.
 # Handles: Files
 # Creator: Aptonic Software
 # URL: http://aptonic.com
 # Events: Dragged, Clicked
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 # UniqueID: 1022
 
@@ -16,7 +16,7 @@ require 'curl_uploader_mod'
 def dragged
   $dz.determinate(false)
   
-  allowed_exts = ["jpg", "jpeg", "gif", "tif", "tiff", "png", "bmp"]
+  allowed_exts = ["jpg", "jpeg", "gif", "tif", "tiff", "png", "bmp", "webp"]
   
   # Check only supported types were dragged
   $items.each do |item|
@@ -26,16 +26,16 @@ def dragged
   end
 
   uploader = CurlUploaderMod.new
-  uploader.upload_url = "https://www.google.com/searchbyimage/upload"
+  uploader.upload_url = "https://lens.google.com/upload"
   uploader.file_field_name = "encoded_image"
-  uploader.output_start_token = "<HTML>"
+  uploader.output_start_token = "<html>"
   uploader.expects_json_output = false
   
   results = uploader.upload($items)
-  
+
   results.each do |result|
     check_upload_output_valid(result)
-    extracted_url = /<A HREF=\"(.*)\"/.match(result[:output])[1]
+    extracted_url = /URL=(.*)\"/.match(result[:output])[1]
     system("open \"#{extracted_url}\"")
   end
   
@@ -45,7 +45,7 @@ end
 
 def check_upload_output_valid(result)
   final_result = result[:output]
-  if result[:curl_output_valid] and final_result =~ /<A HREF=/
+  if result[:curl_output_valid] and final_result =~ /URL=/
     return true
   else
     error_message = final_result
