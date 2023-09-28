@@ -12,7 +12,6 @@ Image Search
 Search Mac App Store
 Finder Path
 Screensaver
-Say Text
 Desktop Picture
 Open Terminal at Path
 Mail Link
