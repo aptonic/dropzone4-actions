@@ -64,8 +64,25 @@ class CurlUploaderMod
     @curl_output_valid = false
     
     $dz.begin("Uploading #{filename}...")
-    IO.popen("/usr/bin/curl -# #{headers} #{post_vars} #{file_upload_param} \"#{@upload_url}\" #{TRANSLATE_NEWLINES_COMMAND}") do |f|
+
+    # Check if redirected to Google Consent screen and open in browser if so
+    IO.popen("/usr/bin/curl -s -D - #{file_upload_param} \"#{@upload_url}\" 2>&1") do |f|
       while line = f.gets do
+        puts("Redirect output: #{line}")
+        if line =~ /^Location: (.*)/
+          redirect_url = $1.strip
+          print(redirect_url)
+          system("open \"#{redirect_url}\"")
+          $dz.finish("You must agree to Googles Terms and then try your upload again.")
+          $dz.url(false)
+          exit(0)
+        end
+      end
+    end
+
+    IO.popen("/usr/bin/curl -# #{headers} #{post_vars} #{file_upload_param} \"#{@upload_url}\" #{TRANSLATE_NEWLINES_COMMAND} 2>&1") do |f|
+      while line = f.gets do
+        puts("Main curl output: #{line}")
         process_line(line)
       end
     end
