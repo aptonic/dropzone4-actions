@@ -1,6 +1,7 @@
 YouTube Downloader
 YouTube Download Audio
 Tinify
+WeTransfer
 Zip Files
 Unzip Files
 Add to SideNotes

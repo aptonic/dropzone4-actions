@@ -1,0 +1,3 @@
+[console_scripts]
+wetransfertool = WeTransferTool.main_module:main_func
+
