@@ -10,15 +10,15 @@ from typing import Any, Callable, Dict, Iterable, Iterator, NamedTuple, Optional
 from .exceptions import AbortDownloadException, InvalidArgumentException, QueryReturnedBadRequestException
 from .instaloadercontext import InstaloaderContext
 
-FrozenNodeIterator = NamedTuple('FrozenNodeIterator',
-                                [('query_hash', str),
-                                 ('query_variables', Dict),
-                                 ('query_referer', Optional[str]),
-                                 ('context_username', Optional[str]),
-                                 ('total_index', int),
-                                 ('best_before', Optional[float]),
-                                 ('remaining_data', Optional[Dict]),
-                                 ('first_node', Optional[Dict])])
+class FrozenNodeIterator(NamedTuple):
+    query_hash: str
+    query_variables: Dict
+    query_referer: Optional[str]
+    context_username: Optional[str]
+    total_index: int
+    best_before: Optional[float]
+    remaining_data: Optional[Dict]
+    first_node: Optional[Dict]
 FrozenNodeIterator.query_hash.__doc__ = """The GraphQL ``query_hash`` parameter."""
 FrozenNodeIterator.query_variables.__doc__ = """The GraphQL ``query_variables`` parameter."""
 FrozenNodeIterator.query_referer.__doc__ = """The HTTP referer used for the GraphQL query."""
@@ -95,7 +95,7 @@ class NodeIterator(Iterator[T]):
         self._is_first = is_first
 
     def _query(self, after: Optional[str] = None) -> Dict:
-        pagination_variables = {'first': NodeIterator._graphql_page_length}  # type: Dict[str, Any]
+        pagination_variables: Dict[str, Any] = {'first': NodeIterator._graphql_page_length}
         if after is not None:
             pagination_variables['after'] = after
         try:
@@ -137,7 +137,7 @@ class NodeIterator(Iterator[T]):
                 if self._first_node is None:
                     self._first_node = node
             return item
-        if self._data['page_info']['has_next_page']:
+        if self._data.get('page_info', {}).get('has_next_page'):
             query_response = self._query(self._data['page_info']['end_cursor'])
             if self._data['edges'] != query_response['edges'] and len(query_response['edges']) > 0:
                 page_index, data = self._page_index, self._data
@@ -289,7 +289,7 @@ def resumable_iteration(context: InstaloaderContext,
             is_resuming = True
             start_index = iterator.total_index
             context.log("Resuming from {}.".format(resume_file_path))
-        except (InvalidArgumentException, LZMAError, json.decoder.JSONDecodeError) as exc:
+        except (InvalidArgumentException, LZMAError, json.decoder.JSONDecodeError, EOFError) as exc:
             context.error("Warning: Not resuming from {}: {}".format(resume_file_path, exc))
     try:
         yield is_resuming, start_index

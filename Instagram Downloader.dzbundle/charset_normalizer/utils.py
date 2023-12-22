@@ -1,12 +1,6 @@
-try:
-    # WARNING: unicodedata2 support is going to be removed in 3.0
-    # Python is quickly catching up.
-    import unicodedata2 as unicodedata
-except ImportError:
-    import unicodedata  # type: ignore[no-redef]
-
 import importlib
 import logging
+import unicodedata
 from codecs import IncrementalDecoder
 from encodings.aliases import aliases
 from functools import lru_cache
@@ -38,6 +32,8 @@ def is_accentuated(character: str) -> bool:
         or "WITH DIAERESIS" in description
         or "WITH CIRCUMFLEX" in description
         or "WITH TILDE" in description
+        or "WITH MACRON" in description
+        or "WITH RING ABOVE" in description
     )
 
 
@@ -76,15 +72,6 @@ def is_latin(character: str) -> bool:
 
 
 @lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
-def is_ascii(character: str) -> bool:
-    try:
-        character.encode("ascii")
-    except UnicodeEncodeError:
-        return False
-    return True
-
-
-@lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
 def is_punctuation(character: str) -> bool:
     character_category: str = unicodedata.category(character)
 
@@ -111,7 +98,7 @@ def is_symbol(character: str) -> bool:
     if character_range is None:
         return False
 
-    return "Forms" in character_range
+    return "Forms" in character_range and character_category != "Lo"
 
 
 @lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
@@ -121,28 +108,22 @@ def is_emoticon(character: str) -> bool:
     if character_range is None:
         return False
 
-    return "Emoticons" in character_range
+    return "Emoticons" in character_range or "Pictographs" in character_range
 
 
 @lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
 def is_separator(character: str) -> bool:
-    if character.isspace() or character in {"｜", "+", ",", ";", "<", ">"}:
+    if character.isspace() or character in {"｜", "+", "<", ">"}:
         return True
 
     character_category: str = unicodedata.category(character)
 
-    return "Z" in character_category
+    return "Z" in character_category or character_category in {"Po", "Pd", "Pc"}
 
 
 @lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
 def is_case_variable(character: str) -> bool:
     return character.islower() != character.isupper()
-
-
-def is_private_use_only(character: str) -> bool:
-    character_category: str = unicodedata.category(character)
-
-    return character_category == "Co"
 
 
 @lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
@@ -195,6 +176,26 @@ def is_thai(character: str) -> bool:
     return "THAI" in character_name
 
 
+@lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
+def is_arabic(character: str) -> bool:
+    try:
+        character_name = unicodedata.name(character)
+    except ValueError:
+        return False
+
+    return "ARABIC" in character_name
+
+
+@lru_cache(maxsize=UTF8_MAXIMAL_ALLOCATION)
+def is_arabic_isolated_form(character: str) -> bool:
+    try:
+        character_name = unicodedata.name(character)
+    except ValueError:
+        return False
+
+    return "ARABIC" in character_name and "ISOLATED FORM" in character_name
+
+
 @lru_cache(maxsize=len(UNICODE_RANGES_COMBINED))
 def is_unicode_range_secondary(range_name: str) -> bool:
     return any(keyword in range_name for keyword in UNICODE_SECONDARY_RANGE_KEYWORD)
@@ -211,7 +212,7 @@ def is_unprintable(character: str) -> bool:
     )
 
 
-def any_specified_encoding(sequence: bytes, search_zone: int = 4096) -> Optional[str]:
+def any_specified_encoding(sequence: bytes, search_zone: int = 8192) -> Optional[str]:
     """
     Extract using ASCII-only decoder any specified encoding in the first n-bytes.
     """
@@ -317,7 +318,6 @@ def range_scan(decoded_sequence: str) -> List[str]:
 
 
 def cp_similarity(iana_name_a: str, iana_name_b: str) -> float:
-
     if is_multi_byte_encoding(iana_name_a) or is_multi_byte_encoding(iana_name_b):
         return 0.0
 
@@ -357,7 +357,6 @@ def set_logging_handler(
     level: int = logging.INFO,
     format_string: str = "%(asctime)s | %(levelname)s | %(message)s",
 ) -> None:
-
     logger = logging.getLogger(name)
     logger.setLevel(level)
 
@@ -377,7 +376,6 @@ def cut_sequence_chunks(
     is_multi_byte_decoder: bool,
     decoded_payload: Optional[str] = None,
 ) -> Generator[str, None, None]:
-
     if decoded_payload and is_multi_byte_decoder is False:
         for i in offsets:
             chunk = decoded_payload[i : i + chunk_size]
@@ -402,8 +400,7 @@ def cut_sequence_chunks(
 
             # multi-byte bad cutting detector and adjustment
             # not the cleanest way to perform that fix but clever enough for now.
-            if is_multi_byte_decoder and i > 0 and sequences[i] >= 0x80:
-
+            if is_multi_byte_decoder and i > 0:
                 chunk_partial_size_chk: int = min(chunk_size, 16)
 
                 if (

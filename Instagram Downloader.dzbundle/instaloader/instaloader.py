@@ -221,8 +221,8 @@ class Instaloader:
                  download_comments: bool = False,
                  save_metadata: bool = True,
                  compress_json: bool = True,
-                 post_metadata_txt_pattern: str = None,
-                 storyitem_metadata_txt_pattern: str = None,
+                 post_metadata_txt_pattern: Optional[str] = None,
+                 storyitem_metadata_txt_pattern: Optional[str] = None,
                  max_connection_attempts: int = 3,
                  request_timeout: float = 300.0,
                  rate_controller: Optional[Callable[[InstaloaderContext], RateController]] = None,
@@ -447,7 +447,7 @@ class Instaloader:
         """Updates picture caption / Post metadata info"""
         def _elliptify(caption):
             pcaption = caption.replace('\n', ' ').strip()
-            return '[' + ((pcaption[:29] + u"\u2026") if len(pcaption) > 31 else pcaption) + ']'
+            return '[' + ((pcaption[:29] + "\u2026") if len(pcaption) > 31 else pcaption) + ']'
         filename += '.txt'
         caption += '\n'
         pcaption = _elliptify(caption)
@@ -524,7 +524,7 @@ class Instaloader:
         .. versionadded:: 4.3"""
 
         http_response = self.context.get_raw(url)
-        date_object = None  # type: Optional[datetime]
+        date_object: Optional[datetime] = None
         if 'Last-Modified' in http_response.headers:
             date_object = datetime.strptime(http_response.headers["Last-Modified"], '%a, %d %b %Y %H:%M:%S GMT')
             date_object = date_object.replace(tzinfo=timezone.utc)
@@ -584,6 +584,23 @@ class Instaloader:
 
         .. versionadded:: 4.4"""
         self.download_title_pic(hashtag.profile_pic_url, '#' + hashtag.name, 'profile_pic', None)
+
+    @_requires_login
+    def save_session(self) -> dict:
+        """Saves internally stored :class:`requests.Session` object to :class:`dict`.
+
+        :raises LoginRequiredException: If called without being logged in.
+
+        .. versionadded:: 4.10
+        """
+        return self.context.save_session()
+
+    def load_session(self, username: str, session_data: dict) -> None:
+        """Internally stores :class:`requests.Session` object from :class:`dict`.
+
+        .. versionadded:: 4.10
+        """
+        self.context.load_session(username, session_data)
 
     @_requires_login
     def save_session_to_file(self, filename: Optional[str] = None) -> None:
@@ -712,7 +729,7 @@ class Instaloader:
                             post.get_sidecar_nodes(self.slide_start, self.slide_end),
                             start=self.slide_start % post.mediacount + 1
                     ):
-                        suffix = str(edge_number)  # type: Optional[str]
+                        suffix: Optional[str] = str(edge_number)
                         if '{filename}' in self.filename_pattern:
                             suffix = None
                         if self.download_pictures and (not sidecar_node.is_video or self.download_video_thumbnails):
@@ -945,11 +962,11 @@ class Instaloader:
         """
         for user_highlight in self.get_highlights(user):
             name = user_highlight.owner_username
-            highlight_target = (filename_target
+            highlight_target: Union[str, Path] = (filename_target
                                 if filename_target
                                 else (Path(_PostPathFormatter.sanitize_path(name, self.sanitize_paths)) /
                                       _PostPathFormatter.sanitize_path(user_highlight.title,
-                                                                       self.sanitize_paths)))  # type: Union[str, Path]
+                                                                       self.sanitize_paths)))
             self.context.log("Retrieving highlights \"{}\" from profile {}".format(user_highlight.title, name))
             self.download_highlight_cover(user_highlight, highlight_target)
             totalcount = user_highlight.itemcount
@@ -1080,7 +1097,7 @@ class Instaloader:
                                                'has_stories': False})["data"]
 
     @_requires_login
-    def download_feed_posts(self, max_count: int = None, fast_update: bool = False,
+    def download_feed_posts(self, max_count: Optional[int] = None, fast_update: bool = False,
                             post_filter: Optional[Callable[[Post], bool]] = None) -> None:
         """
         Download pictures from the user's feed.
@@ -1101,7 +1118,7 @@ class Instaloader:
         self.posts_download_loop(self.get_feed_posts(), ":feed", fast_update, post_filter, max_count=max_count)
 
     @_requires_login
-    def download_saved_posts(self, max_count: int = None, fast_update: bool = False,
+    def download_saved_posts(self, max_count: Optional[int] = None, fast_update: bool = False,
                              post_filter: Optional[Callable[[Post], bool]] = None) -> None:
         """Download user's saved pictures.
 

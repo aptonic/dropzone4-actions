@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Instagram Downloader
-# Description: Allows you to download images and videos from Instagram.\n\nDrag an Instagram post URL onto this action or right-click the URL and then choose 'Run Dropzone Action' from the services menu to use this action.\n\nProvide your Instagram login details and choose a path below to save downloaded images/videos.
+# Description: Allows you to download images and videos from Instagram.\n\nDrag an Instagram post URL onto this action or right-click the URL and then choose 'Run Dropzone Action' from the services menu to use this action.\n\nProvide your Instagram login details and choose a path below to save downloaded images/videos.\n\nWe recommend you create a dummy Instagram account when using this as if you use your main account you may get temporarily banned from Instagram for using a third-party app.
 # Handles: Text
 # Creator: Aptonic
 # URL: https://aptonic.com
@@ -8,7 +8,7 @@
 # OptionsNIB: InstagramDownloader
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.2
+# Version: 1.3
 # MinDropzoneVersion: 4.4.4
 # UniqueID: 1020
 

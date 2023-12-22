@@ -2,12 +2,11 @@ import json
 import lzma
 import re
 from base64 import b64decode, b64encode
-from collections import namedtuple
 from contextlib import suppress
 from datetime import datetime
 from itertools import islice
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, Iterator, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, Iterator, List, NamedTuple, Optional, Tuple, Union
 from unicodedata import normalize
 
 from . import __version__
@@ -16,31 +15,79 @@ from .instaloadercontext import InstaloaderContext
 from .nodeiterator import FrozenNodeIterator, NodeIterator
 from .sectioniterator import SectionIterator
 
-PostSidecarNode = namedtuple('PostSidecarNode', ['is_video', 'display_url', 'video_url'])
-PostSidecarNode.__doc__ = "Item of a Sidecar Post."
+
+class PostSidecarNode(NamedTuple):
+    """Item of a Sidecar Post."""
+    is_video: bool
+    display_url: str
+    video_url: str
+
+
 PostSidecarNode.is_video.__doc__ = "Whether this node is a video."
 PostSidecarNode.display_url.__doc__ = "URL of image or video thumbnail."
 PostSidecarNode.video_url.__doc__ = "URL of video or None."
 
-PostCommentAnswer = namedtuple('PostCommentAnswer', ['id', 'created_at_utc', 'text', 'owner', 'likes_count'])
+
+class PostCommentAnswer(NamedTuple):
+    id: int
+    created_at_utc: datetime
+    text: str
+    owner: 'Profile'
+    likes_count: int
+
+
 PostCommentAnswer.id.__doc__ = "ID number of comment."
 PostCommentAnswer.created_at_utc.__doc__ = ":class:`~datetime.datetime` when comment was created (UTC)."
 PostCommentAnswer.text.__doc__ = "Comment text."
 PostCommentAnswer.owner.__doc__ = "Owner :class:`Profile` of the comment."
 PostCommentAnswer.likes_count.__doc__ = "Number of likes on comment."
 
-PostComment = namedtuple('PostComment', (*PostCommentAnswer._fields, 'answers')) # type: ignore
+
+class PostComment(NamedTuple):
+    id: int
+    created_at_utc: datetime
+    text: str
+    owner: 'Profile'
+    likes_count: int
+    answers: Iterator[PostCommentAnswer]
+
+
 for field in PostCommentAnswer._fields:
     getattr(PostComment, field).__doc__ = getattr(PostCommentAnswer, field).__doc__  # pylint: disable=no-member
-PostComment.answers.__doc__ = r"Iterator which yields all :class:`PostCommentAnswer`\ s for the comment." # type: ignore
+PostComment.answers.__doc__ = r"Iterator which yields all :class:`PostCommentAnswer`\ s for the comment."
 
-PostLocation = namedtuple('PostLocation', ['id', 'name', 'slug', 'has_public_page', 'lat', 'lng'])
+
+class PostLocation(NamedTuple):
+    id: int
+    name: str
+    slug: str
+    has_public_page: Optional[bool]
+    lat: Optional[float]
+    lng: Optional[float]
+
+
 PostLocation.id.__doc__ = "ID number of location."
 PostLocation.name.__doc__ = "Location name."
 PostLocation.slug.__doc__ = "URL friendly variant of location name."
 PostLocation.has_public_page.__doc__ = "Whether location has a public page."
 PostLocation.lat.__doc__ = "Latitude (:class:`float` or None)."
 PostLocation.lng.__doc__ = "Longitude (:class:`float` or None)."
+
+# This regular expression is by MiguelX413
+_hashtag_regex = re.compile(r"(?:#)((?:\w){1,150})")
+
+# This regular expression is modified from jStassen, adjusted to use Python's \w to
+# support Unicode and a word/beginning of string delimiter at the beginning to ensure
+# that no email addresses join the list of mentions.
+# http://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+_mention_regex = re.compile(r"(?:^|[^\w\n]|_)(?:@)(\w(?:(?:\w|(?:\.(?!\.))){0,28}(?:\w))?)", re.ASCII)
+
+
+def _optional_normalize(string: Optional[str]) -> Optional[str]:
+    if string is not None:
+        return normalize("NFC", string)
+    else:
+        return None
 
 
 class Post:
@@ -73,8 +120,8 @@ class Post:
         self._context = context
         self._node = node
         self._owner_profile = owner_profile
-        self._full_metadata_dict = None  # type: Optional[Dict[str, Any]]
-        self._location = None            # type: Optional[PostLocation]
+        self._full_metadata_dict: Optional[Dict[str, Any]] = None
+        self._location: Optional[PostLocation] = None
         self._iphone_struct_ = None
         if 'iphone_struct' in node:
             # if loaded from JSON with load_structure_from_file()
@@ -364,16 +411,10 @@ class Post:
     @property
     def caption(self) -> Optional[str]:
         """Caption."""
-        def _normalize(string: Optional[str]) -> Optional[str]:
-            if string is not None:
-                return normalize("NFC", string)
-            else:
-                return None
-
         if "edge_media_to_caption" in self._node and self._node["edge_media_to_caption"]["edges"]:
-            return _normalize(self._node["edge_media_to_caption"]["edges"][0]["node"]["text"])
+            return _optional_normalize(self._node["edge_media_to_caption"]["edges"][0]["node"]["text"])
         elif "caption" in self._node:
-            return _normalize(self._node["caption"])
+            return _optional_normalize(self._node["caption"])
         return None
 
     @property
@@ -381,22 +422,14 @@ class Post:
         """List of all lowercased hashtags (without preceeding #) that occur in the Post's caption."""
         if not self.caption:
             return []
-        # This regular expression is from jStassen, adjusted to use Python's \w to support Unicode
-        # http://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-        hashtag_regex = re.compile(r"(?:#)(\w(?:(?:\w|(?:\.(?!\.))){0,28}(?:\w))?)")
-        return re.findall(hashtag_regex, self.caption.lower())
+        return _hashtag_regex.findall(self.caption.lower())
 
     @property
     def caption_mentions(self) -> List[str]:
         """List of all lowercased profiles that are mentioned in the Post's caption, without preceeding @."""
         if not self.caption:
             return []
-        # This regular expression is modified from jStassen, adjusted to use Python's \w to
-        # support Unicode and a word/beginning of string delimiter at the beginning to ensure
-        # that no email addresses join the list of mentions.
-        # http://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-        mention_regex = re.compile(r"(?:^|\W|_)(?:@)(\w(?:(?:\w|(?:\.(?!\.))){0,28}(?:\w))?)", re.ASCII)
-        return re.findall(mention_regex, self.caption.lower())
+        return _mention_regex.findall(self.caption.lower())
 
     @property
     def pcaption(self) -> str:
@@ -405,7 +438,7 @@ class Post:
         .. versionadded:: 4.2.6"""
         def _elliptify(caption):
             pcaption = ' '.join([s.replace('/', '\u2215') for s in caption.splitlines() if s]).strip()
-            return (pcaption[:30] + u"\u2026") if len(pcaption) > 31 else pcaption
+            return (pcaption[:30] + "\u2026") if len(pcaption) > 31 else pcaption
         return _elliptify(self.caption) if self.caption else ''
 
     @property
@@ -515,7 +548,7 @@ class Post:
     def get_comments(self) -> Iterable[PostComment]:
         r"""Iterate over all comments of the post.
 
-        Each comment is represented by a PostComment namedtuple with fields text (string), created_at (datetime),
+        Each comment is represented by a PostComment NamedTuple with fields text (string), created_at (datetime),
         id (int), owner (:class:`Profile`) and answers (:class:`~typing.Iterator`\ [:class:`PostCommentAnswer`])
         if available.
 
@@ -558,7 +591,7 @@ class Post:
             return []
 
         comment_edges = self._field('edge_media_to_comment', 'edges')
-        answers_count = sum([edge['node'].get('edge_threaded_comments', {}).get('count', 0) for edge in comment_edges])
+        answers_count = sum(edge['node'].get('edge_threaded_comments', {}).get('count', 0) for edge in comment_edges)
 
         if self.comments == len(comment_edges) + answers_count:
             # If the Post's metadata already contains all parent comments, don't do GraphQL requests to obtain them
@@ -625,7 +658,7 @@ class Post:
     @property
     def location(self) -> Optional[PostLocation]:
         """
-        If the Post has a location, returns PostLocation namedtuple with fields 'id', 'lat' and 'lng' and 'name'.
+        If the Post has a location, returns PostLocation NamedTuple with fields 'id', 'lat' and 'lng' and 'name'.
 
         .. versionchanged:: 4.2.9
            Require being logged in (as required by Instagram), return None if not logged-in.
@@ -638,7 +671,7 @@ class Post:
         location_id = int(loc['id'])
         if any(k not in loc for k in ('name', 'slug', 'has_public_page', 'lat', 'lng')):
             loc.update(self._context.get_json("explore/locations/{0}/".format(location_id),
-                                              params={'__a': 1})['native_location_data']['location_info'])
+                                              params={'__a': 1, '__d': 'dis'})['native_location_data']['location_info'])
         self._location = PostLocation(location_id, loc['name'], loc['slug'], loc['has_public_page'],
                                       loc.get('lat'), loc.get('lng'))
         return self._location
@@ -681,7 +714,7 @@ class Profile:
     def __init__(self, context: InstaloaderContext, node: Dict[str, Any]):
         assert 'username' in node
         self._context = context
-        self._has_public_story = None  # type: Optional[bool]
+        self._has_public_story: Optional[bool] = None
         self._node = node
         self._has_full_metadata = False
         self._iphone_struct_ = None
@@ -874,7 +907,29 @@ class Profile:
 
     @property
     def biography(self) -> str:
-        return self._metadata('biography')
+        return normalize("NFC", self._metadata('biography'))
+
+    @property
+    def biography_hashtags(self) -> List[str]:
+        """
+        List of all lowercased hashtags (without preceeding #) that occur in the Profile's biography.
+
+        .. versionadded:: 4.10
+        """
+        if not self.biography:
+            return []
+        return _hashtag_regex.findall(self.biography.lower())
+
+    @property
+    def biography_mentions(self) -> List[str]:
+        """
+        List of all lowercased profiles that are mentioned in the Profile's biography, without preceeding @.
+
+        .. versionadded:: 4.10
+        """
+        if not self.biography:
+            return []
+        return _mention_regex.findall(self.biography.lower())
 
     @property
     def blocked_by_viewer(self) -> bool:
@@ -1041,6 +1096,27 @@ class Profile:
     @staticmethod
     def _make_is_newest_checker() -> Callable[[Post, Optional[Post]], bool]:
         return lambda post, first: first is None or post.date_local > first.date_local
+
+    def get_followed_hashtags(self) -> NodeIterator['Hashtag']:
+        """
+        Retrieve list of hashtags followed by given profile.
+        To use this, one needs to be logged in and private profiles has to be followed.
+
+        :rtype: NodeIterator[Hashtag]
+
+        .. versionadded:: 4.10
+        """
+        if not self._context.is_logged_in:
+            raise LoginRequiredException("--login required to get a profile's followers.")
+        self._obtain_metadata()
+        return NodeIterator(
+            self._context,
+            'e6306cc3dbe69d6a82ef8b5f8654c50b',
+            lambda d: d["data"]["user"]["edge_following_hashtag"],
+            lambda n: Hashtag(self._context, n),
+            {'id': str(self.userid)},
+            'https://www.instagram.com/{0}/'.format(self.username),
+        )
 
     def get_followers(self) -> NodeIterator['Profile']:
         """
@@ -1249,6 +1325,53 @@ class StoryItem:
         return self._node['__typename']
 
     @property
+    def caption(self) -> Optional[str]:
+        """
+        Caption.
+
+        .. versionadded:: 4.10
+        """
+        if "edge_media_to_caption" in self._node and self._node["edge_media_to_caption"]["edges"]:
+            return _optional_normalize(self._node["edge_media_to_caption"]["edges"][0]["node"]["text"])
+        elif "caption" in self._node:
+            return _optional_normalize(self._node["caption"])
+        return None
+
+    @property
+    def caption_hashtags(self) -> List[str]:
+        """
+        List of all lowercased hashtags (without preceeding #) that occur in the StoryItem's caption.
+
+        .. versionadded:: 4.10
+        """
+        if not self.caption:
+            return []
+        return _hashtag_regex.findall(self.caption.lower())
+
+    @property
+    def caption_mentions(self) -> List[str]:
+        """
+        List of all lowercased profiles that are mentioned in the StoryItem's caption, without preceeding @.
+
+        .. versionadded:: 4.10
+        """
+        if not self.caption:
+            return []
+        return _mention_regex.findall(self.caption.lower())
+
+    @property
+    def pcaption(self) -> str:
+        """
+        Printable caption, useful as a format specifier for --filename-pattern.
+
+        .. versionadded:: 4.10
+        """
+        def _elliptify(caption):
+            pcaption = ' '.join([s.replace('/', '\u2215') for s in caption.splitlines() if s]).strip()
+            return (pcaption[:30] + "\u2026") if len(pcaption) > 31 else pcaption
+        return _elliptify(self.caption) if self.caption else ''
+
+    @property
     def is_video(self) -> bool:
         """True if the StoryItem is a video."""
         return self._node['is_video']
@@ -1313,9 +1436,9 @@ class Story:
     def __init__(self, context: InstaloaderContext, node: Dict[str, Any]):
         self._context = context
         self._node = node
-        self._unique_id = None      # type: Optional[str]
-        self._owner_profile = None  # type: Optional[Profile]
-        self._iphone_struct_ = None  # type: Optional[Dict[str, Any]]
+        self._unique_id: Optional[str] = None
+        self._owner_profile: Optional[Profile] = None
+        self._iphone_struct_: Optional[Dict[str, Any]] = None
 
     def __repr__(self):
         return '<Story by {} changed {:%Y-%m-%d_%H-%M-%S_UTC}>'.format(self.owner_username, self.latest_media_utc)
@@ -1431,8 +1554,8 @@ class Highlight(Story):
     def __init__(self, context: InstaloaderContext, node: Dict[str, Any], owner: Optional[Profile] = None):
         super().__init__(context, node)
         self._owner_profile = owner
-        self._items = None  # type: Optional[List[Dict[str, Any]]]
-        self._iphone_struct_ = None  # type: Optional[Dict[str, Any]]
+        self._items: Optional[List[Dict[str, Any]]] = None
+        self._iphone_struct_: Optional[Dict[str, Any]] = None
 
     def __repr__(self):
         return '<Highlight by {}: {}>'.format(self.owner_username, self.title)

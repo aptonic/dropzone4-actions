@@ -1,10 +1,16 @@
 from functools import lru_cache
+from logging import getLogger
 from typing import List, Optional
 
-from .constant import COMMON_SAFE_ASCII_CHARACTERS, UNICODE_SECONDARY_RANGE_KEYWORD
+from .constant import (
+    COMMON_SAFE_ASCII_CHARACTERS,
+    TRACE,
+    UNICODE_SECONDARY_RANGE_KEYWORD,
+)
 from .utils import (
     is_accentuated,
-    is_ascii,
+    is_arabic,
+    is_arabic_isolated_form,
     is_case_variable,
     is_cjk,
     is_emoticon,
@@ -123,8 +129,9 @@ class TooManyAccentuatedPlugin(MessDetectorPlugin):
 
     @property
     def ratio(self) -> float:
-        if self._character_count == 0:
+        if self._character_count < 8:
             return 0.0
+
         ratio_of_accentuation: float = self._accentuated_count / self._character_count
         return ratio_of_accentuation if ratio_of_accentuation >= 0.35 else 0.0
 
@@ -229,15 +236,12 @@ class SuspiciousRange(MessDetectorPlugin):
 
     @property
     def ratio(self) -> float:
-        if self._character_count == 0:
+        if self._character_count <= 24:
             return 0.0
 
         ratio_of_suspicious_range_usage: float = (
             self._suspicious_successive_range_count * 2
         ) / self._character_count
-
-        if ratio_of_suspicious_range_usage < 0.1:
-            return 0.0
 
         return ratio_of_suspicious_range_usage
 
@@ -289,14 +293,29 @@ class SuperWeirdWordPlugin(MessDetectorPlugin):
             if buffer_length >= 4:
                 if self._buffer_accent_count / buffer_length > 0.34:
                     self._is_current_word_bad = True
-                # Word/Buffer ending with a upper case accentuated letter are so rare,
+                # Word/Buffer ending with an upper case accentuated letter are so rare,
                 # that we will consider them all as suspicious. Same weight as foreign_long suspicious.
-                if is_accentuated(self._buffer[-1]) and self._buffer[-1].isupper():
+                if (
+                    is_accentuated(self._buffer[-1])
+                    and self._buffer[-1].isupper()
+                    and all(_.isupper() for _ in self._buffer) is False
+                ):
                     self._foreign_long_count += 1
                     self._is_current_word_bad = True
             if buffer_length >= 24 and self._foreign_long_watch:
-                self._foreign_long_count += 1
-                self._is_current_word_bad = True
+                camel_case_dst = [
+                    i
+                    for c, i in zip(self._buffer, range(0, buffer_length))
+                    if c.isupper()
+                ]
+                probable_camel_cased: bool = False
+
+                if camel_case_dst and (len(camel_case_dst) / buffer_length <= 0.3):
+                    probable_camel_cased = True
+
+                if not probable_camel_cased:
+                    self._foreign_long_count += 1
+                    self._is_current_word_bad = True
 
             if self._is_current_word_bad:
                 self._bad_word_count += 1
@@ -403,7 +422,7 @@ class ArchaicUpperLowerPlugin(MessDetectorPlugin):
 
             return
 
-        if self._current_ascii_only is True and is_ascii(character) is False:
+        if self._current_ascii_only is True and character.isascii() is False:
             self._current_ascii_only = False
 
         if self._last_alpha_seen is not None:
@@ -437,6 +456,34 @@ class ArchaicUpperLowerPlugin(MessDetectorPlugin):
             return 0.0
 
         return self._successive_upper_lower_count_final / self._character_count
+
+
+class ArabicIsolatedFormPlugin(MessDetectorPlugin):
+    def __init__(self) -> None:
+        self._character_count: int = 0
+        self._isolated_form_count: int = 0
+
+    def reset(self) -> None:  # pragma: no cover
+        self._character_count = 0
+        self._isolated_form_count = 0
+
+    def eligible(self, character: str) -> bool:
+        return is_arabic(character)
+
+    def feed(self, character: str) -> None:
+        self._character_count += 1
+
+        if is_arabic_isolated_form(character):
+            self._isolated_form_count += 1
+
+    @property
+    def ratio(self) -> float:
+        if self._character_count < 8:
+            return 0.0
+
+        isolated_form_usage: float = self._isolated_form_count / self._character_count
+
+        return isolated_form_usage
 
 
 @lru_cache(maxsize=1024)
@@ -506,6 +553,8 @@ def is_suspiciously_successive_range(
             return False
         if "Forms" in unicode_range_a or "Forms" in unicode_range_b:
             return False
+        if unicode_range_a == "Basic Latin" or unicode_range_b == "Basic Latin":
+            return False
 
     return True
 
@@ -547,7 +596,20 @@ def mess_ratio(
                 break
 
     if debug:
+        logger = getLogger("charset_normalizer")
+
+        logger.log(
+            TRACE,
+            "Mess-detector extended-analysis start. "
+            f"intermediary_mean_mess_ratio_calc={intermediary_mean_mess_ratio_calc} mean_mess_ratio={mean_mess_ratio} "
+            f"maximum_threshold={maximum_threshold}",
+        )
+
+        if len(decoded_sequence) > 16:
+            logger.log(TRACE, f"Starting with: {decoded_sequence[:16]}")
+            logger.log(TRACE, f"Ending with: {decoded_sequence[-16::]}")
+
         for dt in detectors:  # pragma: nocover
-            print(dt.__class__, dt.ratio)
+            logger.log(TRACE, f"{dt.__class__}: {dt.ratio}")
 
     return round(mean_mess_ratio, 3)
