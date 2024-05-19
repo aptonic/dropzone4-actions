@@ -9,7 +9,7 @@
 # SkipConfig: No
 # RunsSandboxed: Yes
 # Version: 1.0
-# MinDropzoneVersion: 4.0
+# MinDropzoneVersion: 4.80.11
 # UniqueID: 1039
 
 from urllib.parse import urlparse
