@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 4.80.11
 # UniqueID: 1039
 
@@ -79,6 +79,10 @@ def shorten_url(original_url):
     }
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    shortened_url = response.json()["shortURL"]
+
+    try:
+        shortened_url = response.json()["shortURL"]
+    except:
+        dz.fail("Failed to shorten URL.\nCheck your API key and domain.")
 
     return shortened_url
