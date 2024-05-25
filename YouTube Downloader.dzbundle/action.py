@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 2.9
+# Version: 3.0
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -26,7 +26,7 @@ def dragged():
 
 def clicked():
     url = dz.read_clipboard()
-    download_url(url.decode('utf-8'))
+    download_url(url)
 
 def download_url(url):
     regex = re.compile(

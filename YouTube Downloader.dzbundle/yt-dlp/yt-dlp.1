@@ -5,17 +5,17 @@
 .hy
 .SH NAME
 .PP
-yt-dlp - A youtube-dl fork with additional features and patches
+yt-dlp - A feature-rich command-line audio/video downloader
 .SH SYNOPSIS
 .PP
 \f[B]yt-dlp\f[R] [OPTIONS] URL [URL...]
 .SH DESCRIPTION
 .PP
-yt-dlp is a youtube-dl (https://github.com/ytdl-org/youtube-dl) fork
-based on the now inactive
-youtube-dlc (https://github.com/blackjack4494/yt-dlc).
-The main focus of this project is adding new features and patches while
-also keeping up to date with the original project
+yt-dlp is a feature-rich command-line audio/video downloader with
+support for thousands of sites.
+The project is a fork of
+youtube-dl (https://github.com/ytdl-org/youtube-dl) based on the now
+inactive youtube-dlc (https://github.com/blackjack4494/yt-dlc).
 .SH OPTIONS
 .SS General Options:
 .TP
@@ -36,7 +36,7 @@ Upgrade/downgrade to a specific version.
 CHANNEL can be a repository as well.
 CHANNEL and TAG default to \[dq]stable\[dq] and \[dq]latest\[dq]
 respectively if omitted; See \[dq]UPDATE\[dq] for details.
-Supported channels: stable, nightly
+Supported channels: stable, nightly, master
 .TP
 -i, --ignore-errors
 Ignore download and postprocessing errors.
@@ -82,7 +82,7 @@ The default value \[dq]fixup_error\[dq] repairs broken URLs, but emits
 an error if this is not possible instead of searching
 .TP
 --ignore-config
-Don\[aq]t load any more configuration files except those given by
+Don\[aq]t load any more configuration files except those given to
 --config-locations.
 For backward compatibility, if this option is found inside the system
 configuration file, the user configuration is not loaded.
@@ -166,6 +166,15 @@ Time to wait before giving up, in seconds
 .TP
 --source-address \f[I]IP\f[R]
 Client-side IP address to bind to
+.TP
+--impersonate \f[I]CLIENT[:OS]\f[R]
+Client to impersonate for requests.
+E.g.
+chrome, chrome-110, chrome:windows-10.
+Pass --impersonate=\[dq]\[dq] to impersonate any client.
+.TP
+--list-impersonate-targets
+List available clients to impersonate.
 .TP
 -4, --force-ipv4
 Make all connections via IPv4
@@ -277,6 +286,10 @@ Abort after downloading NUMBER files
 Stop the download process when encountering a file that is in the
 archive
 .TP
+--no-break-on-existing
+Do not stop the download process when encountering a file that is in the
+archive (default)
+.TP
 --break-per-input
 Alters --max-downloads, --break-on-existing, --break-match-filter, and
 autonumber to reset per input URL
@@ -380,10 +393,10 @@ This is default when not downloading live streams
 .TP
 --download-sections \f[I]REGEX\f[R]
 Download only chapters that match the regular expression.
-A \[dq]\f[I]\[dq] prefix denotes time-range instead of chapter. Negative
-timestamps are calculated from the end. \[dq]\f[R]from-url\[dq] can be
-used to download between the \[dq]start_time\[dq] and \[dq]end_time\[dq]
-extracted from the URL.
+A \[dq]*\[dq] prefix denotes time-range instead of chapter.
+Negative timestamps are calculated from the end.
+\[dq]*from-url\[dq] can be used to download between the
+\[dq]start_time\[dq] and \[dq]end_time\[dq] extracted from the URL.
 Needs ffmpeg.
 This option can be used multiple times to download multiple sections,
 e.g.
@@ -436,8 +449,7 @@ This option is ignored if --output is an absolute path
 Output filename template; see \[dq]OUTPUT TEMPLATE\[dq] for details
 .TP
 --output-na-placeholder \f[I]TEXT\f[R]
-Placeholder for unavailable fields in \[dq]OUTPUT TEMPLATE\[dq]
-(default: \[dq]NA\[dq])
+Placeholder for unavailable fields in --output (default: \[dq]NA\[dq])
 .TP
 --restrict-filenames
 Restrict filenames to only ASCII characters, and avoid \[dq]&\[dq] and
@@ -674,6 +686,9 @@ E.g.
 --console-title --progress-template
 \[dq]download-title:%(info.id)s-%(progress.eta)s\[dq]
 .TP
+--progress-delta \f[I]SECONDS\f[R]
+Time between progress output (default: 0)
+.TP
 -v, --verbose
 Print various debugging information
 .TP
@@ -839,7 +854,7 @@ Defaults to \[ti]/.netrc
 Command to execute to get the credentials for an extractor.
 .TP
 --video-password \f[I]PASSWORD\f[R]
-Video password (vimeo, youku)
+Video-specific password
 .TP
 --ap-mso \f[I]MSO\f[R]
 Adobe Pass multiple-system operator (TV provider) identifier, use
@@ -1136,7 +1151,7 @@ The configuration is loaded from the following locations:
 \f[B]Main Configuration\f[R]:
 .RS 4
 .IP \[bu] 2
-The file given by \f[C]--config-location\f[R]
+The file given to \f[C]--config-location\f[R]
 .RE
 .IP "2." 3
 \f[B]Portable Configuration\f[R]: (Recommended for portable
@@ -1153,7 +1168,7 @@ directory of \f[C]yt_dlp\f[R]
 \f[B]Home Configuration\f[R]:
 .RS 4
 .IP \[bu] 2
-\f[C]yt-dlp.conf\f[R] in the home path given by \f[C]-P\f[R]
+\f[C]yt-dlp.conf\f[R] in the home path given to \f[C]-P\f[R]
 .IP \[bu] 2
 If \f[C]-P\f[R] is not given, the current directory is searched
 .RE
@@ -1366,8 +1381,8 @@ Note that all the fields that become available using this method are not
 listed below.
 Use \f[C]-j\f[R] to see such fields
 .IP "2." 3
-\f[B]Addition\f[R]: Addition and subtraction of numeric fields can be
-done using \f[C]+\f[R] and \f[C]-\f[R] respectively.
+\f[B]Arithmetic\f[R]: Simple arithmetic can be done on numeric fields
+using \f[C]+\f[R], \f[C]-\f[R] and \f[C]*\f[R].
 E.g.
 \f[C]%(playlist_index+10)03d\f[R],
 \f[C]%(n_entries+1-playlist_index)d\f[R]
@@ -1474,9 +1489,15 @@ generic title
 .IP \[bu] 2
 \f[C]uploader\f[R] (string): Full name of the video uploader
 .IP \[bu] 2
+\f[C]uploader_id\f[R] (string): Nickname or id of the video uploader
+.IP \[bu] 2
+\f[C]uploader_url\f[R] (string): URL to the video uploader\[aq]s profile
+.IP \[bu] 2
 \f[C]license\f[R] (string): License name the video is licensed under
 .IP \[bu] 2
-\f[C]creator\f[R] (string): The creator of the video
+\f[C]creators\f[R] (list): The creators of the video
+.IP \[bu] 2
+\f[C]creator\f[R] (string): The creators of the video; comma-separated
 .IP \[bu] 2
 \f[C]timestamp\f[R] (numeric): UNIX timestamp of the moment the video
 became available
@@ -1489,18 +1510,21 @@ video was released
 \f[C]release_date\f[R] (string): The date (YYYYMMDD) when the video was
 released in UTC
 .IP \[bu] 2
+\f[C]release_year\f[R] (numeric): Year (YYYY) when the video or album
+was released
+.IP \[bu] 2
 \f[C]modified_timestamp\f[R] (numeric): UNIX timestamp of the moment the
 video was last modified
 .IP \[bu] 2
 \f[C]modified_date\f[R] (string): The date (YYYYMMDD) when the video was
 last modified in UTC
 .IP \[bu] 2
-\f[C]uploader_id\f[R] (string): Nickname or id of the video uploader
-.IP \[bu] 2
 \f[C]channel\f[R] (string): Full name of the channel the video is
 uploaded on
 .IP \[bu] 2
 \f[C]channel_id\f[R] (string): Id of the channel
+.IP \[bu] 2
+\f[C]channel_url\f[R] (string): URL of the channel
 .IP \[bu] 2
 \f[C]channel_follower_count\f[R] (numeric): Number of followers of the
 channel
@@ -1553,6 +1577,10 @@ play in embedded players on other sites
 \f[C]availability\f[R] (string): Whether the video is \[dq]private\[dq],
 \[dq]premium_only\[dq], \[dq]subscriber_only\[dq], \[dq]needs_auth\[dq],
 \[dq]unlisted\[dq] or \[dq]public\[dq]
+.IP \[bu] 2
+\f[C]media_type\f[R] (string): The type of media as classified by the
+site, e.g.
+\[dq]episode\[dq], \[dq]clip\[dq], \[dq]trailer\[dq]
 .IP \[bu] 2
 \f[C]start_time\f[R] (numeric): Time in seconds where the reproduction
 should start, as specified in the URL
@@ -1611,6 +1639,12 @@ given to yt-dlp should allow to get the same result again
 .IP \[bu] 2
 \f[C]original_url\f[R] (string): The URL given by the user (or same as
 \f[C]webpage_url\f[R] for playlist entries)
+.IP \[bu] 2
+\f[C]categories\f[R] (list): List of categories the video belongs to
+.IP \[bu] 2
+\f[C]tags\f[R] (list): List of tags assigned to the video
+.IP \[bu] 2
+\f[C]cast\f[R] (list): List of cast members
 .PP
 All the fields in Filtering Formats can also be used
 .PP
@@ -1627,6 +1661,9 @@ belongs to
 Available for the video that is an episode of some series or programme:
 .IP \[bu] 2
 \f[C]series\f[R] (string): Title of the series or programme the video
+episode belongs to
+.IP \[bu] 2
+\f[C]series_id\f[R] (string): Id of the series or programme the video
 episode belongs to
 .IP \[bu] 2
 \f[C]season\f[R] (string): Title of the season the video episode belongs
@@ -1654,22 +1691,29 @@ a disc
 .IP \[bu] 2
 \f[C]track_id\f[R] (string): Id of the track
 .IP \[bu] 2
-\f[C]artist\f[R] (string): Artist(s) of the track
+\f[C]artists\f[R] (list): Artist(s) of the track
 .IP \[bu] 2
-\f[C]genre\f[R] (string): Genre(s) of the track
+\f[C]artist\f[R] (string): Artist(s) of the track; comma-separated
+.IP \[bu] 2
+\f[C]genres\f[R] (list): Genre(s) of the track
+.IP \[bu] 2
+\f[C]genre\f[R] (string): Genre(s) of the track; comma-separated
+.IP \[bu] 2
+\f[C]composers\f[R] (list): Composer(s) of the piece
+.IP \[bu] 2
+\f[C]composer\f[R] (string): Composer(s) of the piece; comma-separated
 .IP \[bu] 2
 \f[C]album\f[R] (string): Title of the album the track belongs to
 .IP \[bu] 2
 \f[C]album_type\f[R] (string): Type of the album
 .IP \[bu] 2
-\f[C]album_artist\f[R] (string): List of all artists appeared on the
-album
+\f[C]album_artists\f[R] (list): All artists appeared on the album
+.IP \[bu] 2
+\f[C]album_artist\f[R] (string): All artists appeared on the album;
+comma-separated
 .IP \[bu] 2
 \f[C]disc_number\f[R] (numeric): Number of the disc or other physical
 medium the track belongs to
-.IP \[bu] 2
-\f[C]release_year\f[R] (numeric): Year (YYYY) when the album was
-released
 .PP
 Available only when using \f[C]--download-sections\f[R] and for
 \f[C]chapter:\f[R] prefix when using \f[C]--split-chapters\f[R] for
@@ -1996,11 +2040,11 @@ The following numeric meta fields can be used with comparisons
 .IP \[bu] 2
 \f[C]aspect_ratio\f[R]: Aspect ratio of the video, if known
 .IP \[bu] 2
-\f[C]tbr\f[R]: Average bitrate of audio and video in KBit/s
+\f[C]tbr\f[R]: Average bitrate of audio and video in kbps
 .IP \[bu] 2
-\f[C]abr\f[R]: Average audio bitrate in KBit/s
+\f[C]abr\f[R]: Average audio bitrate in kbps
 .IP \[bu] 2
-\f[C]vbr\f[R]: Average video bitrate in KBit/s
+\f[C]vbr\f[R]: Average video bitrate in kbps
 .IP \[bu] 2
 \f[C]asr\f[R]: Audio sampling rate in Hertz
 .IP \[bu] 2
@@ -2063,7 +2107,7 @@ question mark (\f[C]?\f[R]) after the operator.
 You can combine format filters, so
 \f[C]-f \[dq]bv[height<=?720][tbr>500]\[dq]\f[R] selects up to 720p
 videos (or videos where the height is not known) with a bitrate of at
-least 500 KBit/s.
+least 500 kbps.
 You can also use the filters with \f[C]all\f[R] to download all formats
 that satisfy the filter, e.g.
 \f[C]-f \[dq]all[vcodec=none]\[dq]\f[R] selects all audio-only formats.
@@ -2123,7 +2167,7 @@ If \f[C]--prefer-free-formats\f[R] is used, the order changes to
 .IP \[bu] 2
 \f[C]filesize\f[R]: Exact filesize, if known in advance
 .IP \[bu] 2
-\f[C]fs_approx\f[R]: Approximate filesize calculated from the manifests
+\f[C]fs_approx\f[R]: Approximate filesize
 .IP \[bu] 2
 \f[C]size\f[R]: Exact filesize if available, otherwise approximate
 filesize
@@ -2142,13 +2186,14 @@ filesize
 .IP \[bu] 2
 \f[C]channels\f[R]: The number of audio channels
 .IP \[bu] 2
-\f[C]tbr\f[R]: Total average bitrate in KBit/s
+\f[C]tbr\f[R]: Total average bitrate in kbps
 .IP \[bu] 2
-\f[C]vbr\f[R]: Average video bitrate in KBit/s
+\f[C]vbr\f[R]: Average video bitrate in kbps
 .IP \[bu] 2
-\f[C]abr\f[R]: Average audio bitrate in KBit/s
+\f[C]abr\f[R]: Average audio bitrate in kbps
 .IP \[bu] 2
-\f[C]br\f[R]: Equivalent to using \f[C]tbr,vbr,abr\f[R]
+\f[C]br\f[R]: Average bitrate in kbps,
+\f[C]tbr\f[R]/\f[C]vbr\f[R]/\f[C]abr\f[R]
 .IP \[bu] 2
 \f[C]asr\f[R]: Audio sample rate in Hz
 .PP
@@ -2338,7 +2383,7 @@ The metadata obtained by the extractors can be modified by using
 \f[C]--parse-metadata\f[R] and \f[C]--replace-in-metadata\f[R]
 .PP
 \f[C]--replace-in-metadata FIELDS REGEX REPLACE\f[R] is used to replace
-text in any metadata field using python regular
+text in any metadata field using Python regular
 expression (https://docs.python.org/3/library/re.html#regular-expression-syntax).
 Backreferences (https://docs.python.org/3/library/re.html?highlight=backreferences#re.sub)
 can be used in the replace string for advanced use.
@@ -2346,7 +2391,7 @@ can be used in the replace string for advanced use.
 The general syntax of \f[C]--parse-metadata FROM:TO\f[R] is to give the
 name of a field or an output template to extract data from, and the
 format to interpret it as, separated by a colon \f[C]:\f[R].
-Either a python regular
+Either a Python regular
 expression (https://docs.python.org/3/library/re.html#regular-expression-syntax)
 with named capture groups, a single field name, or a similar syntax to
 the output template (only \f[C]%(field)s\f[R] formatting is supported)
@@ -2428,13 +2473,18 @@ T}
 T{
 \f[C]artist\f[R]
 T}@T{
-\f[C]artist\f[R], \f[C]creator\f[R], \f[C]uploader\f[R] or
-\f[C]uploader_id\f[R]
+\f[C]artist\f[R], \f[C]artists\f[R], \f[C]creator\f[R],
+\f[C]creators\f[R], \f[C]uploader\f[R] or \f[C]uploader_id\f[R]
+T}
+T{
+\f[C]composer\f[R]
+T}@T{
+\f[C]composer\f[R] or \f[C]composers\f[R]
 T}
 T{
 \f[C]genre\f[R]
 T}@T{
-\f[C]genre\f[R]
+\f[C]genre\f[R] or \f[C]genres\f[R]
 T}
 T{
 \f[C]album\f[R]
@@ -2444,7 +2494,7 @@ T}
 T{
 \f[C]album_artist\f[R]
 T}@T{
-\f[C]album_artist\f[R]
+\f[C]album_artist\f[R] or \f[C]album_artists\f[R]
 T}
 T{
 \f[C]disc\f[R]
@@ -2544,8 +2594,8 @@ respectively
 The main clients are \f[C]web\f[R], \f[C]android\f[R] and \f[C]ios\f[R]
 with variants \f[C]_music\f[R], \f[C]_embedded\f[R],
 \f[C]_embedscreen\f[R], \f[C]_creator\f[R] (e.g.
-\f[C]web_embedded\f[R]); and \f[C]mweb\f[R] and \f[C]tv_embedded\f[R]
-(agegate bypass) with no variants.
+\f[C]web_embedded\f[R]); and \f[C]mweb\f[R], \f[C]mweb_embedscreen\f[R]
+and \f[C]tv_embedded\f[R] (agegate bypass) with no variants.
 By default, \f[C]ios,android,web\f[R] is used, but \f[C]tv_embedded\f[R]
 and \f[C]creator\f[R] variants are added as required for age-gated
 videos.
@@ -2561,6 +2611,10 @@ One or more of \f[C]configs\f[R] (skip client configs),
 While these options can help reduce the number of requests needed or
 avoid some rate-limiting, they could cause some issues.
 See #860 (https://github.com/yt-dlp/yt-dlp/pull/860) for more details
+.IP \[bu] 2
+\f[C]player_params\f[R]: YouTube player parameters to use for player
+requests.
+Will overwrite any default ones set by yt-dlp.
 .IP \[bu] 2
 \f[C]comment_sort\f[R]: \f[C]top\f[R] or \f[C]new\f[R] (default) -
 choose comment sorting mode (on YouTube\[aq]s side)
@@ -2590,6 +2644,9 @@ requests; e.g.
 Note that cookies exported from one subdomain will not work on others
 .IP \[bu] 2
 \f[C]innertube_key\f[R]: Innertube API key to use for all API requests
+.IP \[bu] 2
+\f[C]raise_incomplete_data\f[R]: \f[C]Incomplete Data Received\f[R]
+raises an error instead of reporting a warning
 .SS youtubetab (YouTube playlists, channels, feeds, etc.)
 .IP \[bu] 2
 \f[C]skip\f[R]: One or more of \f[C]webpage\f[R] (skip initial webpage
@@ -2633,16 +2690,10 @@ playlist
 \f[C]simulcast\f[R]
 .SS crunchyrollbeta (Crunchyroll)
 .IP \[bu] 2
-\f[C]format\f[R]: Which stream type(s) to extract (default:
-\f[C]adaptive_hls\f[R]).
-Potentially useful values include \f[C]adaptive_hls\f[R],
-\f[C]adaptive_dash\f[R], \f[C]vo_adaptive_hls\f[R],
-\f[C]vo_adaptive_dash\f[R], \f[C]download_hls\f[R],
-\f[C]download_dash\f[R], \f[C]multitrack_adaptive_hls_v2\f[R]
-.IP \[bu] 2
-\f[C]hardsub\f[R]: Preference order for which hardsub versions to
-extract, or \f[C]all\f[R] (default: \f[C]None\f[R] = no hardsubs), e.g.
-\f[C]crunchyrollbeta:hardsub=en-US,None\f[R]
+\f[C]hardsub\f[R]: One or more hardsub versions to extract (in order of
+preference), or \f[C]all\f[R] (default: \f[C]None\f[R] = no hardsubs
+will be extracted), e.g.
+\f[C]crunchyrollbeta:hardsub=en-US,de-DE\f[R]
 .SS vikichannel
 .IP \[bu] 2
 \f[C]video_types\f[R]: Types of videos to download - one or more of
@@ -2673,23 +2724,47 @@ GameJolt\[aq]s side)
 .IP \[bu] 2
 \f[C]dr\f[R]: dynamic range to ignore - one or more of \f[C]sdr\f[R],
 \f[C]hdr10\f[R], \f[C]dv\f[R]
+.SS niconicochannelplus
+.IP \[bu] 2
+\f[C]max_comments\f[R]: Maximum number of comments to extract - default
+is \f[C]120\f[R]
 .SS tiktok
 .IP \[bu] 2
-\f[C]api_hostname\f[R]: Hostname to use for mobile API requests, e.g.
-\f[C]api-h2.tiktokv.com\f[R]
+\f[C]api_hostname\f[R]: Hostname to use for mobile API calls, e.g.
+\f[C]api22-normal-c-alisg.tiktokv.com\f[R]
 .IP \[bu] 2
-\f[C]app_version\f[R]: App version to call mobile APIs with - should be
-set along with \f[C]manifest_app_version\f[R], e.g.
-\f[C]20.2.1\f[R]
+\f[C]app_name\f[R]: Default app name to use with mobile API calls, e.g.
+\f[C]trill\f[R]
 .IP \[bu] 2
-\f[C]manifest_app_version\f[R]: Numeric app version to call mobile APIs
-with, e.g.
-\f[C]221\f[R]
+\f[C]app_version\f[R]: Default app version to use with mobile API calls
+- should be set along with \f[C]manifest_app_version\f[R], e.g.
+\f[C]34.1.2\f[R]
+.IP \[bu] 2
+\f[C]manifest_app_version\f[R]: Default numeric app version to use with
+mobile API calls, e.g.
+\f[C]2023401020\f[R]
+.IP \[bu] 2
+\f[C]aid\f[R]: Default app ID to use with API calls, e.g.
+\f[C]1180\f[R]
+.IP \[bu] 2
+\f[C]app_info\f[R]: One or more app info strings in the format of
+\f[C]<iid>/[app_name]/[app_version]/[manifest_app_version]/[aid]\f[R],
+where \f[C]iid\f[R] is the unique app install ID.
+\f[C]iid\f[R] is the only required value; all other values and their
+\f[C]/\f[R] separators can be omitted, e.g.
+\f[C]tiktok:app_info=1234567890123456789\f[R] or
+\f[C]tiktok:app_info=123,456/trill///1180,789//34.0.1/340001\f[R]
 .SS rokfinchannel
 .IP \[bu] 2
 \f[C]tab\f[R]: Which tab to download - one of \f[C]new\f[R],
 \f[C]top\f[R], \f[C]videos\f[R], \f[C]podcasts\f[R], \f[C]streams\f[R],
 \f[C]stacks\f[R]
+.SS twitter
+.IP \[bu] 2
+\f[C]api\f[R]: Select one of \f[C]graphql\f[R] (default),
+\f[C]legacy\f[R] or \f[C]syndication\f[R] as the API for tweet
+extraction.
+Has no effect if logged in
 .SS stacommu, wrestleuniverse
 .IP \[bu] 2
 \f[C]device_id\f[R]: UUID value assigned by the website and used to
@@ -2707,6 +2782,19 @@ Valid areas are: \f[C]sapporo\f[R], \f[C]sendai\f[R], \f[C]tokyo\f[R],
 \f[C]nagoya\f[R], \f[C]osaka\f[R], \f[C]hiroshima\f[R],
 \f[C]matsuyama\f[R], \f[C]fukuoka\f[R].
 Defaults to \f[C]tokyo\f[R]
+.SS nflplusreplay
+.IP \[bu] 2
+\f[C]type\f[R]: Type(s) of game replays to extract.
+Valid types are: \f[C]full_game\f[R], \f[C]full_game_spanish\f[R],
+\f[C]condensed_game\f[R] and \f[C]all_22\f[R].
+You can use \f[C]all\f[R] to extract all available replay types, which
+is the default
+.SS jiosaavn
+.IP \[bu] 2
+\f[C]bitrate\f[R]: Audio bitrates to request.
+One or more of \f[C]16\f[R], \f[C]32\f[R], \f[C]64\f[R], \f[C]128\f[R],
+\f[C]320\f[R].
+Default is \f[C]128,320\f[R]
 .PP
 \f[B]Note\f[R]: These options may be changed/removed in the future
 without concern for backward compatibility
@@ -2717,6 +2805,10 @@ pip (https://pypi.org/project/yt-dlp) or one using a third-party package
 manager.
 See the wiki (https://github.com/yt-dlp/yt-dlp/wiki/Installation) for
 detailed instructions
+.PP
+\f[B]Note\f[R]: The manpages, shell completion (autocomplete) files etc.
+are available inside the source
+tarball (https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.tar.gz)
 .SS UPDATE
 .PP
 You can use \f[C]yt-dlp -U\f[R] to update if you are using the release
@@ -2731,15 +2823,27 @@ wiki (https://github.com/yt-dlp/yt-dlp/wiki/Installation#third-party-package-man
 or refer their documentation
 .PP
 .PP
-There are currently two release channels for binaries, \f[C]stable\f[R]
-and \f[C]nightly\f[R].
+There are currently three release channels for binaries:
+\f[C]stable\f[R], \f[C]nightly\f[R] and \f[C]master\f[R].
+.IP \[bu] 2
 \f[C]stable\f[R] is the default channel, and many of its changes have
-been tested by users of the nightly channel.
-The \f[C]nightly\f[R] channel has releases built after each push to the
-master branch, and will have the most recent fixes and additions, but
-also have more risk of regressions.
-They are available in their own
-repo (https://github.com/yt-dlp/yt-dlp-nightly-builds/releases).
+been tested by users of the \f[C]nightly\f[R] and \f[C]master\f[R]
+channels.
+.IP \[bu] 2
+The \f[C]nightly\f[R] channel has releases scheduled to build every day
+around midnight UTC, for a snapshot of the project\[aq]s new patches and
+changes.
+This is the \f[B]recommended channel for regular users\f[R] of yt-dlp.
+The \f[C]nightly\f[R] releases are available from
+yt-dlp/yt-dlp-nightly-builds (https://github.com/yt-dlp/yt-dlp-nightly-builds/releases)
+or as development releases of the \f[C]yt-dlp\f[R] PyPI package (which
+can be installed with pip\[aq]s \f[C]--pre\f[R] flag).
+.IP \[bu] 2
+The \f[C]master\f[R] channel features releases that are built after each
+push to the master branch, and these will have the very latest fixes and
+additions, but may also be more prone to regressions.
+They are available from
+yt-dlp/yt-dlp-master-builds (https://github.com/yt-dlp/yt-dlp-master-builds/releases).
 .PP
 When using \f[C]--update\f[R]/\f[C]-U\f[R], a release binary will only
 update to its current channel.
@@ -2754,22 +2858,37 @@ different repository.
 Be careful with what repository you are updating to though, there is no
 verification done for binaries from different repositories.
 .PP
-Example usage: * \f[C]yt-dlp --update-to nightly\f[R] change to
-\f[C]nightly\f[R] channel and update to its latest release *
-\f[C]yt-dlp --update-to stable\[at]2023.02.17\f[R] upgrade/downgrade to
-release to \f[C]stable\f[R] channel tag \f[C]2023.02.17\f[R] *
-\f[C]yt-dlp --update-to 2023.01.06\f[R] upgrade/downgrade to tag
-\f[C]2023.01.06\f[R] if it exists on the current channel *
-\f[C]yt-dlp --update-to example/yt-dlp\[at]2023.03.01\f[R]
+Example usage:
+.IP \[bu] 2
+\f[C]yt-dlp --update-to master\f[R] switch to the \f[C]master\f[R]
+channel and update to its latest release
+.IP \[bu] 2
+\f[C]yt-dlp --update-to stable\[at]2023.07.06\f[R] upgrade/downgrade to
+release to \f[C]stable\f[R] channel tag \f[C]2023.07.06\f[R]
+.IP \[bu] 2
+\f[C]yt-dlp --update-to 2023.10.07\f[R] upgrade/downgrade to tag
+\f[C]2023.10.07\f[R] if it exists on the current channel
+.IP \[bu] 2
+\f[C]yt-dlp --update-to example/yt-dlp\[at]2023.09.24\f[R]
 upgrade/downgrade to the release from the \f[C]example/yt-dlp\f[R]
-repository, tag \f[C]2023.03.01\f[R]
+repository, tag \f[C]2023.09.24\f[R]
 .PP
-\f[B]Note\f[R]: The manpages, shell completion (autocomplete) files etc.
-are available inside the source
-tarball (https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.tar.gz)
+\f[B]Important\f[R]: Any user experiencing an issue with the
+\f[C]stable\f[R] release should install or update to the
+\f[C]nightly\f[R] release before submitting a bug report:
+.IP
+.nf
+\f[C]
+# To update to nightly from stable executable/binary:
+yt-dlp --update-to nightly
+
+# To install nightly with pip:
+python3 -m pip install -U --pre yt-dlp[default]
+\f[R]
+.fi
 .SS DEPENDENCIES
 .PP
-Python versions 3.7+ (CPython and PyPy) are supported.
+Python versions 3.8+ (CPython and PyPy) are supported.
 Other versions and implementations may or may not work correctly.
 .PP
 While all the other dependencies are optional, \f[C]ffmpeg\f[R] and
@@ -2782,7 +2901,7 @@ various post-processing tasks.
 License depends on the build (https://www.ffmpeg.org/legal.html)
 .RS 2
 .PP
-There are bugs in ffmpeg that causes various issues when used alongside
+There are bugs in ffmpeg that cause various issues when used alongside
 yt-dlp.
 Since ffmpeg is such an important dependency, we provide custom
 builds (https://github.com/yt-dlp/FFmpeg-Builds#ffmpeg-static-auto-builds)
@@ -2792,7 +2911,7 @@ See the readme (https://github.com/yt-dlp/FFmpeg-Builds#patches-applied)
 for details on the specific issues solved by these builds
 .PP
 \f[B]Important\f[R]: What you need is ffmpeg \f[I]binary\f[R],
-\f[B]NOT\f[R] the python package of the same
+\f[B]NOT\f[R] the Python package of the same
 name (https://pypi.org/project/ffmpeg)
 .RE
 .SS Networking
@@ -2813,6 +2932,30 @@ Both licensed under MIT
 downloading over websocket.
 Licensed under
 BSD-3-Clause (https://github.com/aaugustin/websockets/blob/main/LICENSE)
+.IP \[bu] 2
+\f[B]requests\f[R] (https://github.com/psf/requests)* - HTTP library.
+For HTTPS proxy and persistent connections support.
+Licensed under
+Apache-2.0 (https://github.com/psf/requests/blob/main/LICENSE)
+.SS Impersonation
+.PP
+The following provide support for impersonating browser requests.
+This may be required for some sites that employ TLS fingerprinting.
+.IP \[bu] 2
+\f[B]curl_cffi\f[R] (https://github.com/yifeikong/curl_cffi)
+(recommended) - Python binding for
+curl-impersonate (https://github.com/lwthiker/curl-impersonate).
+Provides impersonation targets for Chrome, Edge and Safari.
+Licensed under
+MIT (https://github.com/yifeikong/curl_cffi/blob/main/LICENSE)
+.RS 2
+.IP \[bu] 2
+Can be installed with the \f[C]curl_cffi\f[R] group, e.g.
+\f[C]pip install yt-dlp[default,curl_cffi]\f[R]
+.IP \[bu] 2
+Currently only included in \f[C]yt-dlp.exe\f[R] and
+\f[C]yt-dlp_macos\f[R] builds
+.RE
 .SS Metadata
 .IP \[bu] 2
 \f[B]mutagen\f[R] (https://github.com/quodlibet/mutagen)* - For
@@ -2829,7 +2972,8 @@ GPLv2+ (https://github.com/wez/atomicparsley/blob/master/COPYING)
 \f[B]xattr\f[R] (https://github.com/xattr/xattr),
 \f[B]pyxattr\f[R] (https://github.com/iustin/pyxattr) or
 \f[B]setfattr\f[R] (http://savannah.nongnu.org/projects/attr) - For
-writing xattr metadata (\f[C]--xattr\f[R]) on \f[B]Linux\f[R].
+writing xattr metadata (\f[C]--xattr\f[R]) on \f[B]Mac\f[R] and
+\f[B]BSD\f[R].
 Licensed under
 MIT (https://github.com/xattr/xattr/blob/master/LICENSE.txt),
 LGPL2.1 (https://github.com/iustin/pyxattr/blob/master/COPYING) and
@@ -2847,9 +2991,9 @@ extractors where javascript needs to be run.
 Licensed under
 BSD-3-Clause (https://github.com/ariya/phantomjs/blob/master/LICENSE.BSD)
 .IP \[bu] 2
-\f[B]secretstorage\f[R] (https://github.com/mitya57/secretstorage) - For
-\f[C]--cookies-from-browser\f[R] to access the \f[B]Gnome\f[R] keyring
-while decrypting cookies of \f[B]Chromium\f[R]-based browsers on
+\f[B]secretstorage\f[R] (https://github.com/mitya57/secretstorage)* -
+For \f[C]--cookies-from-browser\f[R] to access the \f[B]Gnome\f[R]
+keyring while decrypting cookies of \f[B]Chromium\f[R]-based browsers on
 \f[B]Linux\f[R].
 Licensed under
 BSD-3-Clause (https://github.com/mitya57/secretstorage/blob/master/LICENSE)
@@ -2894,24 +3038,24 @@ All the currently available dependencies are visible at the top of the
 To build the standalone executable, you must have Python and
 \f[C]pyinstaller\f[R] (plus any of yt-dlp\[aq]s optional dependencies if
 needed).
-Once you have all the necessary dependencies installed, simply run
-\f[C]pyinst.py\f[R].
-The executable will be built for the same architecture (x86/ARM, 32/64
-bit) as the Python used.
+The executable will be built for the same CPU architecture as the Python
+used.
+.PP
+You can run the following commands:
 .IP
 .nf
 \f[C]
-python3 -m pip install -U pyinstaller -r requirements.txt
+python3 devscripts/install_deps.py --include pyinstaller
 python3 devscripts/make_lazy_extractors.py
-python3 pyinst.py
+python3 -m bundle.pyinstaller
 \f[R]
 .fi
 .PP
 On some systems, you may need to use \f[C]py\f[R] or \f[C]python\f[R]
 instead of \f[C]python3\f[R].
 .PP
-\f[C]pyinst.py\f[R] accepts any arguments that can be passed to
-\f[C]pyinstaller\f[R], such as \f[C]--onefile/-F\f[R] or
+\f[C]python -m bundle.pyinstaller\f[R] accepts any arguments that can be
+passed to \f[C]pyinstaller\f[R], such as \f[C]--onefile/-F\f[R] or
 \f[C]--onedir/-D\f[R], which is further documented
 here (https://pyinstaller.org/en/stable/usage.html#what-to-generate).
 .PP
@@ -2920,13 +3064,13 @@ support (https://github.com/pyinstaller/pyinstaller#requirements-and-tested-plat
 Python installed from the Windows store without using a virtual
 environment.
 .PP
-\f[B]Important\f[R]: Running \f[C]pyinstaller\f[R] directly
-\f[B]without\f[R] using \f[C]pyinst.py\f[R] is \f[B]not\f[R] officially
-supported.
+\f[B]Important\f[R]: Running \f[C]pyinstaller\f[R] directly \f[B]instead
+of\f[R] using \f[C]python -m bundle.pyinstaller\f[R] is \f[B]not\f[R]
+officially supported.
 This may or may not work correctly.
 .SS Platform-independent Binary (UNIX)
 .PP
-You will need the build tools \f[C]python\f[R] (3.7+), \f[C]zip\f[R],
+You will need the build tools \f[C]python\f[R] (3.8+), \f[C]zip\f[R],
 \f[C]make\f[R] (GNU), \f[C]pandoc\f[R]* and \f[C]pytest\f[R]*.
 .PP
 After installing these, simply run \f[C]make\f[R].
@@ -2942,17 +3086,20 @@ PyInstaller instead since the py2exe builds \f[B]cannot contain
 \f[CB]pycryptodomex\f[B]/\f[CB]certifi\f[B] and needs VC++14\f[R] on the
 target computer to run.
 .PP
-If you wish to build it anyway, install Python and py2exe, and then
-simply run \f[C]setup.py py2exe\f[R]
+If you wish to build it anyway, install Python (if it is not already
+installed) and you can run the following commands:
 .IP
 .nf
 \f[C]
-py -m pip install -U py2exe -r requirements.txt
+py devscripts/install_deps.py --include py2exe
 py devscripts/make_lazy_extractors.py
-py setup.py py2exe
+py -m bundle.py2exe
 \f[R]
 .fi
 .SS Related scripts
+.IP \[bu] 2
+\f[B]\f[CB]devscripts/install_deps.py\f[B]\f[R] - Install dependencies
+for yt-dlp.
 .IP \[bu] 2
 \f[B]\f[CB]devscripts/update-version.py\f[B]\f[R] - Update the version
 number based on current date.
@@ -3086,7 +3233,8 @@ Note: This does not apply for Pyinstaller/py2exe builds.
 \f[C].zip\f[R], \f[C].egg\f[R] and \f[C].whl\f[R] archives containing a
 \f[C]yt_dlp_plugins\f[R] namespace folder in their root are also
 supported as plugin packages.
-* e.g.
+.IP \[bu] 2
+e.g.
 \f[C]${XDG_CONFIG_HOME}/yt-dlp/plugins/mypluginpkg.zip\f[R] where
 \f[C]mypluginpkg.zip\f[R] contains
 \f[C]yt_dlp_plugins/<type>/myplugin.py\f[R]
@@ -3346,12 +3494,13 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
     ydl.download(URLS)
 \f[R]
 .fi
-.SH NEW FEATURES
+.SH CHANGES FROM YOUTUBE-DL
+.SS New features
 .IP \[bu] 2
 Forked from
 \f[B]yt-dlc\[at]f9401f2\f[R] (https://github.com/blackjack4494/yt-dlc/commit/f9401f2a91987068139c5f757b12fc711d4c0cee)
 and merged with
-\f[B]youtube-dl\[at]42f2d4\f[R] (https://github.com/ytdl-org/youtube-dl/commit/07af47960f3bb262ead02490ce65c8c45c01741e)
+\f[B]youtube-dl\[at]be008e6\f[R] (https://github.com/ytdl-org/youtube-dl/commit/be008e657d79832642e2158557c899249c9e31cd)
 (exceptions (https://github.com/yt-dlp/yt-dlp/issues/21))
 .IP \[bu] 2
 \f[B]SponsorBlock Integration\f[R]: You can mark/remove sponsor sections
@@ -3392,9 +3541,6 @@ Supports some (but not all) age-gated content without cookies
 .IP \[bu] 2
 Download livestreams from the start using \f[C]--live-from-start\f[R]
 (\f[I]experimental\f[R])
-.IP \[bu] 2
-\f[C]255kbps\f[R] audio is extracted (if available) from YouTube Music
-when premium cookies are given
 .IP \[bu] 2
 Channel URLs download all uploads of the channel, including shorts and
 live
@@ -3467,8 +3613,8 @@ See plugins for details
 \f[C]yt-dlp -U\f[R], and downgraded using \f[C]--update-to\f[R] if
 required
 .IP \[bu] 2
-\f[B]Nightly builds\f[R]: Automated nightly builds can be used with
-\f[C]--update-to nightly\f[R]
+\f[B]Automated builds\f[R]: Nightly/master builds can be used with
+\f[C]--update-to nightly\f[R] and \f[C]--update-to master\f[R]
 .PP
 See changelog or commits (https://github.com/yt-dlp/yt-dlp/commits) for
 the full list of changes
@@ -3479,7 +3625,7 @@ Features marked with a \f[B]*\f[R] have been back-ported to youtube-dl
 Some of yt-dlp\[aq]s default options are different from that of
 youtube-dl and youtube-dlc:
 .IP \[bu] 2
-yt-dlp supports only Python 3.7+, and \f[I]may\f[R] remove support for
+yt-dlp supports only Python 3.8+, and \f[I]may\f[R] remove support for
 more versions as they become
 EOL (https://devguide.python.org/versions/#python-release-cycle); while
 youtube-dl still supports Python 2.6+ and
@@ -3607,11 +3753,11 @@ different/smarter than in youtube-dl.
 You can use \f[C]--compat-options filename-sanitization\f[R] to revert
 to youtube-dl\[aq]s behavior
 .IP \[bu] 2
-yt-dlp tries to parse the external downloader outputs into the standard
-progress output if possible (Currently implemented:
-[STRIKEOUT:aria2c] (https://github.com/yt-dlp/yt-dlp/issues/5931)).
-You can use \f[C]--compat-options no-external-downloader-progress\f[R]
-to get the downloader output as-is
+[STRIKEOUT:yt-dlp tries to parse the external downloader outputs into
+the standard progress output if possible (Currently implemented:
+aria2c (https://github.com/yt-dlp/yt-dlp/issues/5931)). You can use
+\f[C]--compat-options no-external-downloader-progress\f[R] to get the
+downloader output as-is]
 .IP \[bu] 2
 yt-dlp versions between 2021.09.01 and 2023.01.02 applies
 \f[C]--match-filter\f[R] to nested playlists.
@@ -3620,24 +3766,43 @@ This was an unintentional side-effect of
 and is fixed in
 d7b460 (https://github.com/yt-dlp/yt-dlp/commit/d7b460d0e5fc710950582baed2e3fc616ed98a80).
 Use \f[C]--compat-options playlist-match-filter\f[R] to revert this
+.IP \[bu] 2
+yt-dlp versions between 2021.11.10 and 2023.06.21 estimated
+\f[C]filesize_approx\f[R] values for fragmented/manifest formats.
+This was added for convenience in
+f2fe69 (https://github.com/yt-dlp/yt-dlp/commit/f2fe69c7b0d208bdb1f6292b4ae92bc1e1a7444a),
+but was reverted in
+0dff8e (https://github.com/yt-dlp/yt-dlp/commit/0dff8e4d1e6e9fb938f4256ea9af7d81f42fd54f)
+due to the potentially extreme inaccuracy of the estimated values.
+Use \f[C]--compat-options manifest-filesize-approx\f[R] to keep
+extracting the estimated values
+.IP \[bu] 2
+yt-dlp uses modern http client backends such as \f[C]requests\f[R].
+Use \f[C]--compat-options prefer-legacy-http-handler\f[R] to prefer the
+legacy http handler (\f[C]urllib\f[R]) to be used for standard http
+requests.
+.IP \[bu] 2
+The sub-modules \f[C]swfinterp\f[R], \f[C]casefold\f[R] are removed.
 .PP
 For ease of use, a few more compat options are available:
 .IP \[bu] 2
 \f[C]--compat-options all\f[R]: Use all compat options (Do NOT use)
 .IP \[bu] 2
 \f[C]--compat-options youtube-dl\f[R]: Same as
-\f[C]--compat-options all,-multistreams,-playlist-match-filter\f[R]
+\f[C]--compat-options all,-multistreams,-playlist-match-filter,-manifest-filesize-approx\f[R]
 .IP \[bu] 2
 \f[C]--compat-options youtube-dlc\f[R]: Same as
-\f[C]--compat-options all,-no-live-chat,-no-youtube-channel-redirect,-playlist-match-filter\f[R]
+\f[C]--compat-options all,-no-live-chat,-no-youtube-channel-redirect,-playlist-match-filter,-manifest-filesize-approx\f[R]
 .IP \[bu] 2
 \f[C]--compat-options 2021\f[R]: Same as
 \f[C]--compat-options 2022,no-certifi,filename-sanitization,no-youtube-prefer-utc-upload-date\f[R]
 .IP \[bu] 2
 \f[C]--compat-options 2022\f[R]: Same as
-\f[C]--compat-options playlist-match-filter,no-external-downloader-progress\f[R].
+\f[C]--compat-options 2023,playlist-match-filter,no-external-downloader-progress,prefer-legacy-http-handler,manifest-filesize-approx\f[R]
+.IP \[bu] 2
+\f[C]--compat-options 2023\f[R]: Currently does nothing.
 Use this to enable all future compat options
-.SH DEPRECATED OPTIONS
+.SS Deprecated options
 .PP
 These are all the deprecated options and the current alternative to
 achieve the same effect

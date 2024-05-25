@@ -1,9 +1,9 @@
 
 complete --command yt-dlp --long-option help --short-option h --description 'Print this help text and exit'
 complete --command yt-dlp --long-option version --description 'Print program version and exit'
-complete --command yt-dlp --long-option update --short-option U --description 'Check if updates are available. You installed yt-dlp with a package manager or setup.py; Use that to update'
+complete --command yt-dlp --long-option update --short-option U --description 'Check if updates are available. You installed yt-dlp from a manual build or with a package manager; Use that to update'
 complete --command yt-dlp --long-option no-update --description 'Do not check for updates (default)'
-complete --command yt-dlp --long-option update-to --description 'Upgrade/downgrade to a specific version. CHANNEL can be a repository as well. CHANNEL and TAG default to "stable" and "latest" respectively if omitted; See "UPDATE" for details. Supported channels: stable, nightly'
+complete --command yt-dlp --long-option update-to --description 'Upgrade/downgrade to a specific version. CHANNEL can be a repository as well. CHANNEL and TAG default to "stable" and "latest" respectively if omitted; See "UPDATE" for details. Supported channels: stable, nightly, master'
 complete --command yt-dlp --long-option ignore-errors --short-option i --description 'Ignore download and postprocessing errors. The download will be considered successful even if the postprocessing fails'
 complete --command yt-dlp --long-option no-abort-on-error --description 'Continue with next video on download errors; e.g. to skip unavailable videos in a playlist (default)'
 complete --command yt-dlp --long-option abort-on-error --description 'Abort downloading of further videos if an error occurs (Alias: --no-ignore-errors)'
@@ -13,7 +13,7 @@ complete --command yt-dlp --long-option extractor-descriptions --description 'Ou
 complete --command yt-dlp --long-option use-extractors --description 'Extractor names to use separated by commas. You can also use regexes, "all", "default" and "end" (end URL matching); e.g. --ies "holodex.*,end,youtube". Prefix the name with a "-" to exclude it, e.g. --ies default,-generic. Use --list-extractors for a list of extractor names. (Alias: --ies)'
 complete --command yt-dlp --long-option force-generic-extractor
 complete --command yt-dlp --long-option default-search --description 'Use this prefix for unqualified URLs. E.g. "gvsearch2:python" downloads two videos from google videos for the search term "python". Use the value "auto" to let yt-dlp guess ("auto_warning" to emit a warning when guessing). "error" just throws an error. The default value "fixup_error" repairs broken URLs, but emits an error if this is not possible instead of searching'
-complete --command yt-dlp --long-option ignore-config --description 'Don'"'"'t load any more configuration files except those given by --config-locations. For backward compatibility, if this option is found inside the system configuration file, the user configuration is not loaded. (Alias: --no-config)'
+complete --command yt-dlp --long-option ignore-config --description 'Don'"'"'t load any more configuration files except those given to --config-locations. For backward compatibility, if this option is found inside the system configuration file, the user configuration is not loaded. (Alias: --no-config)'
 complete --command yt-dlp --long-option no-config-locations --description 'Do not load any custom configuration files (default). When given inside a configuration file, ignore all previous --config-locations defined in the current file'
 complete --command yt-dlp --long-option config-locations --description 'Location of the main configuration file; either the path to the config or its containing directory ("-" for stdin). Can be used multiple times and inside other configuration files'
 complete --command yt-dlp --long-option flat-playlist --description 'Do not extract the videos of a playlist, only list them'
@@ -31,6 +31,8 @@ complete --command yt-dlp --long-option alias --description 'Create aliases for 
 complete --command yt-dlp --long-option proxy --description 'Use the specified HTTP/HTTPS/SOCKS proxy. To enable SOCKS proxy, specify a proper scheme, e.g. socks5://user:pass@127.0.0.1:1080/. Pass in an empty string (--proxy "") for direct connection'
 complete --command yt-dlp --long-option socket-timeout --description 'Time to wait before giving up, in seconds'
 complete --command yt-dlp --long-option source-address --description 'Client-side IP address to bind to'
+complete --command yt-dlp --long-option impersonate --description 'Client to impersonate for requests. E.g. chrome, chrome-110, chrome:windows-10. Pass --impersonate="" to impersonate any client.'
+complete --command yt-dlp --long-option list-impersonate-targets --description 'List available clients to impersonate.'
 complete --command yt-dlp --long-option force-ipv4 --short-option 4 --description 'Make all connections via IPv4'
 complete --command yt-dlp --long-option force-ipv6 --short-option 6 --description 'Make all connections via IPv6'
 complete --command yt-dlp --long-option enable-file-urls --description 'Enable file:// URLs. This is disabled by default for security reasons.'
@@ -64,6 +66,7 @@ complete --command yt-dlp --long-option download-archive --description 'Download
 complete --command yt-dlp --long-option no-download-archive --description 'Do not use archive file (default)'
 complete --command yt-dlp --long-option max-downloads --description 'Abort after downloading NUMBER files'
 complete --command yt-dlp --long-option break-on-existing --description 'Stop the download process when encountering a file that is in the archive'
+complete --command yt-dlp --long-option no-break-on-existing --description 'Do not stop the download process when encountering a file that is in the archive (default)'
 complete --command yt-dlp --long-option break-on-reject
 complete --command yt-dlp --long-option break-per-input --description 'Alters --max-downloads, --break-on-existing, --break-match-filter, and autonumber to reset per input URL'
 complete --command yt-dlp --long-option no-break-per-input --description '--break-on-existing and similar options terminates the entire download queue'
@@ -104,7 +107,7 @@ complete --command yt-dlp --long-option no-batch-file --description 'Do not read
 complete --command yt-dlp --long-option id
 complete --command yt-dlp --long-option paths --short-option P --description 'The paths where the files should be downloaded. Specify the type of file and the path separated by a colon ":". All the same TYPES as --output are supported. Additionally, you can also provide "home" (default) and "temp" paths. All intermediary files are first downloaded to the temp path and then the final files are moved over to the home path after download is finished. This option is ignored if --output is an absolute path'
 complete --command yt-dlp --long-option output --short-option o --description 'Output filename template; see "OUTPUT TEMPLATE" for details'
-complete --command yt-dlp --long-option output-na-placeholder --description 'Placeholder for unavailable fields in "OUTPUT TEMPLATE" (default: "%default")'
+complete --command yt-dlp --long-option output-na-placeholder --description 'Placeholder for unavailable fields in --output (default: "%default")'
 complete --command yt-dlp --long-option autonumber-size
 complete --command yt-dlp --long-option autonumber-start
 complete --command yt-dlp --long-option restrict-filenames --description 'Restrict filenames to only ASCII characters, and avoid "&" and spaces in filenames'
@@ -176,6 +179,7 @@ complete --command yt-dlp --long-option no-progress --description 'Do not print 
 complete --command yt-dlp --long-option progress --description 'Show progress bar, even if in quiet mode'
 complete --command yt-dlp --long-option console-title --description 'Display progress in console titlebar'
 complete --command yt-dlp --long-option progress-template --description 'Template for progress outputs, optionally prefixed with one of "download:" (default), "download-title:" (the console title), "postprocess:",  or "postprocess-title:". The video'"'"'s fields are accessible under the "info" key and the progress attributes are accessible under "progress" key. E.g. --console-title --progress-template "download-title:%(info.id)s-%(progress.eta)s"'
+complete --command yt-dlp --long-option progress-delta --description 'Time between progress output (default: 0)'
 complete --command yt-dlp --long-option verbose --short-option v --description 'Print various debugging information'
 complete --command yt-dlp --long-option dump-pages --description 'Print downloaded pages encoded using base64 to debug problems (very verbose)'
 complete --command yt-dlp --long-option write-pages --description 'Write downloaded intermediary pages to files in the current directory to debug problems'
@@ -230,7 +234,7 @@ complete --command yt-dlp --long-option twofactor --short-option 2 --description
 complete --command yt-dlp --long-option netrc --short-option n --description 'Use .netrc authentication data'
 complete --command yt-dlp --long-option netrc-location --description 'Location of .netrc authentication data; either the path or its containing directory. Defaults to ~/.netrc'
 complete --command yt-dlp --long-option netrc-cmd --description 'Command to execute to get the credentials for an extractor.'
-complete --command yt-dlp --long-option video-password --description 'Video password (vimeo, youku)'
+complete --command yt-dlp --long-option video-password --description 'Video-specific password'
 complete --command yt-dlp --long-option ap-mso --description 'Adobe Pass multiple-system operator (TV provider) identifier, use --ap-list-mso for a list of available MSOs'
 complete --command yt-dlp --long-option ap-username --description 'Multiple-system operator account login'
 complete --command yt-dlp --long-option ap-password --description 'Multiple-system operator account password. If this option is left out, yt-dlp will ask interactively'

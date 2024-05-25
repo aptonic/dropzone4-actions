@@ -4,6 +4,7 @@ import functools
 import os
 import random
 import re
+import threading
 import time
 
 from ..minicurses import (
@@ -32,7 +33,6 @@ from ..utils import (
     timetuple_from_msec,
     try_call,
 )
-from ..utils.traversal import traverse_obj
 
 
 class FileDownloader:
@@ -64,6 +64,7 @@ class FileDownloader:
     min_filesize:       Skip files smaller than this size
     max_filesize:       Skip files larger than this size
     xattr_set_filesize: Set ytdl.filesize user xattribute with expected size.
+    progress_delta:     The minimum time between progress output, in seconds
     external_downloader_args:  A dictionary of downloader keys (in lower case)
                         and a list of additional command-line arguments for the
                         executable. Use 'default' as the name for arguments to be
@@ -89,6 +90,9 @@ class FileDownloader:
         self.params = params
         self._prepare_multiline_status()
         self.add_progress_hook(self.report_progress)
+        if self.params.get('progress_delta'):
+            self._progress_delta_lock = threading.Lock()
+            self._progress_delta_time = time.monotonic()
 
     def _set_ydl(self, ydl):
         self.ydl = ydl
@@ -367,6 +371,12 @@ class FileDownloader:
         if s['status'] != 'downloading':
             return
 
+        if update_delta := self.params.get('progress_delta'):
+            with self._progress_delta_lock:
+                if time.monotonic() < self._progress_delta_time:
+                    return
+                self._progress_delta_time += update_delta
+
         s.update({
             '_eta_str': self.format_eta(s.get('eta')).strip(),
             '_speed_str': self.format_speed(s.get('speed')),
@@ -452,11 +462,6 @@ class FileDownloader:
         if sleep_interval > 0:
             self.to_screen(f'[download] Sleeping {sleep_interval:.2f} seconds ...')
             time.sleep(sleep_interval)
-
-        # Filter the `Cookie` header from the info_dict to prevent leaks.
-        # See: https://github.com/yt-dlp/yt-dlp/security/advisories/GHSA-v8mc-9377-rwjj
-        info_dict['http_headers'] = dict(traverse_obj(info_dict, (
-            'http_headers', {dict.items}, lambda _, pair: pair[0].lower() != 'cookie'))) or None
 
         ret = self.real_download(filename, info_dict)
         self._finish_multiline_status()
