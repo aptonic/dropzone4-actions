@@ -140,7 +140,7 @@ class YoutubeBaseInfoExtractor(LazyLoadExtractor):
 class YoutubeIE(YoutubeBaseInfoExtractor):
     _module = 'yt_dlp.extractor.youtube'
     IE_NAME = 'youtube'
-    _VALID_URL = '(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:www\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e|shorts|live)/(?!videoseries|live_stream))  # v/ or embed/ or e/ or shorts/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:www\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     (?P<id>[0-9A-Za-z_-]{11})                                # here is it! the YouTube video ID\n                     (?(1).+)?                                                # if we found the ID, everything can follow\n                     (?:\\#|$)'
+    _VALID_URL = '(?x)^\n                     (\n                         (?:https?://|//)                                    # http(s):// or protocol-independent URL\n                         (?:(?:(?:(?:\\w+\\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie|kids)?\\.com|\n                            (?:www\\.)?deturl\\.com/www\\.youtube\\.com|\n                            (?:www\\.)?pwnyoutube\\.com|\n                            (?:www\\.)?hooktube\\.com|\n                            (?:www\\.)?yourepeat\\.com|\n                            tube\\.majestyc\\.net|\n                            (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:(?:www|cf)\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de|\n                            youtube\\.googleapis\\.com)/                        # the various hostnames, with wildcard subdomains\n                         (?:.*?\\#/)?                                          # handle anchor (#/) redirect urls\n                         (?:                                                  # the various things that can precede the ID:\n                             (?:(?:v|embed|e|shorts|live)/(?!videoseries|live_stream))  # v/ or embed/ or e/ or shorts/\n                             |(?:                                             # or the v= param in all its forms\n                                 (?:(?:watch|movie)(?:_popup)?(?:\\.php)?/?)?  # preceding watch(_popup|.php) or nothing (like /?v=xxxx)\n                                 (?:\\?|\\#!?)                                  # the params delimiter ? or # or #!\n                                 (?:.*?[&;])??                                # any other preceding param (like /?s=tuff&v=xxxx or ?s=tuff&amp;v=V36LpHqtcDY)\n                                 v=\n                             )\n                         ))\n                         |(?:\n                            youtu\\.be|                                        # just youtu.be/xxxx\n                            vid\\.plus|                                        # or vid.plus/xxxx\n                            zwearz\\.com/watch|                                # or zwearz.com/watch/xxxx\n                            (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:(?:www|cf)\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n                         )/\n                         |(?:www\\.)?cleanvideosearch\\.com/media/action/yt/watch\\?videoId=\n                         )\n                     )?                                                       # all until now is optional -> you can pass the naked ID\n                     (?P<id>[0-9A-Za-z_-]{11})                                # here is it! the YouTube video ID\n                     (?(1).+)?                                                # if we found the ID, everything can follow\n                     (?:\\#|$)'
     IE_DESC = 'YouTube'
     age_limit = 18
     _RETURN_TYPE = 'video'
@@ -196,7 +196,7 @@ class YoutubeHistoryIE(YoutubeFeedsInfoExtractor):
 class YoutubeTabIE(YoutubeTabBaseInfoExtractor):
     _module = 'yt_dlp.extractor.youtube'
     IE_NAME = 'youtube:tab'
-    _VALID_URL = '(?x:\n        https?://\n            (?!consent\\.)(?:\\w+\\.)?\n            (?:\n                youtube(?:kids)?\\.com|\n                (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:www\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n            )/\n            (?:\n                (?P<channel_type>channel|c|user|browse)/|\n                (?P<not_channel>\n                    feed/|hashtag/|\n                    (?:playlist|watch)\\?.*?\\blist=\n                )|\n                (?!(?:channel|c|user|playlist|watch|w|v|embed|e|live|watch_popup|clip|shorts|movies|results|search|shared|hashtag|trending|explore|feed|feeds|browse|oembed|get_video_info|iframe_api|s/player|source|storefront|oops|index|account|t/terms|about|upload|signin|logout)\\b)  # Direct URLs\n            )\n            (?P<id>[^/?\\#&]+)\n    )'
+    _VALID_URL = '(?x:\n        https?://\n            (?!consent\\.)(?:\\w+\\.)?\n            (?:\n                youtube(?:kids)?\\.com|\n                (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:(?:www|cf)\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n            )/\n            (?:\n                (?P<channel_type>channel|c|user|browse)/|\n                (?P<not_channel>\n                    feed/|hashtag/|\n                    (?:playlist|watch)\\?.*?\\blist=\n                )|\n                (?!(?:channel|c|user|playlist|watch|w|v|embed|e|live|watch_popup|clip|shorts|movies|results|search|shared|hashtag|trending|explore|feed|feeds|browse|oembed|get_video_info|iframe_api|s/player|source|storefront|oops|index|account|t/terms|about|upload|signin|logout)\\b)  # Direct URLs\n            )\n            (?P<id>[^/?\\#&]+)\n    )'
     IE_DESC = 'YouTube Tabs'
     _RETURN_TYPE = 'any'
 
@@ -215,7 +215,7 @@ class YoutubeLivestreamEmbedIE(LazyLoadExtractor):
 class YoutubePlaylistIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.youtube'
     IE_NAME = 'youtube:playlist'
-    _VALID_URL = '(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:www\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n                            )\n                            /.*?\\?.*?\\blist=\n                        )?\n                        (?P<id>(?:(?:PL|LL|EC|UU|FL|RD|UL|TL|PU|OLAK5uy_)[0-9A-Za-z-_]{10,}|RDMM|WL|LL|LM))\n                     )'
+    _VALID_URL = '(?x)(?:\n                        (?:https?://)?\n                        (?:\\w+\\.)?\n                        (?:\n                            (?:\n                                youtube(?:kids)?\\.com|\n                                (?:www\\.)?redirect\\.invidious\\.io|(?:(?:www|dev)\\.)?invidio\\.us|(?:www\\.)?invidious\\.pussthecat\\.org|(?:www\\.)?invidious\\.zee\\.li|(?:www\\.)?invidious\\.ethibox\\.fr|(?:www\\.)?iv\\.ggtyler\\.dev|(?:www\\.)?inv\\.vern\\.i2p|(?:www\\.)?am74vkcrjp2d5v36lcdqgsj2m6x36tbrkhsruoegwfcizzabnfgf5zyd\\.onion|(?:www\\.)?inv\\.riverside\\.rocks|(?:www\\.)?invidious\\.silur\\.me|(?:www\\.)?inv\\.bp\\.projectsegfau\\.lt|(?:www\\.)?invidious\\.g4c3eya4clenolymqbpgwz3q3tawoxw56yhzk4vugqrl6dtu3ejvhjid\\.onion|(?:www\\.)?invidious\\.slipfox\\.xyz|(?:www\\.)?invidious\\.esmail5pdn24shtvieloeedh7ehz3nrwcdivnfhfcedl7gf4kwddhkqd\\.onion|(?:www\\.)?inv\\.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad\\.onion|(?:www\\.)?invidious\\.tiekoetter\\.com|(?:www\\.)?iv\\.odysfvr23q5wgt7i456o5t3trw2cw5dgn56vbjfbq2m7xsc5vqbqpcyd\\.onion|(?:www\\.)?invidious\\.nerdvpn\\.de|(?:www\\.)?invidious\\.weblibre\\.org|(?:www\\.)?inv\\.odyssey346\\.dev|(?:www\\.)?invidious\\.dhusch\\.de|(?:www\\.)?iv\\.melmac\\.space|(?:www\\.)?watch\\.thekitty\\.zone|(?:www\\.)?invidious\\.privacydev\\.net|(?:www\\.)?ng27owmagn5amdm7l5s3rsqxwscl5ynppnis5dqcasogkyxcfqn7psid\\.onion|(?:www\\.)?invidious\\.drivet\\.xyz|(?:www\\.)?vid\\.priv\\.au|(?:www\\.)?euxxcnhsynwmfidvhjf6uzptsmh4dipkmgdmcmxxuo7tunp3ad2jrwyd\\.onion|(?:www\\.)?inv\\.vern\\.cc|(?:www\\.)?invidious\\.esmailelbob\\.xyz|(?:www\\.)?invidious\\.sethforprivacy\\.com|(?:www\\.)?yt\\.oelrichsgarcia\\.de|(?:www\\.)?yt\\.artemislena\\.eu|(?:www\\.)?invidious\\.flokinet\\.to|(?:www\\.)?invidious\\.baczek\\.me|(?:www\\.)?y\\.com\\.sb|(?:www\\.)?invidious\\.epicsite\\.xyz|(?:www\\.)?invidious\\.lidarshield\\.cloud|(?:www\\.)?yt\\.funami\\.tech|(?:www\\.)?invidious\\.3o7z6yfxhbw7n3za4rss6l434kmv55cgw2vuziwuigpwegswvwzqipyd\\.onion|(?:www\\.)?osbivz6guyeahrwp2lnwyjk2xos342h4ocsxyqrlaopqjuhwn2djiiyd\\.onion|(?:www\\.)?u2cvlit75owumwpy4dj2hsmvkq7nvrclkpht7xgyye2pyoxhpmclkrad\\.onion|(?:(?:www|no)\\.)?invidiou\\.sh|(?:(?:www|fi)\\.)?invidious\\.snopyta\\.org|(?:www\\.)?invidious\\.kabi\\.tk|(?:www\\.)?invidious\\.mastodon\\.host|(?:www\\.)?invidious\\.zapashcanon\\.fr|(?:www\\.)?(?:invidious(?:-us)?|piped)\\.kavin\\.rocks|(?:www\\.)?invidious\\.tinfoil-hat\\.net|(?:www\\.)?invidious\\.himiko\\.cloud|(?:www\\.)?invidious\\.reallyancient\\.tech|(?:www\\.)?invidious\\.tube|(?:www\\.)?invidiou\\.site|(?:www\\.)?invidious\\.site|(?:www\\.)?invidious\\.xyz|(?:www\\.)?invidious\\.nixnet\\.xyz|(?:www\\.)?invidious\\.048596\\.xyz|(?:www\\.)?invidious\\.drycat\\.fr|(?:www\\.)?inv\\.skyn3t\\.in|(?:www\\.)?tube\\.poal\\.co|(?:www\\.)?tube\\.connect\\.cafe|(?:www\\.)?vid\\.wxzm\\.sx|(?:www\\.)?vid\\.mint\\.lgbt|(?:www\\.)?vid\\.puffyan\\.us|(?:www\\.)?yewtu\\.be|(?:www\\.)?yt\\.elukerio\\.org|(?:www\\.)?yt\\.lelux\\.fi|(?:www\\.)?invidious\\.ggc-project\\.de|(?:www\\.)?yt\\.maisputain\\.ovh|(?:www\\.)?ytprivate\\.com|(?:www\\.)?invidious\\.13ad\\.de|(?:www\\.)?invidious\\.toot\\.koeln|(?:www\\.)?invidious\\.fdn\\.fr|(?:www\\.)?watch\\.nettohikari\\.com|(?:www\\.)?invidious\\.namazso\\.eu|(?:www\\.)?invidious\\.silkky\\.cloud|(?:www\\.)?invidious\\.exonip\\.de|(?:www\\.)?invidious\\.riverside\\.rocks|(?:www\\.)?invidious\\.blamefran\\.net|(?:www\\.)?invidious\\.moomoo\\.de|(?:www\\.)?ytb\\.trom\\.tf|(?:www\\.)?yt\\.cyberhost\\.uk|(?:www\\.)?kgg2m7yk5aybusll\\.onion|(?:www\\.)?qklhadlycap4cnod\\.onion|(?:www\\.)?axqzx4s6s54s32yentfqojs3x5i7faxza6xo3ehd4bzzsg2ii4fv2iid\\.onion|(?:www\\.)?c7hqkpkpemu6e7emz5b4vyz7idjgdvgaaa3dyimmeojqbgpea3xqjoid\\.onion|(?:www\\.)?fz253lmuao3strwbfbmx46yu7acac2jz27iwtorgmbqlkurlclmancad\\.onion|(?:www\\.)?invidious\\.l4qlywnpwqsluw65ts7md3khrivpirse744un3x7mlskqauz5pyuzgqd\\.onion|(?:www\\.)?owxfohz4kjyv25fvlqilyxast7inivgiktls3th44jhk3ej3i7ya\\.b32\\.i2p|(?:www\\.)?4l2dgddgsrkf2ous66i6seeyi6etzfgrue332grh2n7madpwopotugyd\\.onion|(?:www\\.)?w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd\\.onion|(?:www\\.)?kbjggqkzv65ivcqj6bumvp337z6264huv5kpkwuv6gu5yjiskvan7fad\\.onion|(?:www\\.)?grwp24hodrefzvjjuccrkw3mjq4tzhaaq32amf33dzpmuxe7ilepcmad\\.onion|(?:www\\.)?hpniueoejy4opn7bc4ftgazyqjoeqwlvh2uiku2xqku6zpoa4bf5ruid\\.onion|(?:www\\.)?piped\\.kavin\\.rocks|(?:www\\.)?piped\\.tokhmi\\.xyz|(?:www\\.)?piped\\.syncpundit\\.io|(?:www\\.)?piped\\.mha\\.fi|(?:www\\.)?watch\\.whatever\\.social|(?:www\\.)?piped\\.garudalinux\\.org|(?:www\\.)?piped\\.rivo\\.lol|(?:www\\.)?piped-libre\\.kavin\\.rocks|(?:www\\.)?yt\\.jae\\.fi|(?:www\\.)?piped\\.mint\\.lgbt|(?:www\\.)?il\\.ax|(?:www\\.)?piped\\.esmailelbob\\.xyz|(?:www\\.)?piped\\.projectsegfau\\.lt|(?:www\\.)?piped\\.privacydev\\.net|(?:www\\.)?piped\\.palveluntarjoaja\\.eu|(?:www\\.)?piped\\.smnz\\.de|(?:www\\.)?piped\\.adminforge\\.de|(?:www\\.)?watch\\.whatevertinfoil\\.de|(?:www\\.)?piped\\.qdi\\.fi|(?:(?:www|cf)\\.)?piped\\.video|(?:www\\.)?piped\\.aeong\\.one|(?:www\\.)?piped\\.moomoo\\.me|(?:www\\.)?piped\\.chauvet\\.pro|(?:www\\.)?watch\\.leptons\\.xyz|(?:www\\.)?pd\\.vern\\.cc|(?:www\\.)?piped\\.hostux\\.net|(?:www\\.)?piped\\.lunar\\.icu|(?:www\\.)?hyperpipe\\.surge\\.sh|(?:www\\.)?hyperpipe\\.esmailelbob\\.xyz|(?:www\\.)?listen\\.whatever\\.social|(?:www\\.)?music\\.adminforge\\.de\n                            )\n                            /.*?\\?.*?\\blist=\n                        )?\n                        (?P<id>(?:(?:PL|LL|EC|UU|FL|RD|UL|TL|PU|OLAK5uy_)[0-9A-Za-z-_]{10,}|RDMM|WL|LL|LM))\n                     )'
     IE_DESC = 'YouTube playlists'
     _RETURN_TYPE = 'playlist'
 
@@ -276,13 +276,6 @@ class YoutubeSubscriptionsIE(YoutubeFeedsInfoExtractor):
     IE_NAME = 'youtube:subscriptions'
     _VALID_URL = ':ytsub(?:scription)?s?'
     IE_DESC = 'YouTube subscriptions feed; ":ytsubs" keyword (requires cookies)'
-
-
-class YoutubeStoriesIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.youtube'
-    IE_NAME = 'youtube:stories'
-    _VALID_URL = 'ytstories:UC(?P<id>[A-Za-z0-9_-]{21}[AQgw])$'
-    IE_DESC = 'YouTube channel stories; "ytstories:" prefix'
 
 
 class YoutubeTruncatedIDIE(LazyLoadExtractor):
@@ -394,6 +387,7 @@ class ABCOTVSClipsIE(LazyLoadExtractor):
 class AbemaTVBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.abematv'
     IE_NAME = 'AbemaTVBase'
+    _NETRC_MACHINE = 'abematv'
 
 
 class AbemaTVIE(AbemaTVBaseIE):
@@ -408,6 +402,7 @@ class AbemaTVTitleIE(AbemaTVBaseIE):
     _module = 'yt_dlp.extractor.abematv'
     IE_NAME = 'AbemaTVTitle'
     _VALID_URL = 'https?://abema\\.tv/video/title/(?P<id>[^?/]+)'
+    _NETRC_MACHINE = 'abematv'
     _RETURN_TYPE = 'playlist'
 
 
@@ -460,13 +455,29 @@ class AcFunBangumiIE(AcFunVideoBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class ADNIE(LazyLoadExtractor):
+class ADNBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.adn'
+    IE_NAME = 'ADNBase'
+    IE_DESC = 'Animation Digital Network'
+    _NETRC_MACHINE = 'animationdigitalnetwork'
+
+
+class ADNIE(ADNBaseIE):
     _module = 'yt_dlp.extractor.adn'
     IE_NAME = 'ADN'
-    _VALID_URL = 'https?://(?:www\\.)?(?:animation|anime)digitalnetwork\\.fr/video/[^/]+/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?(?:animation|anime)digitalnetwork\\.(?P<lang>fr|de)/video/[^/?#]+/(?P<id>\\d+)'
     IE_DESC = 'Animation Digital Network'
     _NETRC_MACHINE = 'animationdigitalnetwork'
     _RETURN_TYPE = 'video'
+
+
+class ADNSeasonIE(ADNBaseIE):
+    _module = 'yt_dlp.extractor.adn'
+    IE_NAME = 'ADNSeason'
+    _VALID_URL = 'https?://(?:www\\.)?(?:animation|anime)digitalnetwork\\.(?P<lang>fr|de)/video/(?P<id>[^/?#]+)/?(?:$|[#?])'
+    IE_DESC = 'Animation Digital Network'
+    _NETRC_MACHINE = 'animationdigitalnetwork'
+    _RETURN_TYPE = 'playlist'
 
 
 class AdobeConnectIE(LazyLoadExtractor):
@@ -544,7 +555,13 @@ class AeonCoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class AfreecaTVIE(LazyLoadExtractor):
+class AfreecaTVBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.afreecatv'
+    IE_NAME = 'AfreecaTVBase'
+    _NETRC_MACHINE = 'afreecatv'
+
+
+class AfreecaTVIE(AfreecaTVBaseIE):
     _module = 'yt_dlp.extractor.afreecatv'
     IE_NAME = 'afreecatv'
     _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:(?:live|afbbs|www)\\.)?afreeca(?:tv)?\\.com(?::\\d+)?\n                            (?:\n                                /app/(?:index|read_ucc_bbs)\\.cgi|\n                                /player/[Pp]layer\\.(?:swf|html)\n                            )\\?.*?\\bnTitleNo=|\n                            vod\\.afreecatv\\.com/(PLAYER/STATION|player)/\n                        )\n                        (?P<id>\\d+)\n                    '
@@ -553,11 +570,11 @@ class AfreecaTVIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
-class AfreecaTVLiveIE(AfreecaTVIE):
+class AfreecaTVLiveIE(AfreecaTVBaseIE):
     _module = 'yt_dlp.extractor.afreecatv'
     IE_NAME = 'afreecatv:live'
     _VALID_URL = 'https?://play\\.afreeca(?:tv)?\\.com/(?P<id>[^/]+)(?:/(?P<bno>\\d+))?'
-    IE_DESC = 'afreecatv.com'
+    IE_DESC = 'afreecatv.com livestreams'
     _NETRC_MACHINE = 'afreecatv'
     _RETURN_TYPE = 'video'
 
@@ -597,13 +614,6 @@ class WyborczaVideoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class AirMozillaIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.airmozilla'
-    IE_NAME = 'AirMozilla'
-    _VALID_URL = 'https?://air\\.mozilla\\.org/(?P<id>[0-9a-z-]+)/?'
-    _RETURN_TYPE = 'video'
-
-
 class AirTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.airtv'
     IE_NAME = 'AirTV'
@@ -625,6 +635,25 @@ class AlJazeeraIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class AllstarBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.allstar'
+    IE_NAME = 'AllstarBase'
+
+
+class AllstarIE(AllstarBaseIE):
+    _module = 'yt_dlp.extractor.allstar'
+    IE_NAME = 'Allstar'
+    _VALID_URL = 'https?://(?:www\\.)?allstar\\.gg/(?P<type>(?:clip|montage))\\?(?P=type)=(?P<id>[^/?#&]+)'
+    _RETURN_TYPE = 'video'
+
+
+class AllstarProfileIE(AllstarBaseIE):
+    _module = 'yt_dlp.extractor.allstar'
+    IE_NAME = 'AllstarProfile'
+    _VALID_URL = 'https?://(?:www\\.)?allstar\\.gg/(?:profile\\?user=|u/)(?P<id>[^/?#&]+)'
+    _RETURN_TYPE = 'playlist'
+
+
 class AlphaPornoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.alphaporno'
     IE_NAME = 'AlphaPorno'
@@ -633,11 +662,18 @@ class AlphaPornoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class AmaraIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.amara'
-    IE_NAME = 'Amara'
-    _VALID_URL = 'https?://(?:www\\.)?amara\\.org/(?:\\w+/)?videos/(?P<id>\\w+)'
+class AltCensoredIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.altcensored'
+    IE_NAME = 'altcensored'
+    _VALID_URL = 'https?://(?:www\\.)?altcensored\\.com/(?:watch\\?v=|embed/)(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
+
+
+class AltCensoredChannelIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.altcensored'
+    IE_NAME = 'altcensored:channel'
+    _VALID_URL = 'https?://(?:www\\.)?altcensored\\.com/channel/(?!page|table)(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class AluraIE(LazyLoadExtractor):
@@ -657,6 +693,20 @@ class AluraCourseIE(AluraIE):
     @classmethod
     def suitable(cls, url):
         return False if AluraIE.suitable(url) else super(AluraCourseIE, cls).suitable(url)
+
+
+class AmadeusTVIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.amadeustv'
+    IE_NAME = 'AmadeusTV'
+    _VALID_URL = 'https?://(?:www\\.)?amadeus\\.tv/library/(?P<id>[\\da-f]+)'
+    _RETURN_TYPE = 'video'
+
+
+class AmaraIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.amara'
+    IE_NAME = 'Amara'
+    _VALID_URL = 'https?://(?:www\\.)?amara\\.org/(?:\\w+/)?videos/(?P<id>\\w+)'
+    _RETURN_TYPE = 'video'
 
 
 class AmazonStoreIE(LazyLoadExtractor):
@@ -827,14 +877,6 @@ class YoutubeWebArchiveIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class VLiveWebArchiveIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.archiveorg'
-    IE_NAME = 'web.archive:vlive'
-    _VALID_URL = '(?x)\n            (?:https?://)?web\\.archive\\.org/\n            (?:web/)?(?:(?P<date>[0-9]{14})?[0-9A-Za-z_*]*/)?  # /web and the version index is optional\n            (?:https?(?::|%3[Aa])//)?(?:\n                (?:(?:www|m)\\.)?vlive\\.tv(?::(?:80|443))?/(?:video|embed)/(?P<id>[0-9]+)  # VLive URL\n            )\n        '
-    IE_DESC = 'web.archive.org saved vlive videos'
-    _RETURN_TYPE = 'video'
-
-
 class ArcPublishingIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.arcpublishing'
     IE_NAME = 'ArcPublishing'
@@ -848,17 +890,18 @@ class ArkenaIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ARDMediathekBaseIE(LazyLoadExtractor):
+class ARDBetaMediathekIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ard'
-    IE_NAME = 'ARDMediathekBase'
-
-
-class ARDBetaMediathekIE(ARDMediathekBaseIE):
-    _module = 'yt_dlp.extractor.ard'
-    IE_NAME = 'ARDBetaMediathek'
-    _VALID_URL = '(?x)https://\n        (?:(?:beta|www)\\.)?ardmediathek\\.de/\n        (?:(?P<client>[^/]+)/)?\n        (?:player|live|video|(?P<playlist>sendung|sammlung))/\n        (?:(?P<display_id>(?(playlist)[^?#]+?|[^?#]+))/)?\n        (?P<id>(?(playlist)|Y3JpZDovL)[a-zA-Z0-9]+)\n        (?(playlist)/(?P<season>\\d+)?/?(?:[?#]|$))'
-    age_limit = 12
+    IE_NAME = 'ARDMediathek'
+    _VALID_URL = '(?x)https://\n        (?:(?:beta|www)\\.)?ardmediathek\\.de/\n        (?:[^/]+/)?\n        (?:player|live|video)/\n        (?:[^?#]+/)?\n        (?P<id>[a-zA-Z0-9]+)\n        /?(?:[?#]|$)'
     _RETURN_TYPE = 'video'
+
+
+class ARDMediathekCollectionIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ard'
+    IE_NAME = 'ARDMediathekCollection'
+    _VALID_URL = '(?x)https://\n        (?:(?:beta|www)\\.)?ardmediathek\\.de/\n        (?:[^/?#]+/)?\n        (?P<playlist>sendung|serie|sammlung)/\n        (?:(?P<display_id>[^?#]+?)/)?\n        (?P<id>[a-zA-Z0-9]+)\n        (?:/(?P<season>\\d+)(?:/(?P<version>OV|AD))?)?/?(?:[?#]|$)'
+    _RETURN_TYPE = 'playlist'
 
 
 class ARDIE(LazyLoadExtractor):
@@ -868,15 +911,18 @@ class ARDIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ARDMediathekIE(ARDMediathekBaseIE):
-    _module = 'yt_dlp.extractor.ard'
-    IE_NAME = 'ARD:mediathek'
-    _VALID_URL = '^https?://(?:(?:(?:www|classic)\\.)?ardmediathek\\.de|mediathek\\.(?:daserste|rbb-online)\\.de|one\\.ard\\.de)/(?:.*/)(?P<video_id>[0-9]+|[^0-9][^/\\?]+)[^/\\?]*(?:\\?.*)?'
+class Art19IE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.art19'
+    IE_NAME = 'Art19'
+    _VALID_URL = ['https?://(?:www\\.)?art19\\.com/shows/[^/#?]+/episodes/(?P<id>[\\da-f]{8}-?[\\da-f]{4}-?[\\da-f]{4}-?[\\da-f]{4}-?[\\da-f]{12})', 'https?://rss\\.art19\\.com/episodes/(?P<id>[\\da-f]{8}-?[\\da-f]{4}-?[\\da-f]{4}-?[\\da-f]{4}-?[\\da-f]{12})\\.mp3']
     _RETURN_TYPE = 'video'
 
-    @classmethod
-    def suitable(cls, url):
-        return False if ARDBetaMediathekIE.suitable(url) else super(ARDMediathekIE, cls).suitable(url)
+
+class Art19ShowIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.art19'
+    IE_NAME = 'Art19Show'
+    _VALID_URL = ['https?://(?:www\\.)?art19\\.com/shows/(?P<id>[\\w-]+)(?:/embed)?/?(?:$|[#?])', 'https?://rss\\.art19\\.com/(?P<id>[\\w-]+)/?(?:$|[#?])']
+    _RETURN_TYPE = 'playlist'
 
 
 class ArteTVBaseIE(LazyLoadExtractor):
@@ -926,23 +972,32 @@ class ArnesIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class AsianCrushBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.asiancrush'
-    IE_NAME = 'AsianCrushBase'
+class AsobiChannelBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.asobichannel'
+    IE_NAME = 'AsobiChannelBase'
 
 
-class AsianCrushIE(AsianCrushBaseIE):
-    _module = 'yt_dlp.extractor.asiancrush'
-    IE_NAME = 'AsianCrush'
-    _VALID_URL = 'https?://(?:www\\.)?(?P<host>(?:(?:asiancrush|yuyutv|midnightpulp)\\.com|(?:cocoro|retrocrush)\\.tv))/video/(?:[^/]+/)?0+(?P<id>\\d+)v\\b'
-    age_limit = 13
+class AsobiChannelIE(AsobiChannelBaseIE):
+    _module = 'yt_dlp.extractor.asobichannel'
+    IE_NAME = 'asobichannel'
+    _VALID_URL = 'https?://asobichannel\\.asobistore\\.jp/watch/(?P<id>[\\w-]+)'
+    IE_DESC = 'ASOBI CHANNEL'
     _RETURN_TYPE = 'video'
 
 
-class AsianCrushPlaylistIE(AsianCrushBaseIE):
-    _module = 'yt_dlp.extractor.asiancrush'
-    IE_NAME = 'AsianCrushPlaylist'
-    _VALID_URL = 'https?://(?:www\\.)?(?P<host>(?:(?:asiancrush|yuyutv|midnightpulp)\\.com|(?:cocoro|retrocrush)\\.tv))/series/0+(?P<id>\\d+)s\\b'
+class AsobiChannelTagURLIE(AsobiChannelBaseIE):
+    _module = 'yt_dlp.extractor.asobichannel'
+    IE_NAME = 'asobichannel:tag'
+    _VALID_URL = 'https?://asobichannel\\.asobistore\\.jp/tag/(?P<id>[a-z0-9-_]+)'
+    IE_DESC = 'ASOBI CHANNEL'
+    _RETURN_TYPE = 'playlist'
+
+
+class AsobiStageIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.asobistage'
+    IE_NAME = 'AsobiStage'
+    _VALID_URL = 'https?://asobistage\\.asobistore\\.jp/event/(?P<id>(?P<event>\\w+)/(?P<type>archive|player)/(?P<slug>\\w+))(?:[?#]|$)'
+    IE_DESC = 'ASOBISTAGE (アソビステージ)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -959,13 +1014,6 @@ class AtScaleConfEventIE(LazyLoadExtractor):
     IE_NAME = 'AtScaleConfEvent'
     _VALID_URL = 'https?://(?:www\\.)?atscaleconference\\.com/events/(?P<id>[^/&$?]+)'
     _RETURN_TYPE = 'playlist'
-
-
-class ATTTechChannelIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.atttechchannel'
-    IE_NAME = 'ATTTechChannel'
-    _VALID_URL = 'https?://techchannel\\.att\\.com/play-video\\.cfm/([^/]+/)*(?P<id>.+)'
-    _RETURN_TYPE = 'video'
 
 
 class ATVAtIE(LazyLoadExtractor):
@@ -1090,6 +1138,13 @@ class AWAANSeasonIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
+class AxsIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.axs'
+    IE_NAME = 'axs.tv'
+    _VALID_URL = 'https?://(?:www\\.)?axs\\.tv/(?:channel/(?:[^/?#]+/)+)?video/(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'video'
+
+
 class AZMedienIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.azmedien'
     IE_NAME = 'AZMedien'
@@ -1114,14 +1169,14 @@ class BanByeBaseIE(LazyLoadExtractor):
 class BanByeIE(BanByeBaseIE):
     _module = 'yt_dlp.extractor.banbye'
     IE_NAME = 'BanBye'
-    _VALID_URL = 'https?://(?:www\\.)?banbye.com/(?:en/)?watch/(?P<id>\\w+)'
+    _VALID_URL = 'https?://(?:www\\.)?banbye\\.com/(?:en/)?watch/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'any'
 
 
 class BanByeChannelIE(BanByeBaseIE):
     _module = 'yt_dlp.extractor.banbye'
     IE_NAME = 'BanByeChannel'
-    _VALID_URL = 'https?://(?:www\\.)?banbye.com/(?:en/)?channel/(?P<id>\\w+)'
+    _VALID_URL = 'https?://(?:www\\.)?banbye\\.com/(?:en/)?channel/(?P<id>\\w+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -1181,7 +1236,7 @@ class BannedVideoIE(LazyLoadExtractor):
 class BBCCoUkIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bbc'
     IE_NAME = 'bbc.co.uk'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?bbc\\.co\\.uk/\n                        (?:\n                            programmes/(?!articles/)|\n                            iplayer(?:/[^/]+)?/(?:episode/|playlist/)|\n                            music/(?:clips|audiovideo/popular)[/#]|\n                            radio/player/|\n                            sounds/play/|\n                            events/[^/]+/play/[^/]+/\n                        )\n                        (?P<id>(?:[pbml][\\da-z]{7}|w[\\da-z]{7,14}))(?!/(?:episodes|broadcasts|clips))\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?bbc\\.co\\.uk/\n                        (?:\n                            programmes/(?!articles/)|\n                            iplayer(?:/[^/]+)?/(?:episode/|playlist/)|\n                            music/(?:clips|audiovideo/popular)[/#]|\n                            radio/player/|\n                            events/[^/]+/play/[^/]+/\n                        )\n                        (?P<id>(?:[pbml][\\da-z]{7}|w[\\da-z]{7,14}))(?!/(?:episodes|broadcasts|clips))\n                    '
     IE_DESC = 'BBC iPlayer'
     _NETRC_MACHINE = 'bbc'
     _RETURN_TYPE = 'video'
@@ -1253,6 +1308,7 @@ class BehindKinkIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.behindkink'
     IE_NAME = 'BehindKink'
     _VALID_URL = 'https?://(?:www\\.)?behindkink\\.com/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<id>[^/#?_]+)'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -1267,14 +1323,14 @@ class BellMediaIE(LazyLoadExtractor):
 class BeatBumpVideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.beatbump'
     IE_NAME = 'BeatBumpVideo'
-    _VALID_URL = 'https://beatbump\\.ml/listen\\?id=(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://beatbump\\.(?:ml|io)/listen\\?id=(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
 class BeatBumpPlaylistIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.beatbump'
     IE_NAME = 'BeatBumpPlaylist'
-    _VALID_URL = 'https://beatbump\\.ml/(?:release\\?id=|artist/|playlist/)(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://beatbump\\.(?:ml|io)/(?:release\\?id=|artist/|playlist/)(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -1301,6 +1357,7 @@ class BetIE(MTVServicesInfoExtractor):
     _module = 'yt_dlp.extractor.bet'
     IE_NAME = 'Bet'
     _VALID_URL = 'https?://(?:www\\.)?bet\\.com/(?:[^/]+/)+(?P<id>.+?)\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -1308,6 +1365,7 @@ class BFIPlayerIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bfi'
     IE_NAME = 'bfi:player'
     _VALID_URL = 'https?://player\\.bfi\\.org\\.uk/[^/]+/film/watch-(?P<id>[\\w-]+)-online'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -1396,21 +1454,47 @@ class BilibiliBaseIE(LazyLoadExtractor):
 class BiliBiliIE(BilibiliBaseIE):
     _module = 'yt_dlp.extractor.bilibili'
     IE_NAME = 'BiliBili'
-    _VALID_URL = 'https?://www\\.bilibili\\.com/(?:video/|festival/\\w+\\?(?:[^#]*&)?bvid=)[aAbB][vV](?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/(?:video/|festival/\\w+\\?(?:[^#]*&)?bvid=)[aAbB][vV](?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'any'
 
 
 class BiliBiliBangumiIE(BilibiliBaseIE):
     _module = 'yt_dlp.extractor.bilibili'
     IE_NAME = 'BiliBiliBangumi'
-    _VALID_URL = '(?x)https?://www\\.bilibili\\.com/bangumi/play/(?P<id>(?:ss|ep)\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/bangumi/play/ep(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
-class BiliBiliBangumiMediaIE(LazyLoadExtractor):
+class BiliBiliBangumiSeasonIE(BilibiliBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BiliBiliBangumiSeason'
+    _VALID_URL = '(?x)https?://(?:www\\.)?bilibili\\.com/bangumi/play/ss(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class BiliBiliBangumiMediaIE(BilibiliBaseIE):
     _module = 'yt_dlp.extractor.bilibili'
     IE_NAME = 'BiliBiliBangumiMedia'
-    _VALID_URL = 'https?://www\\.bilibili\\.com/bangumi/media/md(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/bangumi/media/md(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class BilibiliCheeseBaseIE(BilibiliBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliCheeseBase'
+
+
+class BilibiliCheeseIE(BilibiliCheeseBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliCheese'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/cheese/play/ep(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
+class BilibiliCheeseSeasonIE(BilibiliCheeseBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliCheeseSeason'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/cheese/play/ss(?P<id>\\d+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -1426,7 +1510,7 @@ class BiliBiliSearchIE(LazyLoadSearchExtractor):
 class BilibiliCategoryIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bilibili'
     IE_NAME = 'Bilibili category extractor'
-    _VALID_URL = 'https?://www\\.bilibili\\.com/v/[a-zA-Z]+\\/[a-zA-Z]+'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/v/[a-zA-Z]+\\/[a-zA-Z]+'
     _RETURN_TYPE = 'playlist'
 
 
@@ -1474,11 +1558,44 @@ class BilibiliSpaceAudioIE(BilibiliSpaceBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
-class BilibiliSpacePlaylistIE(BilibiliSpaceBaseIE):
+class BilibiliSpaceListBaseIE(BilibiliSpaceBaseIE):
     _module = 'yt_dlp.extractor.bilibili'
-    IE_NAME = 'BilibiliSpacePlaylist'
-    _VALID_URL = 'https?://space.bilibili\\.com/(?P<mid>\\d+)/channel/collectiondetail\\?sid=(?P<sid>\\d+)'
+    IE_NAME = 'BilibiliSpaceListBase'
+
+
+class BilibiliCollectionListIE(BilibiliSpaceListBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliCollectionList'
+    _VALID_URL = 'https?://space\\.bilibili\\.com/(?P<mid>\\d+)/channel/collectiondetail/?\\?sid=(?P<sid>\\d+)'
     _RETURN_TYPE = 'playlist'
+
+
+class BilibiliSeriesListIE(BilibiliSpaceListBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliSeriesList'
+    _VALID_URL = 'https?://space\\.bilibili\\.com/(?P<mid>\\d+)/channel/seriesdetail/?\\?\\bsid=(?P<sid>\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class BilibiliFavoritesListIE(BilibiliSpaceListBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliFavoritesList'
+    _VALID_URL = 'https?://(?:space\\.bilibili\\.com/\\d+/favlist/?\\?fid=|(?:www\\.)?bilibili\\.com/medialist/detail/ml)(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class BilibiliWatchlaterIE(BilibiliSpaceListBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliWatchlater'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/watchlater/?(?:[?#]|$)'
+    _RETURN_TYPE = 'playlist'
+
+
+class BilibiliPlaylistIE(BilibiliSpaceListBaseIE):
+    _module = 'yt_dlp.extractor.bilibili'
+    IE_NAME = 'BilibiliPlaylist'
+    _VALID_URL = 'https?://(?:www\\.)?bilibili\\.com/(?:medialist/play|list)/(?P<id>\\w+)'
+    _RETURN_TYPE = 'any'
 
 
 class BiliIntlBaseIE(LazyLoadExtractor):
@@ -1506,7 +1623,7 @@ class BiliIntlSeriesIE(BiliIntlBaseIE):
 class BiliLiveIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bilibili'
     IE_NAME = 'BiliLive'
-    _VALID_URL = 'https?://live.bilibili.com/(?:blanc/)?(?P<id>\\d+)'
+    _VALID_URL = 'https?://live\\.bilibili\\.com/(?:blanc/)?(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -1531,25 +1648,6 @@ class BitChuteChannelIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class BitwaveReplayIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.bitwave'
-    IE_NAME = 'bitwave:replay'
-    _VALID_URL = 'https?://(?:www\\.)?bitwave\\.tv/(?P<user>\\w+)/replay/(?P<id>\\w+)/?$'
-
-
-class BitwaveStreamIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.bitwave'
-    IE_NAME = 'bitwave:stream'
-    _VALID_URL = 'https?://(?:www\\.)?bitwave\\.tv/(?P<id>\\w+)/?$'
-
-
-class BIQLEIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.biqle'
-    IE_NAME = 'BIQLE'
-    _VALID_URL = 'https?://(?:www\\.)?biqle\\.(?:com|org|ru)/watch/(?P<id>-?\\d+_\\d+)'
-    _RETURN_TYPE = 'video'
-
-
 class BlackboardCollaborateIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.blackboardcollaborate'
     IE_NAME = 'BlackboardCollaborate'
@@ -1561,6 +1659,7 @@ class BleacherReportIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bleacherreport'
     IE_NAME = 'BleacherReport'
     _VALID_URL = 'https?://(?:www\\.)?bleacherreport\\.com/articles/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -1568,6 +1667,7 @@ class BleacherReportCMSIE(AMPIE):
     _module = 'yt_dlp.extractor.bleacherreport'
     IE_NAME = 'BleacherReportCMS'
     _VALID_URL = 'https?://(?:www\\.)?bleacherreport\\.com/video_embed\\?id=(?P<id>[0-9a-f-]{36}|\\d{5})'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -1612,6 +1712,13 @@ class BongaCamsIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class BoostyIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.boosty'
+    IE_NAME = 'Boosty'
+    _VALID_URL = 'https?://(?:www\\.)?boosty\\.to/(?P<user>[^/#?]+)/posts/(?P<post_id>[^/#?]+)'
+    _RETURN_TYPE = 'any'
+
+
 class BostonGlobeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bostonglobe'
     IE_NAME = 'BostonGlobe'
@@ -1622,7 +1729,7 @@ class BostonGlobeIE(LazyLoadExtractor):
 class BoxIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.box'
     IE_NAME = 'Box'
-    _VALID_URL = 'https?://(?:[^.]+\\.)?app\\.box\\.com/s/(?P<shared_name>[^/]+)/file/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:[^.]+\\.)?app\\.box\\.com/s/(?P<shared_name>[^/?#]+)(?:/file/(?P<id>\\d+))?'
     _RETURN_TYPE = 'video'
 
 
@@ -1636,7 +1743,7 @@ class BoxCastVideoIE(LazyLoadExtractor):
 class BpbIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.bpb'
     IE_NAME = 'Bpb'
-    _VALID_URL = 'https?://(?:www\\.)?bpb\\.de/mediathek/(?P<id>[0-9]+)/'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?bpb\\.de/(?:[^/?#]+/)*(?P<id>\\d+)(?:[/?#]|$)'
     IE_DESC = 'Bundeszentrale für politische Bildung'
     _RETURN_TYPE = 'video'
 
@@ -1645,15 +1752,8 @@ class BRIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.br'
     IE_NAME = 'BR'
     _VALID_URL = '(?P<base_url>https?://(?:www\\.)?br(?:-klassik)?\\.de)/(?:[a-z0-9\\-_]+/)+(?P<id>[a-z0-9\\-_]+)\\.html'
+    _WORKING = False
     IE_DESC = 'Bayerischer Rundfunk'
-    _RETURN_TYPE = 'video'
-
-
-class BRMediathekIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.br'
-    IE_NAME = 'BRMediathek'
-    _VALID_URL = 'https?://(?:www\\.)?br\\.de/mediathek//?video/(?:[^/?&#]+?-)?(?P<id>av:[0-9a-f]{24})'
-    IE_DESC = 'Bayerischer Rundfunk Mediathek'
     _RETURN_TYPE = 'video'
 
 
@@ -1730,18 +1830,10 @@ class BrainPOPIlIE(BrainPOPLegacyBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class BreakIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.breakcom'
-    IE_NAME = 'Break'
-    _VALID_URL = 'https?://(?:www\\.)?break\\.com/video/(?P<display_id>[^/]+?)(?:-(?P<id>\\d+))?(?:[/?#&]|$)'
-    age_limit = 13
-    _RETURN_TYPE = 'video'
-
-
 class BreitBartIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.breitbart'
     IE_NAME = 'BreitBart'
-    _VALID_URL = 'https?:\\/\\/(?:www\\.)breitbart.com/videos/v/(?P<id>[^/]+)'
+    _VALID_URL = 'https?://(?:www\\.)?breitbart\\.com/videos/v/(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -1759,6 +1851,30 @@ class BrightcoveNewIE(BrightcoveNewBaseIE):
     _RETURN_TYPE = 'any'
 
 
+class BrilliantpalaBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.brilliantpala'
+    IE_NAME = 'BrilliantpalaBase'
+    _NETRC_MACHINE = 'brilliantpala'
+
+
+class BrilliantpalaElearnIE(BrilliantpalaBaseIE):
+    _module = 'yt_dlp.extractor.brilliantpala'
+    IE_NAME = 'Brilliantpala:Elearn'
+    _VALID_URL = 'https?://elearn\\.brilliantpala\\.org/courses/(?P<course_id>\\d+)/contents/(?P<content_id>\\d+)/?'
+    IE_DESC = 'VoD on elearn.brilliantpala.org'
+    _NETRC_MACHINE = 'brilliantpala'
+    _RETURN_TYPE = 'video'
+
+
+class BrilliantpalaClassesIE(BrilliantpalaBaseIE):
+    _module = 'yt_dlp.extractor.brilliantpala'
+    IE_NAME = 'Brilliantpala:Classes'
+    _VALID_URL = 'https?://classes\\.brilliantpala\\.org/courses/(?P<course_id>\\d+)/contents/(?P<content_id>\\d+)/?'
+    IE_DESC = 'VoD on classes.brilliantpala.org'
+    _NETRC_MACHINE = 'brilliantpala'
+    _RETURN_TYPE = 'video'
+
+
 class BusinessInsiderIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.businessinsider'
     IE_NAME = 'BusinessInsider'
@@ -1773,6 +1889,13 @@ class BundesligaIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class BundestagIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.bundestag'
+    IE_NAME = 'Bundestag'
+    _VALID_URL = ['https?://dbtg\\.tv/[cf]vid/(?P<id>\\d+)', 'https?://www\\.bundestag\\.de/mediathek/?\\?(?:[^#]+&)?videoid=(?P<id>\\d+)']
+    _RETURN_TYPE = 'video'
+
+
 class BuzzFeedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.buzzfeed'
     IE_NAME = 'BuzzFeed'
@@ -1784,6 +1907,7 @@ class BYUtvIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.byutv'
     IE_NAME = 'BYUtv'
     _VALID_URL = 'https?://(?:www\\.)?byutv\\.org/(?:watch|player)/(?!event/)(?P<id>[0-9a-f-]+)(?:/(?P<display_id>[^/?#&]+))?'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -1797,7 +1921,7 @@ class C56IE(LazyLoadExtractor):
 class CableAVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.cableav'
     IE_NAME = 'CableAV'
-    _VALID_URL = 'https://cableav\\.tv/(?P<id>[a-zA-Z0-9]+)'
+    _VALID_URL = 'https?://cableav\\.tv/(?P<id>[a-zA-Z0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -1840,14 +1964,14 @@ class CamdemyFolderIE(LazyLoadExtractor):
 class CamFMEpisodeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.camfm'
     IE_NAME = 'CamFMEpisode'
-    _VALID_URL = 'https://(?:www\\.)?camfm\\.co\\.uk/player/(?P<id>[^/]+)'
+    _VALID_URL = 'https?://(?:www\\.)?camfm\\.co\\.uk/player/(?P<id>[^/]+)'
     _RETURN_TYPE = 'video'
 
 
 class CamFMShowIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.camfm'
     IE_NAME = 'CamFMShow'
-    _VALID_URL = 'https://(?:www\\.)?camfm\\.co\\.uk/shows/(?P<id>[^/]+)'
+    _VALID_URL = 'https?://(?:www\\.)?camfm\\.co\\.uk/shows/(?P<id>[^/]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -1871,11 +1995,10 @@ class CamtasiaEmbedIE(LazyLoadExtractor):
     _VALID_URL = False
 
 
-class CamWithHerIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.camwithher'
-    IE_NAME = 'CamWithHer'
-    _VALID_URL = 'https?://(?:www\\.)?camwithher\\.tv/view_video\\.php\\?.*\\bviewkey=(?P<id>\\w+)'
-    age_limit = 18
+class Canal1IE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.canal1'
+    IE_NAME = 'Canal1'
+    _VALID_URL = 'https?://(?:www\\.|noticias\\.)?canal1\\.com\\.co/(?:[^?#&])+/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -1901,18 +2024,12 @@ class Canalc2IE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class CarambaTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.carambatv'
-    IE_NAME = 'CarambaTV'
-    _VALID_URL = '(?:carambatv:|https?://video1\\.carambatv\\.ru/v/)(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class CarambaTVPageIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.carambatv'
-    IE_NAME = 'CarambaTVPage'
-    _VALID_URL = 'https?://carambatv\\.ru/(?:[^/]+/)+(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
+class CaracolTvPlayIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.caracoltv'
+    IE_NAME = 'CaracolTvPlay'
+    _VALID_URL = 'https?://play\\.caracoltv\\.com/videoDetails/(?P<id>[^/?#]+)'
+    _NETRC_MACHINE = 'caracoltv-play'
+    _RETURN_TYPE = 'playlist'
 
 
 class CartoonNetworkIE(TurnerBaseIE):
@@ -1936,8 +2053,15 @@ class CBCIE(LazyLoadExtractor):
 class CBCPlayerIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.cbc'
     IE_NAME = 'cbc.ca:player'
-    _VALID_URL = '(?:cbcplayer:|https?://(?:www\\.)?cbc\\.ca/(?:player/play/|i/caffeine/syndicate/\\?mediaId=))(?P<id>\\d+)'
+    _VALID_URL = '(?:cbcplayer:|https?://(?:www\\.)?cbc\\.ca/(?:player/play/|i/caffeine/syndicate/\\?mediaId=))(?P<id>(?:\\d\\.)?\\d+)'
     _RETURN_TYPE = 'video'
+
+
+class CBCPlayerPlaylistIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.cbc'
+    IE_NAME = 'cbc.ca:player:playlist'
+    _VALID_URL = 'https?://(?:www\\.)?cbc\\.ca/(?:player/)(?!play/)(?P<id>[^?#]+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class CBCGemIE(LazyLoadExtractor):
@@ -2040,6 +2164,7 @@ class CBSSportsEmbedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.cbssports'
     IE_NAME = 'cbssports:embed'
     _VALID_URL = '(?ix)https?://(?:(?:www\\.)?cbs|embed\\.247)sports\\.com/player/embed.+?\n        (?:\n            ids%3D(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})|\n            pcid%3D(?P<pcid>\\d+)\n        )'
+    _WORKING = False
 
 
 class CBSSportsBaseIE(LazyLoadExtractor):
@@ -2051,6 +2176,7 @@ class CBSSportsIE(CBSSportsBaseIE):
     _module = 'yt_dlp.extractor.cbssports'
     IE_NAME = 'cbssports'
     _VALID_URL = 'https?://(?:www\\.)?cbssports\\.com/[^/]+/video/(?P<id>[^/?#&]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -2058,6 +2184,7 @@ class TwentyFourSevenSportsIE(CBSSportsBaseIE):
     _module = 'yt_dlp.extractor.cbssports'
     IE_NAME = '247sports'
     _VALID_URL = 'https?://(?:www\\.)?247sports\\.com/Video/(?:[^/?#&]+-)?(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -2121,14 +2248,6 @@ class CGTNIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class Channel9IE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.channel9'
-    IE_NAME = 'channel9'
-    _VALID_URL = 'https?://(?:www\\.)?(?:channel9\\.msdn\\.com|s\\.ch9\\.ms)/(?P<contentpath>.+?)(?P<rss>/RSS)?/?(?:[?#&]|$)'
-    IE_DESC = 'Channel 9'
-    _RETURN_TYPE = 'any'
-
-
 class CharlieRoseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.charlierose'
     IE_NAME = 'CharlieRose'
@@ -2151,43 +2270,17 @@ class ChilloutzoneIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ChingariBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.chingari'
-    IE_NAME = 'ChingariBase'
-
-
-class ChingariIE(ChingariBaseIE):
-    _module = 'yt_dlp.extractor.chingari'
-    IE_NAME = 'Chingari'
-    _VALID_URL = 'https?://(?:www\\.)?chingari\\.io/share/post\\?id=(?P<id>[^&/#?]+)'
+class CHZZKLiveIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.chzzk'
+    IE_NAME = 'chzzk:live'
+    _VALID_URL = 'https?://chzzk\\.naver\\.com/live/(?P<id>[\\da-f]+)'
     _RETURN_TYPE = 'video'
 
 
-class ChingariUserIE(ChingariBaseIE):
-    _module = 'yt_dlp.extractor.chingari'
-    IE_NAME = 'ChingariUser'
-    _VALID_URL = 'https?://(?:www\\.)?chingari\\.io/(?!share/post)(?P<id>[^/?]+)'
-    _RETURN_TYPE = 'playlist'
-
-
-class ChirbitIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.chirbit'
-    IE_NAME = 'chirbit'
-    _VALID_URL = 'https?://(?:www\\.)?chirb\\.it/(?:(?:wp|pl)/|fb_chirbit_player\\.swf\\?key=)?(?P<id>[\\da-zA-Z]+)'
-    _RETURN_TYPE = 'video'
-
-
-class ChirbitProfileIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.chirbit'
-    IE_NAME = 'chirbit:profile'
-    _VALID_URL = 'https?://(?:www\\.)?chirbit\\.com/(?:rss/)?(?P<id>[^/]+)'
-    _RETURN_TYPE = 'playlist'
-
-
-class CinchcastIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.cinchcast'
-    IE_NAME = 'Cinchcast'
-    _VALID_URL = 'https?://player\\.cinchcast\\.com/.*?(?:assetId|show_id)=(?P<id>[0-9]+)'
+class CHZZKVideoIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.chzzk'
+    IE_NAME = 'chzzk:video'
+    _VALID_URL = 'https?://chzzk\\.naver\\.com/video/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -2200,6 +2293,7 @@ class CinemaxIE(HBOBaseIE):
     _module = 'yt_dlp.extractor.cinemax'
     IE_NAME = 'Cinemax'
     _VALID_URL = 'https?://(?:www\\.)?cinemax\\.com/(?P<path>[^/]+/video/[0-9a-z-]+-(?P<id>\\d+))'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -2208,6 +2302,26 @@ class CinetecaMilanoIE(LazyLoadExtractor):
     IE_NAME = 'CinetecaMilano'
     _VALID_URL = 'https?://(?:www\\.)?cinetecamilano\\.it/film/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
+
+
+class CineverseBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.cineverse'
+    IE_NAME = 'CineverseBase'
+
+
+class CineverseIE(CineverseBaseIE):
+    _module = 'yt_dlp.extractor.cineverse'
+    IE_NAME = 'Cineverse'
+    _VALID_URL = 'https?://www\\.(?P<host>cineverse\\.com|asiancrush\\.com|dovechannel\\.com|screambox\\.com|midnightpulp\\.com|fandor\\.com|retrocrush\\.tv)/watch/(?P<id>[A-Z0-9]+)'
+    age_limit = 13
+    _RETURN_TYPE = 'video'
+
+
+class CineverseDetailsIE(CineverseBaseIE):
+    _module = 'yt_dlp.extractor.cineverse'
+    IE_NAME = 'CineverseDetails'
+    _VALID_URL = 'https?://www\\.(?P<host>cineverse\\.com|asiancrush\\.com|dovechannel\\.com|screambox\\.com|midnightpulp\\.com|fandor\\.com|retrocrush\\.tv)/details/(?P<id>[A-Z0-9]+)'
+    _RETURN_TYPE = 'any'
 
 
 class CiscoLiveBaseIE(LazyLoadExtractor):
@@ -2254,14 +2368,6 @@ class ClipchampIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class CliphunterIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.cliphunter'
-    IE_NAME = 'cliphunter'
-    _VALID_URL = '(?x)https?://(?:www\\.)?cliphunter\\.com/w/\n        (?P<id>[0-9]+)/\n        (?P<seo>.+?)(?:$|[#\\?])\n    '
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class ClippitIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.clippit'
     IE_NAME = 'Clippit'
@@ -2278,13 +2384,7 @@ class ClipRsIE(OnetBaseIE):
     _module = 'yt_dlp.extractor.cliprs'
     IE_NAME = 'ClipRs'
     _VALID_URL = 'https?://(?:www\\.)?clip\\.rs/(?P<id>[^/]+)/\\d+'
-    _RETURN_TYPE = 'video'
-
-
-class ClipsyndicateIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.clipsyndicate'
-    IE_NAME = 'Clipsyndicate'
-    _VALID_URL = 'https?://(?:chic|www)\\.clipsyndicate\\.com/video/play(list/\\d+)?/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -2292,20 +2392,21 @@ class CloserToTruthIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.closertotruth'
     IE_NAME = 'CloserToTruth'
     _VALID_URL = 'https?://(?:www\\.)?closertotruth\\.com/(?:[^/]+/)*(?P<id>[^/?#&]+)'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
 class CloudflareStreamIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.cloudflarestream'
     IE_NAME = 'CloudflareStream'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:watch\\.)?(?:cloudflarestream\\.com|(?:videodelivery|bytehighway)\\.net)/|\n                            embed\\.(?:cloudflarestream\\.com|(?:videodelivery|bytehighway)\\.net)/embed/[^/]+\\.js\\?.*?\\bvideo=\n                        )\n                        (?P<id>[\\da-f]{32}|[\\w-]+\\.[\\w-]+\\.[\\w-]+)\n                    '
+    _VALID_URL = 'https?://(?:(?:(?:watch|iframe|customer-\\w+)\\.)?(?:cloudflarestream\\.com|(?:videodelivery|bytehighway)\\.net)/|embed\\.(?:cloudflarestream\\.com|(?:videodelivery|bytehighway)\\.net)/embed/[^/]+\\.js\\?.*?\\bvideo=)(?P<id>[\\da-f]{32}|[\\w-]+\\.[\\w-]+\\.[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
-class CloudyIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.cloudy'
-    IE_NAME = 'Cloudy'
-    _VALID_URL = 'https?://(?:www\\.)?cloudy\\.ec/(?:v/|embed\\.php\\?.*?\\bid=)(?P<id>[A-Za-z0-9]+)'
+class CloudyCDNIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.cloudycdn'
+    IE_NAME = 'CloudyCDN'
+    _VALID_URL = '(?:https?:)?//embed\\.cloudycdn\\.services/(?P<site_id>[^/?#]+)/media/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -2313,6 +2414,7 @@ class ClubicIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.clubic'
     IE_NAME = 'Clubic'
     _VALID_URL = 'https?://(?:www\\.)?clubic\\.com/video/(?:[^/]+/)*video.*-(?P<id>[0-9]+)\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -2323,17 +2425,10 @@ class ClypIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class CNBCIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.cnbc'
-    IE_NAME = 'CNBC'
-    _VALID_URL = 'https?://video\\.cnbc\\.com/gallery/\\?video=(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class CNBCVideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.cnbc'
     IE_NAME = 'CNBCVideo'
-    _VALID_URL = 'https?://(?:www\\.)?cnbc\\.com(?P<path>/video/(?:[^/]+/)+(?P<id>[^./?#&]+)\\.html)'
+    _VALID_URL = 'https?://(?:www\\.)?cnbc\\.com/video/(?:[^/?#]+/)+(?P<id>[^./?#&]+)\\.html'
     _RETURN_TYPE = 'video'
 
 
@@ -2476,7 +2571,7 @@ class CrackleIE(LazyLoadExtractor):
 class CraftsyIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.craftsy'
     IE_NAME = 'Craftsy'
-    _VALID_URL = 'https?://www.craftsy.com/class/(?P<id>[a-z0-9_-]+)/'
+    _VALID_URL = 'https?://www\\.craftsy\\.com/class/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -2504,7 +2599,7 @@ class CrowdBunkerChannelIE(LazyLoadExtractor):
 class CrtvgIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.crtvg'
     IE_NAME = 'Crtvg'
-    _VALID_URL = 'https?://(?:www\\.)?crtvg\\.es/tvg/a-carta/[^/#?]+-(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?crtvg\\.es/tvg/a-carta/(?P<id>[^/#?]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -2523,7 +2618,7 @@ class CrunchyrollCmsBaseIE(CrunchyrollBaseIE):
 class CrunchyrollBetaIE(CrunchyrollCmsBaseIE):
     _module = 'yt_dlp.extractor.crunchyroll'
     IE_NAME = 'crunchyroll'
-    _VALID_URL = '(?x)\n        https?://(?:beta\\.|www\\.)?crunchyroll\\.com/\n        (?P<lang>(?:\\w{2}(?:-\\w{2})?/)?)\n        watch/(?!concert|musicvideo)(?P<id>\\w+)'
+    _VALID_URL = '(?x)\n        https?://(?:beta\\.|www\\.)?crunchyroll\\.com/\n        (?:(?P<lang>\\w{2}(?:-\\w{2})?)/)?\n        watch/(?!concert|musicvideo)(?P<id>\\w+)'
     _NETRC_MACHINE = 'crunchyroll'
     age_limit = 14
     _RETURN_TYPE = 'video'
@@ -2541,7 +2636,7 @@ class CrunchyrollBetaShowIE(CrunchyrollCmsBaseIE):
 class CrunchyrollMusicIE(CrunchyrollBaseIE):
     _module = 'yt_dlp.extractor.crunchyroll'
     IE_NAME = 'crunchyroll:music'
-    _VALID_URL = '(?x)\n        https?://(?:www\\.)?crunchyroll\\.com/\n        (?P<lang>(?:\\w{2}(?:-\\w{2})?/)?)\n        watch/(?P<type>concert|musicvideo)/(?P<id>\\w{10})'
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?crunchyroll\\.com/\n        (?P<lang>(?:\\w{2}(?:-\\w{2})?/)?)\n        watch/(?P<type>concert|musicvideo)/(?P<id>\\w+)'
     _NETRC_MACHINE = 'crunchyroll'
     _RETURN_TYPE = 'video'
 
@@ -2651,7 +2746,7 @@ class CybraryBaseIE(LazyLoadExtractor):
 class CybraryIE(CybraryBaseIE):
     _module = 'yt_dlp.extractor.cybrary'
     IE_NAME = 'Cybrary'
-    _VALID_URL = 'https?://app.cybrary.it/immersive/(?P<enrollment>[0-9]+)/activity/(?P<id>[0-9]+)'
+    _VALID_URL = 'https?://app\\.cybrary\\.it/immersive/(?P<enrollment>[0-9]+)/activity/(?P<id>[0-9]+)'
     _NETRC_MACHINE = 'cybrary'
     _RETURN_TYPE = 'video'
 
@@ -2659,7 +2754,7 @@ class CybraryIE(CybraryBaseIE):
 class CybraryCourseIE(CybraryBaseIE):
     _module = 'yt_dlp.extractor.cybrary'
     IE_NAME = 'CybraryCourse'
-    _VALID_URL = 'https://app.cybrary.it/browse/course/(?P<id>[\\w-]+)/?(?:$|[#?])'
+    _VALID_URL = 'https?://app\\.cybrary\\.it/browse/course/(?P<id>[\\w-]+)/?(?:$|[#?])'
     _NETRC_MACHINE = 'cybrary'
     _RETURN_TYPE = 'playlist'
 
@@ -2684,14 +2779,6 @@ class DacastPlaylistIE(DacastBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
-class DaftsexIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.daftsex'
-    IE_NAME = 'Daftsex'
-    _VALID_URL = 'https?://(?:www\\.)?daft\\.sex/watch/(?P<id>-?\\d+_\\d+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class DailyMailIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dailymail'
     IE_NAME = 'DailyMail'
@@ -2708,7 +2795,7 @@ class DailymotionBaseInfoExtractor(LazyLoadExtractor):
 class DailymotionIE(DailymotionBaseInfoExtractor):
     _module = 'yt_dlp.extractor.dailymotion'
     IE_NAME = 'dailymotion'
-    _VALID_URL = '(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch|geo)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:(?:embed|swf|\\#)/)|player\\.html\\?)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        [/=](?P<id>[^/?_&]+)(?:.+?\\bplaylist=(?P<playlist_id>x[0-9a-z]+))?\n                    '
+    _VALID_URL = '(?ix)\n                    https?://\n                        (?:\n                            (?:(?:www|touch|geo)\\.)?dailymotion\\.[a-z]{2,3}/(?:(?:(?:(?:embed|swf|\\#)/)|player(?:/\\w+)?\\.html\\?)?video|swf)|\n                            (?:www\\.)?lequipe\\.fr/video\n                        )\n                        [/=](?P<id>[^/?_&]+)(?:.+?\\bplaylist=(?P<playlist_id>x[0-9a-z]+))?\n                    '
     _NETRC_MACHINE = 'dailymotion'
     age_limit = 18
     _RETURN_TYPE = 'video'
@@ -2728,10 +2815,18 @@ class DailymotionPlaylistIE(DailymotionPlaylistBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
+class DailymotionSearchIE(DailymotionPlaylistBaseIE):
+    _module = 'yt_dlp.extractor.dailymotion'
+    IE_NAME = 'dailymotion:search'
+    _VALID_URL = 'https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/search/(?P<id>[^/?#]+)/videos'
+    _NETRC_MACHINE = 'dailymotion'
+    _RETURN_TYPE = 'playlist'
+
+
 class DailymotionUserIE(DailymotionPlaylistBaseIE):
     _module = 'yt_dlp.extractor.dailymotion'
     IE_NAME = 'dailymotion:user'
-    _VALID_URL = 'https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/(?!(?:embed|swf|#|video|playlist)/)(?:(?:old/)?user/)?(?P<id>[^/]+)'
+    _VALID_URL = 'https?://(?:www\\.)?dailymotion\\.[a-z]{2,3}/(?!(?:embed|swf|#|video|playlist|search)/)(?:(?:old/)?user/)?(?P<id>[^/?#]+)'
     _NETRC_MACHINE = 'dailymotion'
     _RETURN_TYPE = 'playlist'
 
@@ -2904,36 +2999,28 @@ class DHMIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dhm'
     IE_NAME = 'DHM'
     _VALID_URL = 'https?://(?:www\\.)?dhm\\.de/filmarchiv/(?:[^/]+/)+(?P<id>[^/]+)'
+    _WORKING = False
     IE_DESC = 'Filmarchiv - Deutsches Historisches Museum'
     _RETURN_TYPE = 'video'
 
 
-class DiggIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.digg'
-    IE_NAME = 'Digg'
-    _VALID_URL = 'https?://(?:www\\.)?digg\\.com/video/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
+class DouyuBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.douyutv'
+    IE_NAME = 'DouyuBase'
 
 
-class DotsubIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.dotsub'
-    IE_NAME = 'Dotsub'
-    _VALID_URL = 'https?://(?:www\\.)?dotsub\\.com/view/(?P<id>[^/]+)'
-    _RETURN_TYPE = 'video'
-
-
-class DouyuShowIE(LazyLoadExtractor):
+class DouyuShowIE(DouyuBaseIE):
     _module = 'yt_dlp.extractor.douyutv'
     IE_NAME = 'DouyuShow'
     _VALID_URL = 'https?://v(?:mobile)?\\.douyu\\.com/show/(?P<id>[0-9a-zA-Z]+)'
     _RETURN_TYPE = 'video'
 
 
-class DouyuTVIE(LazyLoadExtractor):
+class DouyuTVIE(DouyuBaseIE):
     _module = 'yt_dlp.extractor.douyutv'
     IE_NAME = 'DouyuTV'
     _VALID_URL = 'https?://(?:www\\.)?douyu(?:tv)?\\.com/(topic/\\w+\\?rid=|(?:[^/]+/))*(?P<id>[A-Za-z0-9]+)'
-    IE_DESC = '斗鱼'
+    IE_DESC = '斗鱼直播'
     _RETURN_TYPE = 'video'
 
 
@@ -3069,7 +3156,7 @@ class MotorTrendIE(DiscoveryPlusBaseIE):
 class MotorTrendOnDemandIE(DiscoveryPlusBaseIE):
     _module = 'yt_dlp.extractor.dplay'
     IE_NAME = 'MotorTrendOnDemand'
-    _VALID_URL = 'https?://(?:www\\.)?motortrendondemand\\.com/detail/(?P<id>[^/]+/[^/?#]+)'
+    _VALID_URL = 'https?://(?:www\\.)?motortrend(?:ondemand\\.com|\\.com/plus)/detail/(?P<id>[^/]+/[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3137,7 +3224,7 @@ class DrTuberIE(LazyLoadExtractor):
 class DRTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.drtv'
     IE_NAME = 'drtv'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?dr\\.dk/(?:tv/se|nyheder|(?P<radio>radio|lyd)(?:/ondemand)?)/(?:[^/]+/)*|\n                            (?:www\\.)?(?:dr\\.dk|dr-massive\\.com)/drtv/(?:se|episode|program)/\n                        )\n                        (?P<id>[\\da-z_-]+)\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?dr\\.dk/tv/se(?:/ondemand)?/(?:[^/?#]+/)*|\n                            (?:www\\.)?(?:dr\\.dk|dr-massive\\.com)/drtv/(?:se|episode|program)/\n                        )\n                        (?P<id>[\\da-z_-]+)\n                    '
     _RETURN_TYPE = 'video'
 
 
@@ -3166,6 +3253,7 @@ class DTubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dtube'
     IE_NAME = 'DTube'
     _VALID_URL = 'https?://(?:www\\.)?d\\.tube/(?:#!/)?v/(?P<uploader_id>[0-9a-z.-]+)/(?P<id>[0-9a-z]{8})'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -3196,14 +3284,7 @@ class DubokuPlaylistIE(LazyLoadExtractor):
 class DumpertIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dumpert'
     IE_NAME = 'Dumpert'
-    _VALID_URL = '(?x)\n        (?P<protocol>https?)://(?:(?:www|legacy)\\.)?dumpert\\.nl(?:\n            /(?:mediabase|embed|item)/|\n            (?:/toppers|/latest|/?)\\?selectedId=\n        )(?P<id>[0-9]+[/_][0-9a-zA-Z]+)'
-    _RETURN_TYPE = 'video'
-
-
-class DefenseGouvFrIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.defense'
-    IE_NAME = 'defense.gouv.fr'
-    _VALID_URL = 'https?://.*?\\.defense\\.gouv\\.fr/layout/set/ligthboxvideo/base-de-medias/webtv/(?P<id>[^/?#]*)'
+    _VALID_URL = '(?x)\n        (?P<protocol>https?)://(?:(?:www|legacy)\\.)?dumpert\\.nl/(?:\n            (?:mediabase|embed|item)/|\n            [^#]*[?&]selectedId=\n        )(?P<id>[0-9]+[/_][0-9a-zA-Z]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3266,7 +3347,7 @@ class DigitallySpeakingIE(LazyLoadExtractor):
 class DropboxIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dropbox'
     IE_NAME = 'Dropbox'
-    _VALID_URL = 'https?://(?:www\\.)?dropbox[.]com/sh?/(?P<id>[a-zA-Z0-9]{15})/.*'
+    _VALID_URL = 'https?://(?:www\\.)?dropbox\\.com/(?:(?:e/)?scl/fi|sh?)/(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3285,17 +3366,28 @@ class DropoutIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class DuoplayIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.duoplay'
+    IE_NAME = 'Duoplay'
+    _VALID_URL = 'https?://duoplay\\.ee/(?P<id>\\d+)/[\\w-]+/?(?:\\?(?:[^#]+&)?ep=(?P<ep>\\d+))?'
+    _RETURN_TYPE = 'video'
+
+
 class DWIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dw'
     IE_NAME = 'dw'
+    _ENABLED = None
     _VALID_URL = 'https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+(?:av|e)-(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
 class DWArticleIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.dw'
     IE_NAME = 'dw:article'
+    _ENABLED = None
     _VALID_URL = 'https?://(?:www\\.)?dw\\.com/(?:[^/]+/)+a-(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -3326,13 +3418,6 @@ class EbayIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class EchoMskIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.echomsk'
-    IE_NAME = 'EchoMsk'
-    _VALID_URL = 'https?://(?:www\\.)?echo\\.msk\\.ru/sounds/(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
 class EggheadBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.egghead'
     IE_NAME = 'EggheadBase'
@@ -3341,7 +3426,7 @@ class EggheadBaseIE(LazyLoadExtractor):
 class EggheadCourseIE(EggheadBaseIE):
     _module = 'yt_dlp.extractor.egghead'
     IE_NAME = 'egghead:course'
-    _VALID_URL = 'https://(?:app\\.)?egghead\\.io/(?:course|playlist)s/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:app\\.)?egghead\\.io/(?:course|playlist)s/(?P<id>[^/?#&]+)'
     IE_DESC = 'egghead.io course'
     _RETURN_TYPE = 'playlist'
 
@@ -3349,15 +3434,8 @@ class EggheadCourseIE(EggheadBaseIE):
 class EggheadLessonIE(EggheadBaseIE):
     _module = 'yt_dlp.extractor.egghead'
     IE_NAME = 'egghead:lesson'
-    _VALID_URL = 'https://(?:app\\.)?egghead\\.io/(?:api/v1/)?lessons/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:app\\.)?egghead\\.io/(?:api/v1/)?lessons/(?P<id>[^/?#&]+)'
     IE_DESC = 'egghead.io lesson'
-    _RETURN_TYPE = 'video'
-
-
-class EHowIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ehow'
-    IE_NAME = 'eHow'
-    _VALID_URL = 'https?://(?:www\\.)?ehow\\.com/[^/_?]*_(?P<id>[0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3382,36 +3460,10 @@ class EitbIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ElevenSportsIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.elevensports'
-    IE_NAME = 'ElevenSports'
-    _VALID_URL = 'https?://(?:www\\.)?elevensports\\.com/view/event/(?P<id>\\w+)'
-    _RETURN_TYPE = 'video'
-
-
-class EllenTubeBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ellentube'
-    IE_NAME = 'EllenTubeBase'
-
-
-class EllenTubeIE(EllenTubeBaseIE):
-    _module = 'yt_dlp.extractor.ellentube'
-    IE_NAME = 'EllenTube'
-    _VALID_URL = '(?x)\n                        (?:\n                            ellentube:|\n                            https://api-prod\\.ellentube\\.com/ellenapi/api/item/\n                        )\n                        (?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})\n                    '
-    _RETURN_TYPE = 'video'
-
-
-class EllenTubeVideoIE(EllenTubeBaseIE):
-    _module = 'yt_dlp.extractor.ellentube'
-    IE_NAME = 'EllenTubeVideo'
-    _VALID_URL = 'https?://(?:www\\.)?ellentube\\.com/video/(?P<id>.+?)\\.html'
-
-
-class EllenTubePlaylistIE(EllenTubeBaseIE):
-    _module = 'yt_dlp.extractor.ellentube'
-    IE_NAME = 'EllenTubePlaylist'
-    _VALID_URL = 'https?://(?:www\\.)?ellentube\\.com/(?:episode|studios)/(?P<id>.+?)\\.html'
-    _RETURN_TYPE = 'playlist'
+class ElementorEmbedIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.elementorembed'
+    IE_NAME = 'ElementorEmbed'
+    _VALID_URL = False
 
 
 class ElonetIE(LazyLoadExtractor):
@@ -3429,17 +3481,19 @@ class ElPaisIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class ElTreceTVIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.eltrecetv'
+    IE_NAME = 'ElTreceTV'
+    _VALID_URL = 'https?://(?:www\\.)?eltrecetv\\.com\\.ar/[\\w-]+/capitulos/temporada-\\d+/(?P<id>[\\w-]+)'
+    IE_DESC = 'El Trece TV (Argentina)'
+    _RETURN_TYPE = 'video'
+
+
 class EmbedlyIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.embedly'
     IE_NAME = 'Embedly'
     _VALID_URL = 'https?://(?:www|cdn\\.)?embedly\\.com/widgets/media\\.html\\?(?:[^#]*?&)?(?:src|url)=(?:[^#&]+)'
     _RETURN_TYPE = 'any'
-
-
-class EngadgetIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.engadget'
-    IE_NAME = 'Engadget'
-    _VALID_URL = 'https?://(?:www\\.)?engadget\\.com/video/(?P<id>[^/?#]+)'
 
 
 class EpiconIE(LazyLoadExtractor):
@@ -3456,6 +3510,22 @@ class EpiconSeriesIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
+class EpidemicSoundIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.epidemicsound'
+    IE_NAME = 'EpidemicSound'
+    _VALID_URL = 'https?://(?:www\\.)?epidemicsound\\.com/track/(?P<id>[0-9a-zA-Z]+)'
+    _RETURN_TYPE = 'video'
+
+
+class EplusIbIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.eplus'
+    IE_NAME = 'eplus'
+    _VALID_URL = ['https?://live\\.eplus\\.jp/ex/player\\?ib=(?P<id>(?:\\w|%2B|%2F){86}%3D%3D)', 'https?://live\\.eplus\\.jp/(?P<id>sample|\\d+)']
+    IE_DESC = 'e+ (イープラス)'
+    _NETRC_MACHINE = 'eplus'
+    _RETURN_TYPE = 'video'
+
+
 class EpochIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.epoch'
     IE_NAME = 'Epoch'
@@ -3467,6 +3537,14 @@ class EpornerIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.eporner'
     IE_NAME = 'Eporner'
     _VALID_URL = 'https?://(?:www\\.)?eporner\\.com/(?:(?:hd-porn|embed)/|video-)(?P<id>\\w+)(?:/(?P<display_id>[\\w-]+))?'
+    age_limit = 18
+    _RETURN_TYPE = 'video'
+
+
+class ErocastIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.erocast'
+    IE_NAME = 'Erocast'
+    _VALID_URL = 'https?://(?:www\\.)?erocast\\.me/track/(?P<id>[0-9]+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -3485,6 +3563,13 @@ class EroProfileAlbumIE(LazyLoadExtractor):
     IE_NAME = 'EroProfile:album'
     _VALID_URL = 'https?://(?:www\\.)?eroprofile\\.com/m/videos/album/(?P<id>[^/]+)'
     _RETURN_TYPE = 'playlist'
+
+
+class ERRJupiterIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.err'
+    IE_NAME = 'ERRJupiter'
+    _VALID_URL = 'https?://(?:jupiter(?:pluss)?|lasteekraan)\\.err\\.ee/(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
 
 
 class ERTFlixBaseIE(LazyLoadExtractor):
@@ -3514,13 +3599,6 @@ class ERTWebtvEmbedIE(LazyLoadExtractor):
     IE_NAME = 'ertwebtv:embed'
     _VALID_URL = 'https?://www\\.ert\\.gr/webtv/live\\-uni/vod/dt\\-uni\\-vod\\.php\\?([^#]+&)?f=(?P<id>[^#&]+)'
     IE_DESC = 'ert.gr webtv embedded videos'
-    _RETURN_TYPE = 'video'
-
-
-class EscapistIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.escapist'
-    IE_NAME = 'Escapist'
-    _VALID_URL = 'https?://?(?:(?:www|v1)\\.)?escapistmagazine\\.com/videos/view/[^/]+/(?P<id>[0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3568,13 +3646,6 @@ class ESPNCricInfoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class EsriVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.esri'
-    IE_NAME = 'EsriVideo'
-    _VALID_URL = 'https?://video\\.esri\\.com/watch/(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class EttuTvIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ettutv'
     IE_NAME = 'EttuTv'
@@ -3586,6 +3657,7 @@ class EuropaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.europa'
     IE_NAME = 'Europa'
     _VALID_URL = 'https?://ec\\.europa\\.eu/avservices/(?:video/player|audio/audioDetails)\\.cfm\\?.*?\\bref=(?P<id>[A-Za-z0-9-]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -3617,17 +3689,10 @@ class EUScreenIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ExpoTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.expotv'
-    IE_NAME = 'ExpoTV'
-    _VALID_URL = 'https?://(?:www\\.)?expotv\\.com/videos/[^?#]*/(?P<id>[0-9]+)($|[?#])'
-    _RETURN_TYPE = 'video'
-
-
 class ExpressenIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.expressen'
     IE_NAME = 'Expressen'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?(?:expressen|di)\\.se/\n                        (?:(?:tvspelare/video|videoplayer/embed)/)?\n                        tv/(?:[^/]+/)*\n                        (?P<id>[^/?#&]+)\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?(?:expressen|di)\\.se/\n                        (?:(?:tvspelare/video|video-?player/embed)/)?\n                        (?:tv|nyheter)/(?:[^/?#]+/)*\n                        (?P<id>[^/?#&]+)\n                    '
     _RETURN_TYPE = 'video'
 
 
@@ -3641,7 +3706,7 @@ class EyedoTVIE(LazyLoadExtractor):
 class FacebookIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.facebook'
     IE_NAME = 'facebook'
-    _VALID_URL = '(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php|\n                                watch(?:/live)?/?\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            groups/[^/]+/permalink/|\n                            watchparty/\n                        )|\n                    facebook:\n                )\n                (?P<id>[0-9]+)\n                '
+    _VALID_URL = '(?x)\n                (?:\n                    https?://\n                        (?:[\\w-]+\\.)?(?:facebook\\.com|facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd\\.onion)/\n                        (?:[^#]*?\\#!/)?\n                        (?:\n                            (?:\n                                permalink\\.php|\n                                video/video\\.php|\n                                photo\\.php|\n                                video\\.php|\n                                video/embed|\n                                story\\.php|\n                                watch(?:/live)?/?\n                            )\\?(?:.*?)(?:v|video_id|story_fbid)=|\n                            [^/]+/videos/(?:[^/]+/)?|\n                            [^/]+/posts/|\n                            events/(?:[^/]+/)?|\n                            groups/[^/]+/(?:permalink|posts)/|\n                            watchparty/\n                        )|\n                    facebook:\n                )\n                (?P<id>pfbid[A-Za-z0-9]+|\\d+)\n                '
     _NETRC_MACHINE = 'facebook'
     _RETURN_TYPE = 'any'
 
@@ -3668,10 +3733,25 @@ class FacebookReelIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class FacebookAdsIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.facebook'
+    IE_NAME = 'facebook:ads'
+    _VALID_URL = 'https?://(?:[\\w-]+\\.)?facebook\\.com/ads/library/?\\?(?:[^#]+&)?id=(?P<id>\\d+)'
+    _RETURN_TYPE = 'any'
+
+
+class FathomIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.fathom'
+    IE_NAME = 'Fathom'
+    _VALID_URL = 'https?://(?:www\\.)?fathom\\.video/share/(?P<id>[^/?#&]+)'
+    _RETURN_TYPE = 'video'
+
+
 class FancodeVodIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.fancode'
     IE_NAME = 'fancode:vod'
     _VALID_URL = 'https?://(?:www\\.)?fancode\\.com/video/(?P<id>[0-9]+)\\b'
+    _WORKING = False
     _NETRC_MACHINE = 'fancode'
     _RETURN_TYPE = 'video'
 
@@ -3680,6 +3760,7 @@ class FancodeLiveIE(FancodeVodIE):
     _module = 'yt_dlp.extractor.fancode'
     IE_NAME = 'fancode:live'
     _VALID_URL = 'https?://(www\\.)?fancode\\.com/match/(?P<id>[0-9]+).+'
+    _WORKING = False
     _NETRC_MACHINE = 'fancode'
     _RETURN_TYPE = 'video'
 
@@ -3723,14 +3804,7 @@ class FczenitIE(LazyLoadExtractor):
 class FifaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.fifa'
     IE_NAME = 'Fifa'
-    _VALID_URL = 'https?://www.fifa.com/fifaplus/(?P<locale>\\w{2})/watch/([^#?]+/)?(?P<id>\\w+)'
-    _RETURN_TYPE = 'video'
-
-
-class FilmmoduIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.filmmodu'
-    IE_NAME = 'Filmmodu'
-    _VALID_URL = 'https?://(?:www.)?filmmodu.org/(?P<id>[^/]+-(?:turkce-dublaj-izle|altyazili-izle))'
+    _VALID_URL = 'https?://www\\.fifa\\.com/fifaplus/(?P<locale>\\w{2})/watch/([^#?]+/)?(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
@@ -3770,11 +3844,32 @@ class FiveTVIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class FlexTVIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.flextv'
+    IE_NAME = 'FlexTV'
+    _VALID_URL = 'https?://(?:www\\.)?flextv\\.co\\.kr/channels/(?P<id>\\d+)/live'
+    _RETURN_TYPE = 'video'
+
+
 class FlickrIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.flickr'
     IE_NAME = 'Flickr'
     _VALID_URL = 'https?://(?:www\\.|secure\\.)?flickr\\.com/photos/[\\w\\-_@]+/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
+
+
+class FloatplaneIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.floatplane'
+    IE_NAME = 'Floatplane'
+    _VALID_URL = 'https?://(?:(?:www|beta)\\.)?floatplane\\.com/post/(?P<id>\\w+)'
+    _RETURN_TYPE = 'any'
+
+
+class FloatplaneChannelIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.floatplane'
+    IE_NAME = 'FloatplaneChannel'
+    _VALID_URL = 'https?://(?:(?:www|beta)\\.)?floatplane\\.com/channel/(?P<id>[\\w-]+)/home(?:/(?P<channel>[\\w-]+))?'
+    _RETURN_TYPE = 'playlist'
 
 
 class FolketingetIE(LazyLoadExtractor):
@@ -3836,24 +3931,10 @@ class FuxIE(FourTubeBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class FourZeroStudioArchiveIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.fourzerostudio'
-    IE_NAME = '0000studio:archive'
-    _VALID_URL = 'https?://0000\\.studio/(?P<uploader_id>[^/]+)/broadcasts/(?P<id>[^/]+)/archive'
-    _RETURN_TYPE = 'video'
-
-
-class FourZeroStudioClipIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.fourzerostudio'
-    IE_NAME = '0000studio:clip'
-    _VALID_URL = 'https?://0000\\.studio/(?P<uploader_id>[^/]+)/archive-clip/(?P<id>[^/]+)'
-    _RETURN_TYPE = 'video'
-
-
 class FOXIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.fox'
     IE_NAME = 'FOX'
-    _VALID_URL = 'https?://(?:www\\.)?fox\\.com/watch/(?P<id>[\\da-fA-F]+)'
+    _VALID_URL = 'https?://(?:www\\.)?fox(?:sports)?\\.com/(?:watch|replay)/(?P<id>[\\da-fA-F]+)'
     age_limit = 14
     _RETURN_TYPE = 'video'
 
@@ -3868,14 +3949,6 @@ class FOX9NewsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.fox9'
     IE_NAME = 'FOX9News'
     _VALID_URL = 'https?://(?:www\\.)?fox9\\.com/news/(?P<id>[^/?&#]+)'
-    _RETURN_TYPE = 'video'
-
-
-class FoxgayIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.foxgay'
-    IE_NAME = 'Foxgay'
-    _VALID_URL = 'https?://(?:www\\.)?foxgay\\.com/videos/(?:\\S+-)?(?P<id>\\d+)\\.shtml'
-    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -3926,7 +3999,7 @@ class FranceInterIE(LazyLoadExtractor):
 class FranceTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.francetv'
     IE_NAME = 'FranceTV'
-    _VALID_URL = '(?x)\n                    (?:\n                        https?://\n                            sivideo\\.webservices\\.francetelevisions\\.fr/tools/getInfosOeuvre/v2/\\?\n                            .*?\\bidDiffusion=[^&]+|\n                        (?:\n                            https?://videos\\.francetv\\.fr/video/|\n                            francetv:\n                        )\n                        (?P<id>[^@]+)(?:@(?P<catalog>.+))?\n                    )\n                    '
+    _VALID_URL = 'francetv:(?P<id>[^@#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -4074,13 +4147,6 @@ class Funker530IE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class FusionIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.fusion'
-    IE_NAME = 'Fusion'
-    _VALID_URL = 'https?://(?:www\\.)?fusion\\.(?:net|tv)/(?:video/|show/.+?\\bvideo=)(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
 class FuyinTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.fuyintv'
     IE_NAME = 'FuyinTV'
@@ -4107,13 +4173,6 @@ class GaiaIE(LazyLoadExtractor):
     IE_NAME = 'Gaia'
     _VALID_URL = 'https?://(?:www\\.)?gaia\\.com/video/(?P<id>[^/?]+).*?\\bfullplayer=(?P<type>feature|preview)'
     _NETRC_MACHINE = 'gaia'
-    _RETURN_TYPE = 'video'
-
-
-class GameInformerIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.gameinformer'
-    IE_NAME = 'GameInformer'
-    _VALID_URL = 'https?://(?:www\\.)?gameinformer\\.com/(?:[^/]+/)*(?P<id>[^.?&#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -4194,6 +4253,7 @@ class GazetaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.gazeta'
     IE_NAME = 'Gazeta'
     _VALID_URL = '(?P<url>https?://(?:www\\.)?gazeta\\.ru/(?:[^/]+/)?video/(?:main/)*(?:\\d{4}/\\d{2}/\\d{2}/)?(?P<id>[A-Za-z0-9-_.]+)\\.s?html)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -4201,6 +4261,7 @@ class GDCVaultIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.gdcvault'
     IE_NAME = 'GDCVault'
     _VALID_URL = 'https?://(?:www\\.)?gdcvault\\.com/play/(?P<id>\\d+)(?:/(?P<name>[\\w-]+))?'
+    _WORKING = False
     _NETRC_MACHINE = 'gdcvault'
     _RETURN_TYPE = 'video'
 
@@ -4226,6 +4287,21 @@ class GeniusLyricsIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
+class GetCourseRuPlayerIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.getcourseru'
+    IE_NAME = 'GetCourseRuPlayer'
+    _VALID_URL = 'https?://player02\\.getcourse\\.ru/sign-player/?\\?(?:[^#]+&)?json=[^#&]+'
+    _RETURN_TYPE = 'video'
+
+
+class GetCourseRuIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.getcourseru'
+    IE_NAME = 'GetCourseRu'
+    _VALID_URL = ['https?://(?:(?!player02\\.)[^.]+\\.getcourse\\.(?:ru|io)|academymel\\.online|marafon\\.mani\\-beauty\\.com|on\\.psbook\\.ru)/(?!pl/|teach/)(?P<id>[^?#]+)', 'https?://(?:(?!player02\\.)[^.]+\\.getcourse\\.(?:ru|io)|academymel\\.online|marafon\\.mani\\-beauty\\.com|on\\.psbook\\.ru)/(:?pl/)?teach/control/lesson/view\\?(?:[^#]+&)?id=(?P<id>\\d+)']
+    _NETRC_MACHINE = 'getcourseru'
+    _RETURN_TYPE = 'playlist'
+
+
 class GettrBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.gettr'
     IE_NAME = 'GettrBase'
@@ -4245,24 +4321,10 @@ class GettrStreamingIE(GettrBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class GfycatIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.gfycat'
-    IE_NAME = 'Gfycat'
-    _VALID_URL = 'https?://(?:(?:www|giant|thumbs)\\.)?gfycat\\.com/(?i:ru/|ifr/|gifs/detail/)?(?P<id>[^-/?#\\."\\\']+)'
-    _RETURN_TYPE = 'video'
-
-
 class GiantBombIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.giantbomb'
     IE_NAME = 'GiantBomb'
     _VALID_URL = 'https?://(?:www\\.)?giantbomb\\.com/(?:videos|shows)/(?P<display_id>[^/]+)/(?P<id>\\d+-\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class GigaIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.giga'
-    IE_NAME = 'Giga'
-    _VALID_URL = 'https?://(?:www\\.)?giga\\.de/(?:[^/]+/)*(?P<id>[^/]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -4352,6 +4414,7 @@ class GodTubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.godtube'
     IE_NAME = 'GodTube'
     _VALID_URL = 'https?://(?:www\\.)?godtube\\.com/watch/\\?v=(?P<id>[\\da-zA-Z]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -4379,7 +4442,7 @@ class GoodGameIE(LazyLoadExtractor):
 class GoogleDriveIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.googledrive'
     IE_NAME = 'GoogleDrive'
-    _VALID_URL = '(?x)\n                        https?://\n                            (?:\n                                (?:docs|drive)\\.google\\.com/\n                                (?:\n                                    (?:uc|open)\\?.*?id=|\n                                    file/d/\n                                )|\n                                video\\.google\\.com/get_player\\?.*?docid=\n                            )\n                            (?P<id>[a-zA-Z0-9_-]{28,})\n                    '
+    _VALID_URL = '(?x)\n                        https?://\n                            (?:\n                                (?:docs|drive|drive\\.usercontent)\\.google\\.com/\n                                (?:\n                                    (?:uc|open|download)\\?.*?id=|\n                                    file/d/\n                                )|\n                                video\\.google\\.com/get_player\\?.*?docid=\n                            )\n                            (?P<id>[a-zA-Z0-9_-]{28,})\n                    '
     _RETURN_TYPE = 'video'
 
 
@@ -4519,14 +4582,6 @@ class HellPornoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class HelsinkiIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.helsinki'
-    IE_NAME = 'Helsinki'
-    _VALID_URL = 'https?://video\\.helsinki\\.fi/Arkisto/flash\\.php\\?id=(?P<id>\\d+)'
-    IE_DESC = 'helsinki.fi'
-    _RETURN_TYPE = 'video'
-
-
 class HGTVComShowIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.hgtv'
     IE_NAME = 'hgtv.com:show'
@@ -4555,24 +4610,6 @@ class HistoricFilmsIE(LazyLoadExtractor):
     IE_NAME = 'HistoricFilms'
     _VALID_URL = 'https?://(?:www\\.)?historicfilms\\.com/(?:tapes/|play)(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
-
-
-class HitboxIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.hitbox'
-    IE_NAME = 'hitbox'
-    _VALID_URL = 'https?://(?:www\\.)?(?:hitbox|smashcast)\\.tv/(?:[^/]+/)*videos?/(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
-class HitboxLiveIE(HitboxIE):
-    _module = 'yt_dlp.extractor.hitbox'
-    IE_NAME = 'hitbox:live'
-    _VALID_URL = 'https?://(?:www\\.)?(?:hitbox|smashcast)\\.tv/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-    @classmethod
-    def suitable(cls, url):
-        return False if HitboxIE.suitable(url) else super(HitboxLiveIE, cls).suitable(url)
 
 
 class HitRecordIE(LazyLoadExtractor):
@@ -4607,6 +4644,7 @@ class HotNewHipHopIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.hotnewhiphop'
     IE_NAME = 'HotNewHipHop'
     _VALID_URL = 'https?://(?:www\\.)?hotnewhiphop\\.com/.*\\.(?P<id>.*)\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -4618,7 +4656,7 @@ class HotStarBaseIE(LazyLoadExtractor):
 class HotStarIE(HotStarBaseIE):
     _module = 'yt_dlp.extractor.hotstar'
     IE_NAME = 'hotstar'
-    _VALID_URL = '(?x)\n        https?://(?:www\\.)?hotstar\\.com(?:/in)?/(?!in/)\n        (?:\n            (?P<type>movies|sports|episode|(?P<tv>tv|shows))/\n            (?(tv)(?:[^/?#]+/){2}|[^?#]*)\n        )?\n        [^/?#]+/\n        (?P<id>\\d{10})\n    '
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?hotstar\\.com(?:/in)?/(?!in/)\n        (?:\n            (?P<type>movies|sports|clips|episode|(?P<tv>tv|shows))/\n            (?(tv)(?:[^/?#]+/){2}|[^?#]*)\n        )?\n        [^/?#]+/\n        (?P<id>\\d{10})\n    '
     _RETURN_TYPE = 'video'
 
 
@@ -4649,20 +4687,6 @@ class HotStarSeriesIE(HotStarBaseIE):
     IE_NAME = 'hotstar:series'
     _VALID_URL = '(?P<url>https?://(?:www\\.)?hotstar\\.com(?:/in)?/(?:tv|shows)/[^/]+/(?P<id>\\d+))/?(?:[#?]|$)'
     _RETURN_TYPE = 'playlist'
-
-
-class HowcastIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.howcast'
-    IE_NAME = 'Howcast'
-    _VALID_URL = 'https?://(?:www\\.)?howcast\\.com/videos/(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class HowStuffWorksIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.howstuffworks'
-    IE_NAME = 'HowStuffWorks'
-    _VALID_URL = 'https?://[\\da-z-]+\\.(?:howstuffworks|stuff(?:(?:youshould|theydontwantyouto)know|toblowyourmind|momnevertoldyou)|(?:brain|car)stuffshow|fwthinking|geniusstuff)\\.com/(?:[^/]+/)*(?:\\d+-)?(?P<id>.+?)-video\\.htm'
-    _RETURN_TYPE = 'video'
 
 
 class HrefLiRedirectIE(LazyLoadExtractor):
@@ -4757,24 +4781,29 @@ class HuffPostIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class HungamaIE(LazyLoadExtractor):
+class HungamaBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.hungama'
+    IE_NAME = 'HungamaBase'
+
+
+class HungamaIE(HungamaBaseIE):
     _module = 'yt_dlp.extractor.hungama'
     IE_NAME = 'Hungama'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?hungama\\.com/\n                        (?:\n                            (?:video|movie)/[^/]+/|\n                            tv-show/(?:[^/]+/){2}\\d+/episode/[^/]+/\n                        )\n                        (?P<id>\\d+)\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.|un\\.)?hungama\\.com/\n                        (?:\n                            (?:video|movie|short-film)/[^/]+/|\n                            tv-show/(?:[^/]+/){2}\\d+/episode/[^/]+/\n                        )\n                        (?P<id>\\d+)\n                    '
     _RETURN_TYPE = 'video'
 
 
 class HungamaSongIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.hungama'
     IE_NAME = 'HungamaSong'
-    _VALID_URL = 'https?://(?:www\\.)?hungama\\.com/song/[^/]+/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.|un\\.)?hungama\\.com/song/[^/]+/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
-class HungamaAlbumPlaylistIE(LazyLoadExtractor):
+class HungamaAlbumPlaylistIE(HungamaBaseIE):
     _module = 'yt_dlp.extractor.hungama'
     IE_NAME = 'HungamaAlbumPlaylist'
-    _VALID_URL = 'https?://(?:www\\.)?hungama\\.com/(?:playlists|album)/[^/]+/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.|un\\.)?hungama\\.com/(?P<path>playlists|album)/[^/]+/(?P<id>\\d+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -4864,7 +4893,7 @@ class IHeartRadioBaseIE(LazyLoadExtractor):
 
 class IHeartRadioIE(IHeartRadioBaseIE):
     _module = 'yt_dlp.extractor.iheart'
-    IE_NAME = 'IHeartRadio'
+    IE_NAME = 'iheartradio'
     _VALID_URL = '(?:https?://(?:www\\.)?iheart\\.com/podcast/[^/]+/episode/(?P<display_id>[^/?&#]+)-|iheartradio:)(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
@@ -4874,6 +4903,13 @@ class IHeartRadioPodcastIE(IHeartRadioBaseIE):
     IE_NAME = 'iheartradio:podcast'
     _VALID_URL = 'https?://(?:www\\.)?iheart(?:podcastnetwork)?\\.com/podcast/[^/?&#]+-(?P<id>\\d+)/?(?:[?#&]|$)'
     _RETURN_TYPE = 'playlist'
+
+
+class IlPostIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ilpost'
+    IE_NAME = 'IlPost'
+    _VALID_URL = 'https?://(?:www\\.)?ilpost\\.it/episodes/(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'video'
 
 
 class IltalehtiIE(LazyLoadExtractor):
@@ -4899,25 +4935,35 @@ class ImdbListIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class ImgurIE(LazyLoadExtractor):
+class ImgurBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.imgur'
+    IE_NAME = 'ImgurBase'
+
+
+class ImgurIE(ImgurBaseIE):
     _module = 'yt_dlp.extractor.imgur'
     IE_NAME = 'Imgur'
-    _VALID_URL = 'https?://(?:i\\.)?imgur\\.com/(?!(?:a|gallery|(?:t(?:opic)?|r)/[^/]+)/)(?P<id>[a-zA-Z0-9]+)'
+    _VALID_URL = 'https?://(?:i\\.)?imgur\\.com/(?!(?:a|gallery|t|topic|r)/)(?P<id>[a-zA-Z0-9]+)'
     _RETURN_TYPE = 'video'
 
 
-class ImgurGalleryIE(LazyLoadExtractor):
+class ImgurGalleryBaseIE(ImgurBaseIE):
     _module = 'yt_dlp.extractor.imgur'
-    IE_NAME = 'imgur:gallery'
-    _VALID_URL = 'https?://(?:i\\.)?imgur\\.com/(?:gallery|(?:t(?:opic)?|r)/[^/]+)/(?P<id>[a-zA-Z0-9]+)'
-    _RETURN_TYPE = 'any'
+    IE_NAME = 'ImgurGalleryBase'
 
 
-class ImgurAlbumIE(ImgurGalleryIE):
+class ImgurAlbumIE(ImgurGalleryBaseIE):
     _module = 'yt_dlp.extractor.imgur'
     IE_NAME = 'imgur:album'
     _VALID_URL = 'https?://(?:i\\.)?imgur\\.com/a/(?P<id>[a-zA-Z0-9]+)'
     _RETURN_TYPE = 'playlist'
+
+
+class ImgurGalleryIE(ImgurGalleryBaseIE):
+    _module = 'yt_dlp.extractor.imgur'
+    IE_NAME = 'imgur:gallery'
+    _VALID_URL = 'https?://(?:i\\.)?imgur\\.com/(?:gallery|(?:t(?:opic)?|r)/[^/?#]+)/(?P<id>[a-zA-Z0-9]+)'
+    _RETURN_TYPE = 'any'
 
 
 class InaIE(LazyLoadExtractor):
@@ -4980,6 +5026,7 @@ class InstagramUserIE(InstagramPlaylistBaseIE):
     _module = 'yt_dlp.extractor.instagram'
     IE_NAME = 'instagram:user'
     _VALID_URL = 'https?://(?:www\\.)?instagram\\.com/(?P<id>[^/]{2,})/?(?:$|[?#])'
+    _WORKING = False
     IE_DESC = 'Instagram user profile'
     _NETRC_MACHINE = 'instagram'
     _RETURN_TYPE = 'playlist'
@@ -5086,14 +5133,14 @@ class ITProTVBaseIE(LazyLoadExtractor):
 class ITProTVIE(ITProTVBaseIE):
     _module = 'yt_dlp.extractor.itprotv'
     IE_NAME = 'ITProTV'
-    _VALID_URL = 'https://app.itpro.tv/course/(?P<course>[\\w-]+)/(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://app\\.itpro\\.tv/course/(?P<course>[\\w-]+)/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
 class ITProTVCourseIE(ITProTVBaseIE):
     _module = 'yt_dlp.extractor.itprotv'
     IE_NAME = 'ITProTVCourse'
-    _VALID_URL = 'https?://app.itpro.tv/course/(?P<id>[\\w-]+)/?(?:$|[#?])'
+    _VALID_URL = 'https?://app\\.itpro\\.tv/course/(?P<id>[\\w-]+)/?(?:$|[#?])'
     _RETURN_TYPE = 'playlist'
 
 
@@ -5183,7 +5230,7 @@ class IzleseneIE(LazyLoadExtractor):
 class JableIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.jable'
     IE_NAME = 'Jable'
-    _VALID_URL = 'https?://(?:www\\.)?jable.tv/videos/(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://(?:www\\.)?jable\\.tv/videos/(?P<id>[\\w-]+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -5191,7 +5238,7 @@ class JableIE(LazyLoadExtractor):
 class JablePlaylistIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.jable'
     IE_NAME = 'JablePlaylist'
-    _VALID_URL = 'https?://(?:www\\.)?jable.tv/(?:categories|models|tags)/(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://(?:www\\.)?jable\\.tv/(?:categories|models|tags)/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -5260,8 +5307,36 @@ class SangiinIE(LazyLoadExtractor):
 class JeuxVideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.jeuxvideo'
     IE_NAME = 'JeuxVideo'
+    _ENABLED = None
     _VALID_URL = 'https?://.*?\\.jeuxvideo\\.com/.*/(.*?)\\.htm'
+    _WORKING = False
     _RETURN_TYPE = 'video'
+
+
+class JioSaavnBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.jiosaavn'
+    IE_NAME = 'JioSaavnBase'
+
+
+class JioSaavnSongIE(JioSaavnBaseIE):
+    _module = 'yt_dlp.extractor.jiosaavn'
+    IE_NAME = 'jiosaavn:song'
+    _VALID_URL = 'https?://(?:www\\.)?(?:jiosaavn\\.com/song/[^/?#]+/|saavn\\.com/s/song/(?:[^/?#]+/){3})(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'video'
+
+
+class JioSaavnAlbumIE(JioSaavnBaseIE):
+    _module = 'yt_dlp.extractor.jiosaavn'
+    IE_NAME = 'jiosaavn:album'
+    _VALID_URL = 'https?://(?:www\\.)?(?:jio)?saavn\\.com/album/[^/?#]+/(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class JioSaavnPlaylistIE(JioSaavnBaseIE):
+    _module = 'yt_dlp.extractor.jiosaavn'
+    IE_NAME = 'jiosaavn:playlist'
+    _VALID_URL = 'https?://(?:www\\.)?(?:jio)?saavn\\.com/s/playlist/(?:[^/?#]+/){2}(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class JoveIE(LazyLoadExtractor):
@@ -5278,11 +5353,35 @@ class JojIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class JoqrAgIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.joqrag'
+    IE_NAME = 'JoqrAg'
+    _VALID_URL = ['https?://www\\.uniqueradio\\.jp/agplayer5/(?:player|inc-player-hls)\\.php', 'https?://(?:www\\.)?joqr\\.co\\.jp/ag/', 'https?://(?:www\\.)?joqr\\.co\\.jp/qr/ag(?:daily|regular)program/?(?:$|[#?])']
+    IE_DESC = '超!A&G+ 文化放送 (f.k.a. AGQR) Nippon Cultural Broadcasting, Inc. (JOQR)'
+    _RETURN_TYPE = 'video'
+
+
 class JStreamIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.jstream'
     IE_NAME = 'JStream'
     _VALID_URL = 'jstream:(?P<host>www\\d+):(?P<id>(?P<publisher>[a-z0-9]+):(?P<mid>\\d+))'
     _RETURN_TYPE = 'video'
+
+
+class JTBCIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.jtbc'
+    IE_NAME = 'JTBC'
+    _VALID_URL = '(?x)\n        https?://(?:\n            vod\\.jtbc\\.co\\.kr/player/(?:program|clip)\n            |tv\\.jtbc\\.co\\.kr/(?:replay|trailer|clip)/pr\\d+/pm\\d+\n        )/(?P<id>(?:ep|vo)\\d+)'
+    IE_DESC = 'jtbc.co.kr'
+    age_limit = 15
+    _RETURN_TYPE = 'video'
+
+
+class JTBCProgramIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.jtbc'
+    IE_NAME = 'JTBC:program'
+    _VALID_URL = 'https?://(?:vod\\.jtbc\\.co\\.kr/program|tv\\.jtbc\\.co\\.kr/replay)/(?P<id>pr\\d+)/(?:replay|pm\\d+)/?(?:$|[?#])'
+    _RETURN_TYPE = 'playlist'
 
 
 class JWPlatformIE(LazyLoadExtractor):
@@ -5306,17 +5405,11 @@ class KalturaIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
-class Kanal2IE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.kanal2'
-    IE_NAME = 'Kanal2'
-    _VALID_URL = 'https?://kanal2\\.postimees\\.ee/[^?#]+\\?([^#]+&)?id=(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
 class KankaNewsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kankanews'
     IE_NAME = 'KankaNews'
     _VALID_URL = 'https?://(?:www\\.)?kankanews\\.com/a/\\d+\\-\\d+\\-\\d+/(?P<id>\\d+)\\.shtml'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -5327,33 +5420,11 @@ class KaraoketvIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class KarriereVideosIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.karrierevideos'
-    IE_NAME = 'KarriereVideos'
-    _VALID_URL = 'https?://(?:www\\.)?karrierevideos\\.at(?:/[^/]+)+/(?P<id>[^/]+)'
-    _RETURN_TYPE = 'video'
-
-
-class KeezMoviesIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.keezmovies'
-    IE_NAME = 'KeezMovies'
-    _VALID_URL = 'https?://(?:www\\.)?keezmovies\\.com/video/(?:(?P<display_id>[^/]+)-)?(?P<id>\\d+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class ExtremeTubeIE(KeezMoviesIE):
-    _module = 'yt_dlp.extractor.extremetube'
-    IE_NAME = 'ExtremeTube'
-    _VALID_URL = 'https?://(?:www\\.)?extremetube\\.com/(?:[^/]+/)?video/(?P<id>[^/#?&]+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class KelbyOneIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kelbyone'
     IE_NAME = 'KelbyOne'
     _VALID_URL = 'https?://members\\.kelbyone\\.com/course/(?P<id>[^$&?#/]+)'
+    _WORKING = False
     _RETURN_TYPE = 'playlist'
 
 
@@ -5384,7 +5455,7 @@ class KickBaseIE(LazyLoadExtractor):
 class KickIE(KickBaseIE):
     _module = 'yt_dlp.extractor.kick'
     IE_NAME = 'Kick'
-    _VALID_URL = 'https?://(?:www\\.)?kick\\.com/(?!(?:video|categories|search|auth)(?:[/?#]|$))(?P<id>[\\w_]+)'
+    _VALID_URL = 'https?://(?:www\\.)?kick\\.com/(?!(?:video|categories|search|auth)(?:[/?#]|$))(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -5411,8 +5482,8 @@ class KickStarterIE(LazyLoadExtractor):
 
 class KinjaEmbedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kinja'
-    IE_NAME = 'KinjaEmbed'
-    _VALID_URL = '(?x)https?://(?:[^.]+\\.)?\n        (?:\n            avclub|\n            clickhole|\n            deadspin|\n            gizmodo|\n            jalopnik|\n            jezebel|\n            kinja|\n            kotaku|\n            lifehacker|\n            splinternews|\n            the(?:inventory|onion|root|takeout)\n        )\\.com/\n        (?:\n            ajax/inset|\n            embed/video\n        )/iframe\\?.*?\\bid=\n        (?P<type>\n            fb|\n            imgur|\n            instagram|\n            jwp(?:layer)?-video|\n            kinjavideo|\n            mcp|\n            megaphone|\n            ooyala|\n            soundcloud(?:-playlist)?|\n            tumblr-post|\n            twitch-stream|\n            twitter|\n            ustream-channel|\n            vimeo|\n            vine|\n            youtube-(?:list|video)\n        )-(?P<id>[^&]+)'
+    IE_NAME = 'kinja:embed'
+    _VALID_URL = '(?x)https?://(?:[^.]+\\.)?\n        (?:\n            avclub|\n            clickhole|\n            deadspin|\n            gizmodo|\n            jalopnik|\n            jezebel|\n            kinja|\n            kotaku|\n            lifehacker|\n            splinternews|\n            the(?:inventory|onion|root|takeout)\n        )\\.com/\n        (?:\n            ajax/inset|\n            embed/video\n        )/iframe\\?.*?\\bid=\n        (?P<type>\n            fb|\n            imgur|\n            instagram|\n            jwp(?:layer)?-video|\n            kinjavideo|\n            mcp|\n            megaphone|\n            soundcloud(?:-playlist)?|\n            tumblr-post|\n            twitch-stream|\n            twitter|\n            ustream-channel|\n            vimeo|\n            vine|\n            youtube-(?:list|video)\n        )-(?P<id>[^&]+)'
 
 
 class KinoPoiskIE(LazyLoadExtractor):
@@ -5426,7 +5497,7 @@ class KinoPoiskIE(LazyLoadExtractor):
 class KommunetvIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kommunetv'
     IE_NAME = 'Kommunetv'
-    _VALID_URL = 'https://(\\w+).kommunetv.no/archive/(?P<id>\\w+)'
+    _VALID_URL = 'https?://\\w+\\.kommunetv\\.no/archive/(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
@@ -5442,17 +5513,11 @@ class KompasVideoIE(JixieBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class KonserthusetPlayIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.konserthusetplay'
-    IE_NAME = 'KonserthusetPlay'
-    _VALID_URL = 'https?://(?:www\\.)?(?:konserthusetplay|rspoplay)\\.se/\\?.*\\bm=(?P<id>[^&]+)'
-    _RETURN_TYPE = 'video'
-
-
 class KooIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.koo'
     IE_NAME = 'Koo'
     _VALID_URL = 'https?://(?:www\\.)?kooapp\\.com/koo/[^/]+/(?P<id>[^/&#$?]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -5467,6 +5532,7 @@ class KrasViewIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.krasview'
     IE_NAME = 'KrasView'
     _VALID_URL = 'https?://krasview\\.ru/(?:video|embed)/(?P<id>\\d+)'
+    _WORKING = False
     IE_DESC = 'Красвью'
     _RETURN_TYPE = 'video'
 
@@ -5478,10 +5544,10 @@ class Ku6IE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class KUSIIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.kusi'
-    IE_NAME = 'KUSI'
-    _VALID_URL = 'https?://(?:www\\.)?kusi\\.com/(?P<path>story/.+|video\\?clipId=(?P<clipId>\\d+))'
+class KukuluLiveIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.kukululive'
+    IE_NAME = 'KukuluLive'
+    _VALID_URL = 'https?://live\\.erinn\\.biz/live\\.php\\?h(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -5494,6 +5560,7 @@ class KuwoIE(KuwoBaseIE):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:song'
     _VALID_URL = 'https?://(?:www\\.)?kuwo\\.cn/yinyue/(?P<id>\\d+)'
+    _WORKING = False
     IE_DESC = '酷我音乐'
     _RETURN_TYPE = 'video'
 
@@ -5502,6 +5569,7 @@ class KuwoAlbumIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:album'
     _VALID_URL = 'https?://(?:www\\.)?kuwo\\.cn/album/(?P<id>\\d+?)/'
+    _WORKING = False
     IE_DESC = '酷我音乐 - 专辑'
     _RETURN_TYPE = 'playlist'
 
@@ -5510,6 +5578,7 @@ class KuwoChartIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:chart'
     _VALID_URL = 'https?://yinyue\\.kuwo\\.cn/billboard_(?P<id>[^.]+).htm'
+    _WORKING = False
     IE_DESC = '酷我音乐 - 排行榜'
     _RETURN_TYPE = 'playlist'
 
@@ -5518,6 +5587,7 @@ class KuwoSingerIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:singer'
     _VALID_URL = 'https?://(?:www\\.)?kuwo\\.cn/mingxing/(?P<id>[^/]+)'
+    _WORKING = False
     IE_DESC = '酷我音乐 - 歌手'
     _RETURN_TYPE = 'playlist'
 
@@ -5526,6 +5596,7 @@ class KuwoCategoryIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:category'
     _VALID_URL = 'https?://yinyue\\.kuwo\\.cn/yy/cinfo_(?P<id>\\d+?).htm'
+    _WORKING = False
     IE_DESC = '酷我音乐 - 分类'
     _RETURN_TYPE = 'playlist'
 
@@ -5534,6 +5605,7 @@ class KuwoMvIE(KuwoBaseIE):
     _module = 'yt_dlp.extractor.kuwo'
     IE_NAME = 'kuwo:mv'
     _VALID_URL = 'https?://(?:www\\.)?kuwo\\.cn/mv/(?P<id>\\d+?)/'
+    _WORKING = False
     IE_DESC = '酷我音乐 - MV'
     _RETURN_TYPE = 'video'
 
@@ -5557,39 +5629,6 @@ class LA7PodcastIE(LA7PodcastEpisodeIE):
     IE_NAME = 'la7.it:podcast'
     _VALID_URL = 'https?://(?:www\\.)?la7\\.it/(?P<id>[^/]+)/podcast/?(?:$|[#?])'
     _RETURN_TYPE = 'playlist'
-
-
-class Laola1TvEmbedIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.laola1tv'
-    IE_NAME = 'laola1tv:embed'
-    _VALID_URL = 'https?://(?:www\\.)?laola1\\.tv/titanplayer\\.php\\?.*?\\bvideoid=(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class Laola1TvBaseIE(Laola1TvEmbedIE):
-    _module = 'yt_dlp.extractor.laola1tv'
-    IE_NAME = 'laola1tv:embed'
-    _VALID_URL = 'https?://(?:www\\.)?laola1\\.tv/titanplayer\\.php\\?.*?\\bvideoid=(?P<id>\\d+)'
-
-
-class Laola1TvIE(Laola1TvBaseIE):
-    _module = 'yt_dlp.extractor.laola1tv'
-    IE_NAME = 'laola1tv'
-    _VALID_URL = 'https?://(?:www\\.)?laola1\\.tv/[a-z]+-[a-z]+/[^/]+/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-
-class EHFTVIE(Laola1TvBaseIE):
-    _module = 'yt_dlp.extractor.laola1tv'
-    IE_NAME = 'ehftv'
-    _VALID_URL = 'https?://(?:www\\.)?ehftv\\.com/[a-z]+(?:-[a-z]+)?/[^/]+/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-
-class ITTFIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.laola1tv'
-    IE_NAME = 'ITTF'
-    _VALID_URL = 'https?://tv\\.ittf\\.com/video/[^/]+/(?P<id>\\d+)'
 
 
 class LastFMIE(LazyLoadExtractor):
@@ -5618,6 +5657,14 @@ class LastFMUserIE(LastFMPlaylistBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
+class LaXarxaMesIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.laxarxames'
+    IE_NAME = 'LaXarxaMes'
+    _VALID_URL = 'https?://(?:www\\.)?laxarxames\\.cat/(?:[^/?#]+/)*?(player|movie-details)/(?P<id>\\d+)'
+    _NETRC_MACHINE = 'laxarxames'
+    _RETURN_TYPE = 'video'
+
+
 class LBRYBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.lbry'
     IE_NAME = 'LBRYBase'
@@ -5626,14 +5673,21 @@ class LBRYBaseIE(LazyLoadExtractor):
 class LBRYIE(LBRYBaseIE):
     _module = 'yt_dlp.extractor.lbry'
     IE_NAME = 'lbry'
-    _VALID_URL = '(?:https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/|lbry://)(?P<id>\\$/[^/]+/[^/]+/[0-9a-f]{1,40}|@[^:/?#&]+(?:[:#][0-9a-f]{1,40})?/[^:/?#&]+(?:[:#][0-9a-f]{1,40})?|(?!@)[^:/?#&]+(?:[:#][0-9a-f]{1,40})?)'
+    _VALID_URL = '(?x)(?:https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/|lbry://)\n        (?:\\$/(?:download|embed)/)?\n        (?P<id>\n            [^$@:/?#]+/[0-9a-f]{1,40}\n            |(?:@[^$@:/?#&]+(?:[:#][0-9a-f]{1,40})?/)?[^$@:/?#&]+(?:[:#][0-9a-f]{1,40})?\n        )'
     _RETURN_TYPE = 'video'
 
 
 class LBRYChannelIE(LBRYBaseIE):
     _module = 'yt_dlp.extractor.lbry'
     IE_NAME = 'lbry:channel'
-    _VALID_URL = '(?:https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/|lbry://)(?P<id>@[^:/?#&]+(?:[:#][0-9a-f]{1,40})?)/?(?:[?&]|$)'
+    _VALID_URL = '(?x)(?:https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/|lbry://)(?P<id>@[^$@:/?#&]+(?:[:#][0-9a-f]{1,40})?)/?(?:[?&]|$)'
+    _RETURN_TYPE = 'playlist'
+
+
+class LBRYPlaylistIE(LBRYBaseIE):
+    _module = 'yt_dlp.extractor.lbry'
+    IE_NAME = 'lbry:playlist'
+    _VALID_URL = '(?x)(?:https?://(?:www\\.)?(?:lbry\\.tv|odysee\\.com)/|lbry://)\\$/(?:play)?list/(?P<id>[0-9a-f-]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -5662,6 +5716,7 @@ class Lecture2GoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.lecture2go'
     IE_NAME = 'Lecture2Go'
     _VALID_URL = 'https?://lecture2go\\.uni-hamburg\\.de/veranstaltungen/-/v/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -5674,7 +5729,7 @@ class LecturioBaseIE(LazyLoadExtractor):
 class LecturioIE(LecturioBaseIE):
     _module = 'yt_dlp.extractor.lecturio'
     IE_NAME = 'Lecturio'
-    _VALID_URL = '(?x)\n                    https://\n                        (?:\n                            app\\.lecturio\\.com/([^/]+/(?P<nt>[^/?#&]+)\\.lecture|(?:\\#/)?lecture/c/\\d+/(?P<id>\\d+))|\n                            (?:www\\.)?lecturio\\.de/[^/]+/(?P<nt_de>[^/?#&]+)\\.vortrag\n                        )\n                    '
+    _VALID_URL = '(?x)\n                    https://\n                        (?:\n                            app\\.lecturio\\.com/([^/?#]+/(?P<nt>[^/?#&]+)\\.lecture|(?:\\#/)?lecture/c/\\d+/(?P<id>\\d+))|\n                            (?:www\\.)?lecturio\\.de/(?:[^/?#]+/)+(?P<nt_de>[^/?#&]+)\\.vortrag\n                        )\n                    '
     _NETRC_MACHINE = 'lecturio'
     _RETURN_TYPE = 'video'
 
@@ -5682,7 +5737,7 @@ class LecturioIE(LecturioBaseIE):
 class LecturioCourseIE(LecturioBaseIE):
     _module = 'yt_dlp.extractor.lecturio'
     IE_NAME = 'LecturioCourse'
-    _VALID_URL = 'https://app\\.lecturio\\.com/(?:[^/]+/(?P<nt>[^/?#&]+)\\.course|(?:#/)?course/c/(?P<id>\\d+))'
+    _VALID_URL = 'https?://app\\.lecturio\\.com/(?:[^/]+/(?P<nt>[^/?#&]+)\\.course|(?:#/)?course/c/(?P<id>\\d+))'
     _NETRC_MACHINE = 'lecturio'
     _RETURN_TYPE = 'playlist'
 
@@ -5690,7 +5745,7 @@ class LecturioCourseIE(LecturioBaseIE):
 class LecturioDeCourseIE(LecturioBaseIE):
     _module = 'yt_dlp.extractor.lecturio'
     IE_NAME = 'LecturioDeCourse'
-    _VALID_URL = 'https://(?:www\\.)?lecturio\\.de/[^/]+/(?P<id>[^/?#&]+)\\.kurs'
+    _VALID_URL = 'https?://(?:www\\.)?lecturio\\.de/[^/]+/(?P<id>[^/?#&]+)\\.kurs'
     _NETRC_MACHINE = 'lecturio'
 
 
@@ -5754,6 +5809,7 @@ class LentaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.lenta'
     IE_NAME = 'Lenta'
     _VALID_URL = 'https?://(?:www\\.)?lenta\\.ru/[^/]+/\\d+/\\d+/\\d+/(?P<id>[^/?#&]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -5836,7 +5892,7 @@ class LinkedInBaseIE(LazyLoadExtractor):
 class LinkedInIE(LinkedInBaseIE):
     _module = 'yt_dlp.extractor.linkedin'
     IE_NAME = 'LinkedIn'
-    _VALID_URL = 'https?://(?:www\\.)?linkedin\\.com/posts/.+?(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?linkedin\\.com/posts/[^/?#]+-(?P<id>\\d+)-\\w{4}/?(?:[?#]|$)'
     _NETRC_MACHINE = 'linkedin'
     _RETURN_TYPE = 'video'
 
@@ -5865,14 +5921,6 @@ class LinkedInLearningCourseIE(LinkedInLearningBaseIE):
     @classmethod
     def suitable(cls, url):
         return False if LinkedInLearningIE.suitable(url) else super(LinkedInLearningCourseIE, cls).suitable(url)
-
-
-class LinuxAcademyIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.linuxacademy'
-    IE_NAME = 'LinuxAcademy'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?linuxacademy\\.com/cp/\n                        (?:\n                            courses/lesson/course/(?P<chapter_id>\\d+)/lesson/(?P<lesson_id>\\d+)|\n                            modules/view/id/(?P<course_id>\\d+)\n                        )\n                    '
-    _NETRC_MACHINE = 'linuxacademy'
-    _RETURN_TYPE = 'any'
 
 
 class Liputan6IE(LazyLoadExtractor):
@@ -5946,11 +5994,18 @@ class LnkIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class LocalNews8IE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.localnews8'
-    IE_NAME = 'LocalNews8'
-    _VALID_URL = 'https?://(?:www\\.)?localnews8\\.com/(?:[^/]+/)*(?P<display_id>[^/]+)/(?P<id>[0-9]+)'
+class LoomIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.loom'
+    IE_NAME = 'loom'
+    _VALID_URL = 'https?://(?:www\\.)?loom\\.com/(?:share|embed)/(?P<id>[\\da-f]{32})'
     _RETURN_TYPE = 'video'
+
+
+class LoomFolderIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.loom'
+    IE_NAME = 'loom:folder'
+    _VALID_URL = 'https?://(?:www\\.)?loom\\.com/share/folder/(?P<id>[\\da-f]{32})'
+    _RETURN_TYPE = 'playlist'
 
 
 class NuevoBaseIE(LazyLoadExtractor):
@@ -5985,7 +6040,28 @@ class LRTStreamIE(LRTBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class LumniIE(LazyLoadExtractor):
+class LSMLREmbedIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.lsm'
+    IE_NAME = 'LSMLREmbed'
+    _VALID_URL = '(?x)\n        https?://(?:\n            (?:latvijasradio|lr1|lr2|klasika|lr4|naba|radioteatris)\\.lsm|\n            pieci\n        )\\.lv/[^/?#]+/(?:\n            pleijeris|embed\n        )/?\\?(?:[^#]+&)?(?:show|id)=(?P<id>\\d+)'
+    _RETURN_TYPE = 'any'
+
+
+class LSMLTVEmbedIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.lsm'
+    IE_NAME = 'LSMLTVEmbed'
+    _VALID_URL = 'https?://ltv\\.lsm\\.lv/embed\\?(?:[^#]+&)?c=(?P<id>[^#&]+)'
+    _RETURN_TYPE = 'video'
+
+
+class LSMReplayIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.lsm'
+    IE_NAME = 'LSMReplay'
+    _VALID_URL = 'https?://replay\\.lsm\\.lv/[^/?#]+/(?:ieraksts|statja)/[^/?#]+/(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
+class LumniIE(FranceTVBaseInfoExtractor):
     _module = 'yt_dlp.extractor.lumni'
     IE_NAME = 'Lumni'
     _VALID_URL = 'https?://(?:www\\.)?lumni\\.fr/video/(?P<id>[\\w-]+)'
@@ -6015,17 +6091,25 @@ class LyndaCourseIE(LyndaBaseIE):
     _NETRC_MACHINE = 'lynda'
 
 
-class M6IE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.m6'
-    IE_NAME = 'm6'
-    _VALID_URL = 'https?://(?:www\\.)?m6\\.fr/[^/]+/videos/(?P<id>\\d+)-[^\\.]+\\.html'
+class MaarivIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.maariv'
+    IE_NAME = 'maariv.co.il'
+    _VALID_URL = 'https?://player\\.maariv\\.co\\.il/public/player\\.html\\?(?:[^#]+&)?media=(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
-class MagentaMusik360IE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.magentamusik360'
-    IE_NAME = 'MagentaMusik360'
-    _VALID_URL = 'https?://(?:www\\.)?magenta-musik-360\\.de/([a-z0-9-]+-(?P<id>[0-9]+)|festivals/.+)'
+class MagellanTVIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.magellantv'
+    IE_NAME = 'MagellanTV'
+    _VALID_URL = 'https?://(?:www\\.)?magellantv\\.com/(?:watch|video)/(?P<id>[\\w-]+)'
+    age_limit = 14
+    _RETURN_TYPE = 'video'
+
+
+class MagentaMusikIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.magentamusik'
+    IE_NAME = 'MagentaMusik'
+    _VALID_URL = 'https?://(?:www\\.)?magentamusik\\.de/(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -6061,16 +6145,9 @@ class MailRuMusicSearchIE(MailRuMusicSearchBaseIE):
 class MainStreamingIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.mainstreaming'
     IE_NAME = 'MainStreaming'
-    _VALID_URL = 'https?://(?:webtools-?)?(?P<host>[A-Za-z0-9-]*\\.msvdn.net)/(?:embed|amp_embed|content)/(?P<id>\\w+)'
+    _VALID_URL = 'https?://(?:webtools-?)?(?P<host>[A-Za-z0-9-]*\\.msvdn\\.net)/(?:embed|amp_embed|content)/(?P<id>\\w+)'
     IE_DESC = 'MainStreaming Player'
     _RETURN_TYPE = 'any'
-
-
-class MallTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.malltv'
-    IE_NAME = 'MallTV'
-    _VALID_URL = 'https?://(?:(?:www|sk)\\.)?mall\\.tv/(?:[^/]+/)*(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
 
 
 class MangomoloBaseIE(LazyLoadExtractor):
@@ -6119,6 +6196,7 @@ class ManyVidsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.manyvids'
     IE_NAME = 'ManyVids'
     _VALID_URL = '(?i)https?://(?:www\\.)?manyvids\\.com/video/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -6133,6 +6211,7 @@ class MarkizaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.markiza'
     IE_NAME = 'Markiza'
     _VALID_URL = 'https?://(?:www\\.)?videoarchiv\\.markiza\\.sk/(?:video/(?:[^/]+/)*|embed/)(?P<id>\\d+)(?:[_/]|$)'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
@@ -6140,6 +6219,7 @@ class MarkizaPageIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.markiza'
     IE_NAME = 'MarkizaPage'
     _VALID_URL = 'https?://(?:www\\.)?(?:(?:[^/]+\\.)?markiza|tvnoviny)\\.sk/(?:[^/]+/)*(?P<id>\\d+)_'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
     @classmethod
@@ -6168,6 +6248,14 @@ class MatchTVIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class MBNIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.mbn'
+    IE_NAME = 'MBN'
+    _VALID_URL = 'https?://(?:www\\.)?mbn\\.co\\.kr/vod/programContents/preview(?:list)?/\\d+/\\d+/(?P<id>\\d+)'
+    IE_DESC = 'mbn.co.kr (매일방송)'
+    _RETURN_TYPE = 'video'
+
+
 class MDRIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.mdr'
     IE_NAME = 'MDR'
@@ -6186,7 +6274,7 @@ class MedalTVIE(LazyLoadExtractor):
 class MediaiteIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.mediaite'
     IE_NAME = 'Mediaite'
-    _VALID_URL = 'https?://(?:www\\.)?mediaite.com(?!/category)(?:/[\\w-]+){2}'
+    _VALID_URL = 'https?://(?:www\\.)?mediaite\\.com(?!/category)(?:/[\\w-]+){2}'
     _RETURN_TYPE = 'video'
 
 
@@ -6266,14 +6354,14 @@ class MediaWorksNZVODIE(LazyLoadExtractor):
 class MediciIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.medici'
     IE_NAME = 'Medici'
-    _VALID_URL = 'https?://(?:www\\.)?medici\\.tv/#!/(?P<id>[^?#&]+)'
+    _VALID_URL = 'https?://(?:(?P<sub>www|edu)\\.)?medici\\.tv/[a-z]{2}/[\\w.-]+/(?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'video'
 
 
 class MegaphoneIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.megaphone'
     IE_NAME = 'megaphone.fm'
-    _VALID_URL = 'https://player\\.megaphone\\.fm/(?P<id>[A-Z0-9]+)'
+    _VALID_URL = 'https?://player\\.megaphone\\.fm/(?P<id>[A-Z0-9]+)'
     IE_DESC = 'megaphone.fm embedded players'
     _RETURN_TYPE = 'video'
 
@@ -6293,32 +6381,10 @@ class MelonVODIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class METAIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.meta'
-    IE_NAME = 'META'
-    _VALID_URL = 'https?://video\\.meta\\.ua/(?:iframe/)?(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
-class MetacafeIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.metacafe'
-    IE_NAME = 'metacafe'
-    _VALID_URL = 'https?://(?:www\\.)?metacafe\\.com/watch/(?P<id>[^/]+)/(?P<display_id>[^/?#]+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class MetacriticIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.metacritic'
     IE_NAME = 'Metacritic'
     _VALID_URL = 'https?://(?:www\\.)?metacritic\\.com/.+?/trailers/(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class MgoonIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mgoon'
-    IE_NAME = 'Mgoon'
-    _VALID_URL = '(?x)https?://(?:www\\.)?\n    (?:(:?m\\.)?mgoon\\.com/(?:ch/(?:.+)/v|play/view)|\n        video\\.mgoon\\.com)/(?P<id>[0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -6327,13 +6393,6 @@ class MGTVIE(LazyLoadExtractor):
     IE_NAME = 'MangoTV'
     _VALID_URL = 'https?://(?:w(?:ww)?\\.)?mgtv\\.com/(v|b)/(?:[^/]+/)*(?P<id>\\d+)\\.html'
     IE_DESC = '芒果TV'
-    _RETURN_TYPE = 'video'
-
-
-class MiaoPaiIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.miaopai'
-    IE_NAME = 'MiaoPai'
-    _VALID_URL = 'https?://(?:www\\.)?miaopai\\.com/show/(?P<id>[-A-Za-z0-9~_]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -6444,24 +6503,10 @@ class MindsGroupIE(MindsFeedBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
-class MinistryGridIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ministrygrid'
-    IE_NAME = 'MinistryGrid'
-    _VALID_URL = 'https?://(?:www\\.)?ministrygrid\\.com/([^/?#]*/)*(?P<id>[^/#?]+)/?(?:$|[?#])'
-    _RETURN_TYPE = 'video'
-
-
 class MinotoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.minoto'
     IE_NAME = 'Minoto'
     _VALID_URL = '(?:minoto:|https?://(?:play|iframe|embed)\\.minoto-video\\.com/(?P<player_id>[0-9]+)/)(?P<id>[a-zA-Z0-9]+)'
-
-
-class MioMioIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.miomio'
-    IE_NAME = 'miomio.tv'
-    _VALID_URL = 'https?://(?:www\\.)?miomio\\.tv/watch/cc(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'any'
 
 
 class MirrativBaseIE(LazyLoadExtractor):
@@ -6592,40 +6637,11 @@ class MLSSoccerIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class MnetIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mnet'
-    IE_NAME = 'Mnet'
-    _VALID_URL = 'https?://(?:www\\.)?mnet\\.(?:com|interest\\.me)/tv/vod/(?:.*?\\bclip_id=)?(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class MochaVideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.mocha'
     IE_NAME = 'MochaVideo'
-    _VALID_URL = 'https?://video.mocha.com.vn/(?P<video_slug>[\\w-]+)'
+    _VALID_URL = 'https?://video\\.mocha\\.com\\.vn/(?P<video_slug>[\\w-]+)'
     _RETURN_TYPE = 'video'
-
-
-class MoeVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.moevideo'
-    IE_NAME = 'MoeVideo'
-    _VALID_URL = '(?x)\n        https?://(?P<host>(?:www\\.)?\n        (?:(?:moevideo|playreplay|videochart)\\.net|thesame\\.tv))/\n        (?:video|framevideo|embed)/(?P<id>[0-9a-z]+\\.[0-9A-Za-z]+)'
-    IE_DESC = 'LetitBit video services: moevideo.net, playreplay.net and videochart.net'
-    _RETURN_TYPE = 'video'
-
-
-class MofosexIE(KeezMoviesIE):
-    _module = 'yt_dlp.extractor.mofosex'
-    IE_NAME = 'Mofosex'
-    _VALID_URL = 'https?://(?:www\\.)?mofosex\\.com/videos/(?P<id>\\d+)/(?P<display_id>[^/?#&.]+)\\.html'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class MofosexEmbedIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mofosex'
-    IE_NAME = 'MofosexEmbed'
-    _VALID_URL = 'https?://(?:www\\.)?mofosex\\.com/embed/?\\?.*?\\bvideoid=(?P<id>\\d+)'
 
 
 class MojvideoIE(LazyLoadExtractor):
@@ -6635,12 +6651,11 @@ class MojvideoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class MorningstarIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.morningstar'
-    IE_NAME = 'Morningstar'
-    _VALID_URL = 'https?://(?:(?:www|news)\\.)morningstar\\.com/[cC]over/video[cC]enter\\.aspx\\?id=(?P<id>[0-9]+)'
-    IE_DESC = 'morningstar.com'
-    _RETURN_TYPE = 'video'
+class MonstercatIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.monstercat'
+    IE_NAME = 'Monstercat'
+    _VALID_URL = 'https?://www\\.monstercat\\.com/release/(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class MotherlessIE(LazyLoadExtractor):
@@ -6670,18 +6685,19 @@ class MotherlessGalleryIE(MotherlessPaginatedIE):
     _RETURN_TYPE = 'playlist'
 
 
+class MotherlessUploaderIE(MotherlessPaginatedIE):
+    _module = 'yt_dlp.extractor.motherless'
+    IE_NAME = 'MotherlessUploader'
+    _VALID_URL = 'https?://(?:www\\.)?motherless\\.com/u/(?P<id>\\w+)/?(?:$|[?#])'
+    _RETURN_TYPE = 'playlist'
+
+
 class MotorsportIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.motorsport'
     IE_NAME = 'Motorsport'
     _VALID_URL = 'https?://(?:www\\.)?motorsport\\.com/[^/?#]+/video/(?:[^/?#]+/)(?P<id>[^/]+)/?(?:$|[?#])'
+    _WORKING = False
     IE_DESC = 'motorsport.com'
-    _RETURN_TYPE = 'video'
-
-
-class MovieClipsIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.movieclips'
-    IE_NAME = 'MovieClips'
-    _VALID_URL = 'https?://(?:www\\.)?movieclips\\.com/videos/.+-(?P<id>\\d+)(?:\\?|$)'
     _RETURN_TYPE = 'video'
 
 
@@ -6717,6 +6733,7 @@ class MSNIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.msn'
     IE_NAME = 'MSN'
     _VALID_URL = 'https?://(?:(?:www|preview)\\.)?msn\\.com/(?:[^/]+/)+(?P<display_id>[^/]+)/[a-z]{2}-(?P<id>[\\da-zA-Z]+)'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
@@ -6731,6 +6748,7 @@ class CMTIE(MTVIE):
     _module = 'yt_dlp.extractor.cmt'
     IE_NAME = 'cmt.com'
     _VALID_URL = 'https?://(?:www\\.)?cmt\\.com/(?:videos|shows|(?:full-)?episodes|video-clips)/(?P<id>[^/]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -6752,6 +6770,7 @@ class MTVDEIE(MTVServicesInfoExtractor):
     _module = 'yt_dlp.extractor.mtv'
     IE_NAME = 'mtv.de'
     _VALID_URL = 'https?://(?:www\\.)?mtv\\.de/(?:musik/videoclips|folgen|news)/(?P<id>[0-9a-z]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -6780,6 +6799,7 @@ class MuenchenTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.muenchentv'
     IE_NAME = 'MuenchenTV'
     _VALID_URL = 'https?://(?:www\\.)?muenchen\\.tv/livestream'
+    _WORKING = False
     IE_DESC = 'münchen.tv'
     _RETURN_TYPE = 'video'
 
@@ -6788,6 +6808,7 @@ class MurrtubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.murrtube'
     IE_NAME = 'Murrtube'
     _VALID_URL = '(?x)\n                        (?:\n                            murrtube:|\n                            https?://murrtube\\.net/videos/(?P<slug>[a-z0-9\\-]+)\\-\n                        )\n                        (?P<id>[a-f0-9]{8}\\-[a-f0-9]{4}\\-[a-f0-9]{4}\\-[a-f0-9]{4}\\-[a-f0-9]{12})\n                    '
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -6796,8 +6817,16 @@ class MurrtubeUserIE(MurrtubeIE):
     _module = 'yt_dlp.extractor.murrtube'
     IE_NAME = 'MurrtubeUser'
     _VALID_URL = 'https?://murrtube\\.net/(?P<id>[^/]+)$'
+    _WORKING = False
     IE_DESC = 'Murrtube user profile'
     _RETURN_TYPE = 'playlist'
+
+
+class MuseAIIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.museai'
+    IE_NAME = 'MuseAI'
+    _VALID_URL = 'https?://(?:www\\.)?muse\\.ai/(?:v|embed)/(?P<id>\\w+)'
+    _RETURN_TYPE = 'video'
 
 
 class MuseScoreIE(LazyLoadExtractor):
@@ -6845,17 +6874,29 @@ class MusicdexPlaylistIE(MusicdexPageIE):
     _RETURN_TYPE = 'playlist'
 
 
-class MwaveIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mwave'
-    IE_NAME = 'Mwave'
-    _VALID_URL = 'https?://mwave\\.interest\\.me/(?:[^/]+/)?mnettv/videodetail\\.m\\?searchVideoDetailVO\\.clip_id=(?P<id>[0-9]+)'
+class Mx3BaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.mx3'
+    IE_NAME = 'Mx3Base'
+
+
+class Mx3IE(Mx3BaseIE):
+    _module = 'yt_dlp.extractor.mx3'
+    IE_NAME = 'Mx3'
+    _VALID_URL = 'https?://(?:www\\.)?mx3\\.ch/t/(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
-class MwaveMeetGreetIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mwave'
-    IE_NAME = 'MwaveMeetGreet'
-    _VALID_URL = 'https?://mwave\\.interest\\.me/(?:[^/]+/)?meetgreet/view/(?P<id>\\d+)'
+class Mx3NeoIE(Mx3BaseIE):
+    _module = 'yt_dlp.extractor.mx3'
+    IE_NAME = 'Mx3Neo'
+    _VALID_URL = 'https?://(?:www\\.)?neo\\.mx3\\.ch/t/(?P<id>\\w+)'
+    _RETURN_TYPE = 'video'
+
+
+class Mx3VolksmusikIE(Mx3BaseIE):
+    _module = 'yt_dlp.extractor.mx3'
+    IE_NAME = 'Mx3Volksmusik'
+    _VALID_URL = 'https?://(?:www\\.)?volksmusik\\.mx3\\.ch/t/(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
@@ -6871,13 +6912,6 @@ class MxplayerShowIE(LazyLoadExtractor):
     IE_NAME = 'MxplayerShow'
     _VALID_URL = 'https?://(?:www\\.)?mxplayer\\.in/show/(?P<display_id>[-\\w]+)-(?P<id>\\w+)/?(?:$|[#?])'
     _RETURN_TYPE = 'playlist'
-
-
-class MyChannelsIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.mychannels'
-    IE_NAME = 'MyChannels'
-    _VALID_URL = 'https?://(?:www\\.)?mychannels\\.com/.*(?P<id_type>video|production)_id=(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
 
 
 class MySpaceIE(LazyLoadExtractor):
@@ -6901,29 +6935,6 @@ class MySpassIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class SprutoBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vimple'
-    IE_NAME = 'SprutoBase'
-
-
-class MyviIE(SprutoBaseIE):
-    _module = 'yt_dlp.extractor.myvi'
-    IE_NAME = 'Myvi'
-    _VALID_URL = '(?x)\n                        (?:\n                            https?://\n                                (?:www\\.)?\n                                myvi\\.\n                                (?:\n                                    (?:ru/player|tv)/\n                                    (?:\n                                        (?:\n                                            embed/html|\n                                            flash|\n                                            api/Video/Get\n                                        )/|\n                                        content/preloader\\.swf\\?.*\\bid=\n                                    )|\n                                    ru/watch/\n                                )|\n                            myvi:\n                        )\n                        (?P<id>[\\da-zA-Z_-]+)\n                    '
-    _RETURN_TYPE = 'video'
-
-
-class MyviEmbedIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.myvi'
-    IE_NAME = 'MyviEmbed'
-    _VALID_URL = 'https?://(?:www\\.)?myvi\\.tv/(?:[^?]+\\?.*?\\bv=|embed/)(?P<id>[\\da-z]+)'
-    _RETURN_TYPE = 'video'
-
-    @classmethod
-    def suitable(cls, url):
-        return False if MyviIE.suitable(url) else super(MyviEmbedIE, cls).suitable(url)
-
-
 class MyVideoGeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.myvideoge'
     IE_NAME = 'MyVideoGe'
@@ -6934,7 +6945,7 @@ class MyVideoGeIE(LazyLoadExtractor):
 class MyVidsterIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.myvidster'
     IE_NAME = 'MyVidster'
-    _VALID_URL = 'https?://(?:www\\.)?myvidster\\.com/video/(?P<id>\\d+)/'
+    _VALID_URL = 'https?://(?:www\\.)?myvidster\\.com/video/(?P<id>\\d+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -6942,7 +6953,7 @@ class MyVidsterIE(LazyLoadExtractor):
 class MzaaloIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.mzaalo'
     IE_NAME = 'Mzaalo'
-    _VALID_URL = 'https?://(?:www\\.)?mzaalo\\.com/play/(?P<type>movie|original|clip)/(?P<id>[a-fA-F0-9-]+)/[\\w-]+'
+    _VALID_URL = '(?i)https?://(?:www\\.)?mzaalo\\.com/(?:play|watch)/(?P<type>movie|original|clip)/(?P<id>[a-f0-9-]+)/[\\w-]+'
     age_limit = 13
     _RETURN_TYPE = 'video'
 
@@ -6957,7 +6968,7 @@ class N1InfoAssetIE(LazyLoadExtractor):
 class N1InfoIIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.n1'
     IE_NAME = 'N1Info:article'
-    _VALID_URL = 'https?://(?:(?:(?:ba|rs|hr)\\.)?n1info\\.(?:com|si)|nova\\.rs)/(?:[^/]+/){1,2}(?P<id>[^/]+)'
+    _VALID_URL = 'https?://(?:(?:\\w+\\.)?n1info\\.\\w+|nova\\.rs)/(?:[^/?#]+/){1,2}(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -7003,7 +7014,7 @@ class NaverIE(NaverBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class NaverLiveIE(LazyLoadExtractor):
+class NaverLiveIE(NaverBaseIE):
     _module = 'yt_dlp.extractor.naver'
     IE_NAME = 'Naver:live'
     _VALID_URL = 'https?://(?:m\\.)?tv(?:cast)?\\.naver\\.com/l/(?P<id>\\d+)'
@@ -7029,7 +7040,7 @@ class NBAWatchBaseIE(NBACVPBaseIE):
 
 class NBAWatchEmbedIE(NBAWatchBaseIE):
     _module = 'yt_dlp.extractor.nba'
-    IE_NAME = 'NBAWatchEmbed'
+    IE_NAME = 'nba:watch:embed'
     _VALID_URL = 'https?://(?:(?:www\\.)?nba\\.com(?:/watch)?|watch\\.nba\\.com)/embed\\?.*?\\bid=(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
@@ -7055,20 +7066,20 @@ class NBABaseIE(NBACVPBaseIE):
 
 class NBAEmbedIE(NBABaseIE):
     _module = 'yt_dlp.extractor.nba'
-    IE_NAME = 'NBAEmbed'
+    IE_NAME = 'nba:embed'
     _VALID_URL = 'https?://secure\\.nba\\.com/assets/amp/include/video/(?:topI|i)frame\\.html\\?.*?\\bcontentId=(?P<id>[^?#&]+)'
 
 
 class NBAIE(NBABaseIE):
     _module = 'yt_dlp.extractor.nba'
-    IE_NAME = 'NBA'
+    IE_NAME = 'nba'
     _VALID_URL = '(?x)\n        https?://(?:www\\.)?nba\\.com/\n            (?P<team>\n                blazers|\n                bucks|\n                bulls|\n                cavaliers|\n                celtics|\n                clippers|\n                grizzlies|\n                hawks|\n                heat|\n                hornets|\n                jazz|\n                kings|\n                knicks|\n                lakers|\n                magic|\n                mavericks|\n                nets|\n                nuggets|\n                pacers|\n                pelicans|\n                pistons|\n                raptors|\n                rockets|\n                sixers|\n                spurs|\n                suns|\n                thunder|\n                timberwolves|\n                warriors|\n                wizards\n            )\n        (?:/play\\#)?/(?!video/channel|series)video/(?P<id>(?:[^/]+/)*[^/?#&]+)'
     _RETURN_TYPE = 'video'
 
 
 class NBAChannelIE(NBABaseIE):
     _module = 'yt_dlp.extractor.nba'
-    IE_NAME = 'NBAChannel'
+    IE_NAME = 'nba:channel'
     _VALID_URL = '(?x)\n        https?://(?:www\\.)?nba\\.com/\n            (?P<team>\n                blazers|\n                bucks|\n                bulls|\n                cavaliers|\n                celtics|\n                clippers|\n                grizzlies|\n                hawks|\n                heat|\n                hornets|\n                jazz|\n                kings|\n                knicks|\n                lakers|\n                magic|\n                mavericks|\n                nets|\n                nuggets|\n                pacers|\n                pelicans|\n                pistons|\n                raptors|\n                rockets|\n                sixers|\n                spurs|\n                suns|\n                thunder|\n                timberwolves|\n                warriors|\n                wizards\n            )\n        (?:/play\\#)?/(?:video/channel|series)/(?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'playlist'
 
@@ -7160,6 +7171,7 @@ class NDTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ndtv'
     IE_NAME = 'NDTV'
     _VALID_URL = 'https?://(?:[^/]+\\.)?ndtv\\.com/(?:[^/]+/)*videos?/?(?:[^/]+/)*[^/?^&]+-(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -7171,8 +7183,16 @@ class NebulaBaseIE(LazyLoadExtractor):
 
 class NebulaIE(NebulaBaseIE):
     _module = 'yt_dlp.extractor.nebula'
-    IE_NAME = 'Nebula'
-    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/videos/(?P<id>[-\\w]+)'
+    IE_NAME = 'nebula:video'
+    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/videos/(?P<id>[\\w-]+)'
+    _NETRC_MACHINE = 'watchnebula'
+    _RETURN_TYPE = 'video'
+
+
+class NebulaClassIE(NebulaBaseIE):
+    _module = 'yt_dlp.extractor.nebula'
+    IE_NAME = 'nebula:media'
+    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/(?!(?:myshows|library|videos)/)(?P<id>[\\w-]+)/(?P<ep>[\\w-]+)/?(?:$|[?#])'
     _NETRC_MACHINE = 'watchnebula'
     _RETURN_TYPE = 'video'
 
@@ -7180,7 +7200,7 @@ class NebulaIE(NebulaBaseIE):
 class NebulaSubscriptionsIE(NebulaBaseIE):
     _module = 'yt_dlp.extractor.nebula'
     IE_NAME = 'nebula:subscriptions'
-    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/myshows'
+    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/(?P<id>myshows|library/latest-videos)/?(?:$|[?#])'
     _NETRC_MACHINE = 'watchnebula'
     _RETURN_TYPE = 'playlist'
 
@@ -7188,7 +7208,7 @@ class NebulaSubscriptionsIE(NebulaBaseIE):
 class NebulaChannelIE(NebulaBaseIE):
     _module = 'yt_dlp.extractor.nebula'
     IE_NAME = 'nebula:channel'
-    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/(?!myshows|videos/)(?P<id>[-\\w]+)'
+    _VALID_URL = 'https?://(?:www\\.|beta\\.)?(?:watchnebula\\.com|nebula\\.app|nebula\\.tv)/(?!myshows|library|videos)(?P<id>[\\w-]+)/?(?:$|[?#])'
     _NETRC_MACHINE = 'watchnebula'
     _RETURN_TYPE = 'playlist'
 
@@ -7203,7 +7223,7 @@ class NekoHackerIE(LazyLoadExtractor):
 class NerdCubedFeedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nerdcubed'
     IE_NAME = 'NerdCubedFeed'
-    _VALID_URL = 'https?://(?:www\\.)?nerdcubed\\.co\\.uk/feed\\.json'
+    _VALID_URL = 'https?://(?:www\\.)?nerdcubed\\.co\\.uk/?(?:$|[#?])'
     _RETURN_TYPE = 'playlist'
 
 
@@ -7211,6 +7231,7 @@ class NetzkinoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.netzkino'
     IE_NAME = 'Netzkino'
     _VALID_URL = 'https?://(?:www\\.)?netzkino\\.de/\\#!/[^/]+/(?P<id>[^/]+)'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -7307,7 +7328,8 @@ class NewgroundsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.newgrounds'
     IE_NAME = 'Newgrounds'
     _VALID_URL = 'https?://(?:www\\.)?newgrounds\\.com/(?:audio/listen|portal/view)/(?P<id>\\d+)(?:/format/flash)?'
-    age_limit = 17
+    _NETRC_MACHINE = 'newgrounds'
+    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -7328,14 +7350,7 @@ class NewgroundsUserIE(LazyLoadExtractor):
 class NewsPicksIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.newspicks'
     IE_NAME = 'NewsPicks'
-    _VALID_URL = 'https://newspicks\\.com/movie-series/(?P<channel_id>\\d+)\\?movieId=(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class NewstubeIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.newstube'
-    IE_NAME = 'Newstube'
-    _VALID_URL = 'https?://(?:www\\.)?newstube\\.ru/media/(?P<id>.+)'
+    _VALID_URL = 'https?://newspicks\\.com/movie-series/(?P<channel_id>\\d+)\\?movieId=(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -7373,7 +7388,9 @@ class AppleDailyIE(NextMediaIE):
 class NextTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nextmedia'
     IE_NAME = 'NextTV'
+    _ENABLED = None
     _VALID_URL = 'https?://(?:www\\.)?nexttv\\.com\\.tw/(?:[^/]+/)+(?P<id>\\d+)'
+    _WORKING = False
     IE_DESC = '壹電視'
     _RETURN_TYPE = 'video'
 
@@ -7392,11 +7409,25 @@ class NexxEmbedIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class NFBIE(LazyLoadExtractor):
+class NFBBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nfb'
-    IE_NAME = 'NFB'
-    _VALID_URL = 'https?://(?:www\\.)?nfb\\.ca/film/(?P<id>[^/?#&]+)'
+    IE_NAME = 'NFBBase'
+
+
+class NFBIE(NFBBaseIE):
+    _module = 'yt_dlp.extractor.nfb'
+    IE_NAME = 'nfb'
+    _VALID_URL = ['https?://(?:www\\.)?(?P<site>nfb|onf)\\.ca/(?P<type>film)/(?P<id>[^/?#&]+)', 'https?://(?:www\\.)?(?P<site>nfb|onf)\\.ca/(?P<type>series?)/(?P<id>[^/?#&]+/s(?:ea|ai)son\\d+/episode\\d+)']
+    IE_DESC = 'nfb.ca and onf.ca films and episodes'
     _RETURN_TYPE = 'video'
+
+
+class NFBSeriesIE(NFBBaseIE):
+    _module = 'yt_dlp.extractor.nfb'
+    IE_NAME = 'nfb:series'
+    _VALID_URL = 'https?://(?:www\\.)?(?P<site>nfb|onf)\\.ca/(?P<type>series?)/(?P<id>[^/?#&]+)/?(?:[?#]|$)'
+    IE_DESC = 'nfb.ca and onf.ca series'
+    _RETURN_TYPE = 'playlist'
 
 
 class NFHSNetworkIE(LazyLoadExtractor):
@@ -7428,15 +7459,15 @@ class NFLArticleIE(NFLBaseIE):
 class NFLPlusEpisodeIE(NFLBaseIE):
     _module = 'yt_dlp.extractor.nfl'
     IE_NAME = 'nfl.com:plus:episode'
-    _VALID_URL = 'https?://(?:www\\.)?nfl.com/plus/episodes/(?P<id>[\\w-]+)'
+    _VALID_URL = 'https?://(?:www\\.)?nfl\\.com/plus/episodes/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
 class NFLPlusReplayIE(NFLBaseIE):
     _module = 'yt_dlp.extractor.nfl'
     IE_NAME = 'nfl.com:plus:replay'
-    _VALID_URL = 'https?://(?:www\\.)?nfl.com/plus/games/[\\w-]+/(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
+    _VALID_URL = 'https?://(?:www\\.)?nfl\\.com/plus/games/(?P<slug>[\\w-]+)(?:/(?P<id>\\d+))?'
+    _RETURN_TYPE = 'any'
 
 
 class NhkBaseIE(LazyLoadExtractor):
@@ -7447,15 +7478,19 @@ class NhkBaseIE(LazyLoadExtractor):
 class NhkVodIE(NhkBaseIE):
     _module = 'yt_dlp.extractor.nhk'
     IE_NAME = 'NhkVod'
-    _VALID_URL = 'https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/ondemand/(?P<type>video|audio)/(?P<id>[0-9a-z]{7}|[^/]+?-\\d{8}-[0-9a-z]+)'
+    _VALID_URL = ['https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/shows/(?:(?P<type>video)/)?(?P<id>\\d{4}[\\da-z]\\d+)/?(?:$|[?#])', 'https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/(?:ondemand|shows)/(?P<type>audio)/(?P<id>[^/?#]+?-\\d{8}-[\\da-z]+)', 'https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/ondemand/(?P<type>video)/(?P<id>\\d{4}[\\da-z]\\d+)']
     _RETURN_TYPE = 'video'
 
 
 class NhkVodProgramIE(NhkBaseIE):
     _module = 'yt_dlp.extractor.nhk'
     IE_NAME = 'NhkVodProgram'
-    _VALID_URL = 'https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/ondemand/program/(?P<type>video|audio)/(?P<id>[0-9a-z]+)(?:.+?\\btype=(?P<episode_type>clip|(?:radio|tv)Episode))?'
+    _VALID_URL = '(?x)\n        https?://www3\\.nhk\\.or\\.jp/nhkworld/(?P<lang>[a-z]{2})/(?:shows|tv)/\n        (?:(?P<type>audio)/programs/)?(?P<id>\\w+)/?\n        (?:\\?(?:[^#]+&)?type=(?P<episode_type>clip|(?:radio|tv)Episode))?'
     _RETURN_TYPE = 'playlist'
+
+    @classmethod
+    def suitable(cls, url):
+        return False if NhkVodIE.suitable(url) else super().suitable(url)
 
 
 class NhkForSchoolBangumiIE(LazyLoadExtractor):
@@ -7531,12 +7566,6 @@ class NickDeIE(MTVServicesInfoExtractor):
     _module = 'yt_dlp.extractor.nick'
     IE_NAME = 'nick.de'
     _VALID_URL = 'https?://(?:www\\.)?(?P<host>nick\\.(?:de|com\\.pl|ch)|nickelodeon\\.(?:nl|be|at|dk|no|se))/[^/]+/(?:[^/]+/)*(?P<id>[^/?#&]+)'
-
-
-class NickNightIE(NickDeIE):
-    _module = 'yt_dlp.extractor.nick'
-    IE_NAME = 'nicknight'
-    _VALID_URL = 'https?://(?:www\\.)(?P<host>nicknight\\.(?:de|at|tv))/(?:playlist|shows)/(?:[^/]+/)*(?P<id>[^/?#&]+)'
 
 
 class NickRuIE(MTVServicesInfoExtractor):
@@ -7634,6 +7663,13 @@ class NiconicoLiveIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class NinaProtocolIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ninaprotocol'
+    IE_NAME = 'NinaProtocol'
+    _VALID_URL = 'https?://(?:www\\.)?ninaprotocol\\.com/releases/(?P<id>[^/#?]+)'
+    _RETURN_TYPE = 'playlist'
+
+
 class NineCNineMediaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ninecninemedia'
     IE_NAME = '9c9media'
@@ -7647,11 +7683,53 @@ class CPTwentyFourIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class NiconicoChannelPlusBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.niconicochannelplus'
+    IE_NAME = 'NiconicoChannelPlusBase'
+
+
+class NiconicoChannelPlusIE(NiconicoChannelPlusBaseIE):
+    _module = 'yt_dlp.extractor.niconicochannelplus'
+    IE_NAME = 'NiconicoChannelPlus'
+    _VALID_URL = 'https?://nicochannel\\.jp/(?P<channel>[\\w.-]+)/(?:video|live)/(?P<code>sm\\w+)'
+    IE_DESC = 'ニコニコチャンネルプラス'
+    age_limit = 18
+    _RETURN_TYPE = 'video'
+
+
+class NiconicoChannelPlusChannelBaseIE(NiconicoChannelPlusBaseIE):
+    _module = 'yt_dlp.extractor.niconicochannelplus'
+    IE_NAME = 'NiconicoChannelPlusChannelBase'
+
+
+class NiconicoChannelPlusChannelVideosIE(NiconicoChannelPlusChannelBaseIE):
+    _module = 'yt_dlp.extractor.niconicochannelplus'
+    IE_NAME = 'NiconicoChannelPlus:channel:videos'
+    _VALID_URL = 'https?://nicochannel\\.jp/(?P<id>[a-z\\d\\._-]+)/videos(?:\\?.*)?'
+    IE_DESC = 'ニコニコチャンネルプラス - チャンネル - 動画リスト. nicochannel.jp/channel/videos'
+    _RETURN_TYPE = 'playlist'
+
+
+class NiconicoChannelPlusChannelLivesIE(NiconicoChannelPlusChannelBaseIE):
+    _module = 'yt_dlp.extractor.niconicochannelplus'
+    IE_NAME = 'NiconicoChannelPlus:channel:lives'
+    _VALID_URL = 'https?://nicochannel\\.jp/(?P<id>[a-z\\d\\._-]+)/lives'
+    IE_DESC = 'ニコニコチャンネルプラス - チャンネル - ライブリスト. nicochannel.jp/channel/lives'
+    _RETURN_TYPE = 'playlist'
+
+
 class NineGagIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ninegag'
     IE_NAME = '9gag'
     _VALID_URL = 'https?://(?:www\\.)?9gag\\.com/gag/(?P<id>[^/?&#]+)'
     IE_DESC = '9GAG'
+    _RETURN_TYPE = 'video'
+
+
+class NineNewsIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ninenews'
+    IE_NAME = '9News'
+    _VALID_URL = 'https?://(?:www\\.)?9news\\.com\\.au/(?:[\\w-]+/){2,3}(?P<id>[\\w-]+)/?(?:$|[?#])'
     _RETURN_TYPE = 'video'
 
 
@@ -7665,8 +7743,9 @@ class NineNowIE(LazyLoadExtractor):
 class NintendoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nintendo'
     IE_NAME = 'Nintendo'
-    _VALID_URL = 'https?://(?:www\\.)?nintendo\\.com/(?:games/detail|nintendo-direct)/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'any'
+    _VALID_URL = 'https?://(?:www\\.)?nintendo\\.com/(?:(?P<locale>\\w{2}(?:-\\w{2})?)/)?nintendo-direct/(?P<slug>[^/?#]+)'
+    age_limit = 17
+    _RETURN_TYPE = 'video'
 
 
 class NitterIE(LazyLoadExtractor):
@@ -7676,19 +7755,11 @@ class NitterIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class NJPWWorldIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.njpwworld'
-    IE_NAME = 'NJPWWorld'
-    _VALID_URL = 'https?://(front\\.)?njpwworld\\.com/p/(?P<id>[a-z0-9_]+)'
-    IE_DESC = '新日本プロレスワールド'
-    _NETRC_MACHINE = 'njpwworld'
-    _RETURN_TYPE = 'video'
-
-
 class NobelPrizeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nobelprize'
     IE_NAME = 'NobelPrize'
     _VALID_URL = 'https?://(?:www\\.)?nobelprize\\.org/mediaplayer.*?\\bid=(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -7722,20 +7793,6 @@ class NoovoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class NormalbootsIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.normalboots'
-    IE_NAME = 'Normalboots'
-    _VALID_URL = 'https?://(?:www\\.)?normalboots\\.com/video/(?P<id>[0-9a-z-]*)/?$'
-    _RETURN_TYPE = 'video'
-
-
-class NosVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.nosvideo'
-    IE_NAME = 'NosVideo'
-    _VALID_URL = 'https?://(?:www\\.)?nosvideo\\.com/(?:embed/|\\?v=)(?P<id>[A-Za-z0-9]{12})/?'
-    _RETURN_TYPE = 'video'
-
-
 class NOSNLArticleIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nosnl'
     IE_NAME = 'NOSNLArticle'
@@ -7746,7 +7803,7 @@ class NOSNLArticleIE(LazyLoadExtractor):
 class NovaEmbedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nova'
     IE_NAME = 'NovaEmbed'
-    _VALID_URL = 'https?://media\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://media(?:tn)?\\.cms\\.nova\\.cz/embed/(?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -7761,7 +7818,7 @@ class NovaIE(LazyLoadExtractor):
 class NovaPlayIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.novaplay'
     IE_NAME = 'NovaPlay'
-    _VALID_URL = 'https://play.nova\\.bg/video/.*/(?P<id>\\d+)'
+    _VALID_URL = 'https?://play\\.nova\\.bg/video/[^?#]+/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -7795,6 +7852,7 @@ class NozIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.noz'
     IE_NAME = 'Noz'
     _VALID_URL = 'https?://(?:www\\.)?noz\\.de/video/(?P<id>[0-9]+)/'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -8023,6 +8081,7 @@ class NRLTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nrl'
     IE_NAME = 'NRLTV'
     _VALID_URL = 'https?://(?:www\\.)?nrl\\.com/tv(/[^/]+)*/(?P<id>[^/?&#]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -8037,7 +8096,7 @@ class NTVCoJpCUIE(LazyLoadExtractor):
 class NTVDeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ntvde'
     IE_NAME = 'n-tv.de'
-    _VALID_URL = 'https?://(?:www\\.)?n-tv\\.de/mediathek/videos/[^/?#]+/[^/?#]+-article(?P<id>.+)\\.html'
+    _VALID_URL = 'https?://(?:www\\.)?n-tv\\.de/mediathek/(?:videos|magazine)/[^/?#]+/[^/?#]+-article(?P<id>[^/?#]+)\\.html'
     _RETURN_TYPE = 'video'
 
 
@@ -8051,7 +8110,7 @@ class NTVRuIE(LazyLoadExtractor):
 class NubilesPornIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nubilesporn'
     IE_NAME = 'NubilesPorn'
-    _VALID_URL = '(?x)\n        https://members.nubiles-porn.com/video/watch/(?P<id>\\d+)\n        (?:/(?P<display_id>[\\w\\-]+-s(?P<season>\\d+)e(?P<episode>\\d+)))?\n    '
+    _VALID_URL = '(?x)\n        https://members\\.nubiles-porn\\.com/video/watch/(?P<id>\\d+)\n        (?:/(?P<display_id>[\\w\\-]+-s(?P<season>\\d+)e(?P<episode>\\d+)))?\n    '
     _NETRC_MACHINE = 'nubiles-porn'
     age_limit = 18
     _RETURN_TYPE = 'video'
@@ -8072,14 +8131,46 @@ class NYTimesIE(NYTimesBaseIE):
 class NYTimesArticleIE(NYTimesBaseIE):
     _module = 'yt_dlp.extractor.nytimes'
     IE_NAME = 'NYTimesArticle'
-    _VALID_URL = 'https?://(?:www\\.)?nytimes\\.com/(.(?<!video))*?/(?:[^/]+/)*(?P<id>[^.]+)(?:\\.html)?'
-    _RETURN_TYPE = 'video'
+    _VALID_URL = 'https?://(?:www\\.)?nytimes\\.com/\\d{4}/\\d{2}/\\d{2}/(?!books|podcasts)[^/?#]+/(?:\\w+/)?(?P<id>[^./?#]+)(?:\\.html)?'
+    _RETURN_TYPE = 'any'
 
 
 class NYTimesCookingIE(NYTimesBaseIE):
     _module = 'yt_dlp.extractor.nytimes'
-    IE_NAME = 'NYTimesCooking'
-    _VALID_URL = 'https?://cooking\\.nytimes\\.com/(?:guid|recip)es/(?P<id>\\d+)'
+    IE_NAME = 'NYTimesCookingGuide'
+    _VALID_URL = 'https?://cooking\\.nytimes\\.com/guides/(?P<id>[\\w-]+)'
+    _RETURN_TYPE = 'any'
+
+
+class NYTimesCookingRecipeIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.nytimes'
+    IE_NAME = 'NYTimesCookingRecipe'
+    _VALID_URL = 'https?://cooking\\.nytimes\\.com/recipes/(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
+class NuumBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.nuum'
+    IE_NAME = 'NuumBase'
+
+
+class NuumLiveIE(NuumBaseIE):
+    _module = 'yt_dlp.extractor.nuum'
+    IE_NAME = 'nuum:live'
+    _VALID_URL = 'https?://nuum\\.ru/channel/(?P<id>[^/#?]+)/?(?:$|[#?])'
+
+
+class NuumTabIE(NuumBaseIE):
+    _module = 'yt_dlp.extractor.nuum'
+    IE_NAME = 'nuum:tab'
+    _VALID_URL = 'https?://nuum\\.ru/channel/(?P<id>[^/#?]+)/(?P<type>streams|videos|clips)'
+    _RETURN_TYPE = 'playlist'
+
+
+class NuumMediaIE(NuumBaseIE):
+    _module = 'yt_dlp.extractor.nuum'
+    IE_NAME = 'nuum:media'
+    _VALID_URL = 'https?://nuum\\.ru/(?:streams|videos|clips)/(?P<id>[\\d]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -8101,7 +8192,7 @@ class NZHeraldIE(LazyLoadExtractor):
 class NZOnScreenIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.nzonscreen'
     IE_NAME = 'NZOnScreen'
-    _VALID_URL = '^https://www\\.nzonscreen\\.com/title/(?P<id>[^/?#]+)'
+    _VALID_URL = '^https?://www\\.nzonscreen\\.com/title/(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -8110,13 +8201,6 @@ class NZZIE(LazyLoadExtractor):
     IE_NAME = 'NZZ'
     _VALID_URL = 'https?://(?:www\\.)?nzz\\.ch/(?:[^/]+/)*[^/?#]+-ld\\.(?P<id>\\d+)'
     _RETURN_TYPE = 'playlist'
-
-
-class OdaTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.odatv'
-    IE_NAME = 'OdaTV'
-    _VALID_URL = 'https?://(?:www\\.)?odatv\\.com/(?:mob|vid)_video\\.php\\?.*\\bid=(?P<id>[^&]+)'
-    _RETURN_TYPE = 'video'
 
 
 class OnDemandChinaEpisodeIE(LazyLoadExtractor):
@@ -8136,14 +8220,14 @@ class OdnoklassnikiIE(LazyLoadExtractor):
 class OfTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.oftv'
     IE_NAME = 'OfTV'
-    _VALID_URL = 'https?://(?:www\\.)?of.tv/video/(?P<id>\\w+)'
+    _VALID_URL = 'https?://(?:www\\.)?of\\.tv/video/(?P<id>\\w+)'
     _RETURN_TYPE = 'video'
 
 
 class OfTVPlaylistIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.oftv'
     IE_NAME = 'OfTVPlaylist'
-    _VALID_URL = 'https?://(?:www\\.)?of.tv/creators/(?P<id>[a-zA-Z0-9-]+)/.?'
+    _VALID_URL = 'https?://(?:www\\.)?of\\.tv/creators/(?P<id>[a-zA-Z0-9-]+)/?(?:$|[?#])'
     _RETURN_TYPE = 'playlist'
 
 
@@ -8172,8 +8256,16 @@ class On24IE(LazyLoadExtractor):
 class OnDemandKoreaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ondemandkorea'
     IE_NAME = 'OnDemandKorea'
-    _VALID_URL = 'https?://(?:www\\.)?ondemandkorea\\.com/(?P<id>[^/]+)\\.html'
+    _VALID_URL = 'https?://(?:www\\.)?ondemandkorea\\.com/(?:en/)?player/vod/[a-z0-9-]+\\?(?:[^#]+&)?contentId=(?P<id>\\d+)'
+    age_limit = 18
     _RETURN_TYPE = 'video'
+
+
+class OnDemandKoreaProgramIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ondemandkorea'
+    IE_NAME = 'OnDemandKoreaProgram'
+    _VALID_URL = 'https?://(?:www\\.)?ondemandkorea\\.com/(?:en/)?player/vod/(?P<id>[a-z0-9-]+)(?:$|#)'
+    _RETURN_TYPE = 'playlist'
 
 
 class OneFootballIE(LazyLoadExtractor):
@@ -8229,25 +8321,6 @@ class OnionStudiosIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.onionstudios'
     IE_NAME = 'OnionStudios'
     _VALID_URL = 'https?://(?:www\\.)?onionstudios\\.com/(?:video(?:s/[^/]+-|/)|embed\\?.*\\bid=)(?P<id>\\d+)(?!-)'
-    _RETURN_TYPE = 'video'
-
-
-class OoyalaBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ooyala'
-    IE_NAME = 'OoyalaBase'
-
-
-class OoyalaIE(OoyalaBaseIE):
-    _module = 'yt_dlp.extractor.ooyala'
-    IE_NAME = 'Ooyala'
-    _VALID_URL = '(?:ooyala:|https?://.+?\\.ooyala\\.com/.*?(?:embedCode|ec)=)(?P<id>.+?)(&|$)'
-    _RETURN_TYPE = 'video'
-
-
-class OoyalaExternalIE(OoyalaBaseIE):
-    _module = 'yt_dlp.extractor.ooyala'
-    IE_NAME = 'OoyalaExternal'
-    _VALID_URL = '(?x)\n                    (?:\n                        ooyalaexternal:|\n                        https?://.+?\\.ooyala\\.com/.*?\\bexternalId=\n                    )\n                    (?P<partner_id>[^:]+)\n                    :\n                    (?P<id>.+)\n                    (?:\n                        :|\n                        .*?&pcode=\n                    )\n                    (?P<pcode>.+?)\n                    (?:&|$)\n                    '
     _RETURN_TYPE = 'video'
 
 
@@ -8318,11 +8391,25 @@ class ORFFM4StoryIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
+class ORFONIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.orf'
+    IE_NAME = 'orf:on'
+    _VALID_URL = 'https?://on\\.orf\\.at/video/(?P<id>\\d{8})/(?P<slug>[\\w-]+)'
+    _RETURN_TYPE = 'video'
+
+
 class ORFRadioIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.orf'
     IE_NAME = 'orf:radio'
     _VALID_URL = '(?x)\n        https?://(?:\n            (?P<station>fm4|noe|wien|burgenland|ooe|steiermark|kaernten|salzburg|tirol|vorarlberg|oe3|oe1)\\.orf\\.at/player|\n            radiothek\\.orf\\.at/(?P<station2>fm4|noe|wien|burgenland|ooe|steiermark|kaernten|salzburg|tirol|vorarlberg|oe3|oe1)\n        )/(?P<date>[0-9]+)/(?P<show>\\w+)'
     _RETURN_TYPE = 'any'
+
+
+class ORFPodcastIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.orf'
+    IE_NAME = 'orf:podcast'
+    _VALID_URL = 'https?://sound\\.orf\\.at/podcast/(?P<station>bgl|fm4|ktn|noe|oe1|oe3|ooe|sbg|stm|tir|tv|vbg|wie)/(?P<show>[\\w-]+)/(?P<id>[\\w-]+)'
+    _RETURN_TYPE = 'video'
 
 
 class ORFIPTVIE(LazyLoadExtractor):
@@ -8406,14 +8493,6 @@ class PalcoMP3VideoIE(PalcoMP3BaseIE):
     _RETURN_TYPE = 'video'
 
 
-class PandoraTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.pandoratv'
-    IE_NAME = 'pandora.tv'
-    _VALID_URL = '(?x)\n                        https?://\n                            (?:\n                                (?:www\\.)?pandora\\.tv/view/(?P<user_id>[^/]+)/(?P<id>\\d+)|  # new format\n                                (?:.+?\\.)?channel\\.pandora\\.tv/channel/video\\.ptv\\?|        # old format\n                                m\\.pandora\\.tv/?\\?                                          # mobile\n                            )\n                    '
-    IE_DESC = '판도라TV'
-    _RETURN_TYPE = 'video'
-
-
 class PanoptoBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.panopto'
     IE_NAME = 'PanoptoBase'
@@ -8454,7 +8533,7 @@ class ParamountPlusSeriesIE(LazyLoadExtractor):
 class ParlerIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.parler'
     IE_NAME = 'Parler'
-    _VALID_URL = 'https://parler\\.com/feed/(?P<id>[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12})'
+    _VALID_URL = 'https?://parler\\.com/feed/(?P<id>[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12})'
     IE_DESC = 'Posts on parler.com'
     _RETURN_TYPE = 'video'
 
@@ -8463,6 +8542,7 @@ class ParlviewIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.parlview'
     IE_NAME = 'Parlview'
     _VALID_URL = 'https?://(?:www\\.)?parlview\\.aph\\.gov\\.au/(?:[^/]+)?\\bvideoID=(?P<id>\\d{6})'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -8498,6 +8578,13 @@ class PBSIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
+class PBSKidsIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.pbs'
+    IE_NAME = 'PBSKids'
+    _VALID_URL = 'https?://(?:www\\.)?pbskids\\.org/video/[\\w-]+/(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
 class PearVideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.pearvideo'
     IE_NAME = 'PearVideo'
@@ -8529,14 +8616,14 @@ class PlayVidsIE(PeekVidsBaseIE):
 class PeerTubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.peertube'
     IE_NAME = 'PeerTube'
-    _VALID_URL = '(?x)\n                    (?:\n                        peertube:(?P<host>[^:]+):|\n                        https?://(?P<host_2>(?:\n                            # Taken from https://instances.joinpeertube.org/instances\n                            40two\\.tube|\n                            a\\.metube\\.ch|\n                            advtv\\.ml|\n                            algorithmic\\.tv|\n                            alimulama\\.com|\n                            arcana\\.fun|\n                            archive\\.vidicon\\.org|\n                            artefac-paris\\.tv|\n                            auf1\\.eu|\n                            battlepenguin\\.video|\n                            beertube\\.epgn\\.ch|\n                            befree\\.nohost\\.me|\n                            bideoak\\.argia\\.eus|\n                            birkeundnymphe\\.de|\n                            bitcointv\\.com|\n                            cattube\\.org|\n                            clap\\.nerv-project\\.eu|\n                            climatejustice\\.video|\n                            comf\\.tube|\n                            conspiracydistillery\\.com|\n                            darkvapor\\.nohost\\.me|\n                            daschauher\\.aksel\\.rocks|\n                            digitalcourage\\.video|\n                            dreiecksnebel\\.alex-detsch\\.de|\n                            eduvid\\.org|\n                            evangelisch\\.video|\n                            exo\\.tube|\n                            fair\\.tube|\n                            fediverse\\.tv|\n                            film\\.k-prod\\.fr|\n                            flim\\.txmn\\.tk|\n                            fotogramas\\.politicaconciencia\\.org|\n                            ftsi\\.ru|\n                            gary\\.vger\\.cloud|\n                            graeber\\.video|\n                            greatview\\.video|\n                            grypstube\\.uni-greifswald\\.de|\n                            highvoltage\\.tv|\n                            hpstube\\.fr|\n                            htp\\.live|\n                            hyperreal\\.tube|\n                            juggling\\.digital|\n                            kino\\.kompot\\.si|\n                            kino\\.schuerz\\.at|\n                            kinowolnosc\\.pl|\n                            kirche\\.peertube-host\\.de|\n                            kodcast\\.com|\n                            kolektiva\\.media|\n                            kraut\\.zone|\n                            kumi\\.tube|\n                            lastbreach\\.tv|\n                            lepetitmayennais\\.fr\\.nf|\n                            lexx\\.impa\\.me|\n                            libertynode\\.tv|\n                            libra\\.syntazia\\.org|\n                            libremedia\\.video|\n                            live\\.libratoi\\.org|\n                            live\\.nanao\\.moe|\n                            live\\.toobnix\\.org|\n                            livegram\\.net|\n                            lolitube\\.freedomchan\\.moe|\n                            lucarne\\.balsamine\\.be|\n                            maindreieck-tv\\.de|\n                            mani\\.tube|\n                            manicphase\\.me|\n                            media\\.fsfe\\.org|\n                            media\\.gzevd\\.de|\n                            media\\.inno3\\.cricket|\n                            media\\.kaitaia\\.life|\n                            media\\.krashboyz\\.org|\n                            media\\.over-world\\.org|\n                            media\\.skewed\\.de|\n                            media\\.undeadnetwork\\.de|\n                            medias\\.pingbase\\.net|\n                            melsungen\\.peertube-host\\.de|\n                            mirametube\\.fr|\n                            mojotube\\.net|\n                            monplaisirtube\\.ddns\\.net|\n                            mountaintown\\.video|\n                            my\\.bunny\\.cafe|\n                            myfreetube\\.de|\n                            mytube\\.kn-cloud\\.de|\n                            mytube\\.madzel\\.de|\n                            myworkoutarenapeertube\\.cf|\n                            nanawel-peertube\\.dyndns\\.org|\n                            nastub\\.cz|\n                            offenes\\.tv|\n                            orgdup\\.media|\n                            ovaltube\\.codinglab\\.ch|\n                            p2ptv\\.ru|\n                            p\\.eertu\\.be|\n                            p\\.lu|\n                            peer\\.azurs\\.fr|\n                            peertube1\\.zeteo\\.me|\n                            peertube\\.020\\.pl|\n                            peertube\\.0x5e\\.eu|\n                            peertube\\.alpharius\\.io|\n                            peertube\\.am-networks\\.fr|\n                            peertube\\.anduin\\.net|\n                            peertube\\.anzui\\.dev|\n                            peertube\\.arbleizez\\.bzh|\n                            peertube\\.art3mis\\.de|\n                            peertube\\.atilla\\.org|\n                            peertube\\.atsuchan\\.page|\n                            peertube\\.aukfood\\.net|\n                            peertube\\.aventer\\.biz|\n                            peertube\\.b38\\.rural-it\\.org|\n                            peertube\\.beeldengeluid\\.nl|\n                            peertube\\.be|\n                            peertube\\.bgzashtita\\.es|\n                            peertube\\.bitsandlinux\\.com|\n                            peertube\\.biz|\n                            peertube\\.boba\\.best|\n                            peertube\\.br0\\.fr|\n                            peertube\\.bridaahost\\.ynh\\.fr|\n                            peertube\\.bubbletea\\.dev|\n                            peertube\\.bubuit\\.net|\n                            peertube\\.cabaal\\.net|\n                            peertube\\.cats-home\\.net|\n                            peertube\\.chemnitz\\.freifunk\\.net|\n                            peertube\\.chevro\\.fr|\n                            peertube\\.chrisspiegl\\.com|\n                            peertube\\.chtisurel\\.net|\n                            peertube\\.cipherbliss\\.com|\n                            peertube\\.cloud\\.sans\\.pub|\n                            peertube\\.cpge-brizeux\\.fr|\n                            peertube\\.ctseuro\\.com|\n                            peertube\\.cuatrolibertades\\.org|\n                            peertube\\.cybercirujas\\.club|\n                            peertube\\.cythin\\.com|\n                            peertube\\.davigge\\.com|\n                            peertube\\.dc\\.pini\\.fr|\n                            peertube\\.debian\\.social|\n                            peertube\\.demonix\\.fr|\n                            peertube\\.designersethiques\\.org|\n                            peertube\\.desmu\\.fr|\n                            peertube\\.devloprog\\.org|\n                            peertube\\.devol\\.it|\n                            peertube\\.dtmf\\.ca|\n                            peertube\\.ecologie\\.bzh|\n                            peertube\\.eu\\.org|\n                            peertube\\.european-pirates\\.eu|\n                            peertube\\.euskarabildua\\.eus|\n                            peertube\\.fenarinarsa\\.com|\n                            peertube\\.fomin\\.site|\n                            peertube\\.forsud\\.be|\n                            peertube\\.francoispelletier\\.org|\n                            peertube\\.freenet\\.ru|\n                            peertube\\.freetalklive\\.com|\n                            peertube\\.functional\\.cafe|\n                            peertube\\.gardeludwig\\.fr|\n                            peertube\\.gargantia\\.fr|\n                            peertube\\.gcfamily\\.fr|\n                            peertube\\.genma\\.fr|\n                            peertube\\.get-racing\\.de|\n                            peertube\\.gidikroon\\.eu|\n                            peertube\\.gruezishop\\.ch|\n                            peertube\\.habets\\.house|\n                            peertube\\.hackerfraternity\\.org|\n                            peertube\\.ichigo\\.everydayimshuflin\\.com|\n                            peertube\\.ignifi\\.me|\n                            peertube\\.inapurna\\.org|\n                            peertube\\.informaction\\.info|\n                            peertube\\.interhop\\.org|\n                            peertube\\.iselfhost\\.com|\n                            peertube\\.it|\n                            peertube\\.jensdiemer\\.de|\n                            peertube\\.joffreyverd\\.fr|\n                            peertube\\.kalua\\.im|\n                            peertube\\.kathryl\\.fr|\n                            peertube\\.keazilla\\.net|\n                            peertube\\.klaewyss\\.fr|\n                            peertube\\.kodcast\\.com|\n                            peertube\\.kx\\.studio|\n                            peertube\\.lagvoid\\.com|\n                            peertube\\.lavallee\\.tech|\n                            peertube\\.le5emeaxe\\.fr|\n                            peertube\\.lestutosdeprocessus\\.fr|\n                            peertube\\.librenet\\.co\\.za|\n                            peertube\\.logilab\\.fr|\n                            peertube\\.louisematic\\.site|\n                            peertube\\.luckow\\.org|\n                            peertube\\.luga\\.at|\n                            peertube\\.lyceeconnecte\\.fr|\n                            peertube\\.manalejandro\\.com|\n                            peertube\\.marud\\.fr|\n                            peertube\\.mattone\\.net|\n                            peertube\\.maxweiss\\.io|\n                            peertube\\.monlycee\\.net|\n                            peertube\\.mxinfo\\.fr|\n                            peertube\\.myrasp\\.eu|\n                            peertube\\.nebelcloud\\.de|\n                            peertube\\.netzbegruenung\\.de|\n                            peertube\\.newsocial\\.tech|\n                            peertube\\.nicolastissot\\.fr|\n                            peertube\\.nz|\n                            peertube\\.offerman\\.com|\n                            peertube\\.opencloud\\.lu|\n                            peertube\\.orthus\\.link|\n                            peertube\\.patapouf\\.xyz|\n                            peertube\\.pi2\\.dev|\n                            peertube\\.plataformess\\.org|\n                            peertube\\.pl|\n                            peertube\\.portaesgnos\\.org|\n                            peertube\\.r2\\.enst\\.fr|\n                            peertube\\.r5c3\\.fr|\n                            peertube\\.radres\\.xyz|\n                            peertube\\.red|\n                            peertube\\.robonomics\\.network|\n                            peertube\\.rtnkv\\.cloud|\n                            peertube\\.runfox\\.tk|\n                            peertube\\.satoshishop\\.de|\n                            peertube\\.scic-tetris\\.org|\n                            peertube\\.securitymadein\\.lu|\n                            peertube\\.semweb\\.pro|\n                            peertube\\.social\\.my-wan\\.de|\n                            peertube\\.soykaf\\.org|\n                            peertube\\.stefofficiel\\.me|\n                            peertube\\.stream|\n                            peertube\\.su|\n                            peertube\\.swrs\\.net|\n                            peertube\\.takeko\\.cyou|\n                            peertube\\.tangentfox\\.com|\n                            peertube\\.taxinachtegel\\.de|\n                            peertube\\.thenewoil\\.xyz|\n                            peertube\\.ti-fr\\.com|\n                            peertube\\.tiennot\\.net|\n                            peertube\\.troback\\.com|\n                            peertube\\.tspu\\.edu\\.ru|\n                            peertube\\.tux\\.ovh|\n                            peertube\\.tv|\n                            peertube\\.tweb\\.tv|\n                            peertube\\.ucy\\.de|\n                            peertube\\.underworld\\.fr|\n                            peertube\\.us\\.to|\n                            peertube\\.ventresmous\\.fr|\n                            peertube\\.vlaki\\.cz|\n                            peertube\\.w\\.utnw\\.de|\n                            peertube\\.westring\\.digital|\n                            peertube\\.xwiki\\.com|\n                            peertube\\.zoz-serv\\.org|\n                            peervideo\\.ru|\n                            periscope\\.numenaute\\.org|\n                            perron-tube\\.de|\n                            petitlutinartube\\.fr|\n                            phijkchu\\.com|\n                            pierre\\.tube|\n                            piraten\\.space|\n                            play\\.rosano\\.ca|\n                            player\\.ojamajo\\.moe|\n                            plextube\\.nl|\n                            pocketnetpeertube1\\.nohost\\.me|\n                            pocketnetpeertube3\\.nohost\\.me|\n                            pocketnetpeertube4\\.nohost\\.me|\n                            pocketnetpeertube5\\.nohost\\.me|\n                            pocketnetpeertube6\\.nohost\\.me|\n                            pt\\.24-7\\.ro|\n                            pt\\.apathy\\.top|\n                            pt\\.diaspodon\\.fr|\n                            pt\\.fedi\\.tech|\n                            pt\\.maciej\\.website|\n                            ptb\\.lunarviews\\.net|\n                            ptmir1\\.inter21\\.net|\n                            ptmir2\\.inter21\\.net|\n                            ptmir3\\.inter21\\.net|\n                            ptmir4\\.inter21\\.net|\n                            ptmir5\\.inter21\\.net|\n                            ptube\\.horsentiers\\.fr|\n                            ptube\\.xmanifesto\\.club|\n                            queermotion\\.org|\n                            re-wizja\\.re-medium\\.com|\n                            regarder\\.sans\\.pub|\n                            ruraletv\\.ovh|\n                            s1\\.gegenstimme\\.tv|\n                            s2\\.veezee\\.tube|\n                            sdmtube\\.fr|\n                            sender-fm\\.veezee\\.tube|\n                            serv1\\.wiki-tube\\.de|\n                            serv3\\.wiki-tube\\.de|\n                            sickstream\\.net|\n                            sleepy\\.tube|\n                            sovran\\.video|\n                            spectra\\.video|\n                            stream\\.elven\\.pw|\n                            stream\\.k-prod\\.fr|\n                            stream\\.shahab\\.nohost\\.me|\n                            streamsource\\.video|\n                            studios\\.racer159\\.com|\n                            testtube\\.florimond\\.eu|\n                            tgi\\.hosted\\.spacebear\\.ee|\n                            thaitube\\.in\\.th|\n                            the\\.jokertv\\.eu|\n                            theater\\.ethernia\\.net|\n                            thecool\\.tube|\n                            tilvids\\.com|\n                            toob\\.bub\\.org|\n                            tpaw\\.video|\n                            truetube\\.media|\n                            tuba\\.lhub\\.pl|\n                            tube-aix-marseille\\.beta\\.education\\.fr|\n                            tube-amiens\\.beta\\.education\\.fr|\n                            tube-besancon\\.beta\\.education\\.fr|\n                            tube-bordeaux\\.beta\\.education\\.fr|\n                            tube-clermont-ferrand\\.beta\\.education\\.fr|\n                            tube-corse\\.beta\\.education\\.fr|\n                            tube-creteil\\.beta\\.education\\.fr|\n                            tube-dijon\\.beta\\.education\\.fr|\n                            tube-education\\.beta\\.education\\.fr|\n                            tube-grenoble\\.beta\\.education\\.fr|\n                            tube-lille\\.beta\\.education\\.fr|\n                            tube-limoges\\.beta\\.education\\.fr|\n                            tube-montpellier\\.beta\\.education\\.fr|\n                            tube-nancy\\.beta\\.education\\.fr|\n                            tube-nantes\\.beta\\.education\\.fr|\n                            tube-nice\\.beta\\.education\\.fr|\n                            tube-normandie\\.beta\\.education\\.fr|\n                            tube-orleans-tours\\.beta\\.education\\.fr|\n                            tube-outremer\\.beta\\.education\\.fr|\n                            tube-paris\\.beta\\.education\\.fr|\n                            tube-poitiers\\.beta\\.education\\.fr|\n                            tube-reims\\.beta\\.education\\.fr|\n                            tube-rennes\\.beta\\.education\\.fr|\n                            tube-strasbourg\\.beta\\.education\\.fr|\n                            tube-toulouse\\.beta\\.education\\.fr|\n                            tube-versailles\\.beta\\.education\\.fr|\n                            tube1\\.it\\.tuwien\\.ac\\.at|\n                            tube\\.abolivier\\.bzh|\n                            tube\\.ac-amiens\\.fr|\n                            tube\\.aerztefueraufklaerung\\.de|\n                            tube\\.alexx\\.ml|\n                            tube\\.amic37\\.fr|\n                            tube\\.anufrij\\.de|\n                            tube\\.apolut\\.net|\n                            tube\\.arkhalabs\\.io|\n                            tube\\.arthack\\.nz|\n                            tube\\.as211696\\.net|\n                            tube\\.avensio\\.de|\n                            tube\\.azbyka\\.ru|\n                            tube\\.azkware\\.net|\n                            tube\\.bachaner\\.fr|\n                            tube\\.bmesh\\.org|\n                            tube\\.borked\\.host|\n                            tube\\.bstly\\.de|\n                            tube\\.chaoszone\\.tv|\n                            tube\\.chatelet\\.ovh|\n                            tube\\.cloud-libre\\.eu|\n                            tube\\.cms\\.garden|\n                            tube\\.cowfee\\.moe|\n                            tube\\.cryptography\\.dog|\n                            tube\\.darknight-coffee\\.org|\n                            tube\\.dev\\.lhub\\.pl|\n                            tube\\.distrilab\\.fr|\n                            tube\\.dsocialize\\.net|\n                            tube\\.ebin\\.club|\n                            tube\\.fdn\\.fr|\n                            tube\\.florimond\\.eu|\n                            tube\\.foxarmy\\.ml|\n                            tube\\.foxden\\.party|\n                            tube\\.frischesicht\\.de|\n                            tube\\.futuretic\\.fr|\n                            tube\\.gnous\\.eu|\n                            tube\\.grap\\.coop|\n                            tube\\.graz\\.social|\n                            tube\\.grin\\.hu|\n                            tube\\.hackerscop\\.org|\n                            tube\\.hordearii\\.fr|\n                            tube\\.jeena\\.net|\n                            tube\\.kai-stuht\\.com|\n                            tube\\.kockatoo\\.org|\n                            tube\\.kotur\\.org|\n                            tube\\.lacaveatonton\\.ovh|\n                            tube\\.linkse\\.media|\n                            tube\\.lokad\\.com|\n                            tube\\.lucie-philou\\.com|\n                            tube\\.melonbread\\.xyz|\n                            tube\\.mfraters\\.net|\n                            tube\\.motuhake\\.xyz|\n                            tube\\.mrbesen\\.de|\n                            tube\\.nah\\.re|\n                            tube\\.nchoco\\.net|\n                            tube\\.novg\\.net|\n                            tube\\.nox-rhea\\.org|\n                            tube\\.nuagelibre\\.fr|\n                            tube\\.nx12\\.net|\n                            tube\\.octaplex\\.net|\n                            tube\\.odat\\.xyz|\n                            tube\\.oisux\\.org|\n                            tube\\.opportunis\\.me|\n                            tube\\.org\\.il|\n                            tube\\.ortion\\.xyz|\n                            tube\\.others\\.social|\n                            tube\\.picasoft\\.net|\n                            tube\\.plomlompom\\.com|\n                            tube\\.pmj\\.rocks|\n                            tube\\.portes-imaginaire\\.org|\n                            tube\\.pyngu\\.com|\n                            tube\\.rebellion\\.global|\n                            tube\\.rhythms-of-resistance\\.org|\n                            tube\\.rita\\.moe|\n                            tube\\.rsi\\.cnr\\.it|\n                            tube\\.s1gm4\\.eu|\n                            tube\\.saumon\\.io|\n                            tube\\.schleuss\\.online|\n                            tube\\.schule\\.social|\n                            tube\\.seditio\\.fr|\n                            tube\\.shanti\\.cafe|\n                            tube\\.shela\\.nu|\n                            tube\\.skrep\\.in|\n                            tube\\.sp-codes\\.de|\n                            tube\\.sp4ke\\.com|\n                            tube\\.superseriousbusiness\\.org|\n                            tube\\.systest\\.eu|\n                            tube\\.tappret\\.fr|\n                            tube\\.tardis\\.world|\n                            tube\\.toontoet\\.nl|\n                            tube\\.tpshd\\.de|\n                            tube\\.troopers\\.agency|\n                            tube\\.tylerdavis\\.xyz|\n                            tube\\.undernet\\.uy|\n                            tube\\.vigilian-consulting\\.nl|\n                            tube\\.vraphim\\.com|\n                            tube\\.wehost\\.lgbt|\n                            tube\\.wien\\.rocks|\n                            tube\\.wolfe\\.casa|\n                            tube\\.xd0\\.de|\n                            tube\\.xy-space\\.de|\n                            tube\\.yapbreak\\.fr|\n                            tubedu\\.org|\n                            tubes\\.jodh\\.us|\n                            tuktube\\.com|\n                            turkum\\.me|\n                            tututu\\.tube|\n                            tuvideo\\.encanarias\\.info|\n                            tv1\\.cocu\\.cc|\n                            tv1\\.gomntu\\.space|\n                            tv2\\.cocu\\.cc|\n                            tv\\.adn\\.life|\n                            tv\\.atmx\\.ca|\n                            tv\\.bitma\\.st|\n                            tv\\.generallyrubbish\\.net\\.au|\n                            tv\\.lumbung\\.space|\n                            tv\\.mattchristiansenmedia\\.com|\n                            tv\\.netwhood\\.online|\n                            tv\\.neue\\.city|\n                            tv\\.piejacker\\.net|\n                            tv\\.pirateradio\\.social|\n                            tv\\.undersco\\.re|\n                            tvox\\.ru|\n                            twctube\\.twc-zone\\.eu|\n                            unfilter\\.tube|\n                            v\\.basspistol\\.org|\n                            v\\.kisombrella\\.top|\n                            v\\.lastorder\\.xyz|\n                            v\\.lor\\.sh|\n                            v\\.phreedom\\.club|\n                            v\\.sil\\.sh|\n                            v\\.szy\\.io|\n                            v\\.xxxapex\\.com|\n                            veezee\\.tube|\n                            vid\\.dascoyote\\.xyz|\n                            vid\\.garwood\\.io|\n                            vid\\.ncrypt\\.at|\n                            vid\\.pravdastalina\\.info|\n                            vid\\.qorg11\\.net|\n                            vid\\.rajeshtaylor\\.com|\n                            vid\\.samtripoli\\.com|\n                            vid\\.werefox\\.dev|\n                            vid\\.wildeboer\\.net|\n                            video-cave-v2\\.de|\n                            video\\.076\\.ne\\.jp|\n                            video\\.1146\\.nohost\\.me|\n                            video\\.altertek\\.org|\n                            video\\.anartist\\.org|\n                            video\\.apps\\.thedoodleproject\\.net|\n                            video\\.artist\\.cx|\n                            video\\.asgardius\\.company|\n                            video\\.balsillie\\.net|\n                            video\\.bards\\.online|\n                            video\\.binarydad\\.com|\n                            video\\.blast-info\\.fr|\n                            video\\.catgirl\\.biz|\n                            video\\.cigliola\\.com|\n                            video\\.cm-en-transition\\.fr|\n                            video\\.cnt\\.social|\n                            video\\.coales\\.co|\n                            video\\.codingfield\\.com|\n                            video\\.comptoir\\.net|\n                            video\\.comune\\.trento\\.it|\n                            video\\.cpn\\.so|\n                            video\\.csc49\\.fr|\n                            video\\.cybre\\.town|\n                            video\\.demokratischer-sommer\\.de|\n                            video\\.discord-insoumis\\.fr|\n                            video\\.dolphincastle\\.com|\n                            video\\.dresden\\.network|\n                            video\\.ecole-89\\.com|\n                            video\\.elgrillolibertario\\.org|\n                            video\\.emergeheart\\.info|\n                            video\\.eradicatinglove\\.xyz|\n                            video\\.ethantheenigma\\.me|\n                            video\\.exodus-privacy\\.eu\\.org|\n                            video\\.fbxl\\.net|\n                            video\\.fhtagn\\.org|\n                            video\\.greenmycity\\.eu|\n                            video\\.guerredeclasse\\.fr|\n                            video\\.gyt\\.is|\n                            video\\.hackers\\.town|\n                            video\\.hardlimit\\.com|\n                            video\\.hooli\\.co|\n                            video\\.igem\\.org|\n                            video\\.internet-czas-dzialac\\.pl|\n                            video\\.islameye\\.com|\n                            video\\.kicik\\.fr|\n                            video\\.kuba-orlik\\.name|\n                            video\\.kyushojitsu\\.ca|\n                            video\\.lavolte\\.net|\n                            video\\.lespoesiesdheloise\\.fr|\n                            video\\.liberta\\.vip|\n                            video\\.liege\\.bike|\n                            video\\.linc\\.systems|\n                            video\\.linux\\.it|\n                            video\\.linuxtrent\\.it|\n                            video\\.lokal\\.social|\n                            video\\.lono\\.space|\n                            video\\.lunasqu\\.ee|\n                            video\\.lundi\\.am|\n                            video\\.marcorennmaus\\.de|\n                            video\\.mass-trespass\\.uk|\n                            video\\.mugoreve\\.fr|\n                            video\\.mundodesconocido\\.com|\n                            video\\.mycrowd\\.ca|\n                            video\\.nogafam\\.es|\n                            video\\.odayacres\\.farm|\n                            video\\.ozgurkon\\.org|\n                            video\\.p1ng0ut\\.social|\n                            video\\.p3x\\.de|\n                            video\\.pcf\\.fr|\n                            video\\.pony\\.gallery|\n                            video\\.potate\\.space|\n                            video\\.pourpenser\\.pro|\n                            video\\.progressiv\\.dev|\n                            video\\.resolutions\\.it|\n                            video\\.rw501\\.de|\n                            video\\.screamer\\.wiki|\n                            video\\.sdm-tools\\.net|\n                            video\\.sftblw\\.moe|\n                            video\\.shitposter\\.club|\n                            video\\.skyn3t\\.in|\n                            video\\.soi\\.ch|\n                            video\\.stuartbrand\\.co\\.uk|\n                            video\\.thinkof\\.name|\n                            video\\.toot\\.pt|\n                            video\\.triplea\\.fr|\n                            video\\.turbo\\.chat|\n                            video\\.vaku\\.org\\.ua|\n                            video\\.veloma\\.org|\n                            video\\.violoncello\\.ch|\n                            video\\.wilkie\\.how|\n                            video\\.wsf2021\\.info|\n                            videorelay\\.co|\n                            videos-passages\\.huma-num\\.fr|\n                            videos\\.3d-wolf\\.com|\n                            videos\\.ahp-numerique\\.fr|\n                            videos\\.alexandrebadalo\\.pt|\n                            videos\\.archigny\\.net|\n                            videos\\.benjaminbrady\\.ie|\n                            videos\\.buceoluegoexisto\\.com|\n                            videos\\.capas\\.se|\n                            videos\\.casually\\.cat|\n                            videos\\.cloudron\\.io|\n                            videos\\.coletivos\\.org|\n                            videos\\.danksquad\\.org|\n                            videos\\.denshi\\.live|\n                            videos\\.fromouter\\.space|\n                            videos\\.fsci\\.in|\n                            videos\\.globenet\\.org|\n                            videos\\.hauspie\\.fr|\n                            videos\\.hush\\.is|\n                            videos\\.john-livingston\\.fr|\n                            videos\\.jordanwarne\\.xyz|\n                            videos\\.lavoixdessansvoix\\.org|\n                            videos\\.leslionsfloorball\\.fr|\n                            videos\\.lucero\\.top|\n                            videos\\.martyn\\.berlin|\n                            videos\\.mastodont\\.cat|\n                            videos\\.monstro1\\.com|\n                            videos\\.npo\\.city|\n                            videos\\.optoutpod\\.com|\n                            videos\\.petch\\.rocks|\n                            videos\\.pzelawski\\.xyz|\n                            videos\\.rampin\\.org|\n                            videos\\.scanlines\\.xyz|\n                            videos\\.shmalls\\.pw|\n                            videos\\.sibear\\.fr|\n                            videos\\.stadtfabrikanten\\.org|\n                            videos\\.tankernn\\.eu|\n                            videos\\.testimonia\\.org|\n                            videos\\.thisishowidontdisappear\\.com|\n                            videos\\.traumaheilung\\.net|\n                            videos\\.trom\\.tf|\n                            videos\\.wakkerewereld\\.nu|\n                            videos\\.weblib\\.re|\n                            videos\\.yesil\\.club|\n                            vids\\.roshless\\.me|\n                            vids\\.tekdmn\\.me|\n                            vidz\\.dou\\.bet|\n                            vod\\.lumikko\\.dev|\n                            vs\\.uniter\\.network|\n                            vulgarisation-informatique\\.fr|\n                            watch\\.breadtube\\.tv|\n                            watch\\.deranalyst\\.ch|\n                            watch\\.ignorance\\.eu|\n                            watch\\.krazy\\.party|\n                            watch\\.libertaria\\.space|\n                            watch\\.rt4mn\\.org|\n                            watch\\.softinio\\.com|\n                            watch\\.tubelab\\.video|\n                            web-fellow\\.de|\n                            webtv\\.vandoeuvre\\.net|\n                            wechill\\.space|\n                            wikileaks\\.video|\n                            wiwi\\.video|\n                            worldofvids\\.com|\n                            wwtube\\.net|\n                            www4\\.mir\\.inter21\\.net|\n                            www\\.birkeundnymphe\\.de|\n                            www\\.captain-german\\.com|\n                            www\\.wiki-tube\\.de|\n                            xxivproduction\\.video|\n                            xxx\\.noho\\.st|\n\n                            # from youtube-dl\n                            peertube\\.rainbowswingers\\.net|\n                            tube\\.stanisic\\.nl|\n                            peer\\.suiri\\.us|\n                            medias\\.libox\\.fr|\n                            videomensoif\\.ynh\\.fr|\n                            peertube\\.travelpandas\\.eu|\n                            peertube\\.rachetjay\\.fr|\n                            peertube\\.montecsys\\.fr|\n                            tube\\.eskuero\\.me|\n                            peer\\.tube|\n                            peertube\\.umeahackerspace\\.se|\n                            tube\\.nx-pod\\.de|\n                            video\\.monsieurbidouille\\.fr|\n                            tube\\.openalgeria\\.org|\n                            vid\\.lelux\\.fi|\n                            video\\.anormallostpod\\.ovh|\n                            tube\\.crapaud-fou\\.org|\n                            peertube\\.stemy\\.me|\n                            lostpod\\.space|\n                            exode\\.me|\n                            peertube\\.snargol\\.com|\n                            vis\\.ion\\.ovh|\n                            videosdulib\\.re|\n                            v\\.mbius\\.io|\n                            videos\\.judrey\\.eu|\n                            peertube\\.osureplayviewer\\.xyz|\n                            peertube\\.mathieufamily\\.ovh|\n                            www\\.videos-libr\\.es|\n                            fightforinfo\\.com|\n                            peertube\\.fediverse\\.ru|\n                            peertube\\.oiseauroch\\.fr|\n                            video\\.nesven\\.eu|\n                            v\\.bearvideo\\.win|\n                            video\\.qoto\\.org|\n                            justporn\\.cc|\n                            video\\.vny\\.fr|\n                            peervideo\\.club|\n                            tube\\.taker\\.fr|\n                            peertube\\.chantierlibre\\.org|\n                            tube\\.ipfixe\\.info|\n                            tube\\.kicou\\.info|\n                            tube\\.dodsorf\\.as|\n                            videobit\\.cc|\n                            video\\.yukari\\.moe|\n                            videos\\.elbinario\\.net|\n                            hkvideo\\.live|\n                            pt\\.tux\\.tf|\n                            www\\.hkvideo\\.live|\n                            FIGHTFORINFO\\.com|\n                            pt\\.765racing\\.com|\n                            peertube\\.gnumeria\\.eu\\.org|\n                            nordenmedia\\.com|\n                            peertube\\.co\\.uk|\n                            tube\\.darfweb\\.eu|\n                            tube\\.kalah-france\\.org|\n                            0ch\\.in|\n                            vod\\.mochi\\.academy|\n                            film\\.node9\\.org|\n                            peertube\\.hatthieves\\.es|\n                            video\\.fitchfamily\\.org|\n                            peertube\\.ddns\\.net|\n                            video\\.ifuncle\\.kr|\n                            video\\.fdlibre\\.eu|\n                            tube\\.22decembre\\.eu|\n                            peertube\\.harmoniescreatives\\.com|\n                            tube\\.fabrigli\\.fr|\n                            video\\.thedwyers\\.co|\n                            video\\.bruitbruit\\.com|\n                            peertube\\.foxfam\\.club|\n                            peer\\.philoxweb\\.be|\n                            videos\\.bugs\\.social|\n                            peertube\\.malbert\\.xyz|\n                            peertube\\.bilange\\.ca|\n                            libretube\\.net|\n                            diytelevision\\.com|\n                            peertube\\.fedilab\\.app|\n                            libre\\.video|\n                            video\\.mstddntfdn\\.online|\n                            us\\.tv|\n                            peertube\\.sl-network\\.fr|\n                            peertube\\.dynlinux\\.io|\n                            peertube\\.david\\.durieux\\.family|\n                            peertube\\.linuxrocks\\.online|\n                            peerwatch\\.xyz|\n                            v\\.kretschmann\\.social|\n                            tube\\.otter\\.sh|\n                            yt\\.is\\.nota\\.live|\n                            tube\\.dragonpsi\\.xyz|\n                            peertube\\.boneheadmedia\\.com|\n                            videos\\.funkwhale\\.audio|\n                            watch\\.44con\\.com|\n                            peertube\\.gcaillaut\\.fr|\n                            peertube\\.icu|\n                            pony\\.tube|\n                            spacepub\\.space|\n                            tube\\.stbr\\.io|\n                            v\\.mom-gay\\.faith|\n                            tube\\.port0\\.xyz|\n                            peertube\\.simounet\\.net|\n                            play\\.jergefelt\\.se|\n                            peertube\\.zeteo\\.me|\n                            tube\\.danq\\.me|\n                            peertube\\.kerenon\\.com|\n                            tube\\.fab-l3\\.org|\n                            tube\\.calculate\\.social|\n                            peertube\\.mckillop\\.org|\n                            tube\\.netzspielplatz\\.de|\n                            vod\\.ksite\\.de|\n                            peertube\\.laas\\.fr|\n                            tube\\.govital\\.net|\n                            peertube\\.stephenson\\.cc|\n                            bistule\\.nohost\\.me|\n                            peertube\\.kajalinifi\\.de|\n                            video\\.ploud\\.jp|\n                            video\\.omniatv\\.com|\n                            peertube\\.ffs2play\\.fr|\n                            peertube\\.leboulaire\\.ovh|\n                            peertube\\.tronic-studio\\.com|\n                            peertube\\.public\\.cat|\n                            peertube\\.metalbanana\\.net|\n                            video\\.1000i100\\.fr|\n                            peertube\\.alter-nativ-voll\\.de|\n                            tube\\.pasa\\.tf|\n                            tube\\.worldofhauru\\.xyz|\n                            pt\\.kamp\\.site|\n                            peertube\\.teleassist\\.fr|\n                            videos\\.mleduc\\.xyz|\n                            conf\\.tube|\n                            media\\.privacyinternational\\.org|\n                            pt\\.forty-two\\.nl|\n                            video\\.halle-leaks\\.de|\n                            video\\.grosskopfgames\\.de|\n                            peertube\\.schaeferit\\.de|\n                            peertube\\.jackbot\\.fr|\n                            tube\\.extinctionrebellion\\.fr|\n                            peertube\\.f-si\\.org|\n                            video\\.subak\\.ovh|\n                            videos\\.koweb\\.fr|\n                            peertube\\.zergy\\.net|\n                            peertube\\.roflcopter\\.fr|\n                            peertube\\.floss-marketing-school\\.com|\n                            vloggers\\.social|\n                            peertube\\.iriseden\\.eu|\n                            videos\\.ubuntu-paris\\.org|\n                            peertube\\.mastodon\\.host|\n                            armstube\\.com|\n                            peertube\\.s2s\\.video|\n                            peertube\\.lol|\n                            tube\\.open-plug\\.eu|\n                            open\\.tube|\n                            peertube\\.ch|\n                            peertube\\.normandie-libre\\.fr|\n                            peertube\\.slat\\.org|\n                            video\\.lacaveatonton\\.ovh|\n                            peertube\\.uno|\n                            peertube\\.servebeer\\.com|\n                            peertube\\.fedi\\.quebec|\n                            tube\\.h3z\\.jp|\n                            tube\\.plus200\\.com|\n                            peertube\\.eric\\.ovh|\n                            tube\\.metadocs\\.cc|\n                            tube\\.unmondemeilleur\\.eu|\n                            gouttedeau\\.space|\n                            video\\.antirep\\.net|\n                            nrop\\.cant\\.at|\n                            tube\\.ksl-bmx\\.de|\n                            tube\\.plaf\\.fr|\n                            tube\\.tchncs\\.de|\n                            video\\.devinberg\\.com|\n                            hitchtube\\.fr|\n                            peertube\\.kosebamse\\.com|\n                            yunopeertube\\.myddns\\.me|\n                            peertube\\.varney\\.fr|\n                            peertube\\.anon-kenkai\\.com|\n                            tube\\.maiti\\.info|\n                            tubee\\.fr|\n                            videos\\.dinofly\\.com|\n                            toobnix\\.org|\n                            videotape\\.me|\n                            voca\\.tube|\n                            video\\.heromuster\\.com|\n                            video\\.lemediatv\\.fr|\n                            video\\.up\\.edu\\.ph|\n                            balafon\\.video|\n                            video\\.ivel\\.fr|\n                            thickrips\\.cloud|\n                            pt\\.laurentkruger\\.fr|\n                            video\\.monarch-pass\\.net|\n                            peertube\\.artica\\.center|\n                            video\\.alternanet\\.fr|\n                            indymotion\\.fr|\n                            fanvid\\.stopthatimp\\.net|\n                            video\\.farci\\.org|\n                            v\\.lesterpig\\.com|\n                            video\\.okaris\\.de|\n                            tube\\.pawelko\\.net|\n                            peertube\\.mablr\\.org|\n                            tube\\.fede\\.re|\n                            pytu\\.be|\n                            evertron\\.tv|\n                            devtube\\.dev-wiki\\.de|\n                            raptube\\.antipub\\.org|\n                            video\\.selea\\.se|\n                            peertube\\.mygaia\\.org|\n                            video\\.oh14\\.de|\n                            peertube\\.livingutopia\\.org|\n                            peertube\\.the-penguin\\.de|\n                            tube\\.thechangebook\\.org|\n                            tube\\.anjara\\.eu|\n                            pt\\.pube\\.tk|\n                            video\\.samedi\\.pm|\n                            mplayer\\.demouliere\\.eu|\n                            widemus\\.de|\n                            peertube\\.me|\n                            peertube\\.zapashcanon\\.fr|\n                            video\\.latavernedejohnjohn\\.fr|\n                            peertube\\.pcservice46\\.fr|\n                            peertube\\.mazzonetto\\.eu|\n                            video\\.irem\\.univ-paris-diderot\\.fr|\n                            video\\.livecchi\\.cloud|\n                            alttube\\.fr|\n                            video\\.coop\\.tools|\n                            video\\.cabane-libre\\.org|\n                            peertube\\.openstreetmap\\.fr|\n                            videos\\.alolise\\.org|\n                            irrsinn\\.video|\n                            video\\.antopie\\.org|\n                            scitech\\.video|\n                            tube2\\.nemsia\\.org|\n                            video\\.amic37\\.fr|\n                            peertube\\.freeforge\\.eu|\n                            video\\.arbitrarion\\.com|\n                            video\\.datsemultimedia\\.com|\n                            stoptrackingus\\.tv|\n                            peertube\\.ricostrongxxx\\.com|\n                            docker\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.togart\\.de|\n                            tube\\.postblue\\.info|\n                            videos\\.domainepublic\\.net|\n                            peertube\\.cyber-tribal\\.com|\n                            video\\.gresille\\.org|\n                            peertube\\.dsmouse\\.net|\n                            cinema\\.yunohost\\.support|\n                            tube\\.theocevaer\\.fr|\n                            repro\\.video|\n                            tube\\.4aem\\.com|\n                            quaziinc\\.com|\n                            peertube\\.metawurst\\.space|\n                            videos\\.wakapo\\.com|\n                            video\\.ploud\\.fr|\n                            video\\.freeradical\\.zone|\n                            tube\\.valinor\\.fr|\n                            refuznik\\.video|\n                            pt\\.kircheneuenburg\\.de|\n                            peertube\\.asrun\\.eu|\n                            peertube\\.lagob\\.fr|\n                            videos\\.side-ways\\.net|\n                            91video\\.online|\n                            video\\.valme\\.io|\n                            video\\.taboulisme\\.com|\n                            videos-libr\\.es|\n                            tv\\.mooh\\.fr|\n                            nuage\\.acostey\\.fr|\n                            video\\.monsieur-a\\.fr|\n                            peertube\\.librelois\\.fr|\n                            videos\\.pair2jeux\\.tube|\n                            videos\\.pueseso\\.club|\n                            peer\\.mathdacloud\\.ovh|\n                            media\\.assassinate-you\\.net|\n                            vidcommons\\.org|\n                            ptube\\.rousset\\.nom\\.fr|\n                            tube\\.cyano\\.at|\n                            videos\\.squat\\.net|\n                            video\\.iphodase\\.fr|\n                            peertube\\.makotoworkshop\\.org|\n                            peertube\\.serveur\\.slv-valbonne\\.fr|\n                            vault\\.mle\\.party|\n                            hostyour\\.tv|\n                            videos\\.hack2g2\\.fr|\n                            libre\\.tube|\n                            pire\\.artisanlogiciel\\.net|\n                            videos\\.numerique-en-commun\\.fr|\n                            video\\.netsyms\\.com|\n                            video\\.die-partei\\.social|\n                            video\\.writeas\\.org|\n                            peertube\\.swarm\\.solvingmaz\\.es|\n                            tube\\.pericoloso\\.ovh|\n                            watching\\.cypherpunk\\.observer|\n                            videos\\.adhocmusic\\.com|\n                            tube\\.rfc1149\\.net|\n                            peertube\\.librelabucm\\.org|\n                            videos\\.numericoop\\.fr|\n                            peertube\\.koehn\\.com|\n                            peertube\\.anarchmusicall\\.net|\n                            tube\\.kampftoast\\.de|\n                            vid\\.y-y\\.li|\n                            peertube\\.xtenz\\.xyz|\n                            diode\\.zone|\n                            tube\\.egf\\.mn|\n                            peertube\\.nomagic\\.uk|\n                            visionon\\.tv|\n                            videos\\.koumoul\\.com|\n                            video\\.rastapuls\\.com|\n                            video\\.mantlepro\\.com|\n                            video\\.deadsuperhero\\.com|\n                            peertube\\.musicstudio\\.pro|\n                            peertube\\.we-keys\\.fr|\n                            artitube\\.artifaille\\.fr|\n                            peertube\\.ethernia\\.net|\n                            tube\\.midov\\.pl|\n                            peertube\\.fr|\n                            watch\\.snoot\\.tube|\n                            peertube\\.donnadieu\\.fr|\n                            argos\\.aquilenet\\.fr|\n                            tube\\.nemsia\\.org|\n                            tube\\.bruniau\\.net|\n                            videos\\.darckoune\\.moe|\n                            tube\\.traydent\\.info|\n                            dev\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.nayya\\.org|\n                            peertube\\.live|\n                            peertube\\.mofgao\\.space|\n                            video\\.lequerrec\\.eu|\n                            peertube\\.amicale\\.net|\n                            aperi\\.tube|\n                            tube\\.ac-lyon\\.fr|\n                            video\\.lw1\\.at|\n                            www\\.yiny\\.org|\n                            videos\\.pofilo\\.fr|\n                            tube\\.lou\\.lt|\n                            choob\\.h\\.etbus\\.ch|\n                            tube\\.hoga\\.fr|\n                            peertube\\.heberge\\.fr|\n                            video\\.obermui\\.de|\n                            videos\\.cloudfrancois\\.fr|\n                            betamax\\.video|\n                            video\\.typica\\.us|\n                            tube\\.piweb\\.be|\n                            video\\.blender\\.org|\n                            peertube\\.cat|\n                            tube\\.kdy\\.ch|\n                            pe\\.ertu\\.be|\n                            peertube\\.social|\n                            videos\\.lescommuns\\.org|\n                            tv\\.datamol\\.org|\n                            videonaute\\.fr|\n                            dialup\\.express|\n                            peertube\\.nogafa\\.org|\n                            megatube\\.lilomoino\\.fr|\n                            peertube\\.tamanoir\\.foucry\\.net|\n                            peertube\\.devosi\\.org|\n                            peertube\\.1312\\.media|\n                            tube\\.bootlicker\\.party|\n                            skeptikon\\.fr|\n                            video\\.blueline\\.mg|\n                            tube\\.homecomputing\\.fr|\n                            tube\\.ouahpiti\\.info|\n                            video\\.tedomum\\.net|\n                            video\\.g3l\\.org|\n                            fontube\\.fr|\n                            peertube\\.gaialabs\\.ch|\n                            tube\\.kher\\.nl|\n                            peertube\\.qtg\\.fr|\n                            video\\.migennes\\.net|\n                            tube\\.p2p\\.legal|\n                            troll\\.tv|\n                            videos\\.iut-orsay\\.fr|\n                            peertube\\.solidev\\.net|\n                            videos\\.cemea\\.org|\n                            video\\.passageenseine\\.fr|\n                            videos\\.festivalparminous\\.org|\n                            peertube\\.touhoppai\\.moe|\n                            sikke\\.fi|\n                            peer\\.hostux\\.social|\n                            share\\.tube|\n                            peertube\\.walkingmountains\\.fr|\n                            videos\\.benpro\\.fr|\n                            peertube\\.parleur\\.net|\n                            peertube\\.heraut\\.eu|\n                            tube\\.aquilenet\\.fr|\n                            peertube\\.gegeweb\\.eu|\n                            framatube\\.org|\n                            thinkerview\\.video|\n                            tube\\.conferences-gesticulees\\.net|\n                            peertube\\.datagueule\\.tv|\n                            video\\.lqdn\\.fr|\n                            tube\\.mochi\\.academy|\n                            media\\.zat\\.im|\n                            video\\.colibris-outilslibres\\.org|\n                            tube\\.svnet\\.fr|\n                            peertube\\.video|\n                            peertube2\\.cpy\\.re|\n                            peertube3\\.cpy\\.re|\n                            videos\\.tcit\\.fr|\n                            peertube\\.cpy\\.re|\n                            canard\\.tube\n                        ))/(?:videos/(?:watch|embed)|api/v\\d/videos|w)/\n                    )\n                    (?P<id>[\\da-zA-Z]{22}|[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12})\n                    '
+    _VALID_URL = '(?x)\n                    (?:\n                        peertube:(?P<host>[^:]+):|\n                        https?://(?P<host_2>(?:\n                            # Taken from https://instances.joinpeertube.org/instances\n                            0ch\\.tv|\n                            3dctube\\.3dcandy\\.social|\n                            all\\.electric\\.kitchen|\n                            alterscope\\.fr|\n                            anarchy\\.tube|\n                            apathy\\.tv|\n                            apertatube\\.net|\n                            archive\\.nocopyrightintended\\.tv|\n                            archive\\.reclaim\\.tv|\n                            area51\\.media|\n                            astrotube-ufe\\.obspm\\.fr|\n                            astrotube\\.obspm\\.fr|\n                            audio\\.freediverse\\.com|\n                            azxtube\\.youssefc\\.tn|\n                            bark\\.video|\n                            battlepenguin\\.video|\n                            bava\\.tv|\n                            bee-tube\\.fr|\n                            beetoons\\.tv|\n                            biblion\\.refchat\\.net|\n                            biblioteca\\.theowlclub\\.net|\n                            bideoak\\.argia\\.eus|\n                            bideoteka\\.eus|\n                            birdtu\\.be|\n                            bitcointv\\.com|\n                            bonn\\.video|\n                            breeze\\.tube|\n                            brioco\\.live|\n                            brocosoup\\.fr|\n                            canal\\.facil\\.services|\n                            canard\\.tube|\n                            cdn01\\.tilvids\\.com|\n                            celluloid-media\\.huma-num\\.fr|\n                            chicago1\\.peertube\\.support|\n                            cliptube\\.org|\n                            cloudtube\\.ise\\.fraunhofer\\.de|\n                            comf\\.tube|\n                            comics\\.peertube\\.biz|\n                            commons\\.tube|\n                            communitymedia\\.video|\n                            conspiracydistillery\\.com|\n                            crank\\.recoil\\.org|\n                            dalek\\.zone|\n                            dalliance\\.network|\n                            dangly\\.parts|\n                            darkvapor\\.nohost\\.me|\n                            daschauher\\.aksel\\.rocks|\n                            digitalcourage\\.video|\n                            displayeurope\\.video|\n                            ds106\\.tv|\n                            dud-video\\.inf\\.tu-dresden\\.de|\n                            dud175\\.inf\\.tu-dresden\\.de|\n                            dytube\\.com|\n                            ebildungslabor\\.video|\n                            evangelisch\\.video|\n                            fair\\.tube|\n                            fedi\\.video|\n                            fedimovie\\.com|\n                            fediverse\\.tv|\n                            film\\.k-prod\\.fr|\n                            flipboard\\.video|\n                            foss\\.video|\n                            fossfarmers\\.company|\n                            fotogramas\\.politicaconciencia\\.org|\n                            freediverse\\.com|\n                            freesoto-u2151\\.vm\\.elestio\\.app|\n                            freesoto\\.tv|\n                            garr\\.tv|\n                            greatview\\.video|\n                            grypstube\\.uni-greifswald\\.de|\n                            habratube\\.site|\n                            ilbjach\\.ru|\n                            infothema\\.net|\n                            itvplus\\.iiens\\.net|\n                            johnydeep\\.net|\n                            juggling\\.digital|\n                            jupiter\\.tube|\n                            kadras\\.live|\n                            kino\\.kompot\\.si|\n                            kino\\.schuerz\\.at|\n                            kinowolnosc\\.pl|\n                            kirche\\.peertube-host\\.de|\n                            kiwi\\.froggirl\\.club|\n                            kodcast\\.com|\n                            kolektiva\\.media|\n                            kpop\\.22x22\\.ru|\n                            kumi\\.tube|\n                            la2\\.peertube\\.support|\n                            la3\\.peertube\\.support|\n                            la4\\.peertube\\.support|\n                            lastbreach\\.tv|\n                            lawsplaining\\.peertube\\.biz|\n                            leopard\\.tube|\n                            live\\.codinglab\\.ch|\n                            live\\.libratoi\\.org|\n                            live\\.oldskool\\.fi|\n                            live\\.solari\\.com|\n                            lucarne\\.balsamine\\.be|\n                            luxtube\\.lu|\n                            makertube\\.net|\n                            media\\.econoalchemist\\.com|\n                            media\\.exo\\.cat|\n                            media\\.fsfe\\.org|\n                            media\\.gzevd\\.de|\n                            media\\.interior\\.edu\\.uy|\n                            media\\.krashboyz\\.org|\n                            media\\.mzhd\\.de|\n                            media\\.smz-ma\\.de|\n                            media\\.theplattform\\.net|\n                            media\\.undeadnetwork\\.de|\n                            medias\\.debrouillonet\\.org|\n                            medias\\.pingbase\\.net|\n                            mediatube\\.fermalo\\.fr|\n                            melsungen\\.peertube-host\\.de|\n                            merci-la-police\\.fr|\n                            mindlyvideos\\.com|\n                            mirror\\.peertube\\.metalbanana\\.net|\n                            mirrored\\.rocks|\n                            mix\\.video|\n                            mountaintown\\.video|\n                            movies\\.metricsmaster\\.eu|\n                            mtube\\.mooo\\.com|\n                            mytube\\.kn-cloud\\.de|\n                            mytube\\.le5emeaxe\\.fr|\n                            mytube\\.madzel\\.de|\n                            nadajemy\\.com|\n                            nanawel-peertube\\.dyndns\\.org|\n                            neat\\.tube|\n                            nethack\\.tv|\n                            nicecrew\\.tv|\n                            nightshift\\.minnix\\.dev|\n                            nolog\\.media|\n                            nyltube\\.nylarea\\.com|\n                            ocfedtest\\.hosted\\.spacebear\\.ee|\n                            openmedia\\.edunova\\.it|\n                            p2ptv\\.ru|\n                            p\\.eertu\\.be|\n                            p\\.lu|\n                            pastafriday\\.club|\n                            patriottube\\.sonsofliberty\\.red|\n                            pcbu\\.nl|\n                            peer\\.azurs\\.fr|\n                            peer\\.d0g4\\.me|\n                            peer\\.lukeog\\.com|\n                            peer\\.madiator\\.cloud|\n                            peer\\.raise-uav\\.com|\n                            peershare\\.togart\\.de|\n                            peertube-blablalinux\\.be|\n                            peertube-demo\\.learning-hub\\.fr|\n                            peertube-docker\\.cpy\\.re|\n                            peertube-eu\\.howlround\\.com|\n                            peertube-u5014\\.vm\\.elestio\\.app|\n                            peertube-us\\.howlround\\.com|\n                            peertube\\.020\\.pl|\n                            peertube\\.0x5e\\.eu|\n                            peertube\\.1984\\.cz|\n                            peertube\\.2i2l\\.net|\n                            peertube\\.adjutor\\.xyz|\n                            peertube\\.adresse\\.data\\.gouv\\.fr|\n                            peertube\\.alpharius\\.io|\n                            peertube\\.am-networks\\.fr|\n                            peertube\\.anduin\\.net|\n                            peertube\\.anti-logic\\.com|\n                            peertube\\.arch-linux\\.cz|\n                            peertube\\.art3mis\\.de|\n                            peertube\\.artsrn\\.ualberta\\.ca|\n                            peertube\\.askan\\.info|\n                            peertube\\.astral0pitek\\.synology\\.me|\n                            peertube\\.atsuchan\\.page|\n                            peertube\\.automat\\.click|\n                            peertube\\.b38\\.rural-it\\.org|\n                            peertube\\.be|\n                            peertube\\.beeldengeluid\\.nl|\n                            peertube\\.bgzashtita\\.es|\n                            peertube\\.bike|\n                            peertube\\.bildung-ekhn\\.de|\n                            peertube\\.biz|\n                            peertube\\.br0\\.fr|\n                            peertube\\.bridaahost\\.ynh\\.fr|\n                            peertube\\.bubbletea\\.dev|\n                            peertube\\.bubuit\\.net|\n                            peertube\\.cabaal\\.net|\n                            peertube\\.chatinbit\\.com|\n                            peertube\\.chaunchy\\.com|\n                            peertube\\.chir\\.rs|\n                            peertube\\.christianpacaud\\.com|\n                            peertube\\.chtisurel\\.net|\n                            peertube\\.chuggybumba\\.com|\n                            peertube\\.cipherbliss\\.com|\n                            peertube\\.cirkau\\.art|\n                            peertube\\.cloud\\.nerdraum\\.de|\n                            peertube\\.cloud\\.sans\\.pub|\n                            peertube\\.coko\\.foundation|\n                            peertube\\.communecter\\.org|\n                            peertube\\.concordia\\.social|\n                            peertube\\.corrigan\\.xyz|\n                            peertube\\.cpge-brizeux\\.fr|\n                            peertube\\.ctseuro\\.com|\n                            peertube\\.cuatrolibertades\\.org|\n                            peertube\\.cube4fun\\.net|\n                            peertube\\.dair-institute\\.org|\n                            peertube\\.davigge\\.com|\n                            peertube\\.dc\\.pini\\.fr|\n                            peertube\\.deadtom\\.me|\n                            peertube\\.debian\\.social|\n                            peertube\\.delta0189\\.xyz|\n                            peertube\\.demonix\\.fr|\n                            peertube\\.designersethiques\\.org|\n                            peertube\\.desmu\\.fr|\n                            peertube\\.devol\\.it|\n                            peertube\\.dk|\n                            peertube\\.doesstuff\\.social|\n                            peertube\\.eb8\\.org|\n                            peertube\\.education-forum\\.com|\n                            peertube\\.elforcer\\.ru|\n                            peertube\\.em\\.id\\.lv|\n                            peertube\\.ethibox\\.fr|\n                            peertube\\.eu\\.org|\n                            peertube\\.european-pirates\\.eu|\n                            peertube\\.eus|\n                            peertube\\.euskarabildua\\.eus|\n                            peertube\\.expi\\.studio|\n                            peertube\\.familie-berner\\.de|\n                            peertube\\.familleboisteau\\.fr|\n                            peertube\\.fedihost\\.website|\n                            peertube\\.fenarinarsa\\.com|\n                            peertube\\.festnoz\\.de|\n                            peertube\\.forteza\\.fr|\n                            peertube\\.freestorm\\.online|\n                            peertube\\.functional\\.cafe|\n                            peertube\\.gaminglinux\\.fr|\n                            peertube\\.gargantia\\.fr|\n                            peertube\\.geekgalaxy\\.fr|\n                            peertube\\.gemlog\\.ca|\n                            peertube\\.genma\\.fr|\n                            peertube\\.get-racing\\.de|\n                            peertube\\.ghis94\\.ovh|\n                            peertube\\.gidikroon\\.eu|\n                            peertube\\.giftedmc\\.com|\n                            peertube\\.grosist\\.fr|\n                            peertube\\.gruntwerk\\.org|\n                            peertube\\.gsugambit\\.com|\n                            peertube\\.hackerfoo\\.com|\n                            peertube\\.hellsite\\.net|\n                            peertube\\.helvetet\\.eu|\n                            peertube\\.histoirescrepues\\.fr|\n                            peertube\\.home\\.x0r\\.fr|\n                            peertube\\.hyperfreedom\\.org|\n                            peertube\\.ichigo\\.everydayimshuflin\\.com|\n                            peertube\\.ifwo\\.eu|\n                            peertube\\.in\\.ua|\n                            peertube\\.inapurna\\.org|\n                            peertube\\.informaction\\.info|\n                            peertube\\.interhop\\.org|\n                            peertube\\.it|\n                            peertube\\.it-arts\\.net|\n                            peertube\\.jensdiemer\\.de|\n                            peertube\\.johntheserg\\.al|\n                            peertube\\.kaleidos\\.net|\n                            peertube\\.kalua\\.im|\n                            peertube\\.kcore\\.org|\n                            peertube\\.keazilla\\.net|\n                            peertube\\.klaewyss\\.fr|\n                            peertube\\.kleph\\.eu|\n                            peertube\\.kodein\\.be|\n                            peertube\\.kooperatywa\\.tech|\n                            peertube\\.kriom\\.net|\n                            peertube\\.kx\\.studio|\n                            peertube\\.kyriog\\.eu|\n                            peertube\\.la-famille-muller\\.fr|\n                            peertube\\.labeuropereunion\\.eu|\n                            peertube\\.lagvoid\\.com|\n                            peertube\\.lhc\\.net\\.br|\n                            peertube\\.libresolutions\\.network|\n                            peertube\\.libretic\\.fr|\n                            peertube\\.librosphere\\.fr|\n                            peertube\\.logilab\\.fr|\n                            peertube\\.lon\\.tv|\n                            peertube\\.louisematic\\.site|\n                            peertube\\.luckow\\.org|\n                            peertube\\.luga\\.at|\n                            peertube\\.lyceeconnecte\\.fr|\n                            peertube\\.madixam\\.xyz|\n                            peertube\\.magicstone\\.dev|\n                            peertube\\.marienschule\\.de|\n                            peertube\\.marud\\.fr|\n                            peertube\\.maxweiss\\.io|\n                            peertube\\.miguelcr\\.me|\n                            peertube\\.mikemestnik\\.net|\n                            peertube\\.mobilsicher\\.de|\n                            peertube\\.monlycee\\.net|\n                            peertube\\.mxinfo\\.fr|\n                            peertube\\.naln1\\.ca|\n                            peertube\\.netzbegruenung\\.de|\n                            peertube\\.nicolastissot\\.fr|\n                            peertube\\.nogafam\\.fr|\n                            peertube\\.normalgamingcommunity\\.cz|\n                            peertube\\.nz|\n                            peertube\\.offerman\\.com|\n                            peertube\\.ohioskates\\.com|\n                            peertube\\.onionstorm\\.net|\n                            peertube\\.opencloud\\.lu|\n                            peertube\\.otakufarms\\.com|\n                            peertube\\.paladyn\\.org|\n                            peertube\\.pix-n-chill\\.fr|\n                            peertube\\.r2\\.enst\\.fr|\n                            peertube\\.r5c3\\.fr|\n                            peertube\\.redpill-insight\\.com|\n                            peertube\\.researchinstitute\\.at|\n                            peertube\\.revelin\\.fr|\n                            peertube\\.rlp\\.schule|\n                            peertube\\.rokugan\\.fr|\n                            peertube\\.rougevertbleu\\.tv|\n                            peertube\\.roundpond\\.net|\n                            peertube\\.rural-it\\.org|\n                            peertube\\.satoshishop\\.de|\n                            peertube\\.scyldings\\.com|\n                            peertube\\.securitymadein\\.lu|\n                            peertube\\.semperpax\\.com|\n                            peertube\\.semweb\\.pro|\n                            peertube\\.sensin\\.eu|\n                            peertube\\.sidh\\.bzh|\n                            peertube\\.skorpil\\.cz|\n                            peertube\\.smertrios\\.com|\n                            peertube\\.sqweeb\\.net|\n                            peertube\\.stattzeitung\\.org|\n                            peertube\\.stream|\n                            peertube\\.su|\n                            peertube\\.swrs\\.net|\n                            peertube\\.takeko\\.cyou|\n                            peertube\\.taxinachtegel\\.de|\n                            peertube\\.teftera\\.com|\n                            peertube\\.teutronic-services\\.de|\n                            peertube\\.ti-fr\\.com|\n                            peertube\\.tiennot\\.net|\n                            peertube\\.tmp\\.rcp\\.tf|\n                            peertube\\.tspu\\.edu\\.ru|\n                            peertube\\.tv|\n                            peertube\\.tweb\\.tv|\n                            peertube\\.underworld\\.fr|\n                            peertube\\.vapronva\\.pw|\n                            peertube\\.veen\\.world|\n                            peertube\\.vesdia\\.eu|\n                            peertube\\.virtual-assembly\\.org|\n                            peertube\\.viviers-fibre\\.net|\n                            peertube\\.vlaki\\.cz|\n                            peertube\\.wiesbaden\\.social|\n                            peertube\\.wivodaim\\.net|\n                            peertube\\.wtf|\n                            peertube\\.wtfayla\\.net|\n                            peertube\\.xrcb\\.cat|\n                            peertube\\.xwiki\\.com|\n                            peertube\\.zd\\.do|\n                            peertube\\.zetamc\\.net|\n                            peertube\\.zmuuf\\.org|\n                            peertube\\.zoz-serv\\.org|\n                            peertube\\.zwindler\\.fr|\n                            peervideo\\.ru|\n                            periscope\\.numenaute\\.org|\n                            pete\\.warpnine\\.de|\n                            petitlutinartube\\.fr|\n                            phijkchu\\.com|\n                            phoenixproject\\.group|\n                            piraten\\.space|\n                            pirtube\\.calut\\.fr|\n                            pityu\\.flaki\\.hu|\n                            play\\.mittdata\\.se|\n                            player\\.ojamajo\\.moe|\n                            podlibre\\.video|\n                            portal\\.digilab\\.nfa\\.cz|\n                            private\\.fedimovie\\.com|\n                            pt01\\.lehrerfortbildung-bw\\.de|\n                            pt\\.diaspodon\\.fr|\n                            pt\\.freedomwolf\\.cc|\n                            pt\\.gordons\\.gen\\.nz|\n                            pt\\.ilyamikcoder\\.com|\n                            pt\\.irnok\\.net|\n                            pt\\.mezzo\\.moe|\n                            pt\\.na4\\.eu|\n                            pt\\.netcraft\\.ch|\n                            pt\\.rwx\\.ch|\n                            pt\\.sfunk1x\\.com|\n                            pt\\.thishorsie\\.rocks|\n                            pt\\.vern\\.cc|\n                            ptb\\.lunarviews\\.net|\n                            ptube\\.de|\n                            ptube\\.ranranhome\\.info|\n                            puffy\\.tube|\n                            puppet\\.zone|\n                            qtube\\.qlyoung\\.net|\n                            quantube\\.win|\n                            rankett\\.net|\n                            replay\\.jres\\.org|\n                            review\\.peertube\\.biz|\n                            sdmtube\\.fr|\n                            secure\\.direct-live\\.net|\n                            secure\\.scanovid\\.com|\n                            seka\\.pona\\.la|\n                            serv3\\.wiki-tube\\.de|\n                            skeptube\\.fr|\n                            social\\.fedimovie\\.com|\n                            socpeertube\\.ru|\n                            sovran\\.video|\n                            special\\.videovortex\\.tv|\n                            spectra\\.video|\n                            stl1988\\.peertube-host\\.de|\n                            stream\\.biovisata\\.lt|\n                            stream\\.conesphere\\.cloud|\n                            stream\\.elven\\.pw|\n                            stream\\.jurnalfm\\.md|\n                            stream\\.k-prod\\.fr|\n                            stream\\.litera\\.tools|\n                            stream\\.nuemedia\\.se|\n                            stream\\.rlp-media\\.de|\n                            stream\\.vrse\\.be|\n                            studios\\.racer159\\.com|\n                            styxhexenhammer666\\.com|\n                            syrteplay\\.obspm\\.fr|\n                            t\\.0x0\\.st|\n                            tbh\\.co-shaoghal\\.net|\n                            test-fab\\.ynh\\.fr|\n                            testube\\.distrilab\\.fr|\n                            tgi\\.hosted\\.spacebear\\.ee|\n                            theater\\.ethernia\\.net|\n                            thecool\\.tube|\n                            thevideoverse\\.com|\n                            tilvids\\.com|\n                            tinkerbetter\\.tube|\n                            tinsley\\.video|\n                            trailers\\.ddigest\\.com|\n                            tube-action-educative\\.apps\\.education\\.fr|\n                            tube-arts-lettres-sciences-humaines\\.apps\\.education\\.fr|\n                            tube-cycle-2\\.apps\\.education\\.fr|\n                            tube-cycle-3\\.apps\\.education\\.fr|\n                            tube-education-physique-et-sportive\\.apps\\.education\\.fr|\n                            tube-enseignement-professionnel\\.apps\\.education\\.fr|\n                            tube-institutionnel\\.apps\\.education\\.fr|\n                            tube-langues-vivantes\\.apps\\.education\\.fr|\n                            tube-maternelle\\.apps\\.education\\.fr|\n                            tube-numerique-educatif\\.apps\\.education\\.fr|\n                            tube-sciences-technologies\\.apps\\.education\\.fr|\n                            tube-test\\.apps\\.education\\.fr|\n                            tube1\\.perron-service\\.de|\n                            tube\\.9minuti\\.it|\n                            tube\\.abolivier\\.bzh|\n                            tube\\.alado\\.space|\n                            tube\\.amic37\\.fr|\n                            tube\\.area404\\.cloud|\n                            tube\\.arthack\\.nz|\n                            tube\\.asulia\\.fr|\n                            tube\\.awkward\\.company|\n                            tube\\.azbyka\\.ru|\n                            tube\\.azkware\\.net|\n                            tube\\.bartrip\\.me\\.uk|\n                            tube\\.belowtoxic\\.media|\n                            tube\\.bingle\\.plus|\n                            tube\\.bit-friends\\.de|\n                            tube\\.bstly\\.de|\n                            tube\\.chosto\\.me|\n                            tube\\.cms\\.garden|\n                            tube\\.communia\\.org|\n                            tube\\.cyberia\\.club|\n                            tube\\.cybershock\\.life|\n                            tube\\.dembased\\.xyz|\n                            tube\\.dev\\.displ\\.eu|\n                            tube\\.digitalesozialearbeit\\.de|\n                            tube\\.distrilab\\.fr|\n                            tube\\.doortofreedom\\.org|\n                            tube\\.dsocialize\\.net|\n                            tube\\.e-jeremy\\.com|\n                            tube\\.ebin\\.club|\n                            tube\\.elemac\\.fr|\n                            tube\\.erzbistum-hamburg\\.de|\n                            tube\\.exozy\\.me|\n                            tube\\.fdn\\.fr|\n                            tube\\.fedi\\.quebec|\n                            tube\\.fediverse\\.at|\n                            tube\\.felinn\\.org|\n                            tube\\.flokinet\\.is|\n                            tube\\.foad\\.me\\.uk|\n                            tube\\.freepeople\\.fr|\n                            tube\\.friloux\\.me|\n                            tube\\.froth\\.zone|\n                            tube\\.fulda\\.social|\n                            tube\\.futuretic\\.fr|\n                            tube\\.g1zm0\\.de|\n                            tube\\.g4rf\\.net|\n                            tube\\.gaiac\\.io|\n                            tube\\.geekyboo\\.net|\n                            tube\\.genb\\.de|\n                            tube\\.ghk-academy\\.info|\n                            tube\\.gi-it\\.de|\n                            tube\\.grap\\.coop|\n                            tube\\.graz\\.social|\n                            tube\\.grin\\.hu|\n                            tube\\.hokai\\.lol|\n                            tube\\.int5\\.net|\n                            tube\\.interhacker\\.space|\n                            tube\\.invisible\\.ch|\n                            tube\\.io18\\.top|\n                            tube\\.itsg\\.host|\n                            tube\\.jeena\\.net|\n                            tube\\.kh-berlin\\.de|\n                            tube\\.kockatoo\\.org|\n                            tube\\.kotur\\.org|\n                            tube\\.koweb\\.fr|\n                            tube\\.la-dina\\.net|\n                            tube\\.lab\\.nrw|\n                            tube\\.lacaveatonton\\.ovh|\n                            tube\\.laurent-malys\\.fr|\n                            tube\\.leetdreams\\.ch|\n                            tube\\.linkse\\.media|\n                            tube\\.lokad\\.com|\n                            tube\\.lucie-philou\\.com|\n                            tube\\.media-techport\\.de|\n                            tube\\.morozoff\\.pro|\n                            tube\\.neshweb\\.net|\n                            tube\\.nestor\\.coop|\n                            tube\\.network\\.europa\\.eu|\n                            tube\\.nicfab\\.eu|\n                            tube\\.nieuwwestbrabant\\.nl|\n                            tube\\.nogafa\\.org|\n                            tube\\.novg\\.net|\n                            tube\\.nox-rhea\\.org|\n                            tube\\.nuagelibre\\.fr|\n                            tube\\.numerique\\.gouv\\.fr|\n                            tube\\.nuxnik\\.com|\n                            tube\\.nx12\\.net|\n                            tube\\.octaplex\\.net|\n                            tube\\.oisux\\.org|\n                            tube\\.okcinfo\\.news|\n                            tube\\.onlinekirche\\.net|\n                            tube\\.opportunis\\.me|\n                            tube\\.oraclefilms\\.com|\n                            tube\\.org\\.il|\n                            tube\\.pacapime\\.ovh|\n                            tube\\.parinux\\.org|\n                            tube\\.pastwind\\.top|\n                            tube\\.picasoft\\.net|\n                            tube\\.pilgerweg-21\\.de|\n                            tube\\.pmj\\.rocks|\n                            tube\\.pol\\.social|\n                            tube\\.ponsonaille\\.fr|\n                            tube\\.portes-imaginaire\\.org|\n                            tube\\.public\\.apolut\\.net|\n                            tube\\.pustule\\.org|\n                            tube\\.pyngu\\.com|\n                            tube\\.querdenken-711\\.de|\n                            tube\\.rebellion\\.global|\n                            tube\\.reseau-canope\\.fr|\n                            tube\\.rhythms-of-resistance\\.org|\n                            tube\\.risedsky\\.ovh|\n                            tube\\.rooty\\.fr|\n                            tube\\.rsi\\.cnr\\.it|\n                            tube\\.ryne\\.moe|\n                            tube\\.schleuss\\.online|\n                            tube\\.schule\\.social|\n                            tube\\.sekretaerbaer\\.net|\n                            tube\\.shanti\\.cafe|\n                            tube\\.shela\\.nu|\n                            tube\\.skrep\\.in|\n                            tube\\.sleeping\\.town|\n                            tube\\.sp-codes\\.de|\n                            tube\\.spdns\\.org|\n                            tube\\.systerserver\\.net|\n                            tube\\.systest\\.eu|\n                            tube\\.tappret\\.fr|\n                            tube\\.techeasy\\.org|\n                            tube\\.thierrytalbert\\.fr|\n                            tube\\.tinfoil-hat\\.net|\n                            tube\\.toldi\\.eu|\n                            tube\\.tpshd\\.de|\n                            tube\\.trax\\.im|\n                            tube\\.troopers\\.agency|\n                            tube\\.ttk\\.is|\n                            tube\\.tuxfriend\\.fr|\n                            tube\\.tylerdavis\\.xyz|\n                            tube\\.ullihome\\.de|\n                            tube\\.ulne\\.be|\n                            tube\\.undernet\\.uy|\n                            tube\\.vrpnet\\.org|\n                            tube\\.wolfe\\.casa|\n                            tube\\.xd0\\.de|\n                            tube\\.xn--baw-joa\\.social|\n                            tube\\.xy-space\\.de|\n                            tube\\.yapbreak\\.fr|\n                            tubedu\\.org|\n                            tubulus\\.openlatin\\.org|\n                            turtleisland\\.video|\n                            tututu\\.tube|\n                            tv\\.adast\\.dk|\n                            tv\\.adn\\.life|\n                            tv\\.arns\\.lt|\n                            tv\\.atmx\\.ca|\n                            tv\\.based\\.quest|\n                            tv\\.farewellutopia\\.com|\n                            tv\\.filmfreedom\\.net|\n                            tv\\.gravitons\\.org|\n                            tv\\.io\\.seg\\.br|\n                            tv\\.lumbung\\.space|\n                            tv\\.pirateradio\\.social|\n                            tv\\.pirati\\.cz|\n                            tv\\.santic-zombie\\.ru|\n                            tv\\.undersco\\.re|\n                            tv\\.zonepl\\.net|\n                            tvox\\.ru|\n                            twctube\\.twc-zone\\.eu|\n                            twobeek\\.com|\n                            urbanists\\.video|\n                            v\\.9tail\\.net|\n                            v\\.basspistol\\.org|\n                            v\\.j4\\.lc|\n                            v\\.kisombrella\\.top|\n                            v\\.koa\\.im|\n                            v\\.kyaru\\.xyz|\n                            v\\.lor\\.sh|\n                            v\\.mkp\\.ca|\n                            v\\.posm\\.gay|\n                            v\\.slaycer\\.top|\n                            veedeo\\.org|\n                            vhs\\.absturztau\\.be|\n                            vid\\.cthos\\.dev|\n                            vid\\.kinuseka\\.us|\n                            vid\\.mkp\\.ca|\n                            vid\\.nocogabriel\\.fr|\n                            vid\\.norbipeti\\.eu|\n                            vid\\.northbound\\.online|\n                            vid\\.ohboii\\.de|\n                            vid\\.plantplotting\\.co\\.uk|\n                            vid\\.pretok\\.tv|\n                            vid\\.prometheus\\.systems|\n                            vid\\.soafen\\.love|\n                            vid\\.twhtv\\.club|\n                            vid\\.wildeboer\\.net|\n                            video-cave-v2\\.de|\n                            video-liberty\\.com|\n                            video\\.076\\.ne\\.jp|\n                            video\\.1146\\.nohost\\.me|\n                            video\\.9wd\\.eu|\n                            video\\.abraum\\.de|\n                            video\\.ados\\.accoord\\.fr|\n                            video\\.amiga-ng\\.org|\n                            video\\.anartist\\.org|\n                            video\\.asgardius\\.company|\n                            video\\.audiovisuel-participatif\\.org|\n                            video\\.bards\\.online|\n                            video\\.barkoczy\\.social|\n                            video\\.benetou\\.fr|\n                            video\\.beyondwatts\\.social|\n                            video\\.bgeneric\\.net|\n                            video\\.bilecik\\.edu\\.tr|\n                            video\\.blast-info\\.fr|\n                            video\\.bmu\\.cloud|\n                            video\\.catgirl\\.biz|\n                            video\\.causa-arcana\\.com|\n                            video\\.chasmcity\\.net|\n                            video\\.chbmeyer\\.de|\n                            video\\.cigliola\\.com|\n                            video\\.citizen4\\.eu|\n                            video\\.clumsy\\.computer|\n                            video\\.cnnumerique\\.fr|\n                            video\\.cnr\\.it|\n                            video\\.cnt\\.social|\n                            video\\.coales\\.co|\n                            video\\.comune\\.trento\\.it|\n                            video\\.coyp\\.us|\n                            video\\.csc49\\.fr|\n                            video\\.davduf\\.net|\n                            video\\.davejansen\\.com|\n                            video\\.dlearning\\.nl|\n                            video\\.dnfi\\.no|\n                            video\\.dresden\\.network|\n                            video\\.drgnz\\.club|\n                            video\\.dudenas\\.lt|\n                            video\\.eientei\\.org|\n                            video\\.ellijaymakerspace\\.org|\n                            video\\.emergeheart\\.info|\n                            video\\.eradicatinglove\\.xyz|\n                            video\\.everythingbagel\\.me|\n                            video\\.extremelycorporate\\.ca|\n                            video\\.fabiomanganiello\\.com|\n                            video\\.fedi\\.bzh|\n                            video\\.fhtagn\\.org|\n                            video\\.firehawk-systems\\.com|\n                            video\\.fox-romka\\.ru|\n                            video\\.fuss\\.bz\\.it|\n                            video\\.glassbeadcollective\\.org|\n                            video\\.graine-pdl\\.org|\n                            video\\.gyt\\.is|\n                            video\\.hainry\\.fr|\n                            video\\.hardlimit\\.com|\n                            video\\.hostux\\.net|\n                            video\\.igem\\.org|\n                            video\\.infojournal\\.fr|\n                            video\\.internet-czas-dzialac\\.pl|\n                            video\\.interru\\.io|\n                            video\\.ipng\\.ch|\n                            video\\.ironsysadmin\\.com|\n                            video\\.islameye\\.com|\n                            video\\.jacen\\.moe|\n                            video\\.jadin\\.me|\n                            video\\.jeffmcbride\\.net|\n                            video\\.jigmedatse\\.com|\n                            video\\.kuba-orlik\\.name|\n                            video\\.lacalligramme\\.fr|\n                            video\\.lanceurs-alerte\\.fr|\n                            video\\.laotra\\.red|\n                            video\\.lapineige\\.fr|\n                            video\\.laraffinerie\\.re|\n                            video\\.lavolte\\.net|\n                            video\\.liberta\\.vip|\n                            video\\.libreti\\.net|\n                            video\\.licentia\\.net|\n                            video\\.linc\\.systems|\n                            video\\.linux\\.it|\n                            video\\.linuxtrent\\.it|\n                            video\\.liveitlive\\.show|\n                            video\\.lono\\.space|\n                            video\\.lrose\\.de|\n                            video\\.lunago\\.net|\n                            video\\.lundi\\.am|\n                            video\\.lycee-experimental\\.org|\n                            video\\.maechler\\.cloud|\n                            video\\.marcorennmaus\\.de|\n                            video\\.mass-trespass\\.uk|\n                            video\\.matomocamp\\.org|\n                            video\\.medienzentrum-harburg\\.de|\n                            video\\.mentality\\.rip|\n                            video\\.metaversum\\.wtf|\n                            video\\.midreality\\.com|\n                            video\\.mttv\\.it|\n                            video\\.mugoreve\\.fr|\n                            video\\.mxtthxw\\.art|\n                            video\\.mycrowd\\.ca|\n                            video\\.niboe\\.info|\n                            video\\.nogafam\\.es|\n                            video\\.nstr\\.no|\n                            video\\.occm\\.cc|\n                            video\\.off-investigation\\.fr|\n                            video\\.olos311\\.org|\n                            video\\.ordinobsolete\\.fr|\n                            video\\.osvoj\\.ru|\n                            video\\.ourcommon\\.cloud|\n                            video\\.ozgurkon\\.org|\n                            video\\.pcf\\.fr|\n                            video\\.pcgaldo\\.com|\n                            video\\.phyrone\\.de|\n                            video\\.poul\\.org|\n                            video\\.publicspaces\\.net|\n                            video\\.pullopen\\.xyz|\n                            video\\.r3s\\.nrw|\n                            video\\.rainevixen\\.com|\n                            video\\.resolutions\\.it|\n                            video\\.retroedge\\.tech|\n                            video\\.rhizome\\.org|\n                            video\\.rlp-media\\.de|\n                            video\\.rs-einrich\\.de|\n                            video\\.rubdos\\.be|\n                            video\\.sadmin\\.io|\n                            video\\.sftblw\\.moe|\n                            video\\.shitposter\\.club|\n                            video\\.simplex-software\\.ru|\n                            video\\.slipfox\\.xyz|\n                            video\\.snug\\.moe|\n                            video\\.software-fuer-engagierte\\.de|\n                            video\\.soi\\.ch|\n                            video\\.sonet\\.ws|\n                            video\\.surazal\\.net|\n                            video\\.taskcards\\.eu|\n                            video\\.team-lcbs\\.eu|\n                            video\\.techforgood\\.social|\n                            video\\.telemillevaches\\.net|\n                            video\\.thepolarbear\\.co\\.uk|\n                            video\\.thinkof\\.name|\n                            video\\.tii\\.space|\n                            video\\.tkz\\.es|\n                            video\\.trankil\\.info|\n                            video\\.triplea\\.fr|\n                            video\\.tum\\.social|\n                            video\\.turbo\\.chat|\n                            video\\.uriopss-pdl\\.fr|\n                            video\\.ustim\\.ru|\n                            video\\.ut0pia\\.org|\n                            video\\.vaku\\.org\\.ua|\n                            video\\.vegafjord\\.me|\n                            video\\.veloma\\.org|\n                            video\\.violoncello\\.ch|\n                            video\\.voidconspiracy\\.band|\n                            video\\.wakkeren\\.nl|\n                            video\\.windfluechter\\.org|\n                            video\\.ziez\\.eu|\n                            videos-passages\\.huma-num\\.fr|\n                            videos\\.aadtp\\.be|\n                            videos\\.ahp-numerique\\.fr|\n                            videos\\.alamaisondulibre\\.org|\n                            videos\\.archigny\\.net|\n                            videos\\.aroaduntraveled\\.com|\n                            videos\\.b4tech\\.org|\n                            videos\\.benjaminbrady\\.ie|\n                            videos\\.bik\\.opencloud\\.lu|\n                            videos\\.cloudron\\.io|\n                            videos\\.codingotaku\\.com|\n                            videos\\.coletivos\\.org|\n                            videos\\.collate\\.social|\n                            videos\\.danksquad\\.org|\n                            videos\\.digitaldragons\\.eu|\n                            videos\\.dromeadhere\\.fr|\n                            videos\\.explain-it\\.org|\n                            videos\\.factsonthegroundshow\\.com|\n                            videos\\.foilen\\.com|\n                            videos\\.fsci\\.in|\n                            videos\\.gamercast\\.net|\n                            videos\\.gianmarco\\.gg|\n                            videos\\.globenet\\.org|\n                            videos\\.grafo\\.zone|\n                            videos\\.hauspie\\.fr|\n                            videos\\.hush\\.is|\n                            videos\\.hyphalfusion\\.network|\n                            videos\\.icum\\.to|\n                            videos\\.im\\.allmendenetz\\.de|\n                            videos\\.jacksonchen666\\.com|\n                            videos\\.john-livingston\\.fr|\n                            videos\\.knazarov\\.com|\n                            videos\\.kuoushi\\.com|\n                            videos\\.laliguepaysdelaloire\\.org|\n                            videos\\.lemouvementassociatif-pdl\\.org|\n                            videos\\.leslionsfloorball\\.fr|\n                            videos\\.librescrum\\.org|\n                            videos\\.mastodont\\.cat|\n                            videos\\.metus\\.ca|\n                            videos\\.miolo\\.org|\n                            videos\\.offroad\\.town|\n                            videos\\.openmandriva\\.org|\n                            videos\\.parleur\\.net|\n                            videos\\.pcorp\\.us|\n                            videos\\.pop\\.eu\\.com|\n                            videos\\.rampin\\.org|\n                            videos\\.rauten\\.co\\.za|\n                            videos\\.ritimo\\.org|\n                            videos\\.sarcasmstardust\\.com|\n                            videos\\.scanlines\\.xyz|\n                            videos\\.shmalls\\.pw|\n                            videos\\.stadtfabrikanten\\.org|\n                            videos\\.supertuxkart\\.net|\n                            videos\\.testimonia\\.org|\n                            videos\\.thinkerview\\.com|\n                            videos\\.torrenezzi10\\.xyz|\n                            videos\\.trom\\.tf|\n                            videos\\.utsukta\\.org|\n                            videos\\.viorsan\\.com|\n                            videos\\.wherelinux\\.xyz|\n                            videos\\.wikilibriste\\.fr|\n                            videos\\.yesil\\.club|\n                            videos\\.yeswiki\\.net|\n                            videotube\\.duckdns\\.org|\n                            vids\\.capypara\\.de|\n                            vids\\.roshless\\.me|\n                            vids\\.stary\\.pc\\.pl|\n                            vids\\.tekdmn\\.me|\n                            vidz\\.julien\\.ovh|\n                            views\\.southfox\\.me|\n                            virtual-girls-are\\.definitely-for\\.me|\n                            viste\\.pt|\n                            vnchich\\.com|\n                            vnop\\.org|\n                            vod\\.newellijay\\.tv|\n                            voluntarytube\\.com|\n                            vtr\\.chikichiki\\.tube|\n                            vulgarisation-informatique\\.fr|\n                            watch\\.easya\\.solutions|\n                            watch\\.goodluckgabe\\.life|\n                            watch\\.ignorance\\.eu|\n                            watch\\.jimmydore\\.com|\n                            watch\\.libertaria\\.space|\n                            watch\\.nuked\\.social|\n                            watch\\.ocaml\\.org|\n                            watch\\.thelema\\.social|\n                            watch\\.tubelab\\.video|\n                            web-fellow\\.de|\n                            webtv\\.vandoeuvre\\.net|\n                            wetubevid\\.online|\n                            wikileaks\\.video|\n                            wiwi\\.video|\n                            wow\\.such\\.disappointment\\.fail|\n                            www\\.jvideos\\.net|\n                            www\\.kotikoff\\.net|\n                            www\\.makertube\\.net|\n                            www\\.mypeer\\.tube|\n                            www\\.nadajemy\\.com|\n                            www\\.neptube\\.io|\n                            www\\.rocaguinarda\\.tv|\n                            www\\.vnshow\\.net|\n                            xxivproduction\\.video|\n                            yt\\.orokoro\\.ru|\n                            ytube\\.retronerd\\.at|\n                            zumvideo\\.de|\n\n                            # from youtube-dl\n                            peertube\\.rainbowswingers\\.net|\n                            tube\\.stanisic\\.nl|\n                            peer\\.suiri\\.us|\n                            medias\\.libox\\.fr|\n                            videomensoif\\.ynh\\.fr|\n                            peertube\\.travelpandas\\.eu|\n                            peertube\\.rachetjay\\.fr|\n                            peertube\\.montecsys\\.fr|\n                            tube\\.eskuero\\.me|\n                            peer\\.tube|\n                            peertube\\.umeahackerspace\\.se|\n                            tube\\.nx-pod\\.de|\n                            video\\.monsieurbidouille\\.fr|\n                            tube\\.openalgeria\\.org|\n                            vid\\.lelux\\.fi|\n                            video\\.anormallostpod\\.ovh|\n                            tube\\.crapaud-fou\\.org|\n                            peertube\\.stemy\\.me|\n                            lostpod\\.space|\n                            exode\\.me|\n                            peertube\\.snargol\\.com|\n                            vis\\.ion\\.ovh|\n                            videosdulib\\.re|\n                            v\\.mbius\\.io|\n                            videos\\.judrey\\.eu|\n                            peertube\\.osureplayviewer\\.xyz|\n                            peertube\\.mathieufamily\\.ovh|\n                            www\\.videos-libr\\.es|\n                            fightforinfo\\.com|\n                            peertube\\.fediverse\\.ru|\n                            peertube\\.oiseauroch\\.fr|\n                            video\\.nesven\\.eu|\n                            v\\.bearvideo\\.win|\n                            video\\.qoto\\.org|\n                            justporn\\.cc|\n                            video\\.vny\\.fr|\n                            peervideo\\.club|\n                            tube\\.taker\\.fr|\n                            peertube\\.chantierlibre\\.org|\n                            tube\\.ipfixe\\.info|\n                            tube\\.kicou\\.info|\n                            tube\\.dodsorf\\.as|\n                            videobit\\.cc|\n                            video\\.yukari\\.moe|\n                            videos\\.elbinario\\.net|\n                            hkvideo\\.live|\n                            pt\\.tux\\.tf|\n                            www\\.hkvideo\\.live|\n                            FIGHTFORINFO\\.com|\n                            pt\\.765racing\\.com|\n                            peertube\\.gnumeria\\.eu\\.org|\n                            nordenmedia\\.com|\n                            peertube\\.co\\.uk|\n                            tube\\.darfweb\\.eu|\n                            tube\\.kalah-france\\.org|\n                            0ch\\.in|\n                            vod\\.mochi\\.academy|\n                            film\\.node9\\.org|\n                            peertube\\.hatthieves\\.es|\n                            video\\.fitchfamily\\.org|\n                            peertube\\.ddns\\.net|\n                            video\\.ifuncle\\.kr|\n                            video\\.fdlibre\\.eu|\n                            tube\\.22decembre\\.eu|\n                            peertube\\.harmoniescreatives\\.com|\n                            tube\\.fabrigli\\.fr|\n                            video\\.thedwyers\\.co|\n                            video\\.bruitbruit\\.com|\n                            peertube\\.foxfam\\.club|\n                            peer\\.philoxweb\\.be|\n                            videos\\.bugs\\.social|\n                            peertube\\.malbert\\.xyz|\n                            peertube\\.bilange\\.ca|\n                            libretube\\.net|\n                            diytelevision\\.com|\n                            peertube\\.fedilab\\.app|\n                            libre\\.video|\n                            video\\.mstddntfdn\\.online|\n                            us\\.tv|\n                            peertube\\.sl-network\\.fr|\n                            peertube\\.dynlinux\\.io|\n                            peertube\\.david\\.durieux\\.family|\n                            peertube\\.linuxrocks\\.online|\n                            peerwatch\\.xyz|\n                            v\\.kretschmann\\.social|\n                            tube\\.otter\\.sh|\n                            yt\\.is\\.nota\\.live|\n                            tube\\.dragonpsi\\.xyz|\n                            peertube\\.boneheadmedia\\.com|\n                            videos\\.funkwhale\\.audio|\n                            watch\\.44con\\.com|\n                            peertube\\.gcaillaut\\.fr|\n                            peertube\\.icu|\n                            pony\\.tube|\n                            spacepub\\.space|\n                            tube\\.stbr\\.io|\n                            v\\.mom-gay\\.faith|\n                            tube\\.port0\\.xyz|\n                            peertube\\.simounet\\.net|\n                            play\\.jergefelt\\.se|\n                            peertube\\.zeteo\\.me|\n                            tube\\.danq\\.me|\n                            peertube\\.kerenon\\.com|\n                            tube\\.fab-l3\\.org|\n                            tube\\.calculate\\.social|\n                            peertube\\.mckillop\\.org|\n                            tube\\.netzspielplatz\\.de|\n                            vod\\.ksite\\.de|\n                            peertube\\.laas\\.fr|\n                            tube\\.govital\\.net|\n                            peertube\\.stephenson\\.cc|\n                            bistule\\.nohost\\.me|\n                            peertube\\.kajalinifi\\.de|\n                            video\\.ploud\\.jp|\n                            video\\.omniatv\\.com|\n                            peertube\\.ffs2play\\.fr|\n                            peertube\\.leboulaire\\.ovh|\n                            peertube\\.tronic-studio\\.com|\n                            peertube\\.public\\.cat|\n                            peertube\\.metalbanana\\.net|\n                            video\\.1000i100\\.fr|\n                            peertube\\.alter-nativ-voll\\.de|\n                            tube\\.pasa\\.tf|\n                            tube\\.worldofhauru\\.xyz|\n                            pt\\.kamp\\.site|\n                            peertube\\.teleassist\\.fr|\n                            videos\\.mleduc\\.xyz|\n                            conf\\.tube|\n                            media\\.privacyinternational\\.org|\n                            pt\\.forty-two\\.nl|\n                            video\\.halle-leaks\\.de|\n                            video\\.grosskopfgames\\.de|\n                            peertube\\.schaeferit\\.de|\n                            peertube\\.jackbot\\.fr|\n                            tube\\.extinctionrebellion\\.fr|\n                            peertube\\.f-si\\.org|\n                            video\\.subak\\.ovh|\n                            videos\\.koweb\\.fr|\n                            peertube\\.zergy\\.net|\n                            peertube\\.roflcopter\\.fr|\n                            peertube\\.floss-marketing-school\\.com|\n                            vloggers\\.social|\n                            peertube\\.iriseden\\.eu|\n                            videos\\.ubuntu-paris\\.org|\n                            peertube\\.mastodon\\.host|\n                            armstube\\.com|\n                            peertube\\.s2s\\.video|\n                            peertube\\.lol|\n                            tube\\.open-plug\\.eu|\n                            open\\.tube|\n                            peertube\\.ch|\n                            peertube\\.normandie-libre\\.fr|\n                            peertube\\.slat\\.org|\n                            video\\.lacaveatonton\\.ovh|\n                            peertube\\.uno|\n                            peertube\\.servebeer\\.com|\n                            peertube\\.fedi\\.quebec|\n                            tube\\.h3z\\.jp|\n                            tube\\.plus200\\.com|\n                            peertube\\.eric\\.ovh|\n                            tube\\.metadocs\\.cc|\n                            tube\\.unmondemeilleur\\.eu|\n                            gouttedeau\\.space|\n                            video\\.antirep\\.net|\n                            nrop\\.cant\\.at|\n                            tube\\.ksl-bmx\\.de|\n                            tube\\.plaf\\.fr|\n                            tube\\.tchncs\\.de|\n                            video\\.devinberg\\.com|\n                            hitchtube\\.fr|\n                            peertube\\.kosebamse\\.com|\n                            yunopeertube\\.myddns\\.me|\n                            peertube\\.varney\\.fr|\n                            peertube\\.anon-kenkai\\.com|\n                            tube\\.maiti\\.info|\n                            tubee\\.fr|\n                            videos\\.dinofly\\.com|\n                            toobnix\\.org|\n                            videotape\\.me|\n                            voca\\.tube|\n                            video\\.heromuster\\.com|\n                            video\\.lemediatv\\.fr|\n                            video\\.up\\.edu\\.ph|\n                            balafon\\.video|\n                            video\\.ivel\\.fr|\n                            thickrips\\.cloud|\n                            pt\\.laurentkruger\\.fr|\n                            video\\.monarch-pass\\.net|\n                            peertube\\.artica\\.center|\n                            video\\.alternanet\\.fr|\n                            indymotion\\.fr|\n                            fanvid\\.stopthatimp\\.net|\n                            video\\.farci\\.org|\n                            v\\.lesterpig\\.com|\n                            video\\.okaris\\.de|\n                            tube\\.pawelko\\.net|\n                            peertube\\.mablr\\.org|\n                            tube\\.fede\\.re|\n                            pytu\\.be|\n                            evertron\\.tv|\n                            devtube\\.dev-wiki\\.de|\n                            raptube\\.antipub\\.org|\n                            video\\.selea\\.se|\n                            peertube\\.mygaia\\.org|\n                            video\\.oh14\\.de|\n                            peertube\\.livingutopia\\.org|\n                            peertube\\.the-penguin\\.de|\n                            tube\\.thechangebook\\.org|\n                            tube\\.anjara\\.eu|\n                            pt\\.pube\\.tk|\n                            video\\.samedi\\.pm|\n                            mplayer\\.demouliere\\.eu|\n                            widemus\\.de|\n                            peertube\\.me|\n                            peertube\\.zapashcanon\\.fr|\n                            video\\.latavernedejohnjohn\\.fr|\n                            peertube\\.pcservice46\\.fr|\n                            peertube\\.mazzonetto\\.eu|\n                            video\\.irem\\.univ-paris-diderot\\.fr|\n                            video\\.livecchi\\.cloud|\n                            alttube\\.fr|\n                            video\\.coop\\.tools|\n                            video\\.cabane-libre\\.org|\n                            peertube\\.openstreetmap\\.fr|\n                            videos\\.alolise\\.org|\n                            irrsinn\\.video|\n                            video\\.antopie\\.org|\n                            scitech\\.video|\n                            tube2\\.nemsia\\.org|\n                            video\\.amic37\\.fr|\n                            peertube\\.freeforge\\.eu|\n                            video\\.arbitrarion\\.com|\n                            video\\.datsemultimedia\\.com|\n                            stoptrackingus\\.tv|\n                            peertube\\.ricostrongxxx\\.com|\n                            docker\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.togart\\.de|\n                            tube\\.postblue\\.info|\n                            videos\\.domainepublic\\.net|\n                            peertube\\.cyber-tribal\\.com|\n                            video\\.gresille\\.org|\n                            peertube\\.dsmouse\\.net|\n                            cinema\\.yunohost\\.support|\n                            tube\\.theocevaer\\.fr|\n                            repro\\.video|\n                            tube\\.4aem\\.com|\n                            quaziinc\\.com|\n                            peertube\\.metawurst\\.space|\n                            videos\\.wakapo\\.com|\n                            video\\.ploud\\.fr|\n                            video\\.freeradical\\.zone|\n                            tube\\.valinor\\.fr|\n                            refuznik\\.video|\n                            pt\\.kircheneuenburg\\.de|\n                            peertube\\.asrun\\.eu|\n                            peertube\\.lagob\\.fr|\n                            videos\\.side-ways\\.net|\n                            91video\\.online|\n                            video\\.valme\\.io|\n                            video\\.taboulisme\\.com|\n                            videos-libr\\.es|\n                            tv\\.mooh\\.fr|\n                            nuage\\.acostey\\.fr|\n                            video\\.monsieur-a\\.fr|\n                            peertube\\.librelois\\.fr|\n                            videos\\.pair2jeux\\.tube|\n                            videos\\.pueseso\\.club|\n                            peer\\.mathdacloud\\.ovh|\n                            media\\.assassinate-you\\.net|\n                            vidcommons\\.org|\n                            ptube\\.rousset\\.nom\\.fr|\n                            tube\\.cyano\\.at|\n                            videos\\.squat\\.net|\n                            video\\.iphodase\\.fr|\n                            peertube\\.makotoworkshop\\.org|\n                            peertube\\.serveur\\.slv-valbonne\\.fr|\n                            vault\\.mle\\.party|\n                            hostyour\\.tv|\n                            videos\\.hack2g2\\.fr|\n                            libre\\.tube|\n                            pire\\.artisanlogiciel\\.net|\n                            videos\\.numerique-en-commun\\.fr|\n                            video\\.netsyms\\.com|\n                            video\\.die-partei\\.social|\n                            video\\.writeas\\.org|\n                            peertube\\.swarm\\.solvingmaz\\.es|\n                            tube\\.pericoloso\\.ovh|\n                            watching\\.cypherpunk\\.observer|\n                            videos\\.adhocmusic\\.com|\n                            tube\\.rfc1149\\.net|\n                            peertube\\.librelabucm\\.org|\n                            videos\\.numericoop\\.fr|\n                            peertube\\.koehn\\.com|\n                            peertube\\.anarchmusicall\\.net|\n                            tube\\.kampftoast\\.de|\n                            vid\\.y-y\\.li|\n                            peertube\\.xtenz\\.xyz|\n                            diode\\.zone|\n                            tube\\.egf\\.mn|\n                            peertube\\.nomagic\\.uk|\n                            visionon\\.tv|\n                            videos\\.koumoul\\.com|\n                            video\\.rastapuls\\.com|\n                            video\\.mantlepro\\.com|\n                            video\\.deadsuperhero\\.com|\n                            peertube\\.musicstudio\\.pro|\n                            peertube\\.we-keys\\.fr|\n                            artitube\\.artifaille\\.fr|\n                            peertube\\.ethernia\\.net|\n                            tube\\.midov\\.pl|\n                            peertube\\.fr|\n                            watch\\.snoot\\.tube|\n                            peertube\\.donnadieu\\.fr|\n                            argos\\.aquilenet\\.fr|\n                            tube\\.nemsia\\.org|\n                            tube\\.bruniau\\.net|\n                            videos\\.darckoune\\.moe|\n                            tube\\.traydent\\.info|\n                            dev\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.nayya\\.org|\n                            peertube\\.live|\n                            peertube\\.mofgao\\.space|\n                            video\\.lequerrec\\.eu|\n                            peertube\\.amicale\\.net|\n                            aperi\\.tube|\n                            tube\\.ac-lyon\\.fr|\n                            video\\.lw1\\.at|\n                            www\\.yiny\\.org|\n                            videos\\.pofilo\\.fr|\n                            tube\\.lou\\.lt|\n                            choob\\.h\\.etbus\\.ch|\n                            tube\\.hoga\\.fr|\n                            peertube\\.heberge\\.fr|\n                            video\\.obermui\\.de|\n                            videos\\.cloudfrancois\\.fr|\n                            betamax\\.video|\n                            video\\.typica\\.us|\n                            tube\\.piweb\\.be|\n                            video\\.blender\\.org|\n                            peertube\\.cat|\n                            tube\\.kdy\\.ch|\n                            pe\\.ertu\\.be|\n                            peertube\\.social|\n                            videos\\.lescommuns\\.org|\n                            tv\\.datamol\\.org|\n                            videonaute\\.fr|\n                            dialup\\.express|\n                            peertube\\.nogafa\\.org|\n                            megatube\\.lilomoino\\.fr|\n                            peertube\\.tamanoir\\.foucry\\.net|\n                            peertube\\.devosi\\.org|\n                            peertube\\.1312\\.media|\n                            tube\\.bootlicker\\.party|\n                            skeptikon\\.fr|\n                            video\\.blueline\\.mg|\n                            tube\\.homecomputing\\.fr|\n                            tube\\.ouahpiti\\.info|\n                            video\\.tedomum\\.net|\n                            video\\.g3l\\.org|\n                            fontube\\.fr|\n                            peertube\\.gaialabs\\.ch|\n                            tube\\.kher\\.nl|\n                            peertube\\.qtg\\.fr|\n                            video\\.migennes\\.net|\n                            tube\\.p2p\\.legal|\n                            troll\\.tv|\n                            videos\\.iut-orsay\\.fr|\n                            peertube\\.solidev\\.net|\n                            videos\\.cemea\\.org|\n                            video\\.passageenseine\\.fr|\n                            videos\\.festivalparminous\\.org|\n                            peertube\\.touhoppai\\.moe|\n                            sikke\\.fi|\n                            peer\\.hostux\\.social|\n                            share\\.tube|\n                            peertube\\.walkingmountains\\.fr|\n                            videos\\.benpro\\.fr|\n                            peertube\\.parleur\\.net|\n                            peertube\\.heraut\\.eu|\n                            tube\\.aquilenet\\.fr|\n                            peertube\\.gegeweb\\.eu|\n                            framatube\\.org|\n                            thinkerview\\.video|\n                            tube\\.conferences-gesticulees\\.net|\n                            peertube\\.datagueule\\.tv|\n                            video\\.lqdn\\.fr|\n                            tube\\.mochi\\.academy|\n                            media\\.zat\\.im|\n                            video\\.colibris-outilslibres\\.org|\n                            tube\\.svnet\\.fr|\n                            peertube\\.video|\n                            peertube2\\.cpy\\.re|\n                            peertube3\\.cpy\\.re|\n                            videos\\.tcit\\.fr|\n                            peertube\\.cpy\\.re|\n                            canard\\.tube\n                        ))/(?:videos/(?:watch|embed)|api/v\\d/videos|w)/\n                    )\n                    (?P<id>[\\da-zA-Z]{22}|[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12})\n                    '
     _RETURN_TYPE = 'video'
 
 
 class PeerTubePlaylistIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.peertube'
     IE_NAME = 'PeerTube:Playlist'
-    _VALID_URL = '(?x)\n                        https?://(?P<host>(?:\n                            # Taken from https://instances.joinpeertube.org/instances\n                            40two\\.tube|\n                            a\\.metube\\.ch|\n                            advtv\\.ml|\n                            algorithmic\\.tv|\n                            alimulama\\.com|\n                            arcana\\.fun|\n                            archive\\.vidicon\\.org|\n                            artefac-paris\\.tv|\n                            auf1\\.eu|\n                            battlepenguin\\.video|\n                            beertube\\.epgn\\.ch|\n                            befree\\.nohost\\.me|\n                            bideoak\\.argia\\.eus|\n                            birkeundnymphe\\.de|\n                            bitcointv\\.com|\n                            cattube\\.org|\n                            clap\\.nerv-project\\.eu|\n                            climatejustice\\.video|\n                            comf\\.tube|\n                            conspiracydistillery\\.com|\n                            darkvapor\\.nohost\\.me|\n                            daschauher\\.aksel\\.rocks|\n                            digitalcourage\\.video|\n                            dreiecksnebel\\.alex-detsch\\.de|\n                            eduvid\\.org|\n                            evangelisch\\.video|\n                            exo\\.tube|\n                            fair\\.tube|\n                            fediverse\\.tv|\n                            film\\.k-prod\\.fr|\n                            flim\\.txmn\\.tk|\n                            fotogramas\\.politicaconciencia\\.org|\n                            ftsi\\.ru|\n                            gary\\.vger\\.cloud|\n                            graeber\\.video|\n                            greatview\\.video|\n                            grypstube\\.uni-greifswald\\.de|\n                            highvoltage\\.tv|\n                            hpstube\\.fr|\n                            htp\\.live|\n                            hyperreal\\.tube|\n                            juggling\\.digital|\n                            kino\\.kompot\\.si|\n                            kino\\.schuerz\\.at|\n                            kinowolnosc\\.pl|\n                            kirche\\.peertube-host\\.de|\n                            kodcast\\.com|\n                            kolektiva\\.media|\n                            kraut\\.zone|\n                            kumi\\.tube|\n                            lastbreach\\.tv|\n                            lepetitmayennais\\.fr\\.nf|\n                            lexx\\.impa\\.me|\n                            libertynode\\.tv|\n                            libra\\.syntazia\\.org|\n                            libremedia\\.video|\n                            live\\.libratoi\\.org|\n                            live\\.nanao\\.moe|\n                            live\\.toobnix\\.org|\n                            livegram\\.net|\n                            lolitube\\.freedomchan\\.moe|\n                            lucarne\\.balsamine\\.be|\n                            maindreieck-tv\\.de|\n                            mani\\.tube|\n                            manicphase\\.me|\n                            media\\.fsfe\\.org|\n                            media\\.gzevd\\.de|\n                            media\\.inno3\\.cricket|\n                            media\\.kaitaia\\.life|\n                            media\\.krashboyz\\.org|\n                            media\\.over-world\\.org|\n                            media\\.skewed\\.de|\n                            media\\.undeadnetwork\\.de|\n                            medias\\.pingbase\\.net|\n                            melsungen\\.peertube-host\\.de|\n                            mirametube\\.fr|\n                            mojotube\\.net|\n                            monplaisirtube\\.ddns\\.net|\n                            mountaintown\\.video|\n                            my\\.bunny\\.cafe|\n                            myfreetube\\.de|\n                            mytube\\.kn-cloud\\.de|\n                            mytube\\.madzel\\.de|\n                            myworkoutarenapeertube\\.cf|\n                            nanawel-peertube\\.dyndns\\.org|\n                            nastub\\.cz|\n                            offenes\\.tv|\n                            orgdup\\.media|\n                            ovaltube\\.codinglab\\.ch|\n                            p2ptv\\.ru|\n                            p\\.eertu\\.be|\n                            p\\.lu|\n                            peer\\.azurs\\.fr|\n                            peertube1\\.zeteo\\.me|\n                            peertube\\.020\\.pl|\n                            peertube\\.0x5e\\.eu|\n                            peertube\\.alpharius\\.io|\n                            peertube\\.am-networks\\.fr|\n                            peertube\\.anduin\\.net|\n                            peertube\\.anzui\\.dev|\n                            peertube\\.arbleizez\\.bzh|\n                            peertube\\.art3mis\\.de|\n                            peertube\\.atilla\\.org|\n                            peertube\\.atsuchan\\.page|\n                            peertube\\.aukfood\\.net|\n                            peertube\\.aventer\\.biz|\n                            peertube\\.b38\\.rural-it\\.org|\n                            peertube\\.beeldengeluid\\.nl|\n                            peertube\\.be|\n                            peertube\\.bgzashtita\\.es|\n                            peertube\\.bitsandlinux\\.com|\n                            peertube\\.biz|\n                            peertube\\.boba\\.best|\n                            peertube\\.br0\\.fr|\n                            peertube\\.bridaahost\\.ynh\\.fr|\n                            peertube\\.bubbletea\\.dev|\n                            peertube\\.bubuit\\.net|\n                            peertube\\.cabaal\\.net|\n                            peertube\\.cats-home\\.net|\n                            peertube\\.chemnitz\\.freifunk\\.net|\n                            peertube\\.chevro\\.fr|\n                            peertube\\.chrisspiegl\\.com|\n                            peertube\\.chtisurel\\.net|\n                            peertube\\.cipherbliss\\.com|\n                            peertube\\.cloud\\.sans\\.pub|\n                            peertube\\.cpge-brizeux\\.fr|\n                            peertube\\.ctseuro\\.com|\n                            peertube\\.cuatrolibertades\\.org|\n                            peertube\\.cybercirujas\\.club|\n                            peertube\\.cythin\\.com|\n                            peertube\\.davigge\\.com|\n                            peertube\\.dc\\.pini\\.fr|\n                            peertube\\.debian\\.social|\n                            peertube\\.demonix\\.fr|\n                            peertube\\.designersethiques\\.org|\n                            peertube\\.desmu\\.fr|\n                            peertube\\.devloprog\\.org|\n                            peertube\\.devol\\.it|\n                            peertube\\.dtmf\\.ca|\n                            peertube\\.ecologie\\.bzh|\n                            peertube\\.eu\\.org|\n                            peertube\\.european-pirates\\.eu|\n                            peertube\\.euskarabildua\\.eus|\n                            peertube\\.fenarinarsa\\.com|\n                            peertube\\.fomin\\.site|\n                            peertube\\.forsud\\.be|\n                            peertube\\.francoispelletier\\.org|\n                            peertube\\.freenet\\.ru|\n                            peertube\\.freetalklive\\.com|\n                            peertube\\.functional\\.cafe|\n                            peertube\\.gardeludwig\\.fr|\n                            peertube\\.gargantia\\.fr|\n                            peertube\\.gcfamily\\.fr|\n                            peertube\\.genma\\.fr|\n                            peertube\\.get-racing\\.de|\n                            peertube\\.gidikroon\\.eu|\n                            peertube\\.gruezishop\\.ch|\n                            peertube\\.habets\\.house|\n                            peertube\\.hackerfraternity\\.org|\n                            peertube\\.ichigo\\.everydayimshuflin\\.com|\n                            peertube\\.ignifi\\.me|\n                            peertube\\.inapurna\\.org|\n                            peertube\\.informaction\\.info|\n                            peertube\\.interhop\\.org|\n                            peertube\\.iselfhost\\.com|\n                            peertube\\.it|\n                            peertube\\.jensdiemer\\.de|\n                            peertube\\.joffreyverd\\.fr|\n                            peertube\\.kalua\\.im|\n                            peertube\\.kathryl\\.fr|\n                            peertube\\.keazilla\\.net|\n                            peertube\\.klaewyss\\.fr|\n                            peertube\\.kodcast\\.com|\n                            peertube\\.kx\\.studio|\n                            peertube\\.lagvoid\\.com|\n                            peertube\\.lavallee\\.tech|\n                            peertube\\.le5emeaxe\\.fr|\n                            peertube\\.lestutosdeprocessus\\.fr|\n                            peertube\\.librenet\\.co\\.za|\n                            peertube\\.logilab\\.fr|\n                            peertube\\.louisematic\\.site|\n                            peertube\\.luckow\\.org|\n                            peertube\\.luga\\.at|\n                            peertube\\.lyceeconnecte\\.fr|\n                            peertube\\.manalejandro\\.com|\n                            peertube\\.marud\\.fr|\n                            peertube\\.mattone\\.net|\n                            peertube\\.maxweiss\\.io|\n                            peertube\\.monlycee\\.net|\n                            peertube\\.mxinfo\\.fr|\n                            peertube\\.myrasp\\.eu|\n                            peertube\\.nebelcloud\\.de|\n                            peertube\\.netzbegruenung\\.de|\n                            peertube\\.newsocial\\.tech|\n                            peertube\\.nicolastissot\\.fr|\n                            peertube\\.nz|\n                            peertube\\.offerman\\.com|\n                            peertube\\.opencloud\\.lu|\n                            peertube\\.orthus\\.link|\n                            peertube\\.patapouf\\.xyz|\n                            peertube\\.pi2\\.dev|\n                            peertube\\.plataformess\\.org|\n                            peertube\\.pl|\n                            peertube\\.portaesgnos\\.org|\n                            peertube\\.r2\\.enst\\.fr|\n                            peertube\\.r5c3\\.fr|\n                            peertube\\.radres\\.xyz|\n                            peertube\\.red|\n                            peertube\\.robonomics\\.network|\n                            peertube\\.rtnkv\\.cloud|\n                            peertube\\.runfox\\.tk|\n                            peertube\\.satoshishop\\.de|\n                            peertube\\.scic-tetris\\.org|\n                            peertube\\.securitymadein\\.lu|\n                            peertube\\.semweb\\.pro|\n                            peertube\\.social\\.my-wan\\.de|\n                            peertube\\.soykaf\\.org|\n                            peertube\\.stefofficiel\\.me|\n                            peertube\\.stream|\n                            peertube\\.su|\n                            peertube\\.swrs\\.net|\n                            peertube\\.takeko\\.cyou|\n                            peertube\\.tangentfox\\.com|\n                            peertube\\.taxinachtegel\\.de|\n                            peertube\\.thenewoil\\.xyz|\n                            peertube\\.ti-fr\\.com|\n                            peertube\\.tiennot\\.net|\n                            peertube\\.troback\\.com|\n                            peertube\\.tspu\\.edu\\.ru|\n                            peertube\\.tux\\.ovh|\n                            peertube\\.tv|\n                            peertube\\.tweb\\.tv|\n                            peertube\\.ucy\\.de|\n                            peertube\\.underworld\\.fr|\n                            peertube\\.us\\.to|\n                            peertube\\.ventresmous\\.fr|\n                            peertube\\.vlaki\\.cz|\n                            peertube\\.w\\.utnw\\.de|\n                            peertube\\.westring\\.digital|\n                            peertube\\.xwiki\\.com|\n                            peertube\\.zoz-serv\\.org|\n                            peervideo\\.ru|\n                            periscope\\.numenaute\\.org|\n                            perron-tube\\.de|\n                            petitlutinartube\\.fr|\n                            phijkchu\\.com|\n                            pierre\\.tube|\n                            piraten\\.space|\n                            play\\.rosano\\.ca|\n                            player\\.ojamajo\\.moe|\n                            plextube\\.nl|\n                            pocketnetpeertube1\\.nohost\\.me|\n                            pocketnetpeertube3\\.nohost\\.me|\n                            pocketnetpeertube4\\.nohost\\.me|\n                            pocketnetpeertube5\\.nohost\\.me|\n                            pocketnetpeertube6\\.nohost\\.me|\n                            pt\\.24-7\\.ro|\n                            pt\\.apathy\\.top|\n                            pt\\.diaspodon\\.fr|\n                            pt\\.fedi\\.tech|\n                            pt\\.maciej\\.website|\n                            ptb\\.lunarviews\\.net|\n                            ptmir1\\.inter21\\.net|\n                            ptmir2\\.inter21\\.net|\n                            ptmir3\\.inter21\\.net|\n                            ptmir4\\.inter21\\.net|\n                            ptmir5\\.inter21\\.net|\n                            ptube\\.horsentiers\\.fr|\n                            ptube\\.xmanifesto\\.club|\n                            queermotion\\.org|\n                            re-wizja\\.re-medium\\.com|\n                            regarder\\.sans\\.pub|\n                            ruraletv\\.ovh|\n                            s1\\.gegenstimme\\.tv|\n                            s2\\.veezee\\.tube|\n                            sdmtube\\.fr|\n                            sender-fm\\.veezee\\.tube|\n                            serv1\\.wiki-tube\\.de|\n                            serv3\\.wiki-tube\\.de|\n                            sickstream\\.net|\n                            sleepy\\.tube|\n                            sovran\\.video|\n                            spectra\\.video|\n                            stream\\.elven\\.pw|\n                            stream\\.k-prod\\.fr|\n                            stream\\.shahab\\.nohost\\.me|\n                            streamsource\\.video|\n                            studios\\.racer159\\.com|\n                            testtube\\.florimond\\.eu|\n                            tgi\\.hosted\\.spacebear\\.ee|\n                            thaitube\\.in\\.th|\n                            the\\.jokertv\\.eu|\n                            theater\\.ethernia\\.net|\n                            thecool\\.tube|\n                            tilvids\\.com|\n                            toob\\.bub\\.org|\n                            tpaw\\.video|\n                            truetube\\.media|\n                            tuba\\.lhub\\.pl|\n                            tube-aix-marseille\\.beta\\.education\\.fr|\n                            tube-amiens\\.beta\\.education\\.fr|\n                            tube-besancon\\.beta\\.education\\.fr|\n                            tube-bordeaux\\.beta\\.education\\.fr|\n                            tube-clermont-ferrand\\.beta\\.education\\.fr|\n                            tube-corse\\.beta\\.education\\.fr|\n                            tube-creteil\\.beta\\.education\\.fr|\n                            tube-dijon\\.beta\\.education\\.fr|\n                            tube-education\\.beta\\.education\\.fr|\n                            tube-grenoble\\.beta\\.education\\.fr|\n                            tube-lille\\.beta\\.education\\.fr|\n                            tube-limoges\\.beta\\.education\\.fr|\n                            tube-montpellier\\.beta\\.education\\.fr|\n                            tube-nancy\\.beta\\.education\\.fr|\n                            tube-nantes\\.beta\\.education\\.fr|\n                            tube-nice\\.beta\\.education\\.fr|\n                            tube-normandie\\.beta\\.education\\.fr|\n                            tube-orleans-tours\\.beta\\.education\\.fr|\n                            tube-outremer\\.beta\\.education\\.fr|\n                            tube-paris\\.beta\\.education\\.fr|\n                            tube-poitiers\\.beta\\.education\\.fr|\n                            tube-reims\\.beta\\.education\\.fr|\n                            tube-rennes\\.beta\\.education\\.fr|\n                            tube-strasbourg\\.beta\\.education\\.fr|\n                            tube-toulouse\\.beta\\.education\\.fr|\n                            tube-versailles\\.beta\\.education\\.fr|\n                            tube1\\.it\\.tuwien\\.ac\\.at|\n                            tube\\.abolivier\\.bzh|\n                            tube\\.ac-amiens\\.fr|\n                            tube\\.aerztefueraufklaerung\\.de|\n                            tube\\.alexx\\.ml|\n                            tube\\.amic37\\.fr|\n                            tube\\.anufrij\\.de|\n                            tube\\.apolut\\.net|\n                            tube\\.arkhalabs\\.io|\n                            tube\\.arthack\\.nz|\n                            tube\\.as211696\\.net|\n                            tube\\.avensio\\.de|\n                            tube\\.azbyka\\.ru|\n                            tube\\.azkware\\.net|\n                            tube\\.bachaner\\.fr|\n                            tube\\.bmesh\\.org|\n                            tube\\.borked\\.host|\n                            tube\\.bstly\\.de|\n                            tube\\.chaoszone\\.tv|\n                            tube\\.chatelet\\.ovh|\n                            tube\\.cloud-libre\\.eu|\n                            tube\\.cms\\.garden|\n                            tube\\.cowfee\\.moe|\n                            tube\\.cryptography\\.dog|\n                            tube\\.darknight-coffee\\.org|\n                            tube\\.dev\\.lhub\\.pl|\n                            tube\\.distrilab\\.fr|\n                            tube\\.dsocialize\\.net|\n                            tube\\.ebin\\.club|\n                            tube\\.fdn\\.fr|\n                            tube\\.florimond\\.eu|\n                            tube\\.foxarmy\\.ml|\n                            tube\\.foxden\\.party|\n                            tube\\.frischesicht\\.de|\n                            tube\\.futuretic\\.fr|\n                            tube\\.gnous\\.eu|\n                            tube\\.grap\\.coop|\n                            tube\\.graz\\.social|\n                            tube\\.grin\\.hu|\n                            tube\\.hackerscop\\.org|\n                            tube\\.hordearii\\.fr|\n                            tube\\.jeena\\.net|\n                            tube\\.kai-stuht\\.com|\n                            tube\\.kockatoo\\.org|\n                            tube\\.kotur\\.org|\n                            tube\\.lacaveatonton\\.ovh|\n                            tube\\.linkse\\.media|\n                            tube\\.lokad\\.com|\n                            tube\\.lucie-philou\\.com|\n                            tube\\.melonbread\\.xyz|\n                            tube\\.mfraters\\.net|\n                            tube\\.motuhake\\.xyz|\n                            tube\\.mrbesen\\.de|\n                            tube\\.nah\\.re|\n                            tube\\.nchoco\\.net|\n                            tube\\.novg\\.net|\n                            tube\\.nox-rhea\\.org|\n                            tube\\.nuagelibre\\.fr|\n                            tube\\.nx12\\.net|\n                            tube\\.octaplex\\.net|\n                            tube\\.odat\\.xyz|\n                            tube\\.oisux\\.org|\n                            tube\\.opportunis\\.me|\n                            tube\\.org\\.il|\n                            tube\\.ortion\\.xyz|\n                            tube\\.others\\.social|\n                            tube\\.picasoft\\.net|\n                            tube\\.plomlompom\\.com|\n                            tube\\.pmj\\.rocks|\n                            tube\\.portes-imaginaire\\.org|\n                            tube\\.pyngu\\.com|\n                            tube\\.rebellion\\.global|\n                            tube\\.rhythms-of-resistance\\.org|\n                            tube\\.rita\\.moe|\n                            tube\\.rsi\\.cnr\\.it|\n                            tube\\.s1gm4\\.eu|\n                            tube\\.saumon\\.io|\n                            tube\\.schleuss\\.online|\n                            tube\\.schule\\.social|\n                            tube\\.seditio\\.fr|\n                            tube\\.shanti\\.cafe|\n                            tube\\.shela\\.nu|\n                            tube\\.skrep\\.in|\n                            tube\\.sp-codes\\.de|\n                            tube\\.sp4ke\\.com|\n                            tube\\.superseriousbusiness\\.org|\n                            tube\\.systest\\.eu|\n                            tube\\.tappret\\.fr|\n                            tube\\.tardis\\.world|\n                            tube\\.toontoet\\.nl|\n                            tube\\.tpshd\\.de|\n                            tube\\.troopers\\.agency|\n                            tube\\.tylerdavis\\.xyz|\n                            tube\\.undernet\\.uy|\n                            tube\\.vigilian-consulting\\.nl|\n                            tube\\.vraphim\\.com|\n                            tube\\.wehost\\.lgbt|\n                            tube\\.wien\\.rocks|\n                            tube\\.wolfe\\.casa|\n                            tube\\.xd0\\.de|\n                            tube\\.xy-space\\.de|\n                            tube\\.yapbreak\\.fr|\n                            tubedu\\.org|\n                            tubes\\.jodh\\.us|\n                            tuktube\\.com|\n                            turkum\\.me|\n                            tututu\\.tube|\n                            tuvideo\\.encanarias\\.info|\n                            tv1\\.cocu\\.cc|\n                            tv1\\.gomntu\\.space|\n                            tv2\\.cocu\\.cc|\n                            tv\\.adn\\.life|\n                            tv\\.atmx\\.ca|\n                            tv\\.bitma\\.st|\n                            tv\\.generallyrubbish\\.net\\.au|\n                            tv\\.lumbung\\.space|\n                            tv\\.mattchristiansenmedia\\.com|\n                            tv\\.netwhood\\.online|\n                            tv\\.neue\\.city|\n                            tv\\.piejacker\\.net|\n                            tv\\.pirateradio\\.social|\n                            tv\\.undersco\\.re|\n                            tvox\\.ru|\n                            twctube\\.twc-zone\\.eu|\n                            unfilter\\.tube|\n                            v\\.basspistol\\.org|\n                            v\\.kisombrella\\.top|\n                            v\\.lastorder\\.xyz|\n                            v\\.lor\\.sh|\n                            v\\.phreedom\\.club|\n                            v\\.sil\\.sh|\n                            v\\.szy\\.io|\n                            v\\.xxxapex\\.com|\n                            veezee\\.tube|\n                            vid\\.dascoyote\\.xyz|\n                            vid\\.garwood\\.io|\n                            vid\\.ncrypt\\.at|\n                            vid\\.pravdastalina\\.info|\n                            vid\\.qorg11\\.net|\n                            vid\\.rajeshtaylor\\.com|\n                            vid\\.samtripoli\\.com|\n                            vid\\.werefox\\.dev|\n                            vid\\.wildeboer\\.net|\n                            video-cave-v2\\.de|\n                            video\\.076\\.ne\\.jp|\n                            video\\.1146\\.nohost\\.me|\n                            video\\.altertek\\.org|\n                            video\\.anartist\\.org|\n                            video\\.apps\\.thedoodleproject\\.net|\n                            video\\.artist\\.cx|\n                            video\\.asgardius\\.company|\n                            video\\.balsillie\\.net|\n                            video\\.bards\\.online|\n                            video\\.binarydad\\.com|\n                            video\\.blast-info\\.fr|\n                            video\\.catgirl\\.biz|\n                            video\\.cigliola\\.com|\n                            video\\.cm-en-transition\\.fr|\n                            video\\.cnt\\.social|\n                            video\\.coales\\.co|\n                            video\\.codingfield\\.com|\n                            video\\.comptoir\\.net|\n                            video\\.comune\\.trento\\.it|\n                            video\\.cpn\\.so|\n                            video\\.csc49\\.fr|\n                            video\\.cybre\\.town|\n                            video\\.demokratischer-sommer\\.de|\n                            video\\.discord-insoumis\\.fr|\n                            video\\.dolphincastle\\.com|\n                            video\\.dresden\\.network|\n                            video\\.ecole-89\\.com|\n                            video\\.elgrillolibertario\\.org|\n                            video\\.emergeheart\\.info|\n                            video\\.eradicatinglove\\.xyz|\n                            video\\.ethantheenigma\\.me|\n                            video\\.exodus-privacy\\.eu\\.org|\n                            video\\.fbxl\\.net|\n                            video\\.fhtagn\\.org|\n                            video\\.greenmycity\\.eu|\n                            video\\.guerredeclasse\\.fr|\n                            video\\.gyt\\.is|\n                            video\\.hackers\\.town|\n                            video\\.hardlimit\\.com|\n                            video\\.hooli\\.co|\n                            video\\.igem\\.org|\n                            video\\.internet-czas-dzialac\\.pl|\n                            video\\.islameye\\.com|\n                            video\\.kicik\\.fr|\n                            video\\.kuba-orlik\\.name|\n                            video\\.kyushojitsu\\.ca|\n                            video\\.lavolte\\.net|\n                            video\\.lespoesiesdheloise\\.fr|\n                            video\\.liberta\\.vip|\n                            video\\.liege\\.bike|\n                            video\\.linc\\.systems|\n                            video\\.linux\\.it|\n                            video\\.linuxtrent\\.it|\n                            video\\.lokal\\.social|\n                            video\\.lono\\.space|\n                            video\\.lunasqu\\.ee|\n                            video\\.lundi\\.am|\n                            video\\.marcorennmaus\\.de|\n                            video\\.mass-trespass\\.uk|\n                            video\\.mugoreve\\.fr|\n                            video\\.mundodesconocido\\.com|\n                            video\\.mycrowd\\.ca|\n                            video\\.nogafam\\.es|\n                            video\\.odayacres\\.farm|\n                            video\\.ozgurkon\\.org|\n                            video\\.p1ng0ut\\.social|\n                            video\\.p3x\\.de|\n                            video\\.pcf\\.fr|\n                            video\\.pony\\.gallery|\n                            video\\.potate\\.space|\n                            video\\.pourpenser\\.pro|\n                            video\\.progressiv\\.dev|\n                            video\\.resolutions\\.it|\n                            video\\.rw501\\.de|\n                            video\\.screamer\\.wiki|\n                            video\\.sdm-tools\\.net|\n                            video\\.sftblw\\.moe|\n                            video\\.shitposter\\.club|\n                            video\\.skyn3t\\.in|\n                            video\\.soi\\.ch|\n                            video\\.stuartbrand\\.co\\.uk|\n                            video\\.thinkof\\.name|\n                            video\\.toot\\.pt|\n                            video\\.triplea\\.fr|\n                            video\\.turbo\\.chat|\n                            video\\.vaku\\.org\\.ua|\n                            video\\.veloma\\.org|\n                            video\\.violoncello\\.ch|\n                            video\\.wilkie\\.how|\n                            video\\.wsf2021\\.info|\n                            videorelay\\.co|\n                            videos-passages\\.huma-num\\.fr|\n                            videos\\.3d-wolf\\.com|\n                            videos\\.ahp-numerique\\.fr|\n                            videos\\.alexandrebadalo\\.pt|\n                            videos\\.archigny\\.net|\n                            videos\\.benjaminbrady\\.ie|\n                            videos\\.buceoluegoexisto\\.com|\n                            videos\\.capas\\.se|\n                            videos\\.casually\\.cat|\n                            videos\\.cloudron\\.io|\n                            videos\\.coletivos\\.org|\n                            videos\\.danksquad\\.org|\n                            videos\\.denshi\\.live|\n                            videos\\.fromouter\\.space|\n                            videos\\.fsci\\.in|\n                            videos\\.globenet\\.org|\n                            videos\\.hauspie\\.fr|\n                            videos\\.hush\\.is|\n                            videos\\.john-livingston\\.fr|\n                            videos\\.jordanwarne\\.xyz|\n                            videos\\.lavoixdessansvoix\\.org|\n                            videos\\.leslionsfloorball\\.fr|\n                            videos\\.lucero\\.top|\n                            videos\\.martyn\\.berlin|\n                            videos\\.mastodont\\.cat|\n                            videos\\.monstro1\\.com|\n                            videos\\.npo\\.city|\n                            videos\\.optoutpod\\.com|\n                            videos\\.petch\\.rocks|\n                            videos\\.pzelawski\\.xyz|\n                            videos\\.rampin\\.org|\n                            videos\\.scanlines\\.xyz|\n                            videos\\.shmalls\\.pw|\n                            videos\\.sibear\\.fr|\n                            videos\\.stadtfabrikanten\\.org|\n                            videos\\.tankernn\\.eu|\n                            videos\\.testimonia\\.org|\n                            videos\\.thisishowidontdisappear\\.com|\n                            videos\\.traumaheilung\\.net|\n                            videos\\.trom\\.tf|\n                            videos\\.wakkerewereld\\.nu|\n                            videos\\.weblib\\.re|\n                            videos\\.yesil\\.club|\n                            vids\\.roshless\\.me|\n                            vids\\.tekdmn\\.me|\n                            vidz\\.dou\\.bet|\n                            vod\\.lumikko\\.dev|\n                            vs\\.uniter\\.network|\n                            vulgarisation-informatique\\.fr|\n                            watch\\.breadtube\\.tv|\n                            watch\\.deranalyst\\.ch|\n                            watch\\.ignorance\\.eu|\n                            watch\\.krazy\\.party|\n                            watch\\.libertaria\\.space|\n                            watch\\.rt4mn\\.org|\n                            watch\\.softinio\\.com|\n                            watch\\.tubelab\\.video|\n                            web-fellow\\.de|\n                            webtv\\.vandoeuvre\\.net|\n                            wechill\\.space|\n                            wikileaks\\.video|\n                            wiwi\\.video|\n                            worldofvids\\.com|\n                            wwtube\\.net|\n                            www4\\.mir\\.inter21\\.net|\n                            www\\.birkeundnymphe\\.de|\n                            www\\.captain-german\\.com|\n                            www\\.wiki-tube\\.de|\n                            xxivproduction\\.video|\n                            xxx\\.noho\\.st|\n\n                            # from youtube-dl\n                            peertube\\.rainbowswingers\\.net|\n                            tube\\.stanisic\\.nl|\n                            peer\\.suiri\\.us|\n                            medias\\.libox\\.fr|\n                            videomensoif\\.ynh\\.fr|\n                            peertube\\.travelpandas\\.eu|\n                            peertube\\.rachetjay\\.fr|\n                            peertube\\.montecsys\\.fr|\n                            tube\\.eskuero\\.me|\n                            peer\\.tube|\n                            peertube\\.umeahackerspace\\.se|\n                            tube\\.nx-pod\\.de|\n                            video\\.monsieurbidouille\\.fr|\n                            tube\\.openalgeria\\.org|\n                            vid\\.lelux\\.fi|\n                            video\\.anormallostpod\\.ovh|\n                            tube\\.crapaud-fou\\.org|\n                            peertube\\.stemy\\.me|\n                            lostpod\\.space|\n                            exode\\.me|\n                            peertube\\.snargol\\.com|\n                            vis\\.ion\\.ovh|\n                            videosdulib\\.re|\n                            v\\.mbius\\.io|\n                            videos\\.judrey\\.eu|\n                            peertube\\.osureplayviewer\\.xyz|\n                            peertube\\.mathieufamily\\.ovh|\n                            www\\.videos-libr\\.es|\n                            fightforinfo\\.com|\n                            peertube\\.fediverse\\.ru|\n                            peertube\\.oiseauroch\\.fr|\n                            video\\.nesven\\.eu|\n                            v\\.bearvideo\\.win|\n                            video\\.qoto\\.org|\n                            justporn\\.cc|\n                            video\\.vny\\.fr|\n                            peervideo\\.club|\n                            tube\\.taker\\.fr|\n                            peertube\\.chantierlibre\\.org|\n                            tube\\.ipfixe\\.info|\n                            tube\\.kicou\\.info|\n                            tube\\.dodsorf\\.as|\n                            videobit\\.cc|\n                            video\\.yukari\\.moe|\n                            videos\\.elbinario\\.net|\n                            hkvideo\\.live|\n                            pt\\.tux\\.tf|\n                            www\\.hkvideo\\.live|\n                            FIGHTFORINFO\\.com|\n                            pt\\.765racing\\.com|\n                            peertube\\.gnumeria\\.eu\\.org|\n                            nordenmedia\\.com|\n                            peertube\\.co\\.uk|\n                            tube\\.darfweb\\.eu|\n                            tube\\.kalah-france\\.org|\n                            0ch\\.in|\n                            vod\\.mochi\\.academy|\n                            film\\.node9\\.org|\n                            peertube\\.hatthieves\\.es|\n                            video\\.fitchfamily\\.org|\n                            peertube\\.ddns\\.net|\n                            video\\.ifuncle\\.kr|\n                            video\\.fdlibre\\.eu|\n                            tube\\.22decembre\\.eu|\n                            peertube\\.harmoniescreatives\\.com|\n                            tube\\.fabrigli\\.fr|\n                            video\\.thedwyers\\.co|\n                            video\\.bruitbruit\\.com|\n                            peertube\\.foxfam\\.club|\n                            peer\\.philoxweb\\.be|\n                            videos\\.bugs\\.social|\n                            peertube\\.malbert\\.xyz|\n                            peertube\\.bilange\\.ca|\n                            libretube\\.net|\n                            diytelevision\\.com|\n                            peertube\\.fedilab\\.app|\n                            libre\\.video|\n                            video\\.mstddntfdn\\.online|\n                            us\\.tv|\n                            peertube\\.sl-network\\.fr|\n                            peertube\\.dynlinux\\.io|\n                            peertube\\.david\\.durieux\\.family|\n                            peertube\\.linuxrocks\\.online|\n                            peerwatch\\.xyz|\n                            v\\.kretschmann\\.social|\n                            tube\\.otter\\.sh|\n                            yt\\.is\\.nota\\.live|\n                            tube\\.dragonpsi\\.xyz|\n                            peertube\\.boneheadmedia\\.com|\n                            videos\\.funkwhale\\.audio|\n                            watch\\.44con\\.com|\n                            peertube\\.gcaillaut\\.fr|\n                            peertube\\.icu|\n                            pony\\.tube|\n                            spacepub\\.space|\n                            tube\\.stbr\\.io|\n                            v\\.mom-gay\\.faith|\n                            tube\\.port0\\.xyz|\n                            peertube\\.simounet\\.net|\n                            play\\.jergefelt\\.se|\n                            peertube\\.zeteo\\.me|\n                            tube\\.danq\\.me|\n                            peertube\\.kerenon\\.com|\n                            tube\\.fab-l3\\.org|\n                            tube\\.calculate\\.social|\n                            peertube\\.mckillop\\.org|\n                            tube\\.netzspielplatz\\.de|\n                            vod\\.ksite\\.de|\n                            peertube\\.laas\\.fr|\n                            tube\\.govital\\.net|\n                            peertube\\.stephenson\\.cc|\n                            bistule\\.nohost\\.me|\n                            peertube\\.kajalinifi\\.de|\n                            video\\.ploud\\.jp|\n                            video\\.omniatv\\.com|\n                            peertube\\.ffs2play\\.fr|\n                            peertube\\.leboulaire\\.ovh|\n                            peertube\\.tronic-studio\\.com|\n                            peertube\\.public\\.cat|\n                            peertube\\.metalbanana\\.net|\n                            video\\.1000i100\\.fr|\n                            peertube\\.alter-nativ-voll\\.de|\n                            tube\\.pasa\\.tf|\n                            tube\\.worldofhauru\\.xyz|\n                            pt\\.kamp\\.site|\n                            peertube\\.teleassist\\.fr|\n                            videos\\.mleduc\\.xyz|\n                            conf\\.tube|\n                            media\\.privacyinternational\\.org|\n                            pt\\.forty-two\\.nl|\n                            video\\.halle-leaks\\.de|\n                            video\\.grosskopfgames\\.de|\n                            peertube\\.schaeferit\\.de|\n                            peertube\\.jackbot\\.fr|\n                            tube\\.extinctionrebellion\\.fr|\n                            peertube\\.f-si\\.org|\n                            video\\.subak\\.ovh|\n                            videos\\.koweb\\.fr|\n                            peertube\\.zergy\\.net|\n                            peertube\\.roflcopter\\.fr|\n                            peertube\\.floss-marketing-school\\.com|\n                            vloggers\\.social|\n                            peertube\\.iriseden\\.eu|\n                            videos\\.ubuntu-paris\\.org|\n                            peertube\\.mastodon\\.host|\n                            armstube\\.com|\n                            peertube\\.s2s\\.video|\n                            peertube\\.lol|\n                            tube\\.open-plug\\.eu|\n                            open\\.tube|\n                            peertube\\.ch|\n                            peertube\\.normandie-libre\\.fr|\n                            peertube\\.slat\\.org|\n                            video\\.lacaveatonton\\.ovh|\n                            peertube\\.uno|\n                            peertube\\.servebeer\\.com|\n                            peertube\\.fedi\\.quebec|\n                            tube\\.h3z\\.jp|\n                            tube\\.plus200\\.com|\n                            peertube\\.eric\\.ovh|\n                            tube\\.metadocs\\.cc|\n                            tube\\.unmondemeilleur\\.eu|\n                            gouttedeau\\.space|\n                            video\\.antirep\\.net|\n                            nrop\\.cant\\.at|\n                            tube\\.ksl-bmx\\.de|\n                            tube\\.plaf\\.fr|\n                            tube\\.tchncs\\.de|\n                            video\\.devinberg\\.com|\n                            hitchtube\\.fr|\n                            peertube\\.kosebamse\\.com|\n                            yunopeertube\\.myddns\\.me|\n                            peertube\\.varney\\.fr|\n                            peertube\\.anon-kenkai\\.com|\n                            tube\\.maiti\\.info|\n                            tubee\\.fr|\n                            videos\\.dinofly\\.com|\n                            toobnix\\.org|\n                            videotape\\.me|\n                            voca\\.tube|\n                            video\\.heromuster\\.com|\n                            video\\.lemediatv\\.fr|\n                            video\\.up\\.edu\\.ph|\n                            balafon\\.video|\n                            video\\.ivel\\.fr|\n                            thickrips\\.cloud|\n                            pt\\.laurentkruger\\.fr|\n                            video\\.monarch-pass\\.net|\n                            peertube\\.artica\\.center|\n                            video\\.alternanet\\.fr|\n                            indymotion\\.fr|\n                            fanvid\\.stopthatimp\\.net|\n                            video\\.farci\\.org|\n                            v\\.lesterpig\\.com|\n                            video\\.okaris\\.de|\n                            tube\\.pawelko\\.net|\n                            peertube\\.mablr\\.org|\n                            tube\\.fede\\.re|\n                            pytu\\.be|\n                            evertron\\.tv|\n                            devtube\\.dev-wiki\\.de|\n                            raptube\\.antipub\\.org|\n                            video\\.selea\\.se|\n                            peertube\\.mygaia\\.org|\n                            video\\.oh14\\.de|\n                            peertube\\.livingutopia\\.org|\n                            peertube\\.the-penguin\\.de|\n                            tube\\.thechangebook\\.org|\n                            tube\\.anjara\\.eu|\n                            pt\\.pube\\.tk|\n                            video\\.samedi\\.pm|\n                            mplayer\\.demouliere\\.eu|\n                            widemus\\.de|\n                            peertube\\.me|\n                            peertube\\.zapashcanon\\.fr|\n                            video\\.latavernedejohnjohn\\.fr|\n                            peertube\\.pcservice46\\.fr|\n                            peertube\\.mazzonetto\\.eu|\n                            video\\.irem\\.univ-paris-diderot\\.fr|\n                            video\\.livecchi\\.cloud|\n                            alttube\\.fr|\n                            video\\.coop\\.tools|\n                            video\\.cabane-libre\\.org|\n                            peertube\\.openstreetmap\\.fr|\n                            videos\\.alolise\\.org|\n                            irrsinn\\.video|\n                            video\\.antopie\\.org|\n                            scitech\\.video|\n                            tube2\\.nemsia\\.org|\n                            video\\.amic37\\.fr|\n                            peertube\\.freeforge\\.eu|\n                            video\\.arbitrarion\\.com|\n                            video\\.datsemultimedia\\.com|\n                            stoptrackingus\\.tv|\n                            peertube\\.ricostrongxxx\\.com|\n                            docker\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.togart\\.de|\n                            tube\\.postblue\\.info|\n                            videos\\.domainepublic\\.net|\n                            peertube\\.cyber-tribal\\.com|\n                            video\\.gresille\\.org|\n                            peertube\\.dsmouse\\.net|\n                            cinema\\.yunohost\\.support|\n                            tube\\.theocevaer\\.fr|\n                            repro\\.video|\n                            tube\\.4aem\\.com|\n                            quaziinc\\.com|\n                            peertube\\.metawurst\\.space|\n                            videos\\.wakapo\\.com|\n                            video\\.ploud\\.fr|\n                            video\\.freeradical\\.zone|\n                            tube\\.valinor\\.fr|\n                            refuznik\\.video|\n                            pt\\.kircheneuenburg\\.de|\n                            peertube\\.asrun\\.eu|\n                            peertube\\.lagob\\.fr|\n                            videos\\.side-ways\\.net|\n                            91video\\.online|\n                            video\\.valme\\.io|\n                            video\\.taboulisme\\.com|\n                            videos-libr\\.es|\n                            tv\\.mooh\\.fr|\n                            nuage\\.acostey\\.fr|\n                            video\\.monsieur-a\\.fr|\n                            peertube\\.librelois\\.fr|\n                            videos\\.pair2jeux\\.tube|\n                            videos\\.pueseso\\.club|\n                            peer\\.mathdacloud\\.ovh|\n                            media\\.assassinate-you\\.net|\n                            vidcommons\\.org|\n                            ptube\\.rousset\\.nom\\.fr|\n                            tube\\.cyano\\.at|\n                            videos\\.squat\\.net|\n                            video\\.iphodase\\.fr|\n                            peertube\\.makotoworkshop\\.org|\n                            peertube\\.serveur\\.slv-valbonne\\.fr|\n                            vault\\.mle\\.party|\n                            hostyour\\.tv|\n                            videos\\.hack2g2\\.fr|\n                            libre\\.tube|\n                            pire\\.artisanlogiciel\\.net|\n                            videos\\.numerique-en-commun\\.fr|\n                            video\\.netsyms\\.com|\n                            video\\.die-partei\\.social|\n                            video\\.writeas\\.org|\n                            peertube\\.swarm\\.solvingmaz\\.es|\n                            tube\\.pericoloso\\.ovh|\n                            watching\\.cypherpunk\\.observer|\n                            videos\\.adhocmusic\\.com|\n                            tube\\.rfc1149\\.net|\n                            peertube\\.librelabucm\\.org|\n                            videos\\.numericoop\\.fr|\n                            peertube\\.koehn\\.com|\n                            peertube\\.anarchmusicall\\.net|\n                            tube\\.kampftoast\\.de|\n                            vid\\.y-y\\.li|\n                            peertube\\.xtenz\\.xyz|\n                            diode\\.zone|\n                            tube\\.egf\\.mn|\n                            peertube\\.nomagic\\.uk|\n                            visionon\\.tv|\n                            videos\\.koumoul\\.com|\n                            video\\.rastapuls\\.com|\n                            video\\.mantlepro\\.com|\n                            video\\.deadsuperhero\\.com|\n                            peertube\\.musicstudio\\.pro|\n                            peertube\\.we-keys\\.fr|\n                            artitube\\.artifaille\\.fr|\n                            peertube\\.ethernia\\.net|\n                            tube\\.midov\\.pl|\n                            peertube\\.fr|\n                            watch\\.snoot\\.tube|\n                            peertube\\.donnadieu\\.fr|\n                            argos\\.aquilenet\\.fr|\n                            tube\\.nemsia\\.org|\n                            tube\\.bruniau\\.net|\n                            videos\\.darckoune\\.moe|\n                            tube\\.traydent\\.info|\n                            dev\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.nayya\\.org|\n                            peertube\\.live|\n                            peertube\\.mofgao\\.space|\n                            video\\.lequerrec\\.eu|\n                            peertube\\.amicale\\.net|\n                            aperi\\.tube|\n                            tube\\.ac-lyon\\.fr|\n                            video\\.lw1\\.at|\n                            www\\.yiny\\.org|\n                            videos\\.pofilo\\.fr|\n                            tube\\.lou\\.lt|\n                            choob\\.h\\.etbus\\.ch|\n                            tube\\.hoga\\.fr|\n                            peertube\\.heberge\\.fr|\n                            video\\.obermui\\.de|\n                            videos\\.cloudfrancois\\.fr|\n                            betamax\\.video|\n                            video\\.typica\\.us|\n                            tube\\.piweb\\.be|\n                            video\\.blender\\.org|\n                            peertube\\.cat|\n                            tube\\.kdy\\.ch|\n                            pe\\.ertu\\.be|\n                            peertube\\.social|\n                            videos\\.lescommuns\\.org|\n                            tv\\.datamol\\.org|\n                            videonaute\\.fr|\n                            dialup\\.express|\n                            peertube\\.nogafa\\.org|\n                            megatube\\.lilomoino\\.fr|\n                            peertube\\.tamanoir\\.foucry\\.net|\n                            peertube\\.devosi\\.org|\n                            peertube\\.1312\\.media|\n                            tube\\.bootlicker\\.party|\n                            skeptikon\\.fr|\n                            video\\.blueline\\.mg|\n                            tube\\.homecomputing\\.fr|\n                            tube\\.ouahpiti\\.info|\n                            video\\.tedomum\\.net|\n                            video\\.g3l\\.org|\n                            fontube\\.fr|\n                            peertube\\.gaialabs\\.ch|\n                            tube\\.kher\\.nl|\n                            peertube\\.qtg\\.fr|\n                            video\\.migennes\\.net|\n                            tube\\.p2p\\.legal|\n                            troll\\.tv|\n                            videos\\.iut-orsay\\.fr|\n                            peertube\\.solidev\\.net|\n                            videos\\.cemea\\.org|\n                            video\\.passageenseine\\.fr|\n                            videos\\.festivalparminous\\.org|\n                            peertube\\.touhoppai\\.moe|\n                            sikke\\.fi|\n                            peer\\.hostux\\.social|\n                            share\\.tube|\n                            peertube\\.walkingmountains\\.fr|\n                            videos\\.benpro\\.fr|\n                            peertube\\.parleur\\.net|\n                            peertube\\.heraut\\.eu|\n                            tube\\.aquilenet\\.fr|\n                            peertube\\.gegeweb\\.eu|\n                            framatube\\.org|\n                            thinkerview\\.video|\n                            tube\\.conferences-gesticulees\\.net|\n                            peertube\\.datagueule\\.tv|\n                            video\\.lqdn\\.fr|\n                            tube\\.mochi\\.academy|\n                            media\\.zat\\.im|\n                            video\\.colibris-outilslibres\\.org|\n                            tube\\.svnet\\.fr|\n                            peertube\\.video|\n                            peertube2\\.cpy\\.re|\n                            peertube3\\.cpy\\.re|\n                            videos\\.tcit\\.fr|\n                            peertube\\.cpy\\.re|\n                            canard\\.tube\n                        ))/(?P<type>(?:a|c|w/p))/\n                    (?P<id>[^/]+)\n                    '
+    _VALID_URL = '(?x)\n                        https?://(?P<host>(?:\n                            # Taken from https://instances.joinpeertube.org/instances\n                            0ch\\.tv|\n                            3dctube\\.3dcandy\\.social|\n                            all\\.electric\\.kitchen|\n                            alterscope\\.fr|\n                            anarchy\\.tube|\n                            apathy\\.tv|\n                            apertatube\\.net|\n                            archive\\.nocopyrightintended\\.tv|\n                            archive\\.reclaim\\.tv|\n                            area51\\.media|\n                            astrotube-ufe\\.obspm\\.fr|\n                            astrotube\\.obspm\\.fr|\n                            audio\\.freediverse\\.com|\n                            azxtube\\.youssefc\\.tn|\n                            bark\\.video|\n                            battlepenguin\\.video|\n                            bava\\.tv|\n                            bee-tube\\.fr|\n                            beetoons\\.tv|\n                            biblion\\.refchat\\.net|\n                            biblioteca\\.theowlclub\\.net|\n                            bideoak\\.argia\\.eus|\n                            bideoteka\\.eus|\n                            birdtu\\.be|\n                            bitcointv\\.com|\n                            bonn\\.video|\n                            breeze\\.tube|\n                            brioco\\.live|\n                            brocosoup\\.fr|\n                            canal\\.facil\\.services|\n                            canard\\.tube|\n                            cdn01\\.tilvids\\.com|\n                            celluloid-media\\.huma-num\\.fr|\n                            chicago1\\.peertube\\.support|\n                            cliptube\\.org|\n                            cloudtube\\.ise\\.fraunhofer\\.de|\n                            comf\\.tube|\n                            comics\\.peertube\\.biz|\n                            commons\\.tube|\n                            communitymedia\\.video|\n                            conspiracydistillery\\.com|\n                            crank\\.recoil\\.org|\n                            dalek\\.zone|\n                            dalliance\\.network|\n                            dangly\\.parts|\n                            darkvapor\\.nohost\\.me|\n                            daschauher\\.aksel\\.rocks|\n                            digitalcourage\\.video|\n                            displayeurope\\.video|\n                            ds106\\.tv|\n                            dud-video\\.inf\\.tu-dresden\\.de|\n                            dud175\\.inf\\.tu-dresden\\.de|\n                            dytube\\.com|\n                            ebildungslabor\\.video|\n                            evangelisch\\.video|\n                            fair\\.tube|\n                            fedi\\.video|\n                            fedimovie\\.com|\n                            fediverse\\.tv|\n                            film\\.k-prod\\.fr|\n                            flipboard\\.video|\n                            foss\\.video|\n                            fossfarmers\\.company|\n                            fotogramas\\.politicaconciencia\\.org|\n                            freediverse\\.com|\n                            freesoto-u2151\\.vm\\.elestio\\.app|\n                            freesoto\\.tv|\n                            garr\\.tv|\n                            greatview\\.video|\n                            grypstube\\.uni-greifswald\\.de|\n                            habratube\\.site|\n                            ilbjach\\.ru|\n                            infothema\\.net|\n                            itvplus\\.iiens\\.net|\n                            johnydeep\\.net|\n                            juggling\\.digital|\n                            jupiter\\.tube|\n                            kadras\\.live|\n                            kino\\.kompot\\.si|\n                            kino\\.schuerz\\.at|\n                            kinowolnosc\\.pl|\n                            kirche\\.peertube-host\\.de|\n                            kiwi\\.froggirl\\.club|\n                            kodcast\\.com|\n                            kolektiva\\.media|\n                            kpop\\.22x22\\.ru|\n                            kumi\\.tube|\n                            la2\\.peertube\\.support|\n                            la3\\.peertube\\.support|\n                            la4\\.peertube\\.support|\n                            lastbreach\\.tv|\n                            lawsplaining\\.peertube\\.biz|\n                            leopard\\.tube|\n                            live\\.codinglab\\.ch|\n                            live\\.libratoi\\.org|\n                            live\\.oldskool\\.fi|\n                            live\\.solari\\.com|\n                            lucarne\\.balsamine\\.be|\n                            luxtube\\.lu|\n                            makertube\\.net|\n                            media\\.econoalchemist\\.com|\n                            media\\.exo\\.cat|\n                            media\\.fsfe\\.org|\n                            media\\.gzevd\\.de|\n                            media\\.interior\\.edu\\.uy|\n                            media\\.krashboyz\\.org|\n                            media\\.mzhd\\.de|\n                            media\\.smz-ma\\.de|\n                            media\\.theplattform\\.net|\n                            media\\.undeadnetwork\\.de|\n                            medias\\.debrouillonet\\.org|\n                            medias\\.pingbase\\.net|\n                            mediatube\\.fermalo\\.fr|\n                            melsungen\\.peertube-host\\.de|\n                            merci-la-police\\.fr|\n                            mindlyvideos\\.com|\n                            mirror\\.peertube\\.metalbanana\\.net|\n                            mirrored\\.rocks|\n                            mix\\.video|\n                            mountaintown\\.video|\n                            movies\\.metricsmaster\\.eu|\n                            mtube\\.mooo\\.com|\n                            mytube\\.kn-cloud\\.de|\n                            mytube\\.le5emeaxe\\.fr|\n                            mytube\\.madzel\\.de|\n                            nadajemy\\.com|\n                            nanawel-peertube\\.dyndns\\.org|\n                            neat\\.tube|\n                            nethack\\.tv|\n                            nicecrew\\.tv|\n                            nightshift\\.minnix\\.dev|\n                            nolog\\.media|\n                            nyltube\\.nylarea\\.com|\n                            ocfedtest\\.hosted\\.spacebear\\.ee|\n                            openmedia\\.edunova\\.it|\n                            p2ptv\\.ru|\n                            p\\.eertu\\.be|\n                            p\\.lu|\n                            pastafriday\\.club|\n                            patriottube\\.sonsofliberty\\.red|\n                            pcbu\\.nl|\n                            peer\\.azurs\\.fr|\n                            peer\\.d0g4\\.me|\n                            peer\\.lukeog\\.com|\n                            peer\\.madiator\\.cloud|\n                            peer\\.raise-uav\\.com|\n                            peershare\\.togart\\.de|\n                            peertube-blablalinux\\.be|\n                            peertube-demo\\.learning-hub\\.fr|\n                            peertube-docker\\.cpy\\.re|\n                            peertube-eu\\.howlround\\.com|\n                            peertube-u5014\\.vm\\.elestio\\.app|\n                            peertube-us\\.howlround\\.com|\n                            peertube\\.020\\.pl|\n                            peertube\\.0x5e\\.eu|\n                            peertube\\.1984\\.cz|\n                            peertube\\.2i2l\\.net|\n                            peertube\\.adjutor\\.xyz|\n                            peertube\\.adresse\\.data\\.gouv\\.fr|\n                            peertube\\.alpharius\\.io|\n                            peertube\\.am-networks\\.fr|\n                            peertube\\.anduin\\.net|\n                            peertube\\.anti-logic\\.com|\n                            peertube\\.arch-linux\\.cz|\n                            peertube\\.art3mis\\.de|\n                            peertube\\.artsrn\\.ualberta\\.ca|\n                            peertube\\.askan\\.info|\n                            peertube\\.astral0pitek\\.synology\\.me|\n                            peertube\\.atsuchan\\.page|\n                            peertube\\.automat\\.click|\n                            peertube\\.b38\\.rural-it\\.org|\n                            peertube\\.be|\n                            peertube\\.beeldengeluid\\.nl|\n                            peertube\\.bgzashtita\\.es|\n                            peertube\\.bike|\n                            peertube\\.bildung-ekhn\\.de|\n                            peertube\\.biz|\n                            peertube\\.br0\\.fr|\n                            peertube\\.bridaahost\\.ynh\\.fr|\n                            peertube\\.bubbletea\\.dev|\n                            peertube\\.bubuit\\.net|\n                            peertube\\.cabaal\\.net|\n                            peertube\\.chatinbit\\.com|\n                            peertube\\.chaunchy\\.com|\n                            peertube\\.chir\\.rs|\n                            peertube\\.christianpacaud\\.com|\n                            peertube\\.chtisurel\\.net|\n                            peertube\\.chuggybumba\\.com|\n                            peertube\\.cipherbliss\\.com|\n                            peertube\\.cirkau\\.art|\n                            peertube\\.cloud\\.nerdraum\\.de|\n                            peertube\\.cloud\\.sans\\.pub|\n                            peertube\\.coko\\.foundation|\n                            peertube\\.communecter\\.org|\n                            peertube\\.concordia\\.social|\n                            peertube\\.corrigan\\.xyz|\n                            peertube\\.cpge-brizeux\\.fr|\n                            peertube\\.ctseuro\\.com|\n                            peertube\\.cuatrolibertades\\.org|\n                            peertube\\.cube4fun\\.net|\n                            peertube\\.dair-institute\\.org|\n                            peertube\\.davigge\\.com|\n                            peertube\\.dc\\.pini\\.fr|\n                            peertube\\.deadtom\\.me|\n                            peertube\\.debian\\.social|\n                            peertube\\.delta0189\\.xyz|\n                            peertube\\.demonix\\.fr|\n                            peertube\\.designersethiques\\.org|\n                            peertube\\.desmu\\.fr|\n                            peertube\\.devol\\.it|\n                            peertube\\.dk|\n                            peertube\\.doesstuff\\.social|\n                            peertube\\.eb8\\.org|\n                            peertube\\.education-forum\\.com|\n                            peertube\\.elforcer\\.ru|\n                            peertube\\.em\\.id\\.lv|\n                            peertube\\.ethibox\\.fr|\n                            peertube\\.eu\\.org|\n                            peertube\\.european-pirates\\.eu|\n                            peertube\\.eus|\n                            peertube\\.euskarabildua\\.eus|\n                            peertube\\.expi\\.studio|\n                            peertube\\.familie-berner\\.de|\n                            peertube\\.familleboisteau\\.fr|\n                            peertube\\.fedihost\\.website|\n                            peertube\\.fenarinarsa\\.com|\n                            peertube\\.festnoz\\.de|\n                            peertube\\.forteza\\.fr|\n                            peertube\\.freestorm\\.online|\n                            peertube\\.functional\\.cafe|\n                            peertube\\.gaminglinux\\.fr|\n                            peertube\\.gargantia\\.fr|\n                            peertube\\.geekgalaxy\\.fr|\n                            peertube\\.gemlog\\.ca|\n                            peertube\\.genma\\.fr|\n                            peertube\\.get-racing\\.de|\n                            peertube\\.ghis94\\.ovh|\n                            peertube\\.gidikroon\\.eu|\n                            peertube\\.giftedmc\\.com|\n                            peertube\\.grosist\\.fr|\n                            peertube\\.gruntwerk\\.org|\n                            peertube\\.gsugambit\\.com|\n                            peertube\\.hackerfoo\\.com|\n                            peertube\\.hellsite\\.net|\n                            peertube\\.helvetet\\.eu|\n                            peertube\\.histoirescrepues\\.fr|\n                            peertube\\.home\\.x0r\\.fr|\n                            peertube\\.hyperfreedom\\.org|\n                            peertube\\.ichigo\\.everydayimshuflin\\.com|\n                            peertube\\.ifwo\\.eu|\n                            peertube\\.in\\.ua|\n                            peertube\\.inapurna\\.org|\n                            peertube\\.informaction\\.info|\n                            peertube\\.interhop\\.org|\n                            peertube\\.it|\n                            peertube\\.it-arts\\.net|\n                            peertube\\.jensdiemer\\.de|\n                            peertube\\.johntheserg\\.al|\n                            peertube\\.kaleidos\\.net|\n                            peertube\\.kalua\\.im|\n                            peertube\\.kcore\\.org|\n                            peertube\\.keazilla\\.net|\n                            peertube\\.klaewyss\\.fr|\n                            peertube\\.kleph\\.eu|\n                            peertube\\.kodein\\.be|\n                            peertube\\.kooperatywa\\.tech|\n                            peertube\\.kriom\\.net|\n                            peertube\\.kx\\.studio|\n                            peertube\\.kyriog\\.eu|\n                            peertube\\.la-famille-muller\\.fr|\n                            peertube\\.labeuropereunion\\.eu|\n                            peertube\\.lagvoid\\.com|\n                            peertube\\.lhc\\.net\\.br|\n                            peertube\\.libresolutions\\.network|\n                            peertube\\.libretic\\.fr|\n                            peertube\\.librosphere\\.fr|\n                            peertube\\.logilab\\.fr|\n                            peertube\\.lon\\.tv|\n                            peertube\\.louisematic\\.site|\n                            peertube\\.luckow\\.org|\n                            peertube\\.luga\\.at|\n                            peertube\\.lyceeconnecte\\.fr|\n                            peertube\\.madixam\\.xyz|\n                            peertube\\.magicstone\\.dev|\n                            peertube\\.marienschule\\.de|\n                            peertube\\.marud\\.fr|\n                            peertube\\.maxweiss\\.io|\n                            peertube\\.miguelcr\\.me|\n                            peertube\\.mikemestnik\\.net|\n                            peertube\\.mobilsicher\\.de|\n                            peertube\\.monlycee\\.net|\n                            peertube\\.mxinfo\\.fr|\n                            peertube\\.naln1\\.ca|\n                            peertube\\.netzbegruenung\\.de|\n                            peertube\\.nicolastissot\\.fr|\n                            peertube\\.nogafam\\.fr|\n                            peertube\\.normalgamingcommunity\\.cz|\n                            peertube\\.nz|\n                            peertube\\.offerman\\.com|\n                            peertube\\.ohioskates\\.com|\n                            peertube\\.onionstorm\\.net|\n                            peertube\\.opencloud\\.lu|\n                            peertube\\.otakufarms\\.com|\n                            peertube\\.paladyn\\.org|\n                            peertube\\.pix-n-chill\\.fr|\n                            peertube\\.r2\\.enst\\.fr|\n                            peertube\\.r5c3\\.fr|\n                            peertube\\.redpill-insight\\.com|\n                            peertube\\.researchinstitute\\.at|\n                            peertube\\.revelin\\.fr|\n                            peertube\\.rlp\\.schule|\n                            peertube\\.rokugan\\.fr|\n                            peertube\\.rougevertbleu\\.tv|\n                            peertube\\.roundpond\\.net|\n                            peertube\\.rural-it\\.org|\n                            peertube\\.satoshishop\\.de|\n                            peertube\\.scyldings\\.com|\n                            peertube\\.securitymadein\\.lu|\n                            peertube\\.semperpax\\.com|\n                            peertube\\.semweb\\.pro|\n                            peertube\\.sensin\\.eu|\n                            peertube\\.sidh\\.bzh|\n                            peertube\\.skorpil\\.cz|\n                            peertube\\.smertrios\\.com|\n                            peertube\\.sqweeb\\.net|\n                            peertube\\.stattzeitung\\.org|\n                            peertube\\.stream|\n                            peertube\\.su|\n                            peertube\\.swrs\\.net|\n                            peertube\\.takeko\\.cyou|\n                            peertube\\.taxinachtegel\\.de|\n                            peertube\\.teftera\\.com|\n                            peertube\\.teutronic-services\\.de|\n                            peertube\\.ti-fr\\.com|\n                            peertube\\.tiennot\\.net|\n                            peertube\\.tmp\\.rcp\\.tf|\n                            peertube\\.tspu\\.edu\\.ru|\n                            peertube\\.tv|\n                            peertube\\.tweb\\.tv|\n                            peertube\\.underworld\\.fr|\n                            peertube\\.vapronva\\.pw|\n                            peertube\\.veen\\.world|\n                            peertube\\.vesdia\\.eu|\n                            peertube\\.virtual-assembly\\.org|\n                            peertube\\.viviers-fibre\\.net|\n                            peertube\\.vlaki\\.cz|\n                            peertube\\.wiesbaden\\.social|\n                            peertube\\.wivodaim\\.net|\n                            peertube\\.wtf|\n                            peertube\\.wtfayla\\.net|\n                            peertube\\.xrcb\\.cat|\n                            peertube\\.xwiki\\.com|\n                            peertube\\.zd\\.do|\n                            peertube\\.zetamc\\.net|\n                            peertube\\.zmuuf\\.org|\n                            peertube\\.zoz-serv\\.org|\n                            peertube\\.zwindler\\.fr|\n                            peervideo\\.ru|\n                            periscope\\.numenaute\\.org|\n                            pete\\.warpnine\\.de|\n                            petitlutinartube\\.fr|\n                            phijkchu\\.com|\n                            phoenixproject\\.group|\n                            piraten\\.space|\n                            pirtube\\.calut\\.fr|\n                            pityu\\.flaki\\.hu|\n                            play\\.mittdata\\.se|\n                            player\\.ojamajo\\.moe|\n                            podlibre\\.video|\n                            portal\\.digilab\\.nfa\\.cz|\n                            private\\.fedimovie\\.com|\n                            pt01\\.lehrerfortbildung-bw\\.de|\n                            pt\\.diaspodon\\.fr|\n                            pt\\.freedomwolf\\.cc|\n                            pt\\.gordons\\.gen\\.nz|\n                            pt\\.ilyamikcoder\\.com|\n                            pt\\.irnok\\.net|\n                            pt\\.mezzo\\.moe|\n                            pt\\.na4\\.eu|\n                            pt\\.netcraft\\.ch|\n                            pt\\.rwx\\.ch|\n                            pt\\.sfunk1x\\.com|\n                            pt\\.thishorsie\\.rocks|\n                            pt\\.vern\\.cc|\n                            ptb\\.lunarviews\\.net|\n                            ptube\\.de|\n                            ptube\\.ranranhome\\.info|\n                            puffy\\.tube|\n                            puppet\\.zone|\n                            qtube\\.qlyoung\\.net|\n                            quantube\\.win|\n                            rankett\\.net|\n                            replay\\.jres\\.org|\n                            review\\.peertube\\.biz|\n                            sdmtube\\.fr|\n                            secure\\.direct-live\\.net|\n                            secure\\.scanovid\\.com|\n                            seka\\.pona\\.la|\n                            serv3\\.wiki-tube\\.de|\n                            skeptube\\.fr|\n                            social\\.fedimovie\\.com|\n                            socpeertube\\.ru|\n                            sovran\\.video|\n                            special\\.videovortex\\.tv|\n                            spectra\\.video|\n                            stl1988\\.peertube-host\\.de|\n                            stream\\.biovisata\\.lt|\n                            stream\\.conesphere\\.cloud|\n                            stream\\.elven\\.pw|\n                            stream\\.jurnalfm\\.md|\n                            stream\\.k-prod\\.fr|\n                            stream\\.litera\\.tools|\n                            stream\\.nuemedia\\.se|\n                            stream\\.rlp-media\\.de|\n                            stream\\.vrse\\.be|\n                            studios\\.racer159\\.com|\n                            styxhexenhammer666\\.com|\n                            syrteplay\\.obspm\\.fr|\n                            t\\.0x0\\.st|\n                            tbh\\.co-shaoghal\\.net|\n                            test-fab\\.ynh\\.fr|\n                            testube\\.distrilab\\.fr|\n                            tgi\\.hosted\\.spacebear\\.ee|\n                            theater\\.ethernia\\.net|\n                            thecool\\.tube|\n                            thevideoverse\\.com|\n                            tilvids\\.com|\n                            tinkerbetter\\.tube|\n                            tinsley\\.video|\n                            trailers\\.ddigest\\.com|\n                            tube-action-educative\\.apps\\.education\\.fr|\n                            tube-arts-lettres-sciences-humaines\\.apps\\.education\\.fr|\n                            tube-cycle-2\\.apps\\.education\\.fr|\n                            tube-cycle-3\\.apps\\.education\\.fr|\n                            tube-education-physique-et-sportive\\.apps\\.education\\.fr|\n                            tube-enseignement-professionnel\\.apps\\.education\\.fr|\n                            tube-institutionnel\\.apps\\.education\\.fr|\n                            tube-langues-vivantes\\.apps\\.education\\.fr|\n                            tube-maternelle\\.apps\\.education\\.fr|\n                            tube-numerique-educatif\\.apps\\.education\\.fr|\n                            tube-sciences-technologies\\.apps\\.education\\.fr|\n                            tube-test\\.apps\\.education\\.fr|\n                            tube1\\.perron-service\\.de|\n                            tube\\.9minuti\\.it|\n                            tube\\.abolivier\\.bzh|\n                            tube\\.alado\\.space|\n                            tube\\.amic37\\.fr|\n                            tube\\.area404\\.cloud|\n                            tube\\.arthack\\.nz|\n                            tube\\.asulia\\.fr|\n                            tube\\.awkward\\.company|\n                            tube\\.azbyka\\.ru|\n                            tube\\.azkware\\.net|\n                            tube\\.bartrip\\.me\\.uk|\n                            tube\\.belowtoxic\\.media|\n                            tube\\.bingle\\.plus|\n                            tube\\.bit-friends\\.de|\n                            tube\\.bstly\\.de|\n                            tube\\.chosto\\.me|\n                            tube\\.cms\\.garden|\n                            tube\\.communia\\.org|\n                            tube\\.cyberia\\.club|\n                            tube\\.cybershock\\.life|\n                            tube\\.dembased\\.xyz|\n                            tube\\.dev\\.displ\\.eu|\n                            tube\\.digitalesozialearbeit\\.de|\n                            tube\\.distrilab\\.fr|\n                            tube\\.doortofreedom\\.org|\n                            tube\\.dsocialize\\.net|\n                            tube\\.e-jeremy\\.com|\n                            tube\\.ebin\\.club|\n                            tube\\.elemac\\.fr|\n                            tube\\.erzbistum-hamburg\\.de|\n                            tube\\.exozy\\.me|\n                            tube\\.fdn\\.fr|\n                            tube\\.fedi\\.quebec|\n                            tube\\.fediverse\\.at|\n                            tube\\.felinn\\.org|\n                            tube\\.flokinet\\.is|\n                            tube\\.foad\\.me\\.uk|\n                            tube\\.freepeople\\.fr|\n                            tube\\.friloux\\.me|\n                            tube\\.froth\\.zone|\n                            tube\\.fulda\\.social|\n                            tube\\.futuretic\\.fr|\n                            tube\\.g1zm0\\.de|\n                            tube\\.g4rf\\.net|\n                            tube\\.gaiac\\.io|\n                            tube\\.geekyboo\\.net|\n                            tube\\.genb\\.de|\n                            tube\\.ghk-academy\\.info|\n                            tube\\.gi-it\\.de|\n                            tube\\.grap\\.coop|\n                            tube\\.graz\\.social|\n                            tube\\.grin\\.hu|\n                            tube\\.hokai\\.lol|\n                            tube\\.int5\\.net|\n                            tube\\.interhacker\\.space|\n                            tube\\.invisible\\.ch|\n                            tube\\.io18\\.top|\n                            tube\\.itsg\\.host|\n                            tube\\.jeena\\.net|\n                            tube\\.kh-berlin\\.de|\n                            tube\\.kockatoo\\.org|\n                            tube\\.kotur\\.org|\n                            tube\\.koweb\\.fr|\n                            tube\\.la-dina\\.net|\n                            tube\\.lab\\.nrw|\n                            tube\\.lacaveatonton\\.ovh|\n                            tube\\.laurent-malys\\.fr|\n                            tube\\.leetdreams\\.ch|\n                            tube\\.linkse\\.media|\n                            tube\\.lokad\\.com|\n                            tube\\.lucie-philou\\.com|\n                            tube\\.media-techport\\.de|\n                            tube\\.morozoff\\.pro|\n                            tube\\.neshweb\\.net|\n                            tube\\.nestor\\.coop|\n                            tube\\.network\\.europa\\.eu|\n                            tube\\.nicfab\\.eu|\n                            tube\\.nieuwwestbrabant\\.nl|\n                            tube\\.nogafa\\.org|\n                            tube\\.novg\\.net|\n                            tube\\.nox-rhea\\.org|\n                            tube\\.nuagelibre\\.fr|\n                            tube\\.numerique\\.gouv\\.fr|\n                            tube\\.nuxnik\\.com|\n                            tube\\.nx12\\.net|\n                            tube\\.octaplex\\.net|\n                            tube\\.oisux\\.org|\n                            tube\\.okcinfo\\.news|\n                            tube\\.onlinekirche\\.net|\n                            tube\\.opportunis\\.me|\n                            tube\\.oraclefilms\\.com|\n                            tube\\.org\\.il|\n                            tube\\.pacapime\\.ovh|\n                            tube\\.parinux\\.org|\n                            tube\\.pastwind\\.top|\n                            tube\\.picasoft\\.net|\n                            tube\\.pilgerweg-21\\.de|\n                            tube\\.pmj\\.rocks|\n                            tube\\.pol\\.social|\n                            tube\\.ponsonaille\\.fr|\n                            tube\\.portes-imaginaire\\.org|\n                            tube\\.public\\.apolut\\.net|\n                            tube\\.pustule\\.org|\n                            tube\\.pyngu\\.com|\n                            tube\\.querdenken-711\\.de|\n                            tube\\.rebellion\\.global|\n                            tube\\.reseau-canope\\.fr|\n                            tube\\.rhythms-of-resistance\\.org|\n                            tube\\.risedsky\\.ovh|\n                            tube\\.rooty\\.fr|\n                            tube\\.rsi\\.cnr\\.it|\n                            tube\\.ryne\\.moe|\n                            tube\\.schleuss\\.online|\n                            tube\\.schule\\.social|\n                            tube\\.sekretaerbaer\\.net|\n                            tube\\.shanti\\.cafe|\n                            tube\\.shela\\.nu|\n                            tube\\.skrep\\.in|\n                            tube\\.sleeping\\.town|\n                            tube\\.sp-codes\\.de|\n                            tube\\.spdns\\.org|\n                            tube\\.systerserver\\.net|\n                            tube\\.systest\\.eu|\n                            tube\\.tappret\\.fr|\n                            tube\\.techeasy\\.org|\n                            tube\\.thierrytalbert\\.fr|\n                            tube\\.tinfoil-hat\\.net|\n                            tube\\.toldi\\.eu|\n                            tube\\.tpshd\\.de|\n                            tube\\.trax\\.im|\n                            tube\\.troopers\\.agency|\n                            tube\\.ttk\\.is|\n                            tube\\.tuxfriend\\.fr|\n                            tube\\.tylerdavis\\.xyz|\n                            tube\\.ullihome\\.de|\n                            tube\\.ulne\\.be|\n                            tube\\.undernet\\.uy|\n                            tube\\.vrpnet\\.org|\n                            tube\\.wolfe\\.casa|\n                            tube\\.xd0\\.de|\n                            tube\\.xn--baw-joa\\.social|\n                            tube\\.xy-space\\.de|\n                            tube\\.yapbreak\\.fr|\n                            tubedu\\.org|\n                            tubulus\\.openlatin\\.org|\n                            turtleisland\\.video|\n                            tututu\\.tube|\n                            tv\\.adast\\.dk|\n                            tv\\.adn\\.life|\n                            tv\\.arns\\.lt|\n                            tv\\.atmx\\.ca|\n                            tv\\.based\\.quest|\n                            tv\\.farewellutopia\\.com|\n                            tv\\.filmfreedom\\.net|\n                            tv\\.gravitons\\.org|\n                            tv\\.io\\.seg\\.br|\n                            tv\\.lumbung\\.space|\n                            tv\\.pirateradio\\.social|\n                            tv\\.pirati\\.cz|\n                            tv\\.santic-zombie\\.ru|\n                            tv\\.undersco\\.re|\n                            tv\\.zonepl\\.net|\n                            tvox\\.ru|\n                            twctube\\.twc-zone\\.eu|\n                            twobeek\\.com|\n                            urbanists\\.video|\n                            v\\.9tail\\.net|\n                            v\\.basspistol\\.org|\n                            v\\.j4\\.lc|\n                            v\\.kisombrella\\.top|\n                            v\\.koa\\.im|\n                            v\\.kyaru\\.xyz|\n                            v\\.lor\\.sh|\n                            v\\.mkp\\.ca|\n                            v\\.posm\\.gay|\n                            v\\.slaycer\\.top|\n                            veedeo\\.org|\n                            vhs\\.absturztau\\.be|\n                            vid\\.cthos\\.dev|\n                            vid\\.kinuseka\\.us|\n                            vid\\.mkp\\.ca|\n                            vid\\.nocogabriel\\.fr|\n                            vid\\.norbipeti\\.eu|\n                            vid\\.northbound\\.online|\n                            vid\\.ohboii\\.de|\n                            vid\\.plantplotting\\.co\\.uk|\n                            vid\\.pretok\\.tv|\n                            vid\\.prometheus\\.systems|\n                            vid\\.soafen\\.love|\n                            vid\\.twhtv\\.club|\n                            vid\\.wildeboer\\.net|\n                            video-cave-v2\\.de|\n                            video-liberty\\.com|\n                            video\\.076\\.ne\\.jp|\n                            video\\.1146\\.nohost\\.me|\n                            video\\.9wd\\.eu|\n                            video\\.abraum\\.de|\n                            video\\.ados\\.accoord\\.fr|\n                            video\\.amiga-ng\\.org|\n                            video\\.anartist\\.org|\n                            video\\.asgardius\\.company|\n                            video\\.audiovisuel-participatif\\.org|\n                            video\\.bards\\.online|\n                            video\\.barkoczy\\.social|\n                            video\\.benetou\\.fr|\n                            video\\.beyondwatts\\.social|\n                            video\\.bgeneric\\.net|\n                            video\\.bilecik\\.edu\\.tr|\n                            video\\.blast-info\\.fr|\n                            video\\.bmu\\.cloud|\n                            video\\.catgirl\\.biz|\n                            video\\.causa-arcana\\.com|\n                            video\\.chasmcity\\.net|\n                            video\\.chbmeyer\\.de|\n                            video\\.cigliola\\.com|\n                            video\\.citizen4\\.eu|\n                            video\\.clumsy\\.computer|\n                            video\\.cnnumerique\\.fr|\n                            video\\.cnr\\.it|\n                            video\\.cnt\\.social|\n                            video\\.coales\\.co|\n                            video\\.comune\\.trento\\.it|\n                            video\\.coyp\\.us|\n                            video\\.csc49\\.fr|\n                            video\\.davduf\\.net|\n                            video\\.davejansen\\.com|\n                            video\\.dlearning\\.nl|\n                            video\\.dnfi\\.no|\n                            video\\.dresden\\.network|\n                            video\\.drgnz\\.club|\n                            video\\.dudenas\\.lt|\n                            video\\.eientei\\.org|\n                            video\\.ellijaymakerspace\\.org|\n                            video\\.emergeheart\\.info|\n                            video\\.eradicatinglove\\.xyz|\n                            video\\.everythingbagel\\.me|\n                            video\\.extremelycorporate\\.ca|\n                            video\\.fabiomanganiello\\.com|\n                            video\\.fedi\\.bzh|\n                            video\\.fhtagn\\.org|\n                            video\\.firehawk-systems\\.com|\n                            video\\.fox-romka\\.ru|\n                            video\\.fuss\\.bz\\.it|\n                            video\\.glassbeadcollective\\.org|\n                            video\\.graine-pdl\\.org|\n                            video\\.gyt\\.is|\n                            video\\.hainry\\.fr|\n                            video\\.hardlimit\\.com|\n                            video\\.hostux\\.net|\n                            video\\.igem\\.org|\n                            video\\.infojournal\\.fr|\n                            video\\.internet-czas-dzialac\\.pl|\n                            video\\.interru\\.io|\n                            video\\.ipng\\.ch|\n                            video\\.ironsysadmin\\.com|\n                            video\\.islameye\\.com|\n                            video\\.jacen\\.moe|\n                            video\\.jadin\\.me|\n                            video\\.jeffmcbride\\.net|\n                            video\\.jigmedatse\\.com|\n                            video\\.kuba-orlik\\.name|\n                            video\\.lacalligramme\\.fr|\n                            video\\.lanceurs-alerte\\.fr|\n                            video\\.laotra\\.red|\n                            video\\.lapineige\\.fr|\n                            video\\.laraffinerie\\.re|\n                            video\\.lavolte\\.net|\n                            video\\.liberta\\.vip|\n                            video\\.libreti\\.net|\n                            video\\.licentia\\.net|\n                            video\\.linc\\.systems|\n                            video\\.linux\\.it|\n                            video\\.linuxtrent\\.it|\n                            video\\.liveitlive\\.show|\n                            video\\.lono\\.space|\n                            video\\.lrose\\.de|\n                            video\\.lunago\\.net|\n                            video\\.lundi\\.am|\n                            video\\.lycee-experimental\\.org|\n                            video\\.maechler\\.cloud|\n                            video\\.marcorennmaus\\.de|\n                            video\\.mass-trespass\\.uk|\n                            video\\.matomocamp\\.org|\n                            video\\.medienzentrum-harburg\\.de|\n                            video\\.mentality\\.rip|\n                            video\\.metaversum\\.wtf|\n                            video\\.midreality\\.com|\n                            video\\.mttv\\.it|\n                            video\\.mugoreve\\.fr|\n                            video\\.mxtthxw\\.art|\n                            video\\.mycrowd\\.ca|\n                            video\\.niboe\\.info|\n                            video\\.nogafam\\.es|\n                            video\\.nstr\\.no|\n                            video\\.occm\\.cc|\n                            video\\.off-investigation\\.fr|\n                            video\\.olos311\\.org|\n                            video\\.ordinobsolete\\.fr|\n                            video\\.osvoj\\.ru|\n                            video\\.ourcommon\\.cloud|\n                            video\\.ozgurkon\\.org|\n                            video\\.pcf\\.fr|\n                            video\\.pcgaldo\\.com|\n                            video\\.phyrone\\.de|\n                            video\\.poul\\.org|\n                            video\\.publicspaces\\.net|\n                            video\\.pullopen\\.xyz|\n                            video\\.r3s\\.nrw|\n                            video\\.rainevixen\\.com|\n                            video\\.resolutions\\.it|\n                            video\\.retroedge\\.tech|\n                            video\\.rhizome\\.org|\n                            video\\.rlp-media\\.de|\n                            video\\.rs-einrich\\.de|\n                            video\\.rubdos\\.be|\n                            video\\.sadmin\\.io|\n                            video\\.sftblw\\.moe|\n                            video\\.shitposter\\.club|\n                            video\\.simplex-software\\.ru|\n                            video\\.slipfox\\.xyz|\n                            video\\.snug\\.moe|\n                            video\\.software-fuer-engagierte\\.de|\n                            video\\.soi\\.ch|\n                            video\\.sonet\\.ws|\n                            video\\.surazal\\.net|\n                            video\\.taskcards\\.eu|\n                            video\\.team-lcbs\\.eu|\n                            video\\.techforgood\\.social|\n                            video\\.telemillevaches\\.net|\n                            video\\.thepolarbear\\.co\\.uk|\n                            video\\.thinkof\\.name|\n                            video\\.tii\\.space|\n                            video\\.tkz\\.es|\n                            video\\.trankil\\.info|\n                            video\\.triplea\\.fr|\n                            video\\.tum\\.social|\n                            video\\.turbo\\.chat|\n                            video\\.uriopss-pdl\\.fr|\n                            video\\.ustim\\.ru|\n                            video\\.ut0pia\\.org|\n                            video\\.vaku\\.org\\.ua|\n                            video\\.vegafjord\\.me|\n                            video\\.veloma\\.org|\n                            video\\.violoncello\\.ch|\n                            video\\.voidconspiracy\\.band|\n                            video\\.wakkeren\\.nl|\n                            video\\.windfluechter\\.org|\n                            video\\.ziez\\.eu|\n                            videos-passages\\.huma-num\\.fr|\n                            videos\\.aadtp\\.be|\n                            videos\\.ahp-numerique\\.fr|\n                            videos\\.alamaisondulibre\\.org|\n                            videos\\.archigny\\.net|\n                            videos\\.aroaduntraveled\\.com|\n                            videos\\.b4tech\\.org|\n                            videos\\.benjaminbrady\\.ie|\n                            videos\\.bik\\.opencloud\\.lu|\n                            videos\\.cloudron\\.io|\n                            videos\\.codingotaku\\.com|\n                            videos\\.coletivos\\.org|\n                            videos\\.collate\\.social|\n                            videos\\.danksquad\\.org|\n                            videos\\.digitaldragons\\.eu|\n                            videos\\.dromeadhere\\.fr|\n                            videos\\.explain-it\\.org|\n                            videos\\.factsonthegroundshow\\.com|\n                            videos\\.foilen\\.com|\n                            videos\\.fsci\\.in|\n                            videos\\.gamercast\\.net|\n                            videos\\.gianmarco\\.gg|\n                            videos\\.globenet\\.org|\n                            videos\\.grafo\\.zone|\n                            videos\\.hauspie\\.fr|\n                            videos\\.hush\\.is|\n                            videos\\.hyphalfusion\\.network|\n                            videos\\.icum\\.to|\n                            videos\\.im\\.allmendenetz\\.de|\n                            videos\\.jacksonchen666\\.com|\n                            videos\\.john-livingston\\.fr|\n                            videos\\.knazarov\\.com|\n                            videos\\.kuoushi\\.com|\n                            videos\\.laliguepaysdelaloire\\.org|\n                            videos\\.lemouvementassociatif-pdl\\.org|\n                            videos\\.leslionsfloorball\\.fr|\n                            videos\\.librescrum\\.org|\n                            videos\\.mastodont\\.cat|\n                            videos\\.metus\\.ca|\n                            videos\\.miolo\\.org|\n                            videos\\.offroad\\.town|\n                            videos\\.openmandriva\\.org|\n                            videos\\.parleur\\.net|\n                            videos\\.pcorp\\.us|\n                            videos\\.pop\\.eu\\.com|\n                            videos\\.rampin\\.org|\n                            videos\\.rauten\\.co\\.za|\n                            videos\\.ritimo\\.org|\n                            videos\\.sarcasmstardust\\.com|\n                            videos\\.scanlines\\.xyz|\n                            videos\\.shmalls\\.pw|\n                            videos\\.stadtfabrikanten\\.org|\n                            videos\\.supertuxkart\\.net|\n                            videos\\.testimonia\\.org|\n                            videos\\.thinkerview\\.com|\n                            videos\\.torrenezzi10\\.xyz|\n                            videos\\.trom\\.tf|\n                            videos\\.utsukta\\.org|\n                            videos\\.viorsan\\.com|\n                            videos\\.wherelinux\\.xyz|\n                            videos\\.wikilibriste\\.fr|\n                            videos\\.yesil\\.club|\n                            videos\\.yeswiki\\.net|\n                            videotube\\.duckdns\\.org|\n                            vids\\.capypara\\.de|\n                            vids\\.roshless\\.me|\n                            vids\\.stary\\.pc\\.pl|\n                            vids\\.tekdmn\\.me|\n                            vidz\\.julien\\.ovh|\n                            views\\.southfox\\.me|\n                            virtual-girls-are\\.definitely-for\\.me|\n                            viste\\.pt|\n                            vnchich\\.com|\n                            vnop\\.org|\n                            vod\\.newellijay\\.tv|\n                            voluntarytube\\.com|\n                            vtr\\.chikichiki\\.tube|\n                            vulgarisation-informatique\\.fr|\n                            watch\\.easya\\.solutions|\n                            watch\\.goodluckgabe\\.life|\n                            watch\\.ignorance\\.eu|\n                            watch\\.jimmydore\\.com|\n                            watch\\.libertaria\\.space|\n                            watch\\.nuked\\.social|\n                            watch\\.ocaml\\.org|\n                            watch\\.thelema\\.social|\n                            watch\\.tubelab\\.video|\n                            web-fellow\\.de|\n                            webtv\\.vandoeuvre\\.net|\n                            wetubevid\\.online|\n                            wikileaks\\.video|\n                            wiwi\\.video|\n                            wow\\.such\\.disappointment\\.fail|\n                            www\\.jvideos\\.net|\n                            www\\.kotikoff\\.net|\n                            www\\.makertube\\.net|\n                            www\\.mypeer\\.tube|\n                            www\\.nadajemy\\.com|\n                            www\\.neptube\\.io|\n                            www\\.rocaguinarda\\.tv|\n                            www\\.vnshow\\.net|\n                            xxivproduction\\.video|\n                            yt\\.orokoro\\.ru|\n                            ytube\\.retronerd\\.at|\n                            zumvideo\\.de|\n\n                            # from youtube-dl\n                            peertube\\.rainbowswingers\\.net|\n                            tube\\.stanisic\\.nl|\n                            peer\\.suiri\\.us|\n                            medias\\.libox\\.fr|\n                            videomensoif\\.ynh\\.fr|\n                            peertube\\.travelpandas\\.eu|\n                            peertube\\.rachetjay\\.fr|\n                            peertube\\.montecsys\\.fr|\n                            tube\\.eskuero\\.me|\n                            peer\\.tube|\n                            peertube\\.umeahackerspace\\.se|\n                            tube\\.nx-pod\\.de|\n                            video\\.monsieurbidouille\\.fr|\n                            tube\\.openalgeria\\.org|\n                            vid\\.lelux\\.fi|\n                            video\\.anormallostpod\\.ovh|\n                            tube\\.crapaud-fou\\.org|\n                            peertube\\.stemy\\.me|\n                            lostpod\\.space|\n                            exode\\.me|\n                            peertube\\.snargol\\.com|\n                            vis\\.ion\\.ovh|\n                            videosdulib\\.re|\n                            v\\.mbius\\.io|\n                            videos\\.judrey\\.eu|\n                            peertube\\.osureplayviewer\\.xyz|\n                            peertube\\.mathieufamily\\.ovh|\n                            www\\.videos-libr\\.es|\n                            fightforinfo\\.com|\n                            peertube\\.fediverse\\.ru|\n                            peertube\\.oiseauroch\\.fr|\n                            video\\.nesven\\.eu|\n                            v\\.bearvideo\\.win|\n                            video\\.qoto\\.org|\n                            justporn\\.cc|\n                            video\\.vny\\.fr|\n                            peervideo\\.club|\n                            tube\\.taker\\.fr|\n                            peertube\\.chantierlibre\\.org|\n                            tube\\.ipfixe\\.info|\n                            tube\\.kicou\\.info|\n                            tube\\.dodsorf\\.as|\n                            videobit\\.cc|\n                            video\\.yukari\\.moe|\n                            videos\\.elbinario\\.net|\n                            hkvideo\\.live|\n                            pt\\.tux\\.tf|\n                            www\\.hkvideo\\.live|\n                            FIGHTFORINFO\\.com|\n                            pt\\.765racing\\.com|\n                            peertube\\.gnumeria\\.eu\\.org|\n                            nordenmedia\\.com|\n                            peertube\\.co\\.uk|\n                            tube\\.darfweb\\.eu|\n                            tube\\.kalah-france\\.org|\n                            0ch\\.in|\n                            vod\\.mochi\\.academy|\n                            film\\.node9\\.org|\n                            peertube\\.hatthieves\\.es|\n                            video\\.fitchfamily\\.org|\n                            peertube\\.ddns\\.net|\n                            video\\.ifuncle\\.kr|\n                            video\\.fdlibre\\.eu|\n                            tube\\.22decembre\\.eu|\n                            peertube\\.harmoniescreatives\\.com|\n                            tube\\.fabrigli\\.fr|\n                            video\\.thedwyers\\.co|\n                            video\\.bruitbruit\\.com|\n                            peertube\\.foxfam\\.club|\n                            peer\\.philoxweb\\.be|\n                            videos\\.bugs\\.social|\n                            peertube\\.malbert\\.xyz|\n                            peertube\\.bilange\\.ca|\n                            libretube\\.net|\n                            diytelevision\\.com|\n                            peertube\\.fedilab\\.app|\n                            libre\\.video|\n                            video\\.mstddntfdn\\.online|\n                            us\\.tv|\n                            peertube\\.sl-network\\.fr|\n                            peertube\\.dynlinux\\.io|\n                            peertube\\.david\\.durieux\\.family|\n                            peertube\\.linuxrocks\\.online|\n                            peerwatch\\.xyz|\n                            v\\.kretschmann\\.social|\n                            tube\\.otter\\.sh|\n                            yt\\.is\\.nota\\.live|\n                            tube\\.dragonpsi\\.xyz|\n                            peertube\\.boneheadmedia\\.com|\n                            videos\\.funkwhale\\.audio|\n                            watch\\.44con\\.com|\n                            peertube\\.gcaillaut\\.fr|\n                            peertube\\.icu|\n                            pony\\.tube|\n                            spacepub\\.space|\n                            tube\\.stbr\\.io|\n                            v\\.mom-gay\\.faith|\n                            tube\\.port0\\.xyz|\n                            peertube\\.simounet\\.net|\n                            play\\.jergefelt\\.se|\n                            peertube\\.zeteo\\.me|\n                            tube\\.danq\\.me|\n                            peertube\\.kerenon\\.com|\n                            tube\\.fab-l3\\.org|\n                            tube\\.calculate\\.social|\n                            peertube\\.mckillop\\.org|\n                            tube\\.netzspielplatz\\.de|\n                            vod\\.ksite\\.de|\n                            peertube\\.laas\\.fr|\n                            tube\\.govital\\.net|\n                            peertube\\.stephenson\\.cc|\n                            bistule\\.nohost\\.me|\n                            peertube\\.kajalinifi\\.de|\n                            video\\.ploud\\.jp|\n                            video\\.omniatv\\.com|\n                            peertube\\.ffs2play\\.fr|\n                            peertube\\.leboulaire\\.ovh|\n                            peertube\\.tronic-studio\\.com|\n                            peertube\\.public\\.cat|\n                            peertube\\.metalbanana\\.net|\n                            video\\.1000i100\\.fr|\n                            peertube\\.alter-nativ-voll\\.de|\n                            tube\\.pasa\\.tf|\n                            tube\\.worldofhauru\\.xyz|\n                            pt\\.kamp\\.site|\n                            peertube\\.teleassist\\.fr|\n                            videos\\.mleduc\\.xyz|\n                            conf\\.tube|\n                            media\\.privacyinternational\\.org|\n                            pt\\.forty-two\\.nl|\n                            video\\.halle-leaks\\.de|\n                            video\\.grosskopfgames\\.de|\n                            peertube\\.schaeferit\\.de|\n                            peertube\\.jackbot\\.fr|\n                            tube\\.extinctionrebellion\\.fr|\n                            peertube\\.f-si\\.org|\n                            video\\.subak\\.ovh|\n                            videos\\.koweb\\.fr|\n                            peertube\\.zergy\\.net|\n                            peertube\\.roflcopter\\.fr|\n                            peertube\\.floss-marketing-school\\.com|\n                            vloggers\\.social|\n                            peertube\\.iriseden\\.eu|\n                            videos\\.ubuntu-paris\\.org|\n                            peertube\\.mastodon\\.host|\n                            armstube\\.com|\n                            peertube\\.s2s\\.video|\n                            peertube\\.lol|\n                            tube\\.open-plug\\.eu|\n                            open\\.tube|\n                            peertube\\.ch|\n                            peertube\\.normandie-libre\\.fr|\n                            peertube\\.slat\\.org|\n                            video\\.lacaveatonton\\.ovh|\n                            peertube\\.uno|\n                            peertube\\.servebeer\\.com|\n                            peertube\\.fedi\\.quebec|\n                            tube\\.h3z\\.jp|\n                            tube\\.plus200\\.com|\n                            peertube\\.eric\\.ovh|\n                            tube\\.metadocs\\.cc|\n                            tube\\.unmondemeilleur\\.eu|\n                            gouttedeau\\.space|\n                            video\\.antirep\\.net|\n                            nrop\\.cant\\.at|\n                            tube\\.ksl-bmx\\.de|\n                            tube\\.plaf\\.fr|\n                            tube\\.tchncs\\.de|\n                            video\\.devinberg\\.com|\n                            hitchtube\\.fr|\n                            peertube\\.kosebamse\\.com|\n                            yunopeertube\\.myddns\\.me|\n                            peertube\\.varney\\.fr|\n                            peertube\\.anon-kenkai\\.com|\n                            tube\\.maiti\\.info|\n                            tubee\\.fr|\n                            videos\\.dinofly\\.com|\n                            toobnix\\.org|\n                            videotape\\.me|\n                            voca\\.tube|\n                            video\\.heromuster\\.com|\n                            video\\.lemediatv\\.fr|\n                            video\\.up\\.edu\\.ph|\n                            balafon\\.video|\n                            video\\.ivel\\.fr|\n                            thickrips\\.cloud|\n                            pt\\.laurentkruger\\.fr|\n                            video\\.monarch-pass\\.net|\n                            peertube\\.artica\\.center|\n                            video\\.alternanet\\.fr|\n                            indymotion\\.fr|\n                            fanvid\\.stopthatimp\\.net|\n                            video\\.farci\\.org|\n                            v\\.lesterpig\\.com|\n                            video\\.okaris\\.de|\n                            tube\\.pawelko\\.net|\n                            peertube\\.mablr\\.org|\n                            tube\\.fede\\.re|\n                            pytu\\.be|\n                            evertron\\.tv|\n                            devtube\\.dev-wiki\\.de|\n                            raptube\\.antipub\\.org|\n                            video\\.selea\\.se|\n                            peertube\\.mygaia\\.org|\n                            video\\.oh14\\.de|\n                            peertube\\.livingutopia\\.org|\n                            peertube\\.the-penguin\\.de|\n                            tube\\.thechangebook\\.org|\n                            tube\\.anjara\\.eu|\n                            pt\\.pube\\.tk|\n                            video\\.samedi\\.pm|\n                            mplayer\\.demouliere\\.eu|\n                            widemus\\.de|\n                            peertube\\.me|\n                            peertube\\.zapashcanon\\.fr|\n                            video\\.latavernedejohnjohn\\.fr|\n                            peertube\\.pcservice46\\.fr|\n                            peertube\\.mazzonetto\\.eu|\n                            video\\.irem\\.univ-paris-diderot\\.fr|\n                            video\\.livecchi\\.cloud|\n                            alttube\\.fr|\n                            video\\.coop\\.tools|\n                            video\\.cabane-libre\\.org|\n                            peertube\\.openstreetmap\\.fr|\n                            videos\\.alolise\\.org|\n                            irrsinn\\.video|\n                            video\\.antopie\\.org|\n                            scitech\\.video|\n                            tube2\\.nemsia\\.org|\n                            video\\.amic37\\.fr|\n                            peertube\\.freeforge\\.eu|\n                            video\\.arbitrarion\\.com|\n                            video\\.datsemultimedia\\.com|\n                            stoptrackingus\\.tv|\n                            peertube\\.ricostrongxxx\\.com|\n                            docker\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.togart\\.de|\n                            tube\\.postblue\\.info|\n                            videos\\.domainepublic\\.net|\n                            peertube\\.cyber-tribal\\.com|\n                            video\\.gresille\\.org|\n                            peertube\\.dsmouse\\.net|\n                            cinema\\.yunohost\\.support|\n                            tube\\.theocevaer\\.fr|\n                            repro\\.video|\n                            tube\\.4aem\\.com|\n                            quaziinc\\.com|\n                            peertube\\.metawurst\\.space|\n                            videos\\.wakapo\\.com|\n                            video\\.ploud\\.fr|\n                            video\\.freeradical\\.zone|\n                            tube\\.valinor\\.fr|\n                            refuznik\\.video|\n                            pt\\.kircheneuenburg\\.de|\n                            peertube\\.asrun\\.eu|\n                            peertube\\.lagob\\.fr|\n                            videos\\.side-ways\\.net|\n                            91video\\.online|\n                            video\\.valme\\.io|\n                            video\\.taboulisme\\.com|\n                            videos-libr\\.es|\n                            tv\\.mooh\\.fr|\n                            nuage\\.acostey\\.fr|\n                            video\\.monsieur-a\\.fr|\n                            peertube\\.librelois\\.fr|\n                            videos\\.pair2jeux\\.tube|\n                            videos\\.pueseso\\.club|\n                            peer\\.mathdacloud\\.ovh|\n                            media\\.assassinate-you\\.net|\n                            vidcommons\\.org|\n                            ptube\\.rousset\\.nom\\.fr|\n                            tube\\.cyano\\.at|\n                            videos\\.squat\\.net|\n                            video\\.iphodase\\.fr|\n                            peertube\\.makotoworkshop\\.org|\n                            peertube\\.serveur\\.slv-valbonne\\.fr|\n                            vault\\.mle\\.party|\n                            hostyour\\.tv|\n                            videos\\.hack2g2\\.fr|\n                            libre\\.tube|\n                            pire\\.artisanlogiciel\\.net|\n                            videos\\.numerique-en-commun\\.fr|\n                            video\\.netsyms\\.com|\n                            video\\.die-partei\\.social|\n                            video\\.writeas\\.org|\n                            peertube\\.swarm\\.solvingmaz\\.es|\n                            tube\\.pericoloso\\.ovh|\n                            watching\\.cypherpunk\\.observer|\n                            videos\\.adhocmusic\\.com|\n                            tube\\.rfc1149\\.net|\n                            peertube\\.librelabucm\\.org|\n                            videos\\.numericoop\\.fr|\n                            peertube\\.koehn\\.com|\n                            peertube\\.anarchmusicall\\.net|\n                            tube\\.kampftoast\\.de|\n                            vid\\.y-y\\.li|\n                            peertube\\.xtenz\\.xyz|\n                            diode\\.zone|\n                            tube\\.egf\\.mn|\n                            peertube\\.nomagic\\.uk|\n                            visionon\\.tv|\n                            videos\\.koumoul\\.com|\n                            video\\.rastapuls\\.com|\n                            video\\.mantlepro\\.com|\n                            video\\.deadsuperhero\\.com|\n                            peertube\\.musicstudio\\.pro|\n                            peertube\\.we-keys\\.fr|\n                            artitube\\.artifaille\\.fr|\n                            peertube\\.ethernia\\.net|\n                            tube\\.midov\\.pl|\n                            peertube\\.fr|\n                            watch\\.snoot\\.tube|\n                            peertube\\.donnadieu\\.fr|\n                            argos\\.aquilenet\\.fr|\n                            tube\\.nemsia\\.org|\n                            tube\\.bruniau\\.net|\n                            videos\\.darckoune\\.moe|\n                            tube\\.traydent\\.info|\n                            dev\\.videos\\.lecygnenoir\\.info|\n                            peertube\\.nayya\\.org|\n                            peertube\\.live|\n                            peertube\\.mofgao\\.space|\n                            video\\.lequerrec\\.eu|\n                            peertube\\.amicale\\.net|\n                            aperi\\.tube|\n                            tube\\.ac-lyon\\.fr|\n                            video\\.lw1\\.at|\n                            www\\.yiny\\.org|\n                            videos\\.pofilo\\.fr|\n                            tube\\.lou\\.lt|\n                            choob\\.h\\.etbus\\.ch|\n                            tube\\.hoga\\.fr|\n                            peertube\\.heberge\\.fr|\n                            video\\.obermui\\.de|\n                            videos\\.cloudfrancois\\.fr|\n                            betamax\\.video|\n                            video\\.typica\\.us|\n                            tube\\.piweb\\.be|\n                            video\\.blender\\.org|\n                            peertube\\.cat|\n                            tube\\.kdy\\.ch|\n                            pe\\.ertu\\.be|\n                            peertube\\.social|\n                            videos\\.lescommuns\\.org|\n                            tv\\.datamol\\.org|\n                            videonaute\\.fr|\n                            dialup\\.express|\n                            peertube\\.nogafa\\.org|\n                            megatube\\.lilomoino\\.fr|\n                            peertube\\.tamanoir\\.foucry\\.net|\n                            peertube\\.devosi\\.org|\n                            peertube\\.1312\\.media|\n                            tube\\.bootlicker\\.party|\n                            skeptikon\\.fr|\n                            video\\.blueline\\.mg|\n                            tube\\.homecomputing\\.fr|\n                            tube\\.ouahpiti\\.info|\n                            video\\.tedomum\\.net|\n                            video\\.g3l\\.org|\n                            fontube\\.fr|\n                            peertube\\.gaialabs\\.ch|\n                            tube\\.kher\\.nl|\n                            peertube\\.qtg\\.fr|\n                            video\\.migennes\\.net|\n                            tube\\.p2p\\.legal|\n                            troll\\.tv|\n                            videos\\.iut-orsay\\.fr|\n                            peertube\\.solidev\\.net|\n                            videos\\.cemea\\.org|\n                            video\\.passageenseine\\.fr|\n                            videos\\.festivalparminous\\.org|\n                            peertube\\.touhoppai\\.moe|\n                            sikke\\.fi|\n                            peer\\.hostux\\.social|\n                            share\\.tube|\n                            peertube\\.walkingmountains\\.fr|\n                            videos\\.benpro\\.fr|\n                            peertube\\.parleur\\.net|\n                            peertube\\.heraut\\.eu|\n                            tube\\.aquilenet\\.fr|\n                            peertube\\.gegeweb\\.eu|\n                            framatube\\.org|\n                            thinkerview\\.video|\n                            tube\\.conferences-gesticulees\\.net|\n                            peertube\\.datagueule\\.tv|\n                            video\\.lqdn\\.fr|\n                            tube\\.mochi\\.academy|\n                            media\\.zat\\.im|\n                            video\\.colibris-outilslibres\\.org|\n                            tube\\.svnet\\.fr|\n                            peertube\\.video|\n                            peertube2\\.cpy\\.re|\n                            peertube3\\.cpy\\.re|\n                            videos\\.tcit\\.fr|\n                            peertube\\.cpy\\.re|\n                            canard\\.tube\n                        ))/(?P<type>(?:a|c|w/p))/\n                    (?P<id>[^/]+)\n                    '
     _RETURN_TYPE = 'playlist'
 
 
@@ -8560,13 +8647,6 @@ class PelotonLiveIE(LazyLoadExtractor):
     IE_NAME = 'peloton:live'
     _VALID_URL = 'https?://members\\.onepeloton\\.com/player/live/(?P<id>[a-f0-9]+)'
     IE_DESC = 'Peloton Live'
-    _RETURN_TYPE = 'video'
-
-
-class PeopleIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.people'
-    IE_NAME = 'People'
-    _VALID_URL = 'https?://(?:www\\.)?people\\.com/people/videos/0,,(?P<id>\\d+),00\\.html'
     _RETURN_TYPE = 'video'
 
 
@@ -8635,8 +8715,16 @@ class PhotobucketIE(LazyLoadExtractor):
 class PiaproIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.piapro'
     IE_NAME = 'Piapro'
-    _VALID_URL = 'https?://piapro\\.jp/t/(?P<id>\\w+)/?'
+    _VALID_URL = 'https?://piapro\\.jp/(?:t|content)/(?P<id>[\\w-]+)/?'
     _NETRC_MACHINE = 'piapro'
+    _RETURN_TYPE = 'video'
+
+
+class PIAULIZAPortalIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.piaulizaportal'
+    IE_NAME = 'PIAULIZAPortal'
+    _VALID_URL = 'https?://(?:www\\.)?ulizaportal\\.jp/pages/(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})'
+    IE_DESC = 'ulizaportal.jp - PIA LIVE STREAM'
     _RETURN_TYPE = 'video'
 
 
@@ -8654,7 +8742,8 @@ class PicartoIE(LazyLoadExtractor):
 class PicartoVodIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.picarto'
     IE_NAME = 'PicartoVod'
-    _VALID_URL = 'https?://(?:www.)?picarto\\.tv/videopopout/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:www\\.)?picarto\\.tv/(?:videopopout|\\w+/videos)/(?P<id>[^/?#&]+)'
+    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -8759,13 +8848,6 @@ class PlatziCourseIE(PlatziBaseIE):
         return False if PlatziIE.suitable(url) else super(PlatziCourseIE, cls).suitable(url)
 
 
-class PlayFMIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.playfm'
-    IE_NAME = 'play.fm'
-    _VALID_URL = 'https?://(?:www\\.)?play\\.fm/(?P<slug>(?:[^/]+/)+(?P<id>[^/]+))/?(?:$|[?#])'
-    _RETURN_TYPE = 'video'
-
-
 class PlayPlusTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.playplustv'
     IE_NAME = 'PlayPlusTV'
@@ -8774,24 +8856,11 @@ class PlayPlusTVIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class PlaysTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.plays'
-    IE_NAME = 'PlaysTV'
-    _VALID_URL = 'https?://(?:www\\.)?plays\\.tv/(?:video|embeds)/(?P<id>[0-9a-f]{18})'
-    _RETURN_TYPE = 'video'
-
-
-class PlayStuffIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.playstuff'
-    IE_NAME = 'PlayStuff'
-    _VALID_URL = 'https?://(?:www\\.)?play\\.stuff\\.co\\.nz/details/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-
 class PlaySuisseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.playsuisse'
     IE_NAME = 'PlaySuisse'
     _VALID_URL = 'https?://(?:www\\.)?playsuisse\\.ch/(?:watch|detail)/(?:[^#]*[?&]episodeId=)?(?P<id>[0-9]+)'
+    _NETRC_MACHINE = 'playsuisse'
     _RETURN_TYPE = 'any'
 
 
@@ -8800,14 +8869,6 @@ class PlaytvakIE(LazyLoadExtractor):
     IE_NAME = 'Playtvak'
     _VALID_URL = 'https?://(?:.+?\\.)?(?:playtvak|idnes|lidovky|metro)\\.cz/.*\\?(?:c|idvideo)=(?P<id>[^&]+)'
     IE_DESC = 'Playtvak.cz, iDNES.cz and Lidovky.cz'
-    _RETURN_TYPE = 'video'
-
-
-class PlayvidIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.playvid'
-    IE_NAME = 'Playvid'
-    _VALID_URL = 'https?://(?:www\\.)?playvid\\.com/watch(\\?v=|/)(?P<id>.+?)(?:#|$)'
-    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -8822,6 +8883,7 @@ class PlutoTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.plutotv'
     IE_NAME = 'PlutoTV'
     _VALID_URL = '(?x)\n        https?://(?:www\\.)?pluto\\.tv(?:/[^/]+)?/on-demand\n        /(?P<video_type>movies|series)\n        /(?P<series_or_movie_slug>[^/]+)\n        (?:\n            (?:/seasons?/(?P<season_no>\\d+))?\n            (?:/episode/(?P<episode_slug>[^/]+))?\n        )?\n        /?(?:$|[#?])'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
@@ -8870,6 +8932,7 @@ class PodomaticIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.podomatic'
     IE_NAME = 'podomatic'
     _VALID_URL = '(?x)\n                    (?P<proto>https?)://\n                        (?:\n                            (?P<channel>[^.]+)\\.podomatic\\.com/entry|\n                            (?:www\\.)?podomatic\\.com/podcasts/(?P<channel_2>[^/]+)/episodes\n                        )/\n                        (?P<id>[^/?#&]+)\n                '
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9002,10 +9065,10 @@ class Porn91IE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class PornComIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.porncom'
-    IE_NAME = 'PornCom'
-    _VALID_URL = 'https?://(?:[a-zA-Z]+\\.)?porn\\.com/videos/(?:(?P<display_id>[^/]+)-)?(?P<id>\\d+)'
+class PornboxIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.pornbox'
+    IE_NAME = 'Pornbox'
+    _VALID_URL = 'https?://(?:www\\.)?pornbox\\.com/application/watch-page/(?P<id>[0-9]+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -9014,14 +9077,6 @@ class PornFlipIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.pornflip'
     IE_NAME = 'PornFlip'
     _VALID_URL = 'https?://(?:www\\.)?pornflip\\.com/(?:(embed|sv|v)/)?(?P<id>[^/]+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class PornHdIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.pornhd'
-    IE_NAME = 'PornHd'
-    _VALID_URL = 'https?://(?:www\\.)?pornhd\\.com/(?:[a-z]{2,4}/)?videos/(?P<id>\\d+)(?:/(?P<display_id>.+))?'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -9104,6 +9159,7 @@ class PornoVoisinesIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.pornovoisines'
     IE_NAME = 'PornoVoisines'
     _VALID_URL = 'https?://(?:www\\.)?pornovoisines\\.com/videos/show/(?P<id>\\d+)/(?P<display_id>[^/.]+)'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -9112,14 +9168,7 @@ class PornoXOIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.pornoxo'
     IE_NAME = 'PornoXO'
     _VALID_URL = 'https?://(?:www\\.)?pornoxo\\.com/videos/(?P<id>\\d+)/(?P<display_id>[^/]+)\\.html'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class PornezIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.pornez'
-    IE_NAME = 'Pornez'
-    _VALID_URL = 'https?://(?:www\\.)?pornez\\.net/(?:video(?P<id>\\w+)|watch)/'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -9138,17 +9187,11 @@ class PuhuTVSerieIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class Pr0grammStaticIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.pr0gramm'
-    IE_NAME = 'Pr0grammStatic'
-    _VALID_URL = 'https?://pr0gramm\\.com/static/(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class Pr0grammIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.pr0gramm'
     IE_NAME = 'Pr0gramm'
-    _VALID_URL = 'https?:\\/\\/pr0gramm\\.com\\/(?!static/\\d+).+?\\/(?P<id>[\\d]+)(:|$)'
+    _VALID_URL = 'https?://pr0gramm\\.com\\/(?:[^/?#]+/)+(?P<id>[\\d]+)(?:[/?#:]|$)'
+    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -9156,6 +9199,13 @@ class PrankCastIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.prankcast'
     IE_NAME = 'PrankCast'
     _VALID_URL = 'https?://(?:www\\.)?prankcast\\.com/[^/?#]+/showreel/(?P<id>\\d+)-(?P<display_id>[^/?#]+)'
+    _RETURN_TYPE = 'video'
+
+
+class PrankCastPostIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.prankcast'
+    IE_NAME = 'PrankCastPost'
+    _VALID_URL = 'https?://(?:www\\.)?prankcast\\.com/[^/?#]+/posts/(?P<id>\\d+)-(?P<display_id>[^/?#]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -9177,6 +9227,7 @@ class ProjectVeritasIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.projectveritas'
     IE_NAME = 'ProjectVeritas'
     _VALID_URL = 'https?://(?:www\\.)?projectveritas\\.com/(?P<type>news|video)/(?P<id>[^/?#]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9251,6 +9302,14 @@ class PyvideoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
+class QDanceIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.qdance'
+    IE_NAME = 'QDance'
+    _VALID_URL = 'https?://(?:www\\.)?q-dance\\.com/network/(?:library|live)/(?P<id>[\\w-]+)'
+    _NETRC_MACHINE = 'qdance'
+    _RETURN_TYPE = 'video'
+
+
 class QingTingIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.qingting'
     IE_NAME = 'QingTing'
@@ -9306,14 +9365,18 @@ class QQMusicPlaylistIE(QQPlaylistBaseIE):
 class R7IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.r7'
     IE_NAME = 'R7'
+    _ENABLED = None
     _VALID_URL = '(?x)\n                        https?://\n                        (?:\n                            (?:[a-zA-Z]+)\\.r7\\.com(?:/[^/]+)+/idmedia/|\n                            noticias\\.r7\\.com(?:/[^/]+)+/[^/]+-|\n                            player\\.r7\\.com/video/i/\n                        )\n                        (?P<id>[\\da-f]{24})\n                    '
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
 class R7ArticleIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.r7'
     IE_NAME = 'R7Article'
+    _ENABLED = None
     _VALID_URL = 'https?://(?:[a-zA-Z]+)\\.r7\\.com/(?:[^/]+/)+[^/?#&]+-(?P<id>\\d+)'
+    _WORKING = False
 
     @classmethod
     def suitable(cls, url):
@@ -9351,10 +9414,25 @@ class RadioCanadaAudioVideoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class RadioComercialIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.radiocomercial'
+    IE_NAME = 'RadioComercial'
+    _VALID_URL = 'https?://(?:www\\.)?radiocomercial\\.pt/podcasts/[^/?#]+/t?(?P<season>\\d+)/(?P<id>[\\w-]+)'
+    _RETURN_TYPE = 'video'
+
+
+class RadioComercialPlaylistIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.radiocomercial'
+    IE_NAME = 'RadioComercialPlaylist'
+    _VALID_URL = 'https?://(?:www\\.)?radiocomercial\\.pt/podcasts/(?P<id>[\\w-]+)(?:/t?(?P<season>\\d+))?/?(?:$|[?#])'
+    _RETURN_TYPE = 'playlist'
+
+
 class RadioDeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.radiode'
     IE_NAME = 'radio.de'
     _VALID_URL = 'https?://(?P<id>.+?)\\.(?:radio\\.(?:de|at|fr|pt|es|pl|it)|rad\\.io)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9362,20 +9440,19 @@ class RadioJavanIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.radiojavan'
     IE_NAME = 'RadioJavan'
     _VALID_URL = 'https?://(?:www\\.)?radiojavan\\.com/videos/video/(?P<id>[^/]+)/?'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
-class RadioBremenIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.radiobremen'
-    IE_NAME = 'radiobremen'
-    _VALID_URL = 'http?://(?:www\\.)?radiobremen\\.de/mediathek/(?:index\\.html)?\\?id=(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
+class RadioFranceBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFranceBase'
 
 
-class FranceCultureIE(LazyLoadExtractor):
+class FranceCultureIE(RadioFranceBaseIE):
     _module = 'yt_dlp.extractor.radiofrance'
     IE_NAME = 'FranceCulture'
-    _VALID_URL = 'https?://(?:www\\.)?radiofrance\\.fr/(?:franceculture|fip|francemusique|mouv|franceinter)/podcasts/(?:[^?#]+/)?(?P<display_id>[^?#]+)-(?P<id>\\d+)($|[?#])'
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?radiofrance\\.fr\n        /(?:franceculture|franceinfo|franceinter|francemusique|fip|mouv)\n        /podcasts/(?:[^?#]+/)?(?P<display_id>[^?#]+)-(?P<id>\\d{6,})(?:$|[?#])\n    '
     _RETURN_TYPE = 'video'
 
 
@@ -9384,6 +9461,39 @@ class RadioFranceIE(LazyLoadExtractor):
     IE_NAME = 'radiofrance'
     _VALID_URL = '^https?://maison\\.radiofrance\\.fr/radiovisions/(?P<id>[^?#]+)'
     _RETURN_TYPE = 'video'
+
+
+class RadioFranceLiveIE(RadioFranceBaseIE):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFranceLive'
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?radiofrance\\.fr\n        /(?P<id>franceculture|franceinfo|franceinter|francemusique|fip|mouv)\n        /?(?P<substation_id>radio-[\\w-]+)?(?:[#?]|$)\n    '
+    _RETURN_TYPE = 'video'
+
+
+class RadioFrancePlaylistBaseIE(RadioFranceBaseIE):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFrancePlaylistBase'
+
+
+class RadioFrancePodcastIE(RadioFrancePlaylistBaseIE):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFrancePodcast'
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?radiofrance\\.fr\n        /(?:franceculture|franceinfo|franceinter|francemusique|fip|mouv)\n        /podcasts/(?P<id>[\\w-]+)/?(?:[?#]|$)\n    '
+    _RETURN_TYPE = 'playlist'
+
+
+class RadioFranceProfileIE(RadioFrancePlaylistBaseIE):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFranceProfile'
+    _VALID_URL = 'https?://(?:www\\.)?radiofrance\\.fr/personnes/(?P<id>[\\w-]+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class RadioFranceProgramScheduleIE(RadioFranceBaseIE):
+    _module = 'yt_dlp.extractor.radiofrance'
+    IE_NAME = 'RadioFranceProgramSchedule'
+    _VALID_URL = '(?x)\n        https?://(?:www\\.)?radiofrance\\.fr\n        /(?P<station>franceculture|franceinfo|franceinter|francemusique|fip|mouv)\n        /grille-programmes(?:\\?date=(?P<date>[\\d-]+))?\n    '
+    _RETURN_TYPE = 'playlist'
 
 
 class RadioZetPodcastIE(LazyLoadExtractor):
@@ -9495,7 +9605,7 @@ class RaiPlaySoundPlaylistIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class RaiNewsIE(RaiIE):
+class RaiNewsIE(RaiBaseIE):
     _module = 'yt_dlp.extractor.rai'
     IE_NAME = 'RaiNews'
     _VALID_URL = 'https?://(www\\.)?rainews\\.it/(?!articoli)[^?#]+-(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})(?:-[^/?#]+)?\\.html'
@@ -9535,24 +9645,24 @@ class RayWenderlichCourseIE(LazyLoadExtractor):
             RayWenderlichCourseIE, cls).suitable(url)
 
 
-class RBMARadioIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.rbmaradio'
-    IE_NAME = 'RBMARadio'
-    _VALID_URL = 'https?://(?:www\\.)?(?:rbmaradio|redbullradio)\\.com/shows/(?P<show_id>[^/]+)/episodes/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-
 class RbgTumIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rbgtum'
     IE_NAME = 'RbgTum'
-    _VALID_URL = 'https://live\\.rbg\\.tum\\.de/w/(?P<id>.+)'
+    _VALID_URL = 'https?://(?:live\\.rbg\\.tum\\.de|tum\\.live)/w/(?P<id>[^?#]+)'
     _RETURN_TYPE = 'video'
 
 
 class RbgTumCourseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rbgtum'
     IE_NAME = 'RbgTumCourse'
-    _VALID_URL = 'https://live\\.rbg\\.tum\\.de/course/(?P<id>.+)'
+    _VALID_URL = 'https?://(?P<hostname>(?:live\\.rbg\\.tum\\.de|tum\\.live))/old/course/(?P<id>(?P<year>\\d+)/(?P<term>\\w+)/(?P<slug>[^/?#]+))'
+    _RETURN_TYPE = 'playlist'
+
+
+class RbgTumNewCourseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.rbgtum'
+    IE_NAME = 'RbgTumNewCourse'
+    _VALID_URL = 'https?://(?P<hostname>(?:live\\.rbg\\.tum\\.de|tum\\.live))/\\?'
     _RETURN_TYPE = 'playlist'
 
 
@@ -9590,14 +9700,14 @@ class RCTIPlusBaseIE(LazyLoadExtractor):
 class RCTIPlusIE(RCTIPlusBaseIE):
     _module = 'yt_dlp.extractor.rcti'
     IE_NAME = 'RCTIPlus'
-    _VALID_URL = 'https://www\\.rctiplus\\.com/(?:programs/\\d+?/.*?/)?(?P<type>episode|clip|extra|live-event|missed-event)/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)'
+    _VALID_URL = 'https?://www\\.rctiplus\\.com/(?:programs/\\d+?/.*?/)?(?P<type>episode|clip|extra|live-event|missed-event)/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)'
     _RETURN_TYPE = 'video'
 
 
 class RCTIPlusSeriesIE(RCTIPlusBaseIE):
     _module = 'yt_dlp.extractor.rcti'
     IE_NAME = 'RCTIPlusSeries'
-    _VALID_URL = 'https://www\\.rctiplus\\.com/programs/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)(?:/(?P<type>episodes|extras|clips))?'
+    _VALID_URL = 'https?://www\\.rctiplus\\.com/programs/(?P<id>\\d+)/(?P<display_id>[^/?#&]+)(?:/(?P<type>episodes|extras|clips))?'
     age_limit = 2
     _RETURN_TYPE = 'playlist'
 
@@ -9609,7 +9719,7 @@ class RCTIPlusSeriesIE(RCTIPlusBaseIE):
 class RCTIPlusTVIE(RCTIPlusBaseIE):
     _module = 'yt_dlp.extractor.rcti'
     IE_NAME = 'RCTIPlusTV'
-    _VALID_URL = 'https://www\\.rctiplus\\.com/((tv/(?P<tvname>\\w+))|(?P<eventname>live-event|missed-event))'
+    _VALID_URL = 'https?://www\\.rctiplus\\.com/((tv/(?P<tvname>\\w+))|(?P<eventname>live-event|missed-event))'
     _RETURN_TYPE = 'video'
 
     @classmethod
@@ -9621,15 +9731,8 @@ class RDSIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rds'
     IE_NAME = 'RDS'
     _VALID_URL = 'https?://(?:www\\.)?rds\\.ca/vid(?:[eé]|%C3%A9)os/(?:[^/]+/)*(?P<id>[^/]+)-\\d+\\.\\d+'
+    _WORKING = False
     IE_DESC = 'RDS.ca'
-    _RETURN_TYPE = 'video'
-
-
-class RecurbateIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.recurbate'
-    IE_NAME = 'Recurbate'
-    _VALID_URL = 'https?://(?:www\\.)?recurbate\\.com/play\\.php\\?video=(?P<id>\\d+)'
-    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -9650,6 +9753,7 @@ class RTBFIE(RedBeeBaseIE):
     _module = 'yt_dlp.extractor.redbee'
     IE_NAME = 'RTBF'
     _VALID_URL = '(?x)\n        https?://(?:www\\.)?rtbf\\.be/\n        (?:\n            video/[^?]+\\?.*\\bid=|\n            ouftivi/(?:[^/]+/)*[^?]+\\?.*\\bvideoId=|\n            auvio/[^/]+\\?.*\\b(?P<live>l)?id=\n        )(?P<id>\\d+)'
+    _WORKING = False
     _NETRC_MACHINE = 'rtbf'
     _RETURN_TYPE = 'video'
 
@@ -9688,6 +9792,13 @@ class RedditIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
+class RedCDNLivxIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.redge'
+    IE_NAME = 'redcdnlivx'
+    _VALID_URL = 'https?://[^.]+\\.(?:dcs\\.redcdn|atmcdn)\\.pl/(?:live(?:dash|hls|ss)|nvr)/o2/(?P<tenant>[^/?#]+)/(?P<id>[^?#]+)\\.livx'
+    _RETURN_TYPE = 'video'
+
+
 class RedGifsBaseInfoExtractor(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.redgifs'
     IE_NAME = 'RedGifsBaseInfoExtract'
@@ -9720,15 +9831,8 @@ class RedGifsUserIE(RedGifsBaseInfoExtractor):
 class RedTubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.redtube'
     IE_NAME = 'RedTube'
-    _VALID_URL = 'https?://(?:(?:\\w+\\.)?redtube\\.com/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)'
+    _VALID_URL = 'https?://(?:(?:\\w+\\.)?redtube\\.com(?:\\.br)?/|embed\\.redtube\\.com/\\?.*?\\bid=)(?P<id>[0-9]+)'
     age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class RegioTVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.regiotv'
-    IE_NAME = 'RegioTV'
-    _VALID_URL = 'https?://(?:www\\.)?regio-tv\\.de/video/(?P<id>[0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -9736,6 +9840,7 @@ class RENTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rentv'
     IE_NAME = 'RENTV'
     _VALID_URL = '(?:rentv:|https?://(?:www\\.)?ren\\.tv/(?:player|video/epizod)/)(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9743,6 +9848,7 @@ class RENTVArticleIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rentv'
     IE_NAME = 'RENTVArticle'
     _VALID_URL = 'https?://(?:www\\.)?ren\\.tv/novosti/\\d{4}-\\d{2}-\\d{2}/(?P<id>[^/?#]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9750,6 +9856,7 @@ class RestudyIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.restudy'
     IE_NAME = 'Restudy'
     _VALID_URL = 'https?://(?:(?:www|portal)\\.)?restudy\\.dk/video/[^/]+/id/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9757,6 +9864,7 @@ class ReutersIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.reuters'
     IE_NAME = 'Reuters'
     _VALID_URL = 'https?://(?:www\\.)?reuters\\.com/.*?\\?.*?videoId=(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9774,11 +9882,30 @@ class RheinMainTVIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class RICEIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.rice'
-    IE_NAME = 'RICE'
-    _VALID_URL = 'https?://mediahub\\.rice\\.edu/app/[Pp]ortal/video\\.aspx\\?(?P<query>.+)'
+class RideHomeIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ridehome'
+    IE_NAME = 'RideHome'
+    _VALID_URL = 'https?://(?:www\\.)?ridehome\\.info/show/[\\w-]+/(?P<id>[\\w-]+)/?(?:$|[?#])'
+    _RETURN_TYPE = 'playlist'
+
+
+class RinseFMBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.rinsefm'
+    IE_NAME = 'RinseFMBase'
+
+
+class RinseFMIE(RinseFMBaseIE):
+    _module = 'yt_dlp.extractor.rinsefm'
+    IE_NAME = 'RinseFM'
+    _VALID_URL = 'https?://(?:www\\.)?rinse\\.fm/episodes/(?P<id>[^/?#]+)'
     _RETURN_TYPE = 'video'
+
+
+class RinseFMArtistPlaylistIE(RinseFMBaseIE):
+    _module = 'yt_dlp.extractor.rinsefm'
+    IE_NAME = 'RinseFMArtistPlaylist'
+    _VALID_URL = 'https?://(?:www\\.)?rinse\\.fm/shows/(?P<id>[^/?#]+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class RMCDecouverteIE(LazyLoadExtractor):
@@ -9792,6 +9919,7 @@ class RockstarGamesIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rockstargames'
     IE_NAME = 'RockstarGames'
     _VALID_URL = 'https?://(?:www\\.)?rockstargames\\.com/videos(?:/video/|#?/?\\?.*\\bvideo=)(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -9842,7 +9970,7 @@ class RoosterTeethBaseIE(LazyLoadExtractor):
 class RoosterTeethIE(RoosterTeethBaseIE):
     _module = 'yt_dlp.extractor.roosterteeth'
     IE_NAME = 'RoosterTeeth'
-    _VALID_URL = 'https?://(?:.+?\\.)?roosterteeth\\.com/(?:episode|watch)/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:.+?\\.)?roosterteeth\\.com/(?:bonus-feature|episode|watch)/(?P<id>[^/?#&]+)'
     _NETRC_MACHINE = 'roosterteeth'
     _RETURN_TYPE = 'video'
 
@@ -9957,26 +10085,6 @@ class RTL2IE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class RTL2YouBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.rtl2'
-    IE_NAME = 'RTL2YouBase'
-
-
-class RTL2YouIE(RTL2YouBaseIE):
-    _module = 'yt_dlp.extractor.rtl2'
-    IE_NAME = 'rtl2:you'
-    _VALID_URL = 'http?://you\\.rtl2\\.de/(?:video/\\d+/|youplayer/index\\.html\\?.*?\\bvid=)(?P<id>\\d+)'
-    age_limit = 12
-    _RETURN_TYPE = 'video'
-
-
-class RTL2YouSeriesIE(RTL2YouBaseIE):
-    _module = 'yt_dlp.extractor.rtl2'
-    IE_NAME = 'rtl2:you:series'
-    _VALID_URL = 'http?://you\\.rtl2\\.de/videos/(?P<id>\\d+)'
-    _RETURN_TYPE = 'playlist'
-
-
 class RTNewsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rtnews'
     IE_NAME = 'RTNews'
@@ -10084,13 +10192,6 @@ class RTVETelevisionIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class RTVNHIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.rtvnh'
-    IE_NAME = 'RTVNH'
-    _VALID_URL = 'https?://(?:www\\.)?rtvnh\\.nl/video/(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class RTVSIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rtvs'
     IE_NAME = 'RTVS'
@@ -10105,17 +10206,10 @@ class RTVSLOIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class RUHDIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ruhd'
-    IE_NAME = 'RUHD'
-    _VALID_URL = 'https?://(?:www\\.)?ruhd\\.ru/play\\.php\\?vid=(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
 class Rule34VideoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.rule34video'
     IE_NAME = 'Rule34Video'
-    _VALID_URL = 'https?://(?:www\\.)?rule34video\\.com/videos/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?rule34video\\.com/videos?/(?P<id>\\d+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -10139,6 +10233,13 @@ class RumbleChannelIE(LazyLoadExtractor):
     IE_NAME = 'RumbleChannel'
     _VALID_URL = '(?P<url>https?://(?:www\\.)?rumble\\.com/(?:c|user)/(?P<id>[^&?#$/]+))'
     _RETURN_TYPE = 'playlist'
+
+
+class RudoVideoIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.rudovideo'
+    IE_NAME = 'RudoVideo'
+    _VALID_URL = 'https?://rudo\\.video/(?P<type>vod|podcast|live)/(?P<id>[^/?&#]+)'
+    _RETURN_TYPE = 'video'
 
 
 class RutubeBaseIE(LazyLoadExtractor):
@@ -10261,29 +10362,29 @@ class MegaTVComEmbedIE(MegaTVComBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class Ant1NewsGrBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ant1newsgr'
-    IE_NAME = 'Ant1NewsGrBase'
+class AntennaBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.antenna'
+    IE_NAME = 'AntennaBase'
 
 
-class Ant1NewsGrWatchIE(Ant1NewsGrBaseIE):
-    _module = 'yt_dlp.extractor.ant1newsgr'
-    IE_NAME = 'ant1newsgr:watch'
-    _VALID_URL = 'https?://(?P<netloc>(?:www\\.)?ant1news\\.gr)/watch/(?P<id>\\d+)/'
-    IE_DESC = 'ant1news.gr videos'
+class AntennaGrWatchIE(AntennaBaseIE):
+    _module = 'yt_dlp.extractor.antenna'
+    IE_NAME = 'antenna:watch'
+    _VALID_URL = 'https?://(?P<netloc>(?:www\\.)?(?:antenna|ant1news)\\.gr)/watch/(?P<id>\\d+)/'
+    IE_DESC = 'antenna.gr and ant1news.gr videos'
     _RETURN_TYPE = 'video'
 
 
-class Ant1NewsGrArticleIE(Ant1NewsGrBaseIE):
-    _module = 'yt_dlp.extractor.ant1newsgr'
+class Ant1NewsGrArticleIE(AntennaBaseIE):
+    _module = 'yt_dlp.extractor.antenna'
     IE_NAME = 'ant1newsgr:article'
     _VALID_URL = 'https?://(?:www\\.)?ant1news\\.gr/[^/]+/article/(?P<id>\\d+)/'
     IE_DESC = 'ant1news.gr articles'
     _RETURN_TYPE = 'any'
 
 
-class Ant1NewsGrEmbedIE(Ant1NewsGrBaseIE):
-    _module = 'yt_dlp.extractor.ant1newsgr'
+class Ant1NewsGrEmbedIE(AntennaBaseIE):
+    _module = 'yt_dlp.extractor.antenna'
     IE_NAME = 'ant1newsgr:embed'
     _VALID_URL = '(?:https?:)?//(?:[a-zA-Z0-9\\-]+\\.)?(?:antenna|ant1news)\\.gr/templates/pages/player\\?([^#]+&)?cid=(?P<id>[^#&]+)'
     IE_DESC = 'ant1news.gr embedded videos'
@@ -10318,6 +10419,20 @@ class RuvSpilaIE(LazyLoadExtractor):
     IE_NAME = 'ruv.is:spila'
     _VALID_URL = 'https?://(?:www\\.)?ruv\\.is/(?:(?:sjon|ut)varp|(?:krakka|ung)ruv)/spila/.+/(?P<series_id>[0-9]+)/(?P<id>[a-z0-9]+)'
     _RETURN_TYPE = 'video'
+
+
+class S4CIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.s4c'
+    IE_NAME = 'S4C'
+    _VALID_URL = 'https?://(?:www\\.)?s4c\\.cymru/clic/programme/(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
+class S4CSeriesIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.s4c'
+    IE_NAME = 'S4CSeries'
+    _VALID_URL = 'https?://(?:www\\.)?s4c\\.cymru/clic/series/(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class SafariBaseIE(LazyLoadExtractor):
@@ -10360,6 +10475,7 @@ class SaitosanIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.saitosan'
     IE_NAME = 'Saitosan'
     _VALID_URL = 'https?://(?:www\\.)?saitosan\\.net/bview.html\\?id=(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -10378,19 +10494,34 @@ class SapoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class SaveFromIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.savefrom'
-    IE_NAME = 'savefrom.net'
-    _VALID_URL = 'https?://[^.]+\\.savefrom\\.net/\\#url=(?P<url>.*)$'
-    _RETURN_TYPE = 'video'
-
-
 class SBSIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sbs'
     IE_NAME = 'SBS'
     _VALID_URL = '(?x)\n        https?://(?:www\\.)?sbs\\.com\\.au/(?:\n            ondemand(?:\n                /video/(?:single/)?|\n                /(?:movie|tv-program)/[^/]+/|\n                /(?:tv|news)-series/(?:[^/]+/){3}|\n                .*?\\bplay=|/watch/\n            )|news/(?:embeds/)?video/\n        )(?P<id>[0-9]+)'
     IE_DESC = 'sbs.com.au'
     _RETURN_TYPE = 'video'
+
+
+class SBSCoKrIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sbscokr'
+    IE_NAME = 'sbs.co.kr'
+    _VALID_URL = ['https?://allvod\\.sbs\\.co\\.kr/allvod/vod(?:Package)?EndPage\\.do\\?(?:[^#]+&)?mdaId=(?P<id>\\d+)', 'https?://programs\\.sbs\\.co\\.kr/(?:enter|drama|culture|sports|plus|mtv|kth)/[a-z0-9]+/(?:vod|clip|movie)/\\d+/(?P<id>(?:OC)?\\d+)']
+    age_limit = 15
+    _RETURN_TYPE = 'video'
+
+
+class SBSCoKrAllvodProgramIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sbscokr'
+    IE_NAME = 'sbs.co.kr:allvod_program'
+    _VALID_URL = 'https?://allvod\\.sbs\\.co\\.kr/allvod/vod(?:Free)?ProgramDetail\\.do\\?(?:[^#]+&)?pgmId=(?P<id>P?\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class SBSCoKrProgramsVodIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sbscokr'
+    IE_NAME = 'sbs.co.kr:programs_vod'
+    _VALID_URL = 'https?://programs\\.sbs\\.co\\.kr/(?:enter|drama|culture|sports|plus|mtv)/(?P<id>[a-z0-9]+)/vods'
+    _RETURN_TYPE = 'playlist'
 
 
 class Screen9IE(LazyLoadExtractor):
@@ -10410,7 +10541,7 @@ class ScreencastIE(LazyLoadExtractor):
 class ScreencastifyIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.screencastify'
     IE_NAME = 'Screencastify'
-    _VALID_URL = 'https?://watch\\.screencastify\\.com/v/(?P<id>[^/?#]+)'
+    _VALID_URL = ['https?://watch\\.screencastify\\.com/v/(?P<id>[^/?#]+)', 'https?://app\\.screencastify\\.com/v[23]/watch/(?P<id>[^/?#]+)']
     _RETURN_TYPE = 'video'
 
 
@@ -10450,6 +10581,7 @@ class SCTEIE(SCTEBaseIE):
     _module = 'yt_dlp.extractor.scte'
     IE_NAME = 'SCTE'
     _VALID_URL = 'https?://learning\\.scte\\.org/mod/scorm/view\\.php?.*?\\bid=(?P<id>\\d+)'
+    _WORKING = False
     _NETRC_MACHINE = 'scte'
     _RETURN_TYPE = 'playlist'
 
@@ -10458,6 +10590,7 @@ class SCTECourseIE(SCTEBaseIE):
     _module = 'yt_dlp.extractor.scte'
     IE_NAME = 'SCTECourse'
     _VALID_URL = 'https?://learning\\.scte\\.org/(?:mod/sub)?course/view\\.php?.*?\\bid=(?P<id>\\d+)'
+    _WORKING = False
     _NETRC_MACHINE = 'scte'
 
 
@@ -10469,17 +10602,18 @@ class ScrolllerIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class SeekerIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.seeker'
-    IE_NAME = 'Seeker'
-    _VALID_URL = 'https?://(?:www\\.)?seeker\\.com/(?P<display_id>.*)-(?P<article_id>\\d+)\\.html'
-    _RETURN_TYPE = 'any'
+class SejmIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sejmpl'
+    IE_NAME = 'sejm'
+    _VALID_URL = ('https?://(?:www\\.)?sejm\\.gov\\.pl/[Ss]ejm(?P<term>\\d+)\\.nsf/transmisje(?:_arch)?\\.xsp(?:\\?[^#]*)?#(?P<id>[\\dA-F]+)', 'https?://(?:www\\.)?sejm\\.gov\\.pl/[Ss]ejm(?P<term>\\d+)\\.nsf/transmisje(?:_arch)?\\.xsp\\?(?:[^#]+&)?unid=(?P<id>[\\dA-F]+)', 'https?://sejm-embed\\.redcdn\\.pl/[Ss]ejm(?P<term>\\d+)\\.nsf/VideoFrame\\.xsp/(?P<id>[\\dA-F]+)')
+    _RETURN_TYPE = 'playlist'
 
 
 class SenalColombiaLiveIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.senalcolombia'
     IE_NAME = 'SenalColombiaLive'
     _VALID_URL = 'https?://(?:www\\.)?senalcolombia\\.tv/(?P<id>senal-en-vivo)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -10501,6 +10635,7 @@ class SendtoNewsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sendtonews'
     IE_NAME = 'SendtoNews'
     _VALID_URL = 'https?://embed\\.sendtonews\\.com/player2/embedplayer\\.php\\?.*\\bSC=(?P<id>[0-9A-Za-z-]+)'
+    _WORKING = False
     _RETURN_TYPE = 'playlist'
 
 
@@ -10522,6 +10657,7 @@ class SexuIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sexu'
     IE_NAME = 'Sexu'
     _VALID_URL = 'https?://(?:www\\.)?sexu\\.com/(?P<id>\\d+)'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -10560,24 +10696,10 @@ class ShahidShowIE(ShahidBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
-class SharedBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.shared'
-    IE_NAME = 'SharedBase'
-
-
-class SharedIE(SharedBaseIE):
-    _module = 'yt_dlp.extractor.shared'
-    IE_NAME = 'Shared'
-    _VALID_URL = 'https?://shared\\.sx/(?P<id>[\\da-z]{10})'
-    IE_DESC = 'shared.sx'
-    _RETURN_TYPE = 'video'
-
-
-class VivoIE(SharedBaseIE):
-    _module = 'yt_dlp.extractor.shared'
-    IE_NAME = 'Vivo'
-    _VALID_URL = 'https?://vivo\\.s[xt]/(?P<id>[\\da-z]{10})'
-    IE_DESC = 'vivo.sx'
+class SharePointIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sharepoint'
+    IE_NAME = 'SharePoint'
+    _VALID_URL = ['https?://[\\w-]+\\.sharepoint\\.com/:v:/[a-z]/(?:[^/?#]+/)*(?P<id>[^/?#]{46})/?(?:$|[?#])', 'https?://[\\w-]+\\.sharepoint\\.com/(?!:v:)(?:[^/?#]+/)*stream\\.aspx\\?(?:[^#]+&)?id=(?P<id>[^&#]+)']
     _RETURN_TYPE = 'video'
 
 
@@ -10635,7 +10757,7 @@ class SimplecastPodcastIE(SimplecastBaseIE):
 class SinaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sina'
     IE_NAME = 'Sina'
-    _VALID_URL = '(?x)https?://(?:.*?\\.)?video\\.sina\\.com\\.cn/\n                        (?:\n                            (?:view/|.*\\#)(?P<id>\\d+)|\n                            .+?/(?P<pseudo_id>[^/?#]+)(?:\\.s?html)|\n                            # This is used by external sites like Weibo\n                            api/sinawebApi/outplay.php/(?P<token>.+?)\\.swf\n                        )\n                  '
+    _VALID_URL = '(?x)https?://(?:[^/?#]+\\.)?video\\.sina\\.com\\.cn/\n                        (?:\n                            (?:view/|.*\\#)(?P<id>\\d+)|\n                            .+?/(?P<pseudo_id>[^/?#]+)(?:\\.s?html)|\n                            # This is used by external sites like Weibo\n                            api/sinawebApi/outplay.php/(?P<token>.+?)\\.swf\n                        )\n                  '
     _RETURN_TYPE = 'video'
 
 
@@ -10705,6 +10827,7 @@ class SkylineWebcamsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.skylinewebcams'
     IE_NAME = 'SkylineWebcams'
     _VALID_URL = 'https?://(?:www\\.)?skylinewebcams\\.com/[^/]+/webcam/(?:[^/]+/)+(?P<id>[^/]+)\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -10717,6 +10840,7 @@ class SkyNewsArabiaIE(SkyNewsArabiaBaseIE):
     _module = 'yt_dlp.extractor.skynewsarabia'
     IE_NAME = 'skynewsarabia:video'
     _VALID_URL = 'https?://(?:www\\.)?skynewsarabia\\.com/web/video/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -10724,6 +10848,7 @@ class SkyNewsArabiaArticleIE(SkyNewsArabiaBaseIE):
     _module = 'yt_dlp.extractor.skynewsarabia'
     IE_NAME = 'skynewsarabia:article'
     _VALID_URL = 'https?://(?:www\\.)?skynewsarabia\\.com/web/article/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
@@ -10810,6 +10935,13 @@ class SohuIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
+class SohuVIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.sohu'
+    IE_NAME = 'SohuV'
+    _VALID_URL = 'https?://tv\\.sohu\\.com/v/(?P<id>[\\w=-]+)\\.html(?:$|[#?])'
+    _RETURN_TYPE = 'any'
+
+
 class SonyLIVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sonyliv'
     IE_NAME = 'SonyLIV'
@@ -10821,7 +10953,7 @@ class SonyLIVIE(LazyLoadExtractor):
 class SonyLIVSeriesIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.sonyliv'
     IE_NAME = 'SonyLIVSeries'
-    _VALID_URL = 'https?://(?:www\\.)?sonyliv\\.com/shows/[^/?#&]+-(?P<id>\\d{10})$'
+    _VALID_URL = 'https?://(?:www\\.)?sonyliv\\.com/shows/[^/?#&]+-(?P<id>\\d{10})/?(?:$|[?#])'
     _RETURN_TYPE = 'playlist'
 
 
@@ -11005,14 +11137,6 @@ class SpankBangPlaylistIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class SpankwireIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.spankwire'
-    IE_NAME = 'Spankwire'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?spankwire\\.com/\n                        (?:\n                            [^/]+/video|\n                            EmbedPlayer\\.aspx/?\\?.*?\\bArticleId=\n                        )\n                        (?P<id>\\d+)\n                    '
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class SpiegelIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.spiegel'
     IE_NAME = 'Spiegel'
@@ -11046,6 +11170,7 @@ class StarTrekIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.startrek'
     IE_NAME = 'StarTrek'
     _VALID_URL = '(?P<base>https?://(?:intl|www)\\.startrek\\.com)/videos/(?P<id>[^/]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11163,6 +11288,7 @@ class RTSIE(SRGSSRIE):
     _module = 'yt_dlp.extractor.rts'
     IE_NAME = 'RTS'
     _VALID_URL = 'rts:(?P<rts_id>\\d+)|https?://(?:.+?\\.)?rts\\.ch/(?:[^/]+/){2,}(?P<id>[0-9]+)-(?P<display_id>.+?)\\.html'
+    _WORKING = False
     IE_DESC = 'RTS.ch'
     _RETURN_TYPE = 'any'
 
@@ -11175,11 +11301,67 @@ class SRGSSRPlayIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class ARDMediathekBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.ard'
+    IE_NAME = 'ARDMediathekBase'
+
+
 class SRMediathekIE(ARDMediathekBaseIE):
     _module = 'yt_dlp.extractor.srmediathek'
     IE_NAME = 'sr:mediathek'
     _VALID_URL = 'https?://sr-mediathek(?:\\.sr-online)?\\.de/index\\.php\\?.*?&id=(?P<id>[0-9]+)'
+    _WORKING = False
     IE_DESC = 'Saarländischer Rundfunk'
+    _RETURN_TYPE = 'video'
+
+
+class WrestleUniverseBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.wrestleuniverse'
+    IE_NAME = 'WrestleUniverseBase'
+    _NETRC_MACHINE = 'wrestleuniverse'
+
+
+class StacommuBaseIE(WrestleUniverseBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'StacommuBase'
+    _NETRC_MACHINE = 'stacommu'
+
+
+class StacommuLiveIE(StacommuBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'StacommuLive'
+    _VALID_URL = 'https?://www\\.stacommu\\.jp/(?:en/)?live/(?P<id>[\\da-zA-Z]+)'
+    _NETRC_MACHINE = 'stacommu'
+    _RETURN_TYPE = 'video'
+
+
+class StacommuVODIE(StacommuBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'StacommuVOD'
+    _VALID_URL = 'https?://www\\.stacommu\\.jp/(?:en/)?videos/episodes/(?P<id>[\\da-zA-Z]+)'
+    _NETRC_MACHINE = 'stacommu'
+    _RETURN_TYPE = 'video'
+
+
+class TheaterComplexTownBaseIE(StacommuBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'TheaterComplexTownBase'
+    _NETRC_MACHINE = 'theatercomplextown'
+
+
+class TheaterComplexTownVODIE(TheaterComplexTownBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'theatercomplextown:vod'
+    _VALID_URL = 'https?://(?:www\\.)?theater-complex\\.town/(?:en/)?videos/episodes/(?P<id>\\w+)'
+    _NETRC_MACHINE = 'theatercomplextown'
+    _RETURN_TYPE = 'video'
+
+
+class TheaterComplexTownPPVIE(TheaterComplexTownBaseIE):
+    _module = 'yt_dlp.extractor.stacommu'
+    IE_NAME = 'theatercomplextown:ppv'
+    _VALID_URL = 'https?://(?:www\\.)?theater-complex\\.town/(?:en/)?ppv/(?P<id>\\w+)'
+    _NETRC_MACHINE = 'theatercomplextown'
     _RETURN_TYPE = 'video'
 
 
@@ -11202,7 +11384,7 @@ class SteamIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.steam'
     IE_NAME = 'Steam'
     _VALID_URL = '(?x)\n        https?://(?:store\\.steampowered|steamcommunity)\\.com/\n            (?:agecheck/)?\n            (?P<urltype>video|app)/ #If the page is only for videos or for a game\n            (?P<gameID>\\d+)/?\n            (?P<videoID>\\d*)(?P<extra>\\??) # For urltype == video we sometimes get the videoID\n        |\n        https?://(?:www\\.)?steamcommunity\\.com/sharedfiles/filedetails/\\?id=(?P<fileID>[0-9]+)\n    '
-    _RETURN_TYPE = 'any'
+    _RETURN_TYPE = 'playlist'
 
 
 class SteamCommunityBroadcastIE(LazyLoadExtractor):
@@ -11245,31 +11427,10 @@ class StreamableIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class StreamanityIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.streamanity'
-    IE_NAME = 'Streamanity'
-    _VALID_URL = 'https?://(?:www\\.)?streamanity\\.com/video/(?P<id>[A-Za-z0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
-class StreamcloudIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.streamcloud'
-    IE_NAME = 'streamcloud.eu'
-    _VALID_URL = 'https?://streamcloud\\.eu/(?P<id>[a-zA-Z0-9_-]+)(?:/(?P<fname>[^#?]*)\\.html)?'
-    _RETURN_TYPE = 'video'
-
-
 class StreamCZIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.streamcz'
     IE_NAME = 'StreamCZ'
     _VALID_URL = 'https?://(?:www\\.)?(?:stream|televizeseznam)\\.cz/[^?#]+/(?P<display_id>[^?#]+)-(?P<id>[0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
-class StreamFFIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.streamff'
-    IE_NAME = 'StreamFF'
-    _VALID_URL = 'https?://(?:www\\.)?streamff\\.com/v/(?P<id>[a-zA-Z0-9]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -11348,10 +11509,10 @@ class SVTIE(SVTBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class SVTPageIE(LazyLoadExtractor):
+class SVTPageIE(SVTBaseIE):
     _module = 'yt_dlp.extractor.svt'
     IE_NAME = 'SVTPage'
-    _VALID_URL = 'https?://(?:www\\.)?svt\\.se/(?P<path>(?:[^/]+/)*(?P<id>[^/?&#]+))'
+    _VALID_URL = 'https?://(?:www\\.)?svt\\.se/(?:[^/?#]+/)*(?P<id>[^/?&#]+)'
     _RETURN_TYPE = 'any'
 
     @classmethod
@@ -11390,13 +11551,6 @@ class SwearnetEpisodeIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class SWRMediathekIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.swrmediathek'
-    IE_NAME = 'SWRMediathek'
-    _VALID_URL = 'https?://(?:www\\.)?swrmediathek\\.de/(?:content/)?player\\.htm\\?show=(?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12})'
-    _RETURN_TYPE = 'video'
-
-
 class SYVDKIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.syvdk'
     IE_NAME = 'SYVDK'
@@ -11408,6 +11562,7 @@ class SyfyIE(AdobePassIE):
     _module = 'yt_dlp.extractor.syfy'
     IE_NAME = 'Syfy'
     _VALID_URL = 'https?://(?:www\\.)?syfy\\.com/(?:[^/]+/)?videos/(?P<id>[^/?#]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11422,6 +11577,7 @@ class TagesschauIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tagesschau'
     IE_NAME = 'Tagesschau'
     _VALID_URL = 'https?://(?:www\\.)?tagesschau\\.de/(?P<path>[^/]+/(?:[^/]+/)*?(?P<id>[^/#?]+?(?:-?[0-9]+)?))(?:~_?[^/#?]+?)?\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'any'
 
 
@@ -11429,6 +11585,7 @@ class TassIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tass'
     IE_NAME = 'Tass'
     _VALID_URL = 'https?://(?:tass\\.ru|itar-tass\\.com)/[^/]+/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11439,11 +11596,25 @@ class TBSIE(TurnerBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class TDSLifewayIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tdslifeway'
-    IE_NAME = 'TDSLifeway'
-    _VALID_URL = 'https?://tds\\.lifeway\\.com/v1/trainingdeliverysystem/courses/(?P<id>\\d+)/index\\.html'
+class TBSJPEpisodeIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.tbsjp'
+    IE_NAME = 'TBSJPEpisode'
+    _VALID_URL = 'https?://cu\\.tbs\\.co\\.jp/episode/(?P<id>[\\d_]+)'
     _RETURN_TYPE = 'video'
+
+
+class TBSJPProgramIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.tbsjp'
+    IE_NAME = 'TBSJPProgram'
+    _VALID_URL = 'https?://cu\\.tbs\\.co\\.jp/program/(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
+
+
+class TBSJPPlaylistIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.tbsjp'
+    IE_NAME = 'TBSJPPlaylist'
+    _VALID_URL = 'https?://cu\\.tbs\\.co\\.jp/playlist/(?P<id>[\\da-f]+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class TeachableBaseIE(LazyLoadExtractor):
@@ -11456,6 +11627,7 @@ class TeachableIE(TeachableBaseIE):
     _module = 'yt_dlp.extractor.teachable'
     IE_NAME = 'Teachable'
     _VALID_URL = '(?x)\n                    (?:\n                        teachable:https?://(?P<site_t>[^/]+)|\n                        https?://(?:www\\.)?(?P<site>v1\\.upskillcourses\\.com|gns3\\.teachable\\.com|academyhacker\\.com|stackskills\\.com|market\\.saleshacker\\.com|learnability\\.org|edurila\\.com|courses\\.workitdaily\\.com)\n                    )\n                    /courses/[^/]+/lectures/(?P<id>\\d+)\n                    '
+    _WORKING = False
     _NETRC_MACHINE = 'teachable'
     _RETURN_TYPE = 'video'
 
@@ -11477,6 +11649,7 @@ class TeacherTubeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.teachertube'
     IE_NAME = 'teachertube'
     _VALID_URL = 'https?://(?:www\\.)?teachertube\\.com/(viewVideo\\.php\\?video_id=|music\\.php\\?music_id=|video/(?:[\\da-z-]+-)?|audio/)(?P<id>\\d+)'
+    _WORKING = False
     IE_DESC = 'teachertube.com videos'
     _RETURN_TYPE = 'video'
 
@@ -11485,6 +11658,7 @@ class TeacherTubeUserIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.teachertube'
     IE_NAME = 'teachertube:user:collection'
     _VALID_URL = 'https?://(?:www\\.)?teachertube\\.com/(user/profile|collection)/(?P<user>[0-9a-zA-Z]+)/?'
+    _WORKING = False
     IE_DESC = 'teachertube.com user and collection videos'
     _RETURN_TYPE = 'playlist'
 
@@ -11493,6 +11667,7 @@ class TeachingChannelIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.teachingchannel'
     IE_NAME = 'TeachingChannel'
     _VALID_URL = 'https?://(?:www\\.)?teachingchannel\\.org/videos?/(?P<id>[^/?&#]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11521,13 +11696,6 @@ class TeamTreeHouseIE(LazyLoadExtractor):
     _VALID_URL = 'https?://(?:www\\.)?teamtreehouse\\.com/library/(?P<id>[^/]+)'
     _NETRC_MACHINE = 'teamtreehouse'
     _RETURN_TYPE = 'any'
-
-
-class TechTalksIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.techtalks'
-    IE_NAME = 'TechTalks'
-    _VALID_URL = 'https?://techtalks\\.tv/talks/(?:[^/]+/)?(?P<id>\\d+)'
-    _RETURN_TYPE = 'playlist'
 
 
 class TedEmbedIE(LazyLoadExtractor):
@@ -11567,6 +11735,7 @@ class Tele5IE(DPlayIE):
     _module = 'yt_dlp.extractor.tele5'
     IE_NAME = 'Tele5'
     _VALID_URL = 'https?://(?:www\\.)?tele5\\.de/(?:[^/]+/)*(?P<id>[^/?#&]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11626,6 +11795,7 @@ class TeleMBIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.telemb'
     IE_NAME = 'TeleMB'
     _VALID_URL = 'https?://(?:www\\.)?telemb\\.be/(?P<display_id>.+?)_d_(?P<id>\\d+)\\.html'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11633,6 +11803,7 @@ class TelemundoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.telemundo'
     IE_NAME = 'Telemundo'
     _VALID_URL = 'https?:\\/\\/(?:www\\.)?telemundo\\.com\\/.+?video\\/[^\\/]+(?P<id>tmvo\\d{7})'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11651,7 +11822,7 @@ class TeleQuebecIE(TeleQuebecBaseIE):
 class TeleQuebecSquatIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.telequebec'
     IE_NAME = 'TeleQuebecSquat'
-    _VALID_URL = 'https://squat\\.telequebec\\.tv/videos/(?P<id>\\d+)'
+    _VALID_URL = 'https?://squat\\.telequebec\\.tv/videos/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -11680,13 +11851,14 @@ class TeleTaskIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.teletask'
     IE_NAME = 'TeleTask'
     _VALID_URL = 'https?://(?:www\\.)?tele-task\\.de/archive/video/html5/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'playlist'
 
 
 class TelewebionIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.telewebion'
     IE_NAME = 'Telewebion'
-    _VALID_URL = 'https?://(?:www\\.)?telewebion\\.com/#!/episode/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:www\\.)?telewebion\\.com/episode/(?P<id>(?:0x[a-fA-F\\d]+|\\d+))'
     _RETURN_TYPE = 'video'
 
 
@@ -11783,6 +11955,13 @@ class TenPlayIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class TenPlaySeasonIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.tenplay'
+    IE_NAME = 'TenPlaySeason'
+    _VALID_URL = 'https?://(?:www\\.)?10play\\.com\\.au/(?P<show>[^/?#]+)/episodes/(?P<season>[^/?#]+)/?(?:$|[?#])'
+    _RETURN_TYPE = 'playlist'
+
+
 class TestURLIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.testurl'
     IE_NAME = 'TestURL'
@@ -11802,6 +11981,20 @@ class TFOIE(LazyLoadExtractor):
     IE_NAME = 'TFO'
     _VALID_URL = 'https?://(?:www\\.)?tfo\\.org/(?:en|fr)/(?:[^/]+/){2}(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
+
+
+class TheGuardianPodcastIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.theguardian'
+    IE_NAME = 'TheGuardianPodcast'
+    _VALID_URL = 'https?://(?:www\\.)?theguardian\\.com/\\w+/audio/\\d{4}/\\w{3}/\\d{1,2}/(?P<id>[\\w-]+)'
+    _RETURN_TYPE = 'video'
+
+
+class TheGuardianPodcastPlaylistIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.theguardian'
+    IE_NAME = 'TheGuardianPodcastPlaylist'
+    _VALID_URL = 'https?://(?:www\\.)?theguardian\\.com/\\w+/series/(?P<id>[\\w-]+)(?:\\?page=\\d+)?'
+    _RETURN_TYPE = 'playlist'
 
 
 class TheHoleTvIE(LazyLoadExtractor):
@@ -11918,13 +12111,7 @@ class CBSIE(CBSBaseIE):
     _module = 'yt_dlp.extractor.cbs'
     IE_NAME = 'CBS'
     _VALID_URL = '(?x)\n        (?:\n            cbs:|\n            https?://(?:www\\.)?(?:\n                cbs\\.com/(?:shows|movies)/(?:video|[^/]+/video|[^/]+)/|\n                colbertlateshow\\.com/(?:video|podcasts)/)\n        )(?P<id>[\\w-]+)'
-    _RETURN_TYPE = 'video'
-
-
-class CBSInteractiveIE(CBSIE):
-    _module = 'yt_dlp.extractor.cbsinteractive'
-    IE_NAME = 'CBSInteractive'
-    _VALID_URL = 'https?://(?:www\\.)?(?P<site>cnet|zdnet)\\.com/(?:videos|video(?:/share)?)/(?P<id>[^/?]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -11956,20 +12143,6 @@ class TheSunIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class ThetaVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.theta'
-    IE_NAME = 'ThetaVideo'
-    _VALID_URL = 'https?://(?:www\\.)?theta\\.tv/video/(?P<id>vid[a-z0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
-class ThetaStreamIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.theta'
-    IE_NAME = 'ThetaStream'
-    _VALID_URL = 'https?://(?:www\\.)?theta\\.tv/(?!video/)(?P<id>[a-z0-9-]+)'
-    _RETURN_TYPE = 'video'
-
-
 class TheWeatherChannelIE(ThePlatformIE):
     _module = 'yt_dlp.extractor.theweatherchannel'
     IE_NAME = 'TheWeatherChannel'
@@ -11984,17 +12157,11 @@ class ThisAmericanLifeIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class ThisAVIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.thisav'
-    IE_NAME = 'ThisAV'
-    _VALID_URL = 'https?://(?:www\\.)?thisav\\.com/video/(?P<id>[0-9]+)/.*'
-    _RETURN_TYPE = 'video'
-
-
 class ThisOldHouseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.thisoldhouse'
     IE_NAME = 'ThisOldHouse'
-    _VALID_URL = 'https?://(?:www\\.)?thisoldhouse\\.com/(?:watch|how-to|tv-episode|(?:[^/]+/)?\\d+)/(?P<id>[^/?#]+)'
+    _VALID_URL = 'https?://(?:www\\.)?thisoldhouse\\.com/(?:watch|how-to|tv-episode|(?:[^/?#]+/)?\\d+)/(?P<id>[^/?#]+)'
+    _NETRC_MACHINE = 'thisoldhouse'
     _RETURN_TYPE = 'video'
 
 
@@ -12118,14 +12285,6 @@ class DouyinIE(TikTokBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class TinyPicIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tinypic'
-    IE_NAME = 'tinypic'
-    _VALID_URL = 'https?://(?:.+?\\.)?tinypic\\.com/player\\.php\\?v=(?P<id>[^&]+)&s=\\d+'
-    IE_DESC = 'tinypic.com videos'
-    _RETURN_TYPE = 'video'
-
-
 class TMZIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tmz'
     IE_NAME = 'TMZ'
@@ -12196,24 +12355,12 @@ class ToggoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class TokentubeIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tokentube'
-    IE_NAME = 'Tokentube'
-    _VALID_URL = 'https?://(?:www\\.)?tokentube\\.net/(?:view\\?[vl]=|[vl]/)(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class TokentubeChannelIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tokentube'
-    IE_NAME = 'Tokentube:channel'
-    _VALID_URL = 'https?://(?:www\\.)?tokentube\\.net/channel/(?P<id>\\d+)/[^/]+(?:/videos)?'
-    _RETURN_TYPE = 'playlist'
-
-
 class TOnlineIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tonline'
     IE_NAME = 't-online.de'
+    _ENABLED = None
     _VALID_URL = 'https?://(?:www\\.)?t-online\\.de/tv/(?:[^/]+/)*id_(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -12236,6 +12383,7 @@ class ToypicsUserIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.toypics'
     IE_NAME = 'ToypicsUser'
     _VALID_URL = 'https?://videos\\.toypics\\.net/(?!view)(?P<id>[^/?#&]+)'
+    _WORKING = False
     IE_DESC = 'Toypics user profile'
     _RETURN_TYPE = 'playlist'
 
@@ -12244,6 +12392,7 @@ class ToypicsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.toypics'
     IE_NAME = 'Toypics'
     _VALID_URL = 'https?://videos\\.toypics\\.net/view/(?P<id>[0-9]+)'
+    _WORKING = False
     IE_DESC = 'Toypics video'
     age_limit = 18
     _RETURN_TYPE = 'video'
@@ -12283,13 +12432,6 @@ class TrillerShortIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.triller'
     IE_NAME = 'TrillerShort'
     _VALID_URL = 'https?://v\\.triller\\.co/(?P<id>\\w+)'
-    _RETURN_TYPE = 'video'
-
-
-class TriluliluIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.trilulilu'
-    IE_NAME = 'Trilulilu'
-    _VALID_URL = 'https?://(?:(?:www|m)\\.)?trilulilu\\.ro/(?:[^/]+/)?(?P<id>[^/#\\?]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -12340,6 +12482,13 @@ class TrtCocukVideoIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class TrtWorldIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.trtworld'
+    IE_NAME = 'TrtWorld'
+    _VALID_URL = 'https?://www\\.trtworld\\.com/video/[\\w-]+/[\\w-]+-(?P<id>\\d+)'
+    _RETURN_TYPE = 'video'
+
+
 class TrueIDIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.trueid'
     IE_NAME = 'TrueID'
@@ -12369,10 +12518,11 @@ class TruTVIE(TurnerBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class Tube8IE(KeezMoviesIE):
+class Tube8IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tube8'
     IE_NAME = 'Tube8'
     _VALID_URL = 'https?://(?:www\\.)?tube8\\.com/(?:[^/]+/)+(?P<display_id>[^/]+)/(?P<id>\\d+)'
+    _WORKING = False
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -12458,20 +12608,6 @@ class TuneInShortenerIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class TunePkIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tunepk'
-    IE_NAME = 'TunePk'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:www\\.)?tune\\.pk/(?:video/|player/embed_player.php?.*?\\bvid=)|\n                            embed\\.tune\\.pk/play/\n                        )\n                        (?P<id>\\d+)\n                    '
-    _RETURN_TYPE = 'video'
-
-
-class TurboIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.turbo'
-    IE_NAME = 'Turbo'
-    _VALID_URL = 'https?://(?:www\\.)?turbo\\.fr/videos-voiture/(?P<id>[0-9]+)-'
-    _RETURN_TYPE = 'video'
-
-
 class TV2IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tv2'
     IE_NAME = 'TV2'
@@ -12490,6 +12626,7 @@ class KatsomoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tv2'
     IE_NAME = 'Katsomo'
     _VALID_URL = 'https?://(?:www\\.)?(?:katsomo|mtv(uutiset)?)\\.fi/(?:sarja/[0-9a-z-]+-\\d+/[0-9a-z-]+-|(?:#!/)?jakso/(?:\\d+/[^/]+/)?|video/prog)(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -12497,6 +12634,7 @@ class MTVUutisetArticleIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tv2'
     IE_NAME = 'MTVUutisetArticle'
     _VALID_URL = 'https?://(?:www\\.)mtvuutiset\\.fi/artikkeli/[^/]+/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -12651,13 +12789,7 @@ class TVN24IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tvn24'
     IE_NAME = 'TVN24'
     _VALID_URL = 'https?://(?:(?:[^/]+)\\.)?tvn24(?:bis)?\\.pl/(?:[^/]+/)*(?P<id>[^/]+)'
-    _RETURN_TYPE = 'video'
-
-
-class TVNetIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tvnet'
-    IE_NAME = 'TVNet'
-    _VALID_URL = 'https?://(?:[^/]+)\\.tvnet\\.gov\\.vn/[^/]+/(?:\\d+/)?(?P<id>\\d+)(?:/|$)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -12665,88 +12797,8 @@ class TVNoeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tvnoe'
     IE_NAME = 'TVNoe'
     _VALID_URL = 'https?://(?:www\\.)?tvnoe\\.cz/video/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
-
-
-class TVNowBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowBase'
-
-
-class TVNowIE(TVNowBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNow'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:www\\.)?tvnow\\.(?:de|at|ch)/(?P<station>[^/]+)/\n                        (?P<show_id>[^/]+)/\n                        (?!(?:list|jahr)(?:/|$))(?P<id>[^/?\\#&]+)\n                    '
-    _RETURN_TYPE = 'video'
-
-    @classmethod
-    def suitable(cls, url):
-        return (False if TVNowNewIE.suitable(url) or TVNowSeasonIE.suitable(url) or TVNowAnnualIE.suitable(url) or TVNowShowIE.suitable(url)
-                else super(TVNowIE, cls).suitable(url))
-
-
-class TVNowFilmIE(TVNowBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowFilm'
-    _VALID_URL = '(?x)\n                    (?P<base_url>https?://\n                        (?:www\\.)?tvnow\\.(?:de|at|ch)/\n                        (?:filme))/\n                        (?P<title>[^/?$&]+)-(?P<id>\\d+)\n                    '
-    _RETURN_TYPE = 'video'
-
-
-class TVNowNewIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowNew'
-    _VALID_URL = '(?x)\n                    (?P<base_url>https?://\n                        (?:www\\.)?tvnow\\.(?:de|at|ch)/\n                        (?:shows|serien))/\n                        (?P<show>[^/]+)-\\d+/\n                        [^/]+/\n                        episode-\\d+-(?P<episode>[^/?$&]+)-(?P<id>\\d+)\n                    '
-
-
-class TVNowNewBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowNewBase'
-
-
-class TVNowListBaseIE(TVNowNewBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowListBase'
-
-    @classmethod
-    def suitable(cls, url):
-        return (False if TVNowNewIE.suitable(url)
-                else super(TVNowListBaseIE, cls).suitable(url))
-
-
-class TVNowSeasonIE(TVNowListBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowSeason'
-    _VALID_URL = '(?x)\n                    (?P<base_url>\n                        https?://\n                            (?:www\\.)?tvnow\\.(?:de|at|ch)/(?:shows|serien)/\n                            [^/?#&]+-(?P<show_id>\\d+)\n                    )\n                    /staffel-(?P<id>\\d+)'
-    _RETURN_TYPE = 'playlist'
-
-    @classmethod
-    def suitable(cls, url):
-        return (False if TVNowNewIE.suitable(url)
-                else super(TVNowListBaseIE, cls).suitable(url))
-
-
-class TVNowAnnualIE(TVNowListBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowAnnual'
-    _VALID_URL = '(?x)\n                    (?P<base_url>\n                        https?://\n                            (?:www\\.)?tvnow\\.(?:de|at|ch)/(?:shows|serien)/\n                            [^/?#&]+-(?P<show_id>\\d+)\n                    )\n                    /(?P<year>\\d{4})-(?P<month>\\d{2})'
-    _RETURN_TYPE = 'playlist'
-
-    @classmethod
-    def suitable(cls, url):
-        return (False if TVNowNewIE.suitable(url)
-                else super(TVNowListBaseIE, cls).suitable(url))
-
-
-class TVNowShowIE(TVNowListBaseIE):
-    _module = 'yt_dlp.extractor.tvnow'
-    IE_NAME = 'TVNowShow'
-    _VALID_URL = '(?x)\n                    (?P<base_url>\n                        https?://\n                            (?:www\\.)?tvnow\\.(?:de|at|ch)/(?:shows|serien)/\n                            [^/?#&]+-(?P<show_id>\\d+)\n                    )\n                    '
-    _RETURN_TYPE = 'playlist'
-
-    @classmethod
-    def suitable(cls, url):
-        return (False if TVNowNewIE.suitable(url) or TVNowSeasonIE.suitable(url) or TVNowAnnualIE.suitable(url)
-                else super(TVNowShowIE, cls).suitable(url))
 
 
 class TVOpenGrBaseIE(LazyLoadExtractor):
@@ -12782,7 +12834,7 @@ class TVPEmbedIE(LazyLoadExtractor):
 class TVPIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.tvp'
     IE_NAME = 'tvp'
-    _VALID_URL = 'https?://(?:[^/]+\\.)?(?:tvp(?:parlament)?\\.(?:pl|info)|tvpworld\\.com|swipeto\\.pl)/(?:(?!\\d+/)[^/]+/)*(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:[^/]+\\.)?(?:tvp(?:parlament)?\\.(?:pl|info)|tvpworld\\.com|swipeto\\.pl)/(?:(?!\\d+/)[^/]+/)*(?P<id>\\d+)(?:[/?#]|$)'
     IE_DESC = 'Telewizja Polska'
     age_limit = 12
     _RETURN_TYPE = 'any'
@@ -12810,7 +12862,7 @@ class TVPVODSeriesIE(TVPVODBaseIE):
 class TVPVODVideoIE(TVPVODBaseIE):
     _module = 'yt_dlp.extractor.tvp'
     IE_NAME = 'tvp:vod'
-    _VALID_URL = 'https?://vod\\.tvp\\.pl/[a-z\\d-]+,\\d+/[a-z\\d-]+(?<!-odcinki)(?:-odcinki,\\d+/odcinek-\\d+,S\\d+E\\d+)?,(?P<id>\\d+)(?:\\?[^#]+)?(?:#.+)?$'
+    _VALID_URL = 'https?://vod\\.tvp\\.pl/(?P<category>[a-z\\d-]+,\\d+)/[a-z\\d-]+(?<!-odcinki)(?:-odcinki,\\d+/odcinek-\\d+,S\\d+E\\d+)?,(?P<id>\\d+)/?(?:[?#]|$)'
     age_limit = 16
     _RETURN_TYPE = 'video'
 
@@ -12844,14 +12896,6 @@ class TweakersIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class TwentyFourVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.twentyfourvideo'
-    IE_NAME = '24video'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?P<host>\n                            (?:(?:www|porno?)\\.)?24video\\.\n                            (?:net|me|xxx|sexy?|tube|adult|site|vip)\n                        )/\n                        (?:\n                            video/(?:(?:view|xml)/)?|\n                            player/new24_play\\.swf\\?id=\n                        )\n                        (?P<id>\\d+)\n                    '
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class TwentyMinutenIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.twentymin'
     IE_NAME = '20min'
@@ -12869,20 +12913,22 @@ class TwentyThreeVideoIE(LazyLoadExtractor):
 class TwitCastingIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.twitcasting'
     IE_NAME = 'TwitCasting'
-    _VALID_URL = 'https?://(?:[^/]+\\.)?twitcasting\\.tv/(?P<uploader_id>[^/]+)/(?:movie|twplayer)/(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:[^/?#]+\\.)?twitcasting\\.tv/(?P<uploader_id>[^/?#]+)/(?:movie|twplayer)/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
 class TwitCastingLiveIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.twitcasting'
     IE_NAME = 'TwitCastingLive'
-    _VALID_URL = 'https?://(?:[^/]+\\.)?twitcasting\\.tv/(?P<id>[^/]+)/?(?:[#?]|$)'
+    _VALID_URL = 'https?://(?:[^/?#]+\\.)?twitcasting\\.tv/(?P<id>[^/?#]+)/?(?:[#?]|$)'
+    _RETURN_TYPE = 'video'
 
 
 class TwitCastingUserIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.twitcasting'
     IE_NAME = 'TwitCastingUser'
-    _VALID_URL = 'https?://(?:[^/]+\\.)?twitcasting\\.tv/(?P<id>[^/]+)/show/?(?:[#?]|$)'
+    _VALID_URL = 'https?://(?:[^/?#]+\\.)?twitcasting\\.tv/(?P<id>[^/?#]+)/(:?show|archive)/?(?:[#?]|$)'
+    _RETURN_TYPE = 'playlist'
 
 
 class TwitchBaseIE(LazyLoadExtractor):
@@ -13022,7 +13068,7 @@ class TwitterSpacesIE(TwitterBaseIE):
 class TwitterShortenerIE(TwitterBaseIE):
     _module = 'yt_dlp.extractor.twitter'
     IE_NAME = 'twitter:shortener'
-    _VALID_URL = 'https?://t.co/(?P<id>[^?]+)|tco:(?P<eid>[^?]+)'
+    _VALID_URL = 'https?://t\\.co/(?P<id>[^?#]+)|tco:(?P<eid>[^?#]+)'
     _NETRC_MACHINE = 'twitter'
 
 
@@ -13092,6 +13138,7 @@ class UkColumnIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.ukcolumn'
     IE_NAME = 'ukcolumn'
     _VALID_URL = '(?i)https?://(?:www\\.)?ukcolumn\\.org(/index\\.php)?/(?:video|ukcolumn-news)/(?P<id>[-a-z0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -13133,6 +13180,7 @@ class UMGDeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.umg'
     IE_NAME = 'umg:de'
     _VALID_URL = 'https?://(?:www\\.)?universal-music\\.de/[^/]+/videos/[^/?#]+-(?P<id>\\d+)'
+    _WORKING = False
     IE_DESC = 'Universal Music Deutschland'
     _RETURN_TYPE = 'video'
 
@@ -13148,13 +13196,7 @@ class UnityIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.unity'
     IE_NAME = 'Unity'
     _VALID_URL = 'https?://(?:www\\.)?unity3d\\.com/learn/tutorials/(?:[^/]+/)*(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
-
-
-class UnscriptedNewsVideoIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.unscripted'
-    IE_NAME = 'UnscriptedNewsVideo'
-    _VALID_URL = 'https?://www\\.unscripted\\.news/videos/(?P<id>[\\w-]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -13168,14 +13210,14 @@ class UnsupportedInfoExtractor(LazyLoadExtractor):
 class KnownDRMIE(UnsupportedInfoExtractor):
     _module = 'yt_dlp.extractor.unsupported'
     IE_NAME = 'DRM'
-    _VALID_URL = 'https?://(?:www\\.)?(?:play\\.hbomax\\.com|channel(?:4|5)\\.com|peacocktv\\.com|(?:[\\w\\.]+\\.)?disneyplus\\.com|open\\.spotify\\.com/(?:track|playlist|album|artist)|tvnz\\.co\\.nz|oneplus\\.ch|artstation\\.com/learning/courses|philo\\.com|(?:[\\w\\.]+\\.)?mech-plus\\.com|aha\\.video|mubi\\.com|vootkids\\.com|nowtv\\.it/watch|tv\\.apple\\.com)'
+    _VALID_URL = 'https?://(?:www\\.)?(?:play\\.hbomax\\.com|channel(?:4|5)\\.com|peacocktv\\.com|(?:[\\w\\.]+\\.)?disneyplus\\.com|open\\.spotify\\.com/(?:track|playlist|album|artist)|tvnz\\.co\\.nz|oneplus\\.ch|artstation\\.com/learning/courses|philo\\.com|(?:[\\w\\.]+\\.)?mech-plus\\.com|aha\\.video|mubi\\.com|vootkids\\.com|nowtv\\.it/watch|tv\\.apple\\.com|primevideo\\.com|hulu\\.com|resource\\.inkryptvideos\\.com|joyn\\.de|amazon\\.(?:\\w{2}\\.)?\\w+/gp/video|music\\.amazon\\.(?:\\w{2}\\.)?\\w+|(?:watch|front)\\.njpwworld\\.com)'
     IE_DESC = False
 
 
 class KnownPiracyIE(UnsupportedInfoExtractor):
     _module = 'yt_dlp.extractor.unsupported'
     IE_NAME = 'Piracy'
-    _VALID_URL = 'https?://(?:www\\.)?(?:dood\\.(?:to|watch|so|pm|wf|re)|viewsb\\.com|filemoon\\.sx|hentai\\.animestigma\\.com)'
+    _VALID_URL = 'https?://(?:www\\.)?(?:dood\\.(?:to|watch|so|pm|wf|re)|viewsb\\.com|filemoon\\.sx|hentai\\.animestigma\\.com|thisav\\.com)'
     IE_DESC = False
 
 
@@ -13208,6 +13250,7 @@ class UrortIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.urort'
     IE_NAME = 'Urort'
     _VALID_URL = 'https?://(?:www\\.)?urort\\.p3\\.no/#!/Band/(?P<id>[^/]+)$'
+    _WORKING = False
     IE_DESC = 'NRK P3 Urørt'
     _RETURN_TYPE = 'video'
 
@@ -13264,8 +13307,8 @@ class UstudioEmbedIE(LazyLoadExtractor):
 
 class UtreonIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.utreon'
-    IE_NAME = 'Utreon'
-    _VALID_URL = 'https?://(?:www\\.)?utreon.com/v/(?P<id>[a-zA-Z0-9_-]+)'
+    IE_NAME = 'playeur'
+    _VALID_URL = 'https?://(?:www\\.)?(?:utreon|playeur)\\.com/v/(?P<id>[\\w-]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -13273,6 +13316,7 @@ class Varzesh3IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.varzesh3'
     IE_NAME = 'Varzesh3'
     _VALID_URL = 'https?://(?:www\\.)?video\\.varzesh3\\.com/(?:[^/]+/)+(?P<id>[^/]+)/?'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -13280,13 +13324,6 @@ class Vbox7IE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vbox7'
     IE_NAME = 'Vbox7'
     _VALID_URL = '(?x)\n                    https?://\n                        (?:[^/]+\\.)?vbox7\\.com/\n                        (?:\n                            play:|\n                            (?:\n                                emb/external\\.php|\n                                player/ext\\.swf\n                            )\\?.*?\\bvid=\n                        )\n                        (?P<id>[\\da-fA-F]+)\n                    '
-    _RETURN_TYPE = 'video'
-
-
-class VeeHDIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.veehd'
-    IE_NAME = 'VeeHD'
-    _VALID_URL = 'https?://veehd\\.com/video/(?P<id>\\d+)'
     _RETURN_TYPE = 'video'
 
 
@@ -13316,6 +13353,7 @@ class VestiIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vesti'
     IE_NAME = 'Vesti'
     _VALID_URL = 'https?://(?:.+?\\.)?vesti\\.ru/(?P<id>.+)'
+    _WORKING = False
     IE_DESC = 'Вести.Ru'
     _RETURN_TYPE = 'video'
 
@@ -13379,7 +13417,7 @@ class ViceIE(ViceBaseIE, AdobePassIE):
 class ViceArticleIE(ViceBaseIE):
     _module = 'yt_dlp.extractor.vice'
     IE_NAME = 'vice:article'
-    _VALID_URL = 'https://(?:www\\.)?vice\\.com/(?P<locale>[^/]+)/article/(?:[0-9a-z]{6}/)?(?P<id>[^?#]+)'
+    _VALID_URL = 'https?://(?:www\\.)?vice\\.com/(?P<locale>[^/]+)/article/(?:[0-9a-z]{6}/)?(?P<id>[^?#]+)'
     age_limit = 17
     _RETURN_TYPE = 'video'
 
@@ -13389,13 +13427,6 @@ class ViceShowIE(ViceBaseIE):
     IE_NAME = 'vice:show'
     _VALID_URL = 'https?://(?:video\\.vice|(?:www\\.)?vice(?:land|tv))\\.com/(?P<locale>[^/]+)/show/(?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'playlist'
-
-
-class VidbitIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vidbit'
-    IE_NAME = 'Vidbit'
-    _VALID_URL = 'https?://(?:www\\.)?vidbit\\.co/(?:watch|embed)\\?.*?\\bv=(?P<id>[\\da-zA-Z]+)'
-    _RETURN_TYPE = 'video'
 
 
 class ViddlerIE(LazyLoadExtractor):
@@ -13437,6 +13468,7 @@ class VideofyMeIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.videofyme'
     IE_NAME = 'videofy.me'
     _VALID_URL = 'https?://(?:www\\.videofy\\.me/.+?|p\\.videofy\\.me/v)/(?P<id>\\d+)(&|#|$)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -13561,6 +13593,13 @@ class VidLiiIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
+class VidlyIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.vidly'
+    IE_NAME = 'Vidly'
+    _VALID_URL = 'https?://(?:vid\\.ly/|(?:s\\.)?vid\\.ly/embeded\\.html\\?(?:[^#]+&)?link=)(?P<id>\\w+)'
+    _RETURN_TYPE = 'video'
+
+
 class ViewLiftBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.viewlift'
     IE_NAME = 'ViewLiftBase'
@@ -13569,7 +13608,7 @@ class ViewLiftBaseIE(LazyLoadExtractor):
 class ViewLiftIE(ViewLiftBaseIE):
     _module = 'yt_dlp.extractor.viewlift'
     IE_NAME = 'viewlift'
-    _VALID_URL = 'https?://(?:www\\.)?(?P<domain>(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm|failarmy|ftfnext|lnppass\\.legapallacanestro|moviespree|app\\.myoutdoortv|neoufitness|pflmma|theidentitytb)\\.com|(?:hoichoi|app\\.horseandcountry|kronon|marquee|supercrosslive)\\.tv)(?P<path>(?:/(?:films/title|show|(?:news/)?videos?|watch))?/(?P<id>[^?#]+))'
+    _VALID_URL = 'https?://(?:www\\.)?(?P<domain>(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm|failarmy|ftfnext|lnppass\\.legapallacanestro|moviespree|app\\.myoutdoortv|neoufitness|pflmma|theidentitytb|chorki)\\.com|(?:hoichoi|app\\.horseandcountry|kronon|marquee|supercrosslive)\\.tv)(?P<path>(?:/(?:films/title|show|(?:news/)?videos?|watch))?/(?P<id>[^?#]+))'
     age_limit = 17
     _RETURN_TYPE = 'any'
 
@@ -13581,7 +13620,7 @@ class ViewLiftIE(ViewLiftBaseIE):
 class ViewLiftEmbedIE(ViewLiftBaseIE):
     _module = 'yt_dlp.extractor.viewlift'
     IE_NAME = 'viewlift:embed'
-    _VALID_URL = 'https?://(?:(?:www|embed)\\.)?(?P<domain>(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm|failarmy|ftfnext|lnppass\\.legapallacanestro|moviespree|app\\.myoutdoortv|neoufitness|pflmma|theidentitytb)\\.com|(?:hoichoi|app\\.horseandcountry|kronon|marquee|supercrosslive)\\.tv)/embed/player\\?.*\\bfilmId=(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})'
+    _VALID_URL = 'https?://(?:(?:www|embed)\\.)?(?P<domain>(?:(?:main\\.)?snagfilms|snagxtreme|funnyforfree|kiddovid|winnersview|(?:monumental|lax)sportsnetwork|vayafilm|failarmy|ftfnext|lnppass\\.legapallacanestro|moviespree|app\\.myoutdoortv|neoufitness|pflmma|theidentitytb|chorki)\\.com|(?:hoichoi|app\\.horseandcountry|kronon|marquee|supercrosslive)\\.tv)/embed/player\\?.*\\bfilmId=(?P<id>[\\da-f]{8}-(?:[\\da-f]{4}-){3}[\\da-f]{12})'
     _RETURN_TYPE = 'video'
 
 
@@ -13701,14 +13740,6 @@ class VimmRecordingIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class VimpleIE(SprutoBaseIE):
-    _module = 'yt_dlp.extractor.vimple'
-    IE_NAME = 'Vimple'
-    _VALID_URL = 'https?://(?:player\\.vimple\\.(?:ru|co)/iframe|vimple\\.(?:ru|co))/(?P<id>[\\da-f-]{32,36})'
-    IE_DESC = 'Vimple - one-click video hosting'
-    _RETURN_TYPE = 'video'
-
-
 class VineIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vine'
     IE_NAME = 'Vine'
@@ -13750,10 +13781,17 @@ class VikiChannelIE(VikiBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
+class ViouslyIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.viously'
+    IE_NAME = 'Viously'
+    _VALID_URL = False
+
+
 class ViqeoIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.viqeo'
     IE_NAME = 'Viqeo'
     _VALID_URL = '(?x)\n                        (?:\n                            viqeo:|\n                            https?://cdn\\.viqeo\\.tv/embed/*\\?.*?\\bvid=|\n                            https?://api\\.viqeo\\.tv/v\\d+/data/startup?.*?\\bvideo(?:%5B%5D|\\[\\])=\n                        )\n                        (?P<id>[\\da-f]+)\n                    '
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -13806,7 +13844,7 @@ class VKBaseIE(LazyLoadExtractor):
 class VKIE(VKBaseIE):
     _module = 'yt_dlp.extractor.vk'
     IE_NAME = 'vk'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/video_|\n                                (?:www\\.)?daxab.com/\n                            )\n                            ext\\.php\\?(?P<embed_query>.*?\\boid=(?P<oid>-?\\d+).*?\\bid=(?P<id>\\d+).*)|\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/(?:.+?\\?.*?z=)?(?:video|clip)|\n                                (?:www\\.)?daxab.com/embed/\n                            )\n                            (?P<videoid>-?\\d+_\\d+)(?:.*\\blist=(?P<list_id>([\\da-f]+)|(ln-[\\da-zA-Z]+)))?\n                        )\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/video_|\n                                (?:www\\.)?daxab\\.com/\n                            )\n                            ext\\.php\\?(?P<embed_query>.*?\\boid=(?P<oid>-?\\d+).*?\\bid=(?P<id>\\d+).*)|\n                            (?:\n                                (?:(?:m|new)\\.)?vk\\.com/(?:.+?\\?.*?z=)?(?:video|clip)|\n                                (?:www\\.)?daxab\\.com/embed/\n                            )\n                            (?P<videoid>-?\\d+_\\d+)(?:.*\\blist=(?P<list_id>([\\da-f]+)|(ln-[\\da-zA-Z]+)))?\n                        )\n                    '
     IE_DESC = 'VK'
     _NETRC_MACHINE = 'vk'
     _RETURN_TYPE = 'video'
@@ -13829,17 +13867,29 @@ class VKWallPostIE(VKBaseIE):
     _RETURN_TYPE = 'playlist'
 
 
+class VKPlayBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.vk'
+    IE_NAME = 'VKPlayBase'
+
+
+class VKPlayIE(VKPlayBaseIE):
+    _module = 'yt_dlp.extractor.vk'
+    IE_NAME = 'VKPlay'
+    _VALID_URL = 'https?://(?:vkplay\\.live|live\\.vkplay\\.ru)/(?P<username>[^/#?]+)/record/(?P<id>[\\da-f-]+)'
+    _RETURN_TYPE = 'video'
+
+
+class VKPlayLiveIE(VKPlayBaseIE):
+    _module = 'yt_dlp.extractor.vk'
+    IE_NAME = 'VKPlayLive'
+    _VALID_URL = 'https?://(?:vkplay\\.live|live\\.vkplay\\.ru)/(?P<id>[^/#?]+)/?(?:[#?]|$)'
+    _RETURN_TYPE = 'video'
+
+
 class VocarooIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vocaroo'
     IE_NAME = 'Vocaroo'
     _VALID_URL = 'https?://(?:www\\.)?(?:vocaroo\\.com|voca\\.ro)/(?:embed/)?(?P<id>\\w+)'
-    _RETURN_TYPE = 'video'
-
-
-class VodlockerIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vodlocker'
-    IE_NAME = 'Vodlocker'
-    _VALID_URL = 'https?://(?:www\\.)?vodlocker\\.(?:com|city)/(?:embed-)?(?P<id>[0-9a-zA-Z]+)(?:\\..*?)?'
     _RETURN_TYPE = 'video'
 
 
@@ -13857,13 +13907,6 @@ class VODPlatformIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class VoiceRepublicIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.voicerepublic'
-    IE_NAME = 'VoiceRepublic'
-    _VALID_URL = 'https?://voicerepublic\\.com/(?:talks|embed)/(?P<id>[0-9a-z-]+)'
-    _RETURN_TYPE = 'video'
-
-
 class VoicyBaseIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.voicy'
     IE_NAME = 'VoicyBase'
@@ -13873,6 +13916,7 @@ class VoicyIE(VoicyBaseIE):
     _module = 'yt_dlp.extractor.voicy'
     IE_NAME = 'voicy'
     _VALID_URL = 'https?://voicy\\.jp/channel/(?P<channel_id>\\d+)/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'playlist'
 
 
@@ -13880,6 +13924,7 @@ class VoicyChannelIE(VoicyBaseIE):
     _module = 'yt_dlp.extractor.voicy'
     IE_NAME = 'voicy:channel'
     _VALID_URL = 'https?://voicy\\.jp/channel/(?P<id>\\d+)'
+    _WORKING = False
     _RETURN_TYPE = 'playlist'
 
     @classmethod
@@ -13904,6 +13949,7 @@ class VootIE(VootBaseIE):
     _module = 'yt_dlp.extractor.voot'
     IE_NAME = 'Voot'
     _VALID_URL = '(?x)\n                    (?:\n                        voot:|\n                        https?://(?:www\\.)?voot\\.com/?\n                        (?:\n                            movies?/[^/]+/|\n                            (?:shows|kids)/(?:[^/]+/){4}\n                        )\n                     )\n                    (?P<id>\\d{3,})\n                    '
+    _WORKING = False
     _NETRC_MACHINE = 'voot'
     age_limit = 13
     _RETURN_TYPE = 'video'
@@ -13913,6 +13959,7 @@ class VootSeriesIE(VootBaseIE):
     _module = 'yt_dlp.extractor.voot'
     IE_NAME = 'VootSeries'
     _VALID_URL = 'https?://(?:www\\.)?voot\\.com/shows/[^/]+/(?P<id>\\d{3,})'
+    _WORKING = False
     _NETRC_MACHINE = 'voot'
     _RETURN_TYPE = 'playlist'
 
@@ -13973,45 +14020,18 @@ class DagelijkseKostIE(VRTBaseIE):
     _RETURN_TYPE = 'video'
 
 
-class VrakIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vrak'
-    IE_NAME = 'Vrak'
-    _VALID_URL = 'https?://(?:www\\.)?vrak\\.tv/videos\\?.*?\\btarget=(?P<id>[\\d.]+)'
-    age_limit = 8
-    _RETURN_TYPE = 'video'
-
-
-class VRVBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vrv'
-    IE_NAME = 'VRVBase'
-
-
-class VRVIE(VRVBaseIE):
-    _module = 'yt_dlp.extractor.vrv'
-    IE_NAME = 'vrv'
-    _VALID_URL = 'https?://(?:www\\.)?vrv\\.co/watch/(?P<id>[A-Z0-9]+)'
-    _NETRC_MACHINE = 'vrv'
-    _RETURN_TYPE = 'any'
-
-
-class VRVSeriesIE(VRVBaseIE):
-    _module = 'yt_dlp.extractor.vrv'
-    IE_NAME = 'vrv:series'
-    _VALID_URL = 'https?://(?:www\\.)?vrv\\.co/series/(?P<id>[A-Z0-9]+)'
+class Radio1BeIE(VRTBaseIE):
+    _module = 'yt_dlp.extractor.vrt'
+    IE_NAME = 'Radio1Be'
+    _VALID_URL = 'https?://radio1\\.be/(?:lees|luister/select)/(?P<id>[\\w/-]+)'
     _RETURN_TYPE = 'playlist'
-
-
-class VShareIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vshare'
-    IE_NAME = 'VShare'
-    _VALID_URL = 'https?://(?:www\\.)?vshare\\.io/[dv]/(?P<id>[^/?#&]+)'
-    _RETURN_TYPE = 'video'
 
 
 class VTMIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vtm'
     IE_NAME = 'VTM'
     _VALID_URL = 'https?://(?:www\\.)?vtm\\.be/([^/?&#]+)~v(?P<id>[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -14029,13 +14049,6 @@ class VuClipIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class VuploadIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vupload'
-    IE_NAME = 'Vupload'
-    _VALID_URL = 'https://vupload\\.com/v/(?P<id>[a-z0-9]+)'
-    _RETURN_TYPE = 'video'
-
-
 class VVVVIDIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.vvvvid'
     IE_NAME = 'VVVVID'
@@ -14048,27 +14061,6 @@ class VVVVIDShowIE(VVVVIDIE):
     IE_NAME = 'VVVVIDShow'
     _VALID_URL = '(?P<base_url>https?://(?:www\\.)?vvvvid\\.it/(?:#!)?(?:show|anime|film|series)/(?P<id>\\d+)(?:/(?P<show_title>[^/?&#]+))?)/?(?:[?#&]|$)'
     _RETURN_TYPE = 'playlist'
-
-
-class VyboryMosIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vyborymos'
-    IE_NAME = 'VyboryMos'
-    _VALID_URL = 'https?://vybory\\.mos\\.ru/(?:#precinct/|account/channels\\?.*?\\bstation_id=)(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class VzaarIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.vzaar'
-    IE_NAME = 'Vzaar'
-    _VALID_URL = 'https?://(?:(?:www|view)\\.)?vzaar\\.com/(?:videos/)?(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
-
-
-class WakanimIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.wakanim'
-    IE_NAME = 'Wakanim'
-    _VALID_URL = 'https://(?:www\\.)?wakanim\\.tv/[^/]+/v2/catalogue/episode/(?P<id>\\d+)'
-    _RETURN_TYPE = 'video'
 
 
 class WallaIE(LazyLoadExtractor):
@@ -14096,53 +14088,10 @@ class WashingtonPostArticleIE(LazyLoadExtractor):
         return False if WashingtonPostIE.suitable(url) else super(WashingtonPostArticleIE, cls).suitable(url)
 
 
-class WASDTVBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.wasdtv'
-    IE_NAME = 'WASDTVBase'
-
-
-class WASDTVStreamIE(WASDTVBaseIE):
-    _module = 'yt_dlp.extractor.wasdtv'
-    IE_NAME = 'wasdtv:stream'
-    _VALID_URL = 'https?://wasd\\.tv/(?P<id>[^/#?]+)$'
-    _RETURN_TYPE = 'video'
-
-
-class WASDTVRecordIE(WASDTVBaseIE):
-    _module = 'yt_dlp.extractor.wasdtv'
-    IE_NAME = 'wasdtv:record'
-    _VALID_URL = 'https?://wasd\\.tv/[^/#?]+(?:/videos)?\\?record=(?P<id>\\d+)$'
-    _RETURN_TYPE = 'video'
-
-
-class WASDTVClipIE(WASDTVBaseIE):
-    _module = 'yt_dlp.extractor.wasdtv'
-    IE_NAME = 'wasdtv:clip'
-    _VALID_URL = 'https?://wasd\\.tv/[^/#?]+/clips\\?clip=(?P<id>\\d+)$'
-    _RETURN_TYPE = 'video'
-
-
 class WatIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.wat'
     IE_NAME = 'wat.tv'
     _VALID_URL = '(?:wat:|https?://(?:www\\.)?wat\\.tv/video/.*-)(?P<id>[0-9a-z]+)'
-    _RETURN_TYPE = 'video'
-
-
-class WatchBoxIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.watchbox'
-    IE_NAME = 'WatchBox'
-    _VALID_URL = 'https?://(?:www\\.)?watchbox\\.de/(?P<kind>serien|filme)/(?:[^/]+/)*[^/]+-(?P<id>\\d+)'
-    age_limit = 16
-    _RETURN_TYPE = 'video'
-
-
-class WatchIndianPornIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.watchindianporn'
-    IE_NAME = 'WatchIndianPorn'
-    _VALID_URL = 'https?://(?:www\\.)?watchindianporn\\.net/(?:[^/]+/)*video/(?P<display_id>[^/]+)-(?P<id>[a-zA-Z0-9]+)\\.html'
-    IE_DESC = 'Watch Indian Porn'
-    age_limit = 18
     _RETURN_TYPE = 'video'
 
 
@@ -14209,24 +14158,37 @@ class WebOfStoriesPlaylistIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class WeiboIE(LazyLoadExtractor):
+class WeiboBaseIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.weibo'
+    IE_NAME = 'WeiboBase'
+
+
+class WeiboIE(WeiboBaseIE):
     _module = 'yt_dlp.extractor.weibo'
     IE_NAME = 'Weibo'
-    _VALID_URL = 'https?://(?:www\\.)?weibo\\.com/[0-9]+/(?P<id>[a-zA-Z0-9]+)'
+    _VALID_URL = 'https?://(?:m\\.weibo\\.cn/status|(?:www\\.)?weibo\\.com/\\d+)/(?P<id>[a-zA-Z0-9]+)'
     _RETURN_TYPE = 'video'
 
 
-class WeiboMobileIE(LazyLoadExtractor):
+class WeiboVideoIE(WeiboBaseIE):
     _module = 'yt_dlp.extractor.weibo'
-    IE_NAME = 'WeiboMobile'
-    _VALID_URL = 'https?://m\\.weibo\\.cn/status/(?P<id>[0-9]+)(\\?.+)?'
+    IE_NAME = 'WeiboVideo'
+    _VALID_URL = 'https?://(?:www\\.)?weibo\\.com/tv/show/(?P<id>\\d+:\\d+)'
     _RETURN_TYPE = 'video'
+
+
+class WeiboUserIE(WeiboBaseIE):
+    _module = 'yt_dlp.extractor.weibo'
+    IE_NAME = 'WeiboUser'
+    _VALID_URL = 'https?://(?:www\\.)?weibo\\.com/u/(?P<id>\\d+)'
+    _RETURN_TYPE = 'playlist'
 
 
 class WeiqiTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.weiqitv'
     IE_NAME = 'WeiqiTV'
     _VALID_URL = 'https?://(?:www\\.)?weiqitv\\.com/index/video_play\\?videoId=(?P<id>[A-Za-z0-9]+)'
+    _WORKING = False
     IE_DESC = 'WQTV'
     _RETURN_TYPE = 'video'
 
@@ -14240,7 +14202,7 @@ class WeverseBaseIE(LazyLoadExtractor):
 class WeverseIE(WeverseBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'Weverse'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<artist>[^/?#]+)/live/(?P<id>[\\d-]+)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<artist>[^/?#]+)/live/(?P<id>[\\d-]+)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'video'
 
@@ -14248,7 +14210,7 @@ class WeverseIE(WeverseBaseIE):
 class WeverseMediaIE(WeverseBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'WeverseMedia'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<artist>[^/?#]+)/media/(?P<id>[\\d-]+)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<artist>[^/?#]+)/media/(?P<id>[\\d-]+)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'video'
 
@@ -14256,7 +14218,7 @@ class WeverseMediaIE(WeverseBaseIE):
 class WeverseMomentIE(WeverseBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'WeverseMoment'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<artist>[^/?#]+)/moment/(?P<uid>[\\da-f]+)/post/(?P<id>[\\d-]+)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<artist>[^/?#]+)/moment/(?P<uid>[\\da-f]+)/post/(?P<id>[\\d-]+)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'video'
 
@@ -14270,7 +14232,7 @@ class WeverseTabBaseIE(WeverseBaseIE):
 class WeverseLiveTabIE(WeverseTabBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'WeverseLiveTab'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<id>[^/?#]+)/live/?(?:[?#]|$)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<id>[^/?#]+)/live/?(?:[?#]|$)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'playlist'
 
@@ -14278,7 +14240,7 @@ class WeverseLiveTabIE(WeverseTabBaseIE):
 class WeverseMediaTabIE(WeverseTabBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'WeverseMediaTab'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<id>[^/?#]+)/media(?:/|/all|/new)?(?:[?#]|$)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<id>[^/?#]+)/media(?:/|/all|/new)?(?:[?#]|$)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'playlist'
 
@@ -14286,7 +14248,7 @@ class WeverseMediaTabIE(WeverseTabBaseIE):
 class WeverseLiveIE(WeverseBaseIE):
     _module = 'yt_dlp.extractor.weverse'
     IE_NAME = 'WeverseLive'
-    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse.io/(?P<id>[^/?#]+)/?(?:[?#]|$)'
+    _VALID_URL = 'https?://(?:www\\.|m\\.)?weverse\\.io/(?P<id>[^/?#]+)/?(?:[?#]|$)'
     _NETRC_MACHINE = 'weverse'
     _RETURN_TYPE = 'video'
 
@@ -14320,17 +14282,17 @@ class WikimediaIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class WillowIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.willow'
-    IE_NAME = 'Willow'
-    _VALID_URL = 'https?://(www\\.)?willow\\.tv/videos/(?P<id>[0-9a-z-_]+)'
+class WimbledonIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.wimbledon'
+    IE_NAME = 'Wimbledon'
+    _VALID_URL = 'https?://(?:www\\.)?wimbledon\\.com/\\w+/video/media/(?P<id>\\d+)\\.html'
     _RETURN_TYPE = 'video'
 
 
 class WimTVIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.wimtv'
     IE_NAME = 'WimTV'
-    _VALID_URL = '(?x:\n        https?://platform.wim.tv/\n        (?:\n            (?:embed/)?\\?\n            |\\#/webtv/.+?/\n        )\n        (?P<type>vod|live|cast)[=/]\n        (?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}).*?)'
+    _VALID_URL = '(?x:\n        https?://platform\\.wim\\.tv/\n        (?:\n            (?:embed/)?\\?\n            |\\#/webtv/.+?/\n        )\n        (?P<type>vod|live|cast)[=/]\n        (?P<id>[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}).*?)'
     _RETURN_TYPE = 'video'
 
 
@@ -14402,12 +14364,6 @@ class WPPilotChannelsIE(WPPilotBaseIE):
     IE_NAME = 'wppilot:channels'
     _VALID_URL = '(?:https?://pilot\\.wp\\.pl/(?:tv/?)?(?:\\?[^#]*)?#?|wppilot:)$'
     _RETURN_TYPE = 'playlist'
-
-
-class WrestleUniverseBaseIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.wrestleuniverse'
-    IE_NAME = 'WrestleUniverseBase'
-    _NETRC_MACHINE = 'wrestleuniverse'
 
 
 class WrestleUniverseVODIE(WrestleUniverseBaseIE):
@@ -14502,14 +14458,6 @@ class XanimuIE(LazyLoadExtractor):
     _RETURN_TYPE = 'video'
 
 
-class XBefIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.xbef'
-    IE_NAME = 'XBef'
-    _VALID_URL = 'https?://(?:www\\.)?xbef\\.com/video/(?P<id>[0-9]+)'
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
 class XboxClipsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xboxclips'
     IE_NAME = 'XboxClips'
@@ -14528,7 +14476,7 @@ class XFileShareIE(LazyLoadExtractor):
 class XHamsterIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xhamster'
     IE_NAME = 'XHamster'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:.+?\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/\n                        (?:\n                            movies/(?P<id>[\\dA-Za-z]+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>[\\dA-Za-z]+)\n                        )\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:[^/?#]+\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/\n                        (?:\n                            movies/(?P<id>[\\dA-Za-z]+)/(?P<display_id>[^/]*)\\.html|\n                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>[\\dA-Za-z]+)\n                        )\n                    '
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -14536,7 +14484,7 @@ class XHamsterIE(LazyLoadExtractor):
 class XHamsterEmbedIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xhamster'
     IE_NAME = 'XHamsterEmbed'
-    _VALID_URL = 'https?://(?:.+?\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/xembed\\.php\\?video=(?P<id>\\d+)'
+    _VALID_URL = 'https?://(?:[^/?#]+\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/xembed\\.php\\?video=(?P<id>\\d+)'
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -14544,7 +14492,7 @@ class XHamsterEmbedIE(LazyLoadExtractor):
 class XHamsterUserIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xhamster'
     IE_NAME = 'XHamsterUser'
-    _VALID_URL = 'https?://(?:.+?\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/users/(?P<id>[^/?#&]+)'
+    _VALID_URL = 'https?://(?:[^/?#]+\\.)?(?:xhamster\\.(?:com|one|desi)|xhms\\.pro|xhamster\\d+\\.com|xhday\\.com|xhvid\\.com)/(?:(?P<user>users)|creators)/(?P<id>[^/?#&]+)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -14573,6 +14521,7 @@ class XinpianchangIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xinpianchang'
     IE_NAME = 'xinpianchang'
     _VALID_URL = 'https?://www\\.xinpianchang\\.com/(?P<id>[^/]+?)(?:\\D|$)'
+    _WORKING = False
     IE_DESC = 'xinpianchang.com'
     _RETURN_TYPE = 'video'
 
@@ -14581,6 +14530,7 @@ class XMinusIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xminus'
     IE_NAME = 'XMinus'
     _VALID_URL = 'https?://(?:www\\.)?x-minus\\.org/track/(?P<id>[0-9]+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -14607,35 +14557,10 @@ class VGTVIE(XstreamIE):
     _RETURN_TYPE = 'video'
 
 
-class XTubeUserIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.xtube'
-    IE_NAME = 'XTubeUser'
-    _VALID_URL = 'https?://(?:www\\.)?xtube\\.com/profile/(?P<id>[^/]+-\\d+)'
-    IE_DESC = 'XTube user profile'
-    age_limit = 18
-    _RETURN_TYPE = 'playlist'
-
-
-class XTubeIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.xtube'
-    IE_NAME = 'XTube'
-    _VALID_URL = '(?x)\n                        (?:\n                            xtube:|\n                            https?://(?:www\\.)?xtube\\.com/(?:watch\\.php\\?.*\\bv=|video-watch/(?:embedded/)?(?P<display_id>[^/]+)-)\n                        )\n                        (?P<id>[^/?&#]+)\n                    '
-    age_limit = 18
-    _RETURN_TYPE = 'video'
-
-
-class XuiteIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.xuite'
-    IE_NAME = 'Xuite'
-    _VALID_URL = 'https?://vlog\\.xuite\\.net/(?:play|embed)/(?P<id>(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?)'
-    IE_DESC = '隨意窩Xuite影音'
-    _RETURN_TYPE = 'video'
-
-
 class XVideosIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.xvideos'
     IE_NAME = 'XVideos'
-    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?xvideos2?\\.com/video|\n                            (?:www\\.)?xvideos\\.es/video|\n                            (?:www|flashservice)\\.xvideos\\.com/embedframe/|\n                            static-hw\\.xvideos\\.com/swf/xv-player\\.swf\\?.*?\\bid_video=\n                        )\n                        (?P<id>[0-9]+)\n                    '
+    _VALID_URL = '(?x)\n                    https?://\n                        (?:\n                            (?:[^/]+\\.)?xvideos2?\\.com/video\\.?|\n                            (?:www\\.)?xvideos\\.es/video\\.?|\n                            (?:www|flashservice)\\.xvideos\\.com/embedframe/|\n                            static-hw\\.xvideos\\.com/swf/xv-player\\.swf\\?.*?\\bid_video=\n                        )\n                        (?P<id>[0-9a-z]+)\n                    '
     age_limit = 18
     _RETURN_TYPE = 'video'
 
@@ -14668,6 +14593,7 @@ class AolIE(YahooIE):
     _module = 'yt_dlp.extractor.aol'
     IE_NAME = 'aol.com'
     _VALID_URL = '(?:aol-video:|https?://(?:www\\.)?aol\\.(?:com|ca|co\\.uk|de|jp)/video/(?:[^/]+/)*)(?P<id>\\d{9}|[0-9a-f]{24}|[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12})'
+    _WORKING = False
     IE_DESC = 'Yahoo screen and movies'
     _RETURN_TYPE = 'video'
 
@@ -14788,6 +14714,7 @@ class YapFilesIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.yapfiles'
     IE_NAME = 'YapFiles'
     _VALID_URL = 'https?://(?:(?:www|api)\\.)?yapfiles\\.ru/get_player/*\\?.*?\\bv=(?P<id>\\w+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -14795,6 +14722,7 @@ class YappyIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.yappy'
     IE_NAME = 'Yappy'
     _VALID_URL = 'https?://yappy\\.media/video/(?P<id>\\w+)'
+    _WORKING = False
     _RETURN_TYPE = 'video'
 
 
@@ -14805,33 +14733,11 @@ class YappyProfileIE(LazyLoadExtractor):
     _RETURN_TYPE = 'playlist'
 
 
-class YesJapanIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.yesjapan'
-    IE_NAME = 'YesJapan'
-    _VALID_URL = 'https?://(?:www\\.)?yesjapan\\.com/video/(?P<slug>[A-Za-z0-9\\-]*)_(?P<id>[A-Za-z0-9]+)\\.html'
-    _RETURN_TYPE = 'video'
-
-
-class YinYueTaiIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.yinyuetai'
-    IE_NAME = 'yinyuetai:video'
-    _VALID_URL = 'https?://v\\.yinyuetai\\.com/video(?:/h5)?/(?P<id>[0-9]+)'
-    IE_DESC = '音悦Tai'
-    _RETURN_TYPE = 'video'
-
-
 class YleAreenaIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.yle_areena'
     IE_NAME = 'YleAreena'
     _VALID_URL = 'https?://areena\\.yle\\.fi/(?P<id>[\\d-]+)'
     age_limit = 7
-    _RETURN_TYPE = 'video'
-
-
-class YnetIE(LazyLoadExtractor):
-    _module = 'yt_dlp.extractor.ynet'
-    IE_NAME = 'Ynet'
-    _VALID_URL = 'https?://(?:.+?\\.)?ynet\\.co\\.il/(?:.+?/)?0,7340,(?P<id>L(?:-[0-9]+)+),00\\.html'
     _RETURN_TYPE = 'video'
 
 
@@ -14846,7 +14752,7 @@ class YouJizzIE(LazyLoadExtractor):
 class YoukuIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.youku'
     IE_NAME = 'youku'
-    _VALID_URL = '(?x)\n        (?:\n            https?://(\n                (?:v|player)\\.youku\\.com/(?:v_show/id_|player\\.php/sid/)|\n                video\\.tudou\\.com/v/)|\n            youku:)\n        (?P<id>[A-Za-z0-9]+)(?:\\.html|/v\\.swf|)\n    '
+    _VALID_URL = '(?x)\n        (?:\n            https?://(\n                (?:v|play(?:er)?)\\.(?:youku|tudou)\\.com/(?:v_show/id_|player\\.php/sid/)|\n                video\\.tudou\\.com/v/)|\n            youku:)\n        (?P<id>[A-Za-z0-9]+)(?:\\.html|/v\\.swf|)\n    '
     IE_DESC = '优酷'
     _RETURN_TYPE = 'video'
 
@@ -15399,7 +15305,24 @@ class Zee5SeriesIE(LazyLoadExtractor):
 class ZeeNewsIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.zeenews'
     IE_NAME = 'ZeeNews'
+    _ENABLED = None
     _VALID_URL = 'https?://zeenews\\.india\\.com/[^#?]+/video/(?P<display_id>[^#/?]+)/(?P<id>\\d+)'
+    _WORKING = False
+    _RETURN_TYPE = 'video'
+
+
+class ZenPornIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.zenporn'
+    IE_NAME = 'ZenPorn'
+    _VALID_URL = 'https?://(?:www\\.)?zenporn\\.com/video/(?P<id>\\d+)'
+    age_limit = 18
+    _RETURN_TYPE = 'video'
+
+
+class ZetlandDKArticleIE(LazyLoadExtractor):
+    _module = 'yt_dlp.extractor.zetland'
+    IE_NAME = 'ZetlandDKArticle'
+    _VALID_URL = 'https?://www\\.zetland\\.dk/\\w+/(?P<id>(?P<story_id>\\w{8})-(?P<uploader_id>\\w{8})-(?:\\w{5}))'
     _RETURN_TYPE = 'video'
 
 
@@ -15418,7 +15341,7 @@ class ZingMp3BaseIE(LazyLoadExtractor):
 class ZingMp3IE(ZingMp3BaseIE):
     _module = 'yt_dlp.extractor.zingmp3'
     IE_NAME = 'zingmp3'
-    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<type>(?:bai-hat|video-clip|embed))/[^/?#]+/(?P<id>\\w+)(?:\\.html|\\?)'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<type>(?:bai-hat|video-clip|embed|eps))/[^/?#]+/(?P<id>\\w+)(?:\\.html|\\?)'
     IE_DESC = 'zingmp3.vn'
     _RETURN_TYPE = 'video'
 
@@ -15433,7 +15356,7 @@ class ZingMp3AlbumIE(ZingMp3BaseIE):
 class ZingMp3ChartHomeIE(ZingMp3BaseIE):
     _module = 'yt_dlp.extractor.zingmp3'
     IE_NAME = 'zingmp3:chart-home'
-    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<id>(?:zing-chart|moi-phat-hanh))/?(?:[#?]|$)'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<id>(?:zing-chart|moi-phat-hanh|top100|podcast-discover))/?(?:[#?]|$)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -15454,7 +15377,7 @@ class ZingMp3ChartMusicVideoIE(ZingMp3BaseIE):
 class ZingMp3UserIE(ZingMp3BaseIE):
     _module = 'yt_dlp.extractor.zingmp3'
     IE_NAME = 'zingmp3:user'
-    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<user>[^/]+)/(?P<type>bai-hat|single|album|video)/?(?:[?#]|$)'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<user>[^/]+)/(?P<type>bai-hat|single|album|video|song)/?(?:[?#]|$)'
     _RETURN_TYPE = 'playlist'
 
 
@@ -15465,10 +15388,31 @@ class ZingMp3HubIE(ZingMp3BaseIE):
     _RETURN_TYPE = 'playlist'
 
 
+class ZingMp3LiveRadioIE(ZingMp3BaseIE):
+    _module = 'yt_dlp.extractor.zingmp3'
+    IE_NAME = 'zingmp3:liveradio'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<type>(?:liveradio))/(?P<id>\\w+)(?:\\.html|\\?)'
+    _RETURN_TYPE = 'video'
+
+
+class ZingMp3PodcastEpisodeIE(ZingMp3BaseIE):
+    _module = 'yt_dlp.extractor.zingmp3'
+    IE_NAME = 'zingmp3:podcast-episode'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<type>(?:pgr|cgr))/[^/?#]+/(?P<id>\\w+)(?:\\.html|\\?)'
+    _RETURN_TYPE = 'playlist'
+
+
+class ZingMp3PodcastIE(ZingMp3BaseIE):
+    _module = 'yt_dlp.extractor.zingmp3'
+    IE_NAME = 'zingmp3:podcast'
+    _VALID_URL = 'https?://(?:mp3\\.zing|zingmp3)\\.vn/(?P<id>(?:cgr|top-podcast|podcast-new))/?(?:[#?]|$)'
+    _RETURN_TYPE = 'playlist'
+
+
 class ZoomIE(LazyLoadExtractor):
     _module = 'yt_dlp.extractor.zoom'
     IE_NAME = 'zoom'
-    _VALID_URL = '(?P<base_url>https?://(?:[^.]+\\.)?zoom.us/)rec(?:ording)?/(?P<type>play|share)/(?P<id>[A-Za-z0-9_.-]+)'
+    _VALID_URL = '(?P<base_url>https?://(?:[^.]+\\.)?zoom\\.us/)rec(?:ording)?/(?P<type>play|share)/(?P<id>[\\w.-]+)'
     _RETURN_TYPE = 'video'
 
 
@@ -15489,4 +15433,4 @@ class GenericIE(LazyLoadExtractor):
     _RETURN_TYPE = 'any'
 
 
-_ALL_CLASSES = [YoutubeIE, YoutubeClipIE, YoutubeFavouritesIE, YoutubeNotificationsIE, YoutubeHistoryIE, YoutubeTabIE, YoutubeLivestreamEmbedIE, YoutubePlaylistIE, YoutubeRecommendedIE, YoutubeSearchDateIE, YoutubeSearchIE, YoutubeSearchURLIE, YoutubeMusicSearchURLIE, YoutubeSubscriptionsIE, YoutubeStoriesIE, YoutubeTruncatedIDIE, YoutubeTruncatedURLIE, YoutubeYtBeIE, YoutubeYtUserIE, YoutubeWatchLaterIE, YoutubeShortsAudioPivotIE, YoutubeConsentRedirectIE, ABCIE, ABCIViewIE, ABCIViewShowSeriesIE, AbcNewsIE, AbcNewsVideoIE, ABCOTVSIE, ABCOTVSClipsIE, AbemaTVIE, AbemaTVTitleIE, AcademicEarthCourseIE, ACastIE, ACastChannelIE, AcFunVideoIE, AcFunBangumiIE, ADNIE, AdobeConnectIE, AdobeTVEmbedIE, AdobeTVIE, AdobeTVShowIE, AdobeTVChannelIE, AdobeTVVideoIE, AdultSwimIE, AeonCoIE, AfreecaTVIE, AfreecaTVLiveIE, AfreecaTVUserIE, TokFMAuditionIE, TokFMPodcastIE, WyborczaPodcastIE, WyborczaVideoIE, AirMozillaIE, AirTVIE, AitubeKZVideoIE, AlJazeeraIE, AlphaPornoIE, AmaraIE, AluraIE, AluraCourseIE, AmazonStoreIE, AmazonReviewsIE, AmazonMiniTVIE, AmazonMiniTVSeasonIE, AmazonMiniTVSeriesIE, AmericasTestKitchenIE, AmericasTestKitchenSeasonIE, AnchorFMEpisodeIE, AngelIE, AnvatoIE, AllocineIE, AliExpressLiveIE, Alsace20TVIE, Alsace20TVEmbedIE, APAIE, AparatIE, AppleConnectIE, AppleTrailersIE, AppleTrailersSectionIE, ApplePodcastsIE, ArchiveOrgIE, YoutubeWebArchiveIE, VLiveWebArchiveIE, ArcPublishingIE, ArkenaIE, ARDBetaMediathekIE, ARDIE, ARDMediathekIE, ArteTVIE, ArteTVEmbedIE, ArteTVPlaylistIE, ArteTVCategoryIE, ArnesIE, AsianCrushIE, AsianCrushPlaylistIE, AtresPlayerIE, AtScaleConfEventIE, ATTTechChannelIE, ATVAtIE, AudiMediaIE, AudioBoomIE, AudiodraftCustomIE, AudiodraftGenericIE, AudiomackIE, AudiomackAlbumIE, AudiusIE, AudiusTrackIE, AudiusPlaylistIE, AudiusProfileIE, AWAANIE, AWAANVideoIE, AWAANLiveIE, AWAANSeasonIE, AZMedienIE, BaiduVideoIE, BanByeIE, BanByeChannelIE, BandaiChannelIE, BandcampIE, BandcampAlbumIE, BandcampWeeklyIE, BandcampUserIE, BannedVideoIE, BBCCoUkIE, BBCCoUkArticleIE, BBCCoUkIPlayerEpisodesIE, BBCCoUkIPlayerGroupIE, BBCCoUkPlaylistIE, BBCIE, BeegIE, BehindKinkIE, BellMediaIE, BeatBumpVideoIE, BeatBumpPlaylistIE, BeatportIE, BerufeTVIE, BetIE, BFIPlayerIE, BFMTVIE, BFMTVLiveIE, BFMTVArticleIE, BibelTVLiveIE, BibelTVSeriesIE, BibelTVVideoIE, BigflixIE, BigoIE, BildIE, BiliBiliIE, BiliBiliBangumiIE, BiliBiliBangumiMediaIE, BiliBiliSearchIE, BilibiliCategoryIE, BilibiliAudioIE, BilibiliAudioAlbumIE, BiliBiliPlayerIE, BilibiliSpaceVideoIE, BilibiliSpaceAudioIE, BilibiliSpacePlaylistIE, BiliIntlIE, BiliIntlSeriesIE, BiliLiveIE, BioBioChileTVIE, BitChuteIE, BitChuteChannelIE, BitwaveReplayIE, BitwaveStreamIE, BIQLEIE, BlackboardCollaborateIE, BleacherReportIE, BleacherReportCMSIE, BlerpIE, BloggerIE, BloombergIE, BokeCCIE, BongaCamsIE, BostonGlobeIE, BoxIE, BoxCastVideoIE, BpbIE, BRIE, BRMediathekIE, BravoTVIE, BrainPOPIE, BrainPOPJrIE, BrainPOPELLIE, BrainPOPEspIE, BrainPOPFrIE, BrainPOPIlIE, BreakIE, BreitBartIE, BrightcoveLegacyIE, BrightcoveNewIE, BusinessInsiderIE, BundesligaIE, BuzzFeedIE, BYUtvIE, C56IE, CableAVIE, CallinIE, CaltransIE, CAM4IE, CamdemyIE, CamdemyFolderIE, CamFMEpisodeIE, CamFMShowIE, CamModelsIE, CamsodaIE, CamtasiaEmbedIE, CamWithHerIE, CanalAlphaIE, CanalplusIE, Canalc2IE, CarambaTVIE, CarambaTVPageIE, CartoonNetworkIE, CBCIE, CBCPlayerIE, CBCGemIE, CBCGemPlaylistIE, CBCGemLiveIE, ParamountPressExpressIE, CBSNewsEmbedIE, CBSNewsIE, CBSLocalIE, CBSLocalArticleIE, CBSLocalLiveIE, CBSNewsLiveIE, CBSNewsLiveVideoIE, CBSSportsEmbedIE, CBSSportsIE, TwentyFourSevenSportsIE, CCCIE, CCCPlaylistIE, CCMAIE, CCTVIE, CDAIE, CellebriteIE, CeskaTelevizeIE, CGTNIE, Channel9IE, CharlieRoseIE, ChaturbateIE, ChilloutzoneIE, ChingariIE, ChingariUserIE, ChirbitIE, ChirbitProfileIE, CinchcastIE, CinemaxIE, CinetecaMilanoIE, CiscoLiveSessionIE, CiscoLiveSearchIE, CiscoWebexIE, CJSWIE, ClipchampIE, CliphunterIE, ClippitIE, ClipRsIE, ClipsyndicateIE, CloserToTruthIE, CloudflareStreamIE, CloudyIE, ClubicIE, ClypIE, CNBCIE, CNBCVideoIE, CNNIE, CNNBlogsIE, CNNArticleIE, CNNIndonesiaIE, CoubIE, ComedyCentralIE, ComedyCentralTVIE, CommonMistakesIE, UnicodeBOMIE, MmsIE, RtmpIE, ViewSourceIE, CondeNastIE, CONtvIE, CPACIE, CPACPlaylistIE, CozyTVIE, CrackedIE, CrackleIE, CraftsyIE, CrooksAndLiarsIE, CrowdBunkerIE, CrowdBunkerChannelIE, CrtvgIE, CrunchyrollBetaIE, CrunchyrollBetaShowIE, CrunchyrollMusicIE, CrunchyrollArtistIE, CSpanIE, CSpanCongressIE, CtsNewsIE, CTVIE, CTVNewsIE, CultureUnpluggedIE, CuriosityStreamIE, CuriosityStreamCollectionsIE, CuriosityStreamSeriesIE, CWTVIE, CybraryIE, CybraryCourseIE, DacastVODIE, DacastPlaylistIE, DaftsexIE, DailyMailIE, DailymotionIE, DailymotionPlaylistIE, DailymotionUserIE, DailyWireIE, DailyWirePodcastIE, DamtomoRecordIE, DamtomoVideoIE, DaumIE, DaumClipIE, DaumPlaylistIE, DaumUserIE, DaystarClipIE, DBTVIE, DctpTvIE, DeezerPlaylistIE, DeezerAlbumIE, DemocracynowIE, DetikEmbedIE, DLFIE, DLFCorpusIE, DFBIE, DHMIE, DiggIE, DotsubIE, DouyuShowIE, DouyuTVIE, DPlayIE, DiscoveryPlusIE, HGTVDeIE, GoDiscoveryIE, TravelChannelIE, CookingChannelIE, HGTVUsaIE, FoodNetworkIE, InvestigationDiscoveryIE, DestinationAmericaIE, AmHistoryChannelIE, ScienceChannelIE, DIYNetworkIE, DiscoveryLifeIE, AnimalPlanetIE, TLCIE, MotorTrendIE, MotorTrendOnDemandIE, DiscoveryPlusIndiaIE, DiscoveryNetworksDeIE, DiscoveryPlusItalyIE, DiscoveryPlusItalyShowIE, DiscoveryPlusIndiaShowIE, GlobalCyclingNetworkPlusIE, DRBonanzaIE, DrTuberIE, DRTVIE, DRTVLiveIE, DRTVSeasonIE, DRTVSeriesIE, DTubeIE, DVTVIE, DubokuIE, DubokuPlaylistIE, DumpertIE, DefenseGouvFrIE, DeuxMIE, DeuxMNewsIE, DigitalConcertHallIE, DiscogsReleasePlaylistIE, DiscoveryIE, DisneyIE, DigitallySpeakingIE, DropboxIE, DropoutSeasonIE, DropoutIE, DWIE, DWArticleIE, EaglePlatformIE, ClipYouEmbedIE, EbaumsWorldIE, EbayIE, EchoMskIE, EggheadCourseIE, EggheadLessonIE, EHowIE, EightTracksIE, EinthusanIE, EitbIE, ElevenSportsIE, EllenTubeIE, EllenTubeVideoIE, EllenTubePlaylistIE, ElonetIE, ElPaisIE, EmbedlyIE, EngadgetIE, EpiconIE, EpiconSeriesIE, EpochIE, EpornerIE, EroProfileIE, EroProfileAlbumIE, ERTFlixCodenameIE, ERTFlixIE, ERTWebtvEmbedIE, EscapistIE, ESPNIE, WatchESPNIE, ESPNArticleIE, FiveThirtyEightIE, ESPNCricInfoIE, EsriVideoIE, EttuTvIE, EuropaIE, EuroParlWebstreamIE, EuropeanTourIE, EurosportIE, EUScreenIE, ExpoTVIE, ExpressenIE, EyedoTVIE, FacebookIE, FacebookPluginsVideoIE, FacebookRedirectURLIE, FacebookReelIE, FancodeVodIE, FancodeLiveIE, FazIE, FC2IE, FC2EmbedIE, FC2LiveIE, FczenitIE, FifaIE, FilmmoduIE, FilmOnIE, FilmOnChannelIE, FilmwebIE, FirstTVIE, FiveTVIE, FlickrIE, FolketingetIE, FootyRoomIE, Formula1IE, FourTubeIE, PornTubeIE, PornerBrosIE, FuxIE, FourZeroStudioArchiveIE, FourZeroStudioClipIE, FOXIE, FOX9IE, FOX9NewsIE, FoxgayIE, FoxNewsIE, FoxNewsArticleIE, FoxNewsVideoIE, FoxSportsIE, FptplayIE, FranceInterIE, FranceTVIE, FranceTVSiteIE, FranceTVInfoIE, FreesoundIE, FreespeechIE, FrontendMastersIE, FrontendMastersLessonIE, FrontendMastersCourseIE, FreeTvIE, FreeTvMoviesIE, FujiTVFODPlus7IE, FunimationIE, FunimationPageIE, FunimationShowIE, FunkIE, Funker530IE, FusionIE, FuyinTVIE, GabTVIE, GabIE, GaiaIE, GameInformerIE, GameJoltIE, GameJoltUserIE, GameJoltGameIE, GameJoltGameSoundtrackIE, GameJoltCommunityIE, GameJoltSearchIE, GameSpotIE, GameStarIE, GaskrankIE, GazetaIE, GDCVaultIE, GediDigitalIE, GeniusIE, GeniusLyricsIE, GettrIE, GettrStreamingIE, GfycatIE, GiantBombIE, GigaIE, GlideIE, GlobalPlayerLiveIE, GlobalPlayerLivePlaylistIE, GlobalPlayerAudioIE, GlobalPlayerAudioEpisodeIE, GlobalPlayerVideoIE, GloboIE, GloboArticleIE, GMANetworkVideoIE, GoIE, GodTubeIE, GofileIE, GolemIE, GoodGameIE, GoogleDriveIE, GoogleDriveFolderIE, GooglePodcastsIE, GooglePodcastsFeedIE, GoogleSearchIE, GoProIE, GoPlayIE, GoshgayIE, GoToStageIE, GPUTechConfIE, GronkhIE, GronkhFeedIE, GronkhVodsIE, GrouponIE, HarpodeonIE, HBOIE, HearThisAtIE, HeiseIE, HellPornoIE, HelsinkiIE, HGTVComShowIE, HKETVIE, HiDiveIE, HistoricFilmsIE, HitboxIE, HitboxLiveIE, HitRecordIE, HollywoodReporterIE, HollywoodReporterPlaylistIE, HolodexIE, HotNewHipHopIE, HotStarIE, HotStarPrefixIE, HotStarPlaylistIE, HotStarSeasonIE, HotStarSeriesIE, HowcastIE, HowStuffWorksIE, HrefLiRedirectIE, HRFernsehenIE, HRTiIE, HRTiPlaylistIE, HSEShowIE, HSEProductIE, HTML5MediaEmbedIE, QuotedHTMLIE, HuajiaoIE, HuyaLiveIE, HuffPostIE, HungamaIE, HungamaSongIE, HungamaAlbumPlaylistIE, HypemIE, MonsterSirenHypergryphMusicIE, HytaleIE, IcareusIE, IchinanaLiveIE, IchinanaLiveClipIE, IdolPlusIE, IGNIE, IGNVideoIE, IGNArticleIE, IHeartRadioIE, IHeartRadioPodcastIE, IltalehtiIE, ImdbIE, ImdbListIE, ImgurIE, ImgurGalleryIE, ImgurAlbumIE, InaIE, IncIE, IndavideoEmbedIE, InfoQIE, InstagramIE, InstagramIOSIE, InstagramUserIE, InstagramTagIE, InstagramStoryIE, InternazionaleIE, InternetVideoArchiveIE, IPrimaIE, IPrimaCNNIE, IqiyiIE, IqIE, IqAlbumIE, IslamChannelIE, IslamChannelSeriesIE, IsraelNationalNewsIE, ITProTVIE, ITProTVCourseIE, ITVIE, ITVBTCCIE, IviIE, IviCompilationIE, IvideonIE, IwaraIE, IwaraPlaylistIE, IwaraUserIE, IxiguaIE, IzleseneIE, JableIE, JablePlaylistIE, JamendoIE, JamendoAlbumIE, ShugiinItvLiveIE, ShugiinItvLiveRoomIE, ShugiinItvVodIE, SangiinInstructionIE, SangiinIE, JeuxVideoIE, JoveIE, JojIE, JStreamIE, JWPlatformIE, KakaoIE, KalturaIE, Kanal2IE, KankaNewsIE, KaraoketvIE, KarriereVideosIE, KeezMoviesIE, ExtremeTubeIE, KelbyOneIE, KhanAcademyIE, KhanAcademyUnitIE, KickIE, KickVODIE, KickerIE, KickStarterIE, KinjaEmbedIE, KinoPoiskIE, KommunetvIE, KompasVideoIE, KonserthusetPlayIE, KooIE, KTHIE, KrasViewIE, Ku6IE, KUSIIE, KuwoIE, KuwoAlbumIE, KuwoChartIE, KuwoSingerIE, KuwoCategoryIE, KuwoMvIE, LA7IE, LA7PodcastEpisodeIE, LA7PodcastIE, Laola1TvEmbedIE, Laola1TvIE, EHFTVIE, ITTFIE, LastFMIE, LastFMPlaylistIE, LastFMUserIE, LBRYIE, LBRYChannelIE, LCIIE, LcpPlayIE, LcpIE, Lecture2GoIE, LecturioIE, LecturioCourseIE, LecturioDeCourseIE, LeIE, LePlaylistIE, LetvCloudIE, LeFigaroVideoEmbedIE, LeFigaroVideoSectionIE, LEGOIE, LemondeIE, LentaIE, LibraryOfCongressIE, LibsynIE, LifeNewsIE, LifeEmbedIE, LikeeIE, LikeeUserIE, LimelightMediaIE, LimelightChannelIE, LimelightChannelListIE, LinkedInIE, LinkedInLearningIE, LinkedInLearningCourseIE, LinuxAcademyIE, Liputan6IE, ListenNotesIE, LiTVIE, LiveJournalIE, LivestreamIE, LivestreamOriginalIE, LivestreamShortenerIE, LivestreamfailsIE, LnkGoIE, LnkIE, LocalNews8IE, LoveHomePornIE, LRTVODIE, LRTStreamIE, LumniIE, LyndaIE, LyndaCourseIE, M6IE, MagentaMusik360IE, MailRuIE, MailRuMusicIE, MailRuMusicSearchIE, MainStreamingIE, MallTVIE, MangomoloVideoIE, MangomoloLiveIE, ManotoTVIE, ManotoTVShowIE, ManotoTVLiveIE, ManyVidsIE, MaoriTVIE, MarkizaIE, MarkizaPageIE, MassengeschmackTVIE, MastersIE, MatchTVIE, MDRIE, MedalTVIE, MediaiteIE, MediaKlikkIE, MediasetIE, MediasetShowIE, MediasiteIE, MediasiteCatalogIE, MediasiteNamedCatalogIE, MediaStreamIE, WinSportsVideoIE, MediaWorksNZVODIE, MediciIE, MegaphoneIE, MeipaiIE, MelonVODIE, METAIE, MetacafeIE, MetacriticIE, MgoonIE, MGTVIE, MiaoPaiIE, MicrosoftStreamIE, MicrosoftVirtualAcademyIE, MicrosoftVirtualAcademyCourseIE, MicrosoftEmbedIE, MildomIE, MildomVodIE, MildomClipIE, MildomUserVodIE, MindsIE, MindsChannelIE, MindsGroupIE, MinistryGridIE, MinotoIE, MioMioIE, MirrativIE, MirrativUserIE, MirrorCoUKIE, TechTVMITIE, OCWMITIE, MixchIE, MixchArchiveIE, MixcloudIE, MixcloudUserIE, MixcloudPlaylistIE, MLBIE, MLBVideoIE, MLBTVIE, MLBArticleIE, MLSSoccerIE, MnetIE, MochaVideoIE, MoeVideoIE, MofosexIE, MofosexEmbedIE, MojvideoIE, MorningstarIE, MotherlessIE, MotherlessGroupIE, MotherlessGalleryIE, MotorsportIE, MovieClipsIE, MoviepilotIE, MoviewPlayIE, MoviezineIE, MovingImageIE, MSNIE, MTVIE, CMTIE, MTVVideoIE, MTVServicesEmbeddedIE, MTVDEIE, MTVJapanIE, MTVItaliaIE, MTVItaliaProgrammaIE, MuenchenTVIE, MurrtubeIE, MurrtubeUserIE, MuseScoreIE, MusicdexSongIE, MusicdexAlbumIE, MusicdexArtistIE, MusicdexPlaylistIE, MwaveIE, MwaveMeetGreetIE, MxplayerIE, MxplayerShowIE, MyChannelsIE, MySpaceIE, MySpaceAlbumIE, MySpassIE, MyviIE, MyviEmbedIE, MyVideoGeIE, MyVidsterIE, MzaaloIE, N1InfoAssetIE, N1InfoIIE, NateIE, NateProgramIE, NationalGeographicVideoIE, NationalGeographicTVIE, NaverIE, NaverLiveIE, NaverNowIE, NBAWatchEmbedIE, NBAWatchIE, NBAWatchCollectionIE, NBAEmbedIE, NBAIE, NBAChannelIE, NBCOlympicsIE, NBCOlympicsStreamIE, NBCSportsIE, NBCSportsStreamIE, NBCSportsVPlayerIE, NBCStationsIE, NDRIE, NJoyIE, NDREmbedBaseIE, NDREmbedIE, NJoyEmbedIE, NDTVIE, NebulaIE, NebulaSubscriptionsIE, NebulaChannelIE, NekoHackerIE, NerdCubedFeedIE, NetzkinoIE, NetEaseMusicIE, NetEaseMusicAlbumIE, NetEaseMusicSingerIE, NetEaseMusicListIE, NetEaseMusicMvIE, NetEaseMusicProgramIE, NetEaseMusicDjRadioIE, NetverseIE, NetversePlaylistIE, NetverseSearchIE, NewgroundsIE, NewgroundsPlaylistIE, NewgroundsUserIE, NewsPicksIE, NewstubeIE, NewsyIE, NextMediaIE, NextMediaActionNewsIE, AppleDailyIE, NextTVIE, NexxIE, NexxEmbedIE, NFBIE, NFHSNetworkIE, NFLIE, NFLArticleIE, NFLPlusEpisodeIE, NFLPlusReplayIE, NhkVodIE, NhkVodProgramIE, NhkForSchoolBangumiIE, NhkForSchoolSubjectIE, NhkForSchoolProgramListIE, NhkRadioNewsPageIE, NhkRadiruIE, NhkRadiruLiveIE, NHLIE, NickIE, NickBrIE, NickDeIE, NickNightIE, NickRuIE, NiconicoIE, NiconicoPlaylistIE, NiconicoUserIE, NiconicoSeriesIE, NiconicoHistoryIE, NicovideoSearchDateIE, NicovideoSearchIE, NicovideoSearchURLIE, NicovideoTagURLIE, NiconicoLiveIE, NineCNineMediaIE, CPTwentyFourIE, NineGagIE, NineNowIE, NintendoIE, NitterIE, NJPWWorldIE, NobelPrizeIE, NoicePodcastIE, NonkTubeIE, NoodleMagazineIE, NoovoIE, NormalbootsIE, NosVideoIE, NOSNLArticleIE, NovaEmbedIE, NovaIE, NovaPlayIE, NownessIE, NownessPlaylistIE, NownessSeriesIE, NozIE, NPOIE, AndereTijdenIE, NPOLiveIE, NPORadioIE, NPORadioFragmentIE, SchoolTVIE, HetKlokhuisIE, VPROIE, WNLIE, NprIE, NRKIE, NRKPlaylistIE, NRKSkoleIE, NRKTVIE, NRKTVDirekteIE, NRKRadioPodkastIE, NRKTVEpisodeIE, NRKTVEpisodesIE, NRKTVSeasonIE, NRKTVSeriesIE, NRLTVIE, NTVCoJpCUIE, NTVDeIE, NTVRuIE, NubilesPornIE, NYTimesIE, NYTimesArticleIE, NYTimesCookingIE, NuvidIE, NZHeraldIE, NZOnScreenIE, NZZIE, OdaTVIE, OnDemandChinaEpisodeIE, OdnoklassnikiIE, OfTVIE, OfTVPlaylistIE, OktoberfestTVIE, OlympicsReplayIE, On24IE, OnDemandKoreaIE, OneFootballIE, OneNewsNZIE, OnePlacePodcastIE, OnetIE, OnetChannelIE, OnetMVPIE, OnetPlIE, OnionStudiosIE, OoyalaIE, OoyalaExternalIE, OpencastIE, OpencastPlaylistIE, OpenRecIE, OpenRecCaptureIE, OpenRecMovieIE, OraTVIE, ORFTVthekIE, ORFFM4StoryIE, ORFRadioIE, ORFIPTVIE, OutsideTVIE, OwnCloudIE, PacktPubIE, PacktPubCourseIE, PalcoMP3IE, PalcoMP3ArtistIE, PalcoMP3VideoIE, PandoraTVIE, PanoptoIE, PanoptoListIE, PanoptoPlaylistIE, ParamountPlusSeriesIE, ParlerIE, ParlviewIE, PatreonIE, PatreonCampaignIE, PBSIE, PearVideoIE, PeekVidsIE, PlayVidsIE, PeerTubeIE, PeerTubePlaylistIE, PeerTVIE, PelotonIE, PelotonLiveIE, PeopleIE, PerformGroupIE, PeriscopeIE, PeriscopeUserIE, PGATourIE, PhilharmonieDeParisIE, PhoenixIE, PhotobucketIE, PiaproIE, PicartoIE, PicartoVodIE, PikselIE, PinkbikeIE, PinterestIE, PinterestCollectionIE, PixivSketchIE, PixivSketchUserIE, PladformIE, PlanetMarathiIE, PlatziIE, PlatziCourseIE, PlayFMIE, PlayPlusTVIE, PlaysTVIE, PlayStuffIE, PlaySuisseIE, PlaytvakIE, PlayvidIE, PlaywireIE, PlutoTVIE, PluralsightIE, PluralsightCourseIE, PodbayFMIE, PodbayFMChannelIE, PodchaserIE, PodomaticIE, PokemonIE, PokemonWatchIE, PokerGoIE, PokerGoCollectionIE, PolsatGoIE, PolskieRadioIE, PolskieRadioLegacyIE, PolskieRadioAuditionIE, PolskieRadioCategoryIE, PolskieRadioPlayerIE, PolskieRadioPodcastIE, PolskieRadioPodcastListIE, PopcorntimesIE, PopcornTVIE, Porn91IE, PornComIE, PornFlipIE, PornHdIE, PornHubIE, PornHubUserIE, PornHubPlaylistIE, PornHubPagedVideoListIE, PornHubUserVideosUploadIE, PornotubeIE, PornoVoisinesIE, PornoXOIE, PornezIE, PuhuTVIE, PuhuTVSerieIE, Pr0grammStaticIE, Pr0grammIE, PrankCastIE, PremiershipRugbyIE, PressTVIE, ProjectVeritasIE, ProSiebenSat1IE, PRXStoryIE, PRXSeriesIE, PRXAccountIE, PRXStoriesSearchIE, PRXSeriesSearchIE, Puls4IE, PyvideoIE, QingTingIE, QQMusicIE, QQMusicSingerIE, QQMusicAlbumIE, QQMusicToplistIE, QQMusicPlaylistIE, R7IE, R7ArticleIE, RadikoIE, RadikoRadioIE, RadioCanadaIE, RadioCanadaAudioVideoIE, RadioDeIE, RadioJavanIE, RadioBremenIE, FranceCultureIE, RadioFranceIE, RadioZetPodcastIE, RadioKapitalIE, RadioKapitalShowIE, RadLiveIE, RadLiveChannelIE, RadLiveSeasonIE, RaiIE, RaiPlayIE, RaiPlayLiveIE, RaiPlayPlaylistIE, RaiPlaySoundIE, RaiPlaySoundLiveIE, RaiPlaySoundPlaylistIE, RaiNewsIE, RaiCulturaIE, RaiSudtirolIE, RayWenderlichIE, RayWenderlichCourseIE, RBMARadioIE, RbgTumIE, RbgTumCourseIE, RCSIE, RCSEmbedsIE, RCSVariousIE, RCTIPlusIE, RCTIPlusSeriesIE, RCTIPlusTVIE, RDSIE, RecurbateIE, ParliamentLiveUKIE, RTBFIE, RedBullTVIE, RedBullEmbedIE, RedBullTVRrnContentIE, RedBullIE, RedditIE, RedGifsIE, RedGifsSearchIE, RedGifsUserIE, RedTubeIE, RegioTVIE, RENTVIE, RENTVArticleIE, RestudyIE, ReutersIE, ReverbNationIE, RheinMainTVIE, RICEIE, RMCDecouverteIE, RockstarGamesIE, RokfinIE, RokfinStackIE, RokfinChannelIE, RokfinSearchIE, RoosterTeethIE, RoosterTeethSeriesIE, RottenTomatoesIE, RozhlasIE, RozhlasVltavaIE, MujRozhlasIE, RteIE, RteRadioIE, RtlNlIE, RTLLuTeleVODIE, RTLLuArticleIE, RTLLuLiveIE, RTLLuRadioIE, RTL2IE, RTL2YouIE, RTL2YouSeriesIE, RTNewsIE, RTDocumentryIE, RTDocumentryPlaylistIE, RuptlyIE, RTPIE, RTRFMIE, RTVCPlayIE, RTVCPlayEmbedIE, RTVCKalturaIE, RTVEALaCartaIE, RTVEAudioIE, RTVELiveIE, RTVEInfantilIE, RTVETelevisionIE, RTVNHIE, RTVSIE, RTVSLOIE, RUHDIE, Rule34VideoIE, RumbleEmbedIE, RumbleIE, RumbleChannelIE, RutubeIE, RutubeChannelIE, RutubeEmbedIE, RutubeMovieIE, RutubePersonIE, RutubePlaylistIE, RutubeTagsIE, GlomexIE, GlomexEmbedIE, MegaTVComIE, MegaTVComEmbedIE, Ant1NewsGrWatchIE, Ant1NewsGrArticleIE, Ant1NewsGrEmbedIE, RUTVIE, RuutuIE, RuvIE, RuvSpilaIE, SafariIE, SafariApiIE, SafariCourseIE, SaitosanIE, SampleFocusIE, SapoIE, SaveFromIE, SBSIE, Screen9IE, ScreencastIE, ScreencastifyIE, ScreencastOMaticIE, ScrippsNetworksWatchIE, ScrippsNetworksIE, SCTEIE, SCTECourseIE, ScrolllerIE, SeekerIE, SenalColombiaLiveIE, SenateISVPIE, SenateGovIE, SendtoNewsIE, ServusIE, SevenPlusIE, SexuIE, SeznamZpravyIE, SeznamZpravyArticleIE, ShahidIE, ShahidShowIE, SharedIE, VivoIE, ShareVideosEmbedIE, SibnetEmbedIE, ShemarooMeIE, ShowRoomLiveIE, SimplecastIE, SimplecastEpisodeIE, SimplecastPodcastIE, SinaIE, SixPlayIE, SkebIE, SkyItPlayerIE, SkyItVideoIE, SkyItVideoLiveIE, SkyItIE, SkyItArteIE, CieloTVItIE, TV8ItIE, SkylineWebcamsIE, SkyNewsArabiaIE, SkyNewsArabiaArticleIE, SkyNewsAUIE, SkyNewsIE, SkyNewsStoryIE, SkySportsIE, SkySportsNewsIE, SlideshareIE, SlidesLiveIE, SlutloadIE, SmotrimIE, SnotrIE, SohuIE, SonyLIVIE, SonyLIVSeriesIE, SoundcloudEmbedIE, SoundcloudIE, SoundcloudSetIE, SoundcloudRelatedIE, SoundcloudUserIE, SoundcloudUserPermalinkIE, SoundcloudTrackStationIE, SoundcloudPlaylistIE, SoundcloudSearchIE, SoundgasmIE, SoundgasmProfileIE, SouthParkIE, SouthParkDeIE, SouthParkDkIE, SouthParkEsIE, SouthParkLatIE, SouthParkNlIE, SovietsClosetIE, SovietsClosetPlaylistIE, SpankBangIE, SpankBangPlaylistIE, SpankwireIE, SpiegelIE, BellatorIE, ParamountNetworkIE, StagePlusVODConcertIE, StarTrekIE, StitcherIE, StitcherShowIE, Sport5IE, SportBoxIE, SportDeutschlandIE, SpotifyIE, SpotifyShowIE, SpreakerIE, SpreakerPageIE, SpreakerShowIE, SpreakerShowPageIE, SpringboardPlatformIE, SproutIE, SRGSSRIE, RTSIE, SRGSSRPlayIE, SRMediathekIE, StanfordOpenClassroomIE, StarTVIE, SteamIE, SteamCommunityBroadcastIE, StoryFireIE, StoryFireUserIE, StoryFireSeriesIE, StreamableIE, StreamanityIE, StreamcloudIE, StreamCZIE, StreamFFIE, StreetVoiceIE, StretchInternetIE, StripchatIE, STVPlayerIE, SubstackIE, SunPornoIE, SverigesRadioEpisodeIE, SverigesRadioPublicationIE, SVTIE, SVTPageIE, SVTPlayIE, SVTSeriesIE, SwearnetEpisodeIE, SWRMediathekIE, SYVDKIE, SyfyIE, SztvHuIE, TagesschauIE, TassIE, TBSIE, TDSLifewayIE, TeachableIE, TeachableCourseIE, TeacherTubeIE, TeacherTubeUserIE, TeachingChannelIE, TeamcocoIE, ConanClassicIE, TeamTreeHouseIE, TechTalksIE, TedEmbedIE, TedPlaylistIE, TedSeriesIE, TedTalkIE, Tele5IE, Tele13IE, TeleBruxellesIE, TelecaribePlayIE, TelecincoIE, MiTeleIE, TelegraafIE, TelegramEmbedIE, TeleMBIE, TelemundoIE, TeleQuebecIE, TeleQuebecSquatIE, TeleQuebecEmissionIE, TeleQuebecLiveIE, TeleQuebecVideoIE, TeleTaskIE, TelewebionIE, TempoIE, IVXPlayerIE, IflixEpisodeIE, IflixSeriesIE, VQQSeriesIE, VQQVideoIE, WeTvEpisodeIE, WeTvSeriesIE, TennisTVIE, TenPlayIE, TestURLIE, TF1IE, TFOIE, TheHoleTvIE, TheInterceptIE, ThePlatformIE, AENetworksIE, AENetworksCollectionIE, AENetworksShowIE, HistoryTopicIE, HistoryPlayerIE, BiographyIE, AMCNetworksIE, NBCIE, NBCNewsIE, ThePlatformFeedIE, CBSIE, CBSInteractiveIE, CorusIE, ParamountPlusIE, TheStarIE, TheSunIE, ThetaVideoIE, ThetaStreamIE, TheWeatherChannelIE, ThisAmericanLifeIE, ThisAVIE, ThisOldHouseIE, ThisVidIE, ThisVidMemberIE, ThisVidPlaylistIE, ThreeSpeakIE, ThreeSpeakUserIE, ThreeQSDNIE, TikTokIE, TikTokUserIE, TikTokSoundIE, TikTokEffectIE, TikTokTagIE, TikTokVMIE, TikTokLiveIE, DouyinIE, TinyPicIE, TMZIE, TNAFlixNetworkEmbedIE, TNAFlixIE, EMPFlixIE, MovieFapIE, ToggleIE, MeWatchIE, ToggoIE, TokentubeIE, TokentubeChannelIE, TOnlineIE, ToonGogglesIE, TouTvIE, ToypicsUserIE, ToypicsIE, TrailerAddictIE, TrillerIE, TrillerUserIE, TrillerShortIE, TriluliluIE, TrovoIE, TrovoVodIE, TrovoChannelVodIE, TrovoChannelClipIE, TrtCocukVideoIE, TrueIDIE, TruNewsIE, TruthIE, TruTVIE, Tube8IE, TubeTuGrazIE, TubeTuGrazSeriesIE, TubiTvIE, TubiTvShowIE, TumblrIE, TuneInStationIE, TuneInPodcastIE, TuneInPodcastEpisodeIE, TuneInShortenerIE, TunePkIE, TurboIE, TV2IE, TV2ArticleIE, KatsomoIE, MTVUutisetArticleIE, TV24UAVideoIE, TV2DKIE, TV2DKBornholmPlayIE, TV2HuIE, TV2HuSeriesIE, TV4IE, TV5MondePlusIE, TV5UnisVideoIE, TV5UnisIE, TVAIE, QubIE, TVANouvellesIE, TVANouvellesArticleIE, TVCIE, TVCArticleIE, TVerIE, TvigleIE, TVIPlayerIE, TVLandIE, TVN24IE, TVNetIE, TVNoeIE, TVNowIE, TVNowFilmIE, TVNowNewIE, TVNowSeasonIE, TVNowAnnualIE, TVNowShowIE, TVOpenGrWatchIE, TVOpenGrEmbedIE, TVPEmbedIE, TVPIE, TVPStreamIE, TVPVODSeriesIE, TVPVODVideoIE, TVPlayIE, TVPlayHomeIE, TVPlayerIE, TweakersIE, TwentyFourVideoIE, TwentyMinutenIE, TwentyThreeVideoIE, TwitCastingIE, TwitCastingLiveIE, TwitCastingUserIE, TwitchVodIE, TwitchCollectionIE, TwitchVideosIE, TwitchVideosClipsIE, TwitchVideosCollectionsIE, TwitchStreamIE, TwitchClipsIE, TwitterCardIE, TwitterIE, TwitterAmplifyIE, TwitterBroadcastIE, TwitterSpacesIE, TwitterShortenerIE, TxxxIE, PornTopIE, UdemyIE, UdemyCourseIE, UDNEmbedIE, UFCTVIE, UFCArabiaIE, UkColumnIE, UKTVPlayIE, DigitekaIE, DLiveVODIE, DLiveStreamIE, DroobleIE, UMGDeIE, UnistraIE, UnityIE, UnscriptedNewsVideoIE, KnownDRMIE, KnownPiracyIE, UOLIE, UplynkIE, UplynkPreplayIE, UrortIE, URPlayIE, USANetworkIE, USATodayIE, UstreamIE, UstreamChannelIE, UstudioIE, UstudioEmbedIE, UtreonIE, Varzesh3IE, Vbox7IE, VeeHDIE, VeoIE, VeohIE, VeohUserIE, VestiIE, VevoIE, VevoPlaylistIE, BTArticleIE, BTVestlendingenIE, VH1IE, ViceIE, ViceArticleIE, ViceShowIE, VidbitIE, ViddlerIE, VideaIE, VideocampusSachsenIE, ViMPPlaylistIE, VideoDetectiveIE, VideofyMeIE, VideoKenIE, VideoKenPlayerIE, VideoKenPlaylistIE, VideoKenCategoryIE, VideoKenTopicIE, VideomoreIE, VideomoreVideoIE, VideomoreSeasonIE, VideoPressIE, VidioIE, VidioPremierIE, VidioLiveIE, VidLiiIE, ViewLiftIE, ViewLiftEmbedIE, ViideaIE, VimeoIE, VimeoAlbumIE, VimeoChannelIE, VimeoGroupsIE, VimeoLikesIE, VimeoOndemandIE, VimeoProIE, VimeoReviewIE, VimeoUserIE, VimeoWatchLaterIE, VHXEmbedIE, VimmIE, VimmRecordingIE, VimpleIE, VineIE, VineUserIE, VikiIE, VikiChannelIE, ViqeoIE, ViuIE, ViuPlaylistIE, ViuOTTIE, ViuOTTIndonesiaIE, VKIE, VKUserVideosIE, VKWallPostIE, VocarooIE, VodlockerIE, VODPlIE, VODPlatformIE, VoiceRepublicIE, VoicyIE, VoicyChannelIE, VolejTVIE, VootIE, VootSeriesIE, VoxMediaVolumeIE, VoxMediaIE, VRTIE, VrtNUIE, KetnetIE, DagelijkseKostIE, VrakIE, VRVIE, VRVSeriesIE, VShareIE, VTMIE, MedialaanIE, VuClipIE, VuploadIE, VVVVIDIE, VVVVIDShowIE, VyboryMosIE, VzaarIE, WakanimIE, WallaIE, WashingtonPostIE, WashingtonPostArticleIE, WASDTVStreamIE, WASDTVRecordIE, WASDTVClipIE, WatIE, WatchBoxIE, WatchIndianPornIE, WDRIE, WDRPageIE, WDRElefantIE, WDRMobileIE, WebcameraplIE, WebcasterIE, WebcasterFeedIE, WebOfStoriesIE, WebOfStoriesPlaylistIE, WeiboIE, WeiboMobileIE, WeiqiTVIE, WeverseIE, WeverseMediaIE, WeverseMomentIE, WeverseLiveTabIE, WeverseMediaTabIE, WeverseLiveIE, WeVidiIE, WeyyakIE, WhypIE, WikimediaIE, WillowIE, WimTVIE, WhoWatchIE, WistiaIE, WistiaPlaylistIE, WistiaChannelIE, WordpressPlaylistEmbedIE, WordpressMiniAudioPlayerEmbedIE, WorldStarHipHopIE, WPPilotIE, WPPilotChannelsIE, WrestleUniverseVODIE, WrestleUniversePPVIE, WSJIE, WSJArticleIE, WWEIE, WykopDigIE, WykopDigCommentIE, WykopPostIE, WykopPostCommentIE, XanimuIE, XBefIE, XboxClipsIE, XFileShareIE, XHamsterIE, XHamsterEmbedIE, XHamsterUserIE, XimalayaIE, XimalayaAlbumIE, XinpianchangIE, XMinusIE, XNXXIE, XstreamIE, VGTVIE, XTubeUserIE, XTubeIE, XuiteIE, XVideosIE, XVideosQuickiesIE, XXXYMoviesIE, YahooIE, AolIE, YahooSearchIE, YahooJapanNewsIE, YandexDiskIE, YandexMusicTrackIE, YandexMusicAlbumIE, YandexMusicPlaylistIE, YandexMusicArtistTracksIE, YandexMusicArtistAlbumsIE, YandexVideoIE, YandexVideoPreviewIE, ZenYandexIE, ZenYandexChannelIE, YapFilesIE, YappyIE, YappyProfileIE, YesJapanIE, YinYueTaiIE, YleAreenaIE, YnetIE, YouJizzIE, YoukuIE, YoukuShowIE, YouNowLiveIE, YouNowChannelIE, YouNowMomentIE, YouPornIE, YourPornIE, YourUploadIE, ZaikoIE, ZaikoETicketIE, ZapiksIE, BBVTVIE, BBVTVLiveIE, BBVTVRecordingsIE, EinsUndEinsTVIE, EinsUndEinsTVLiveIE, EinsUndEinsTVRecordingsIE, EWETVIE, EWETVLiveIE, EWETVRecordingsIE, GlattvisionTVIE, GlattvisionTVLiveIE, GlattvisionTVRecordingsIE, MNetTVIE, MNetTVLiveIE, MNetTVRecordingsIE, NetPlusTVIE, NetPlusTVLiveIE, NetPlusTVRecordingsIE, OsnatelTVIE, OsnatelTVLiveIE, OsnatelTVRecordingsIE, QuantumTVIE, QuantumTVLiveIE, QuantumTVRecordingsIE, SaltTVIE, SaltTVLiveIE, SaltTVRecordingsIE, SAKTVIE, SAKTVLiveIE, SAKTVRecordingsIE, VTXTVIE, VTXTVLiveIE, VTXTVRecordingsIE, WalyTVIE, WalyTVLiveIE, WalyTVRecordingsIE, ZattooIE, ZattooLiveIE, ZattooMoviesIE, ZattooRecordingsIE, ZDFIE, DreiSatIE, ZDFChannelIE, Zee5IE, Zee5SeriesIE, ZeeNewsIE, ZhihuIE, ZingMp3IE, ZingMp3AlbumIE, ZingMp3ChartHomeIE, ZingMp3WeekChartIE, ZingMp3ChartMusicVideoIE, ZingMp3UserIE, ZingMp3HubIE, ZoomIE, ZypeIE, GenericIE]
+_ALL_CLASSES = [YoutubeIE, YoutubeClipIE, YoutubeFavouritesIE, YoutubeNotificationsIE, YoutubeHistoryIE, YoutubeTabIE, YoutubeLivestreamEmbedIE, YoutubePlaylistIE, YoutubeRecommendedIE, YoutubeSearchDateIE, YoutubeSearchIE, YoutubeSearchURLIE, YoutubeMusicSearchURLIE, YoutubeSubscriptionsIE, YoutubeTruncatedIDIE, YoutubeTruncatedURLIE, YoutubeYtBeIE, YoutubeYtUserIE, YoutubeWatchLaterIE, YoutubeShortsAudioPivotIE, YoutubeConsentRedirectIE, ABCIE, ABCIViewIE, ABCIViewShowSeriesIE, AbcNewsIE, AbcNewsVideoIE, ABCOTVSIE, ABCOTVSClipsIE, AbemaTVIE, AbemaTVTitleIE, AcademicEarthCourseIE, ACastIE, ACastChannelIE, AcFunVideoIE, AcFunBangumiIE, ADNIE, ADNSeasonIE, AdobeConnectIE, AdobeTVEmbedIE, AdobeTVIE, AdobeTVShowIE, AdobeTVChannelIE, AdobeTVVideoIE, AdultSwimIE, AeonCoIE, AfreecaTVIE, AfreecaTVLiveIE, AfreecaTVUserIE, TokFMAuditionIE, TokFMPodcastIE, WyborczaPodcastIE, WyborczaVideoIE, AirTVIE, AitubeKZVideoIE, AlJazeeraIE, AllstarIE, AllstarProfileIE, AlphaPornoIE, AltCensoredIE, AltCensoredChannelIE, AluraIE, AluraCourseIE, AmadeusTVIE, AmaraIE, AmazonStoreIE, AmazonReviewsIE, AmazonMiniTVIE, AmazonMiniTVSeasonIE, AmazonMiniTVSeriesIE, AmericasTestKitchenIE, AmericasTestKitchenSeasonIE, AnchorFMEpisodeIE, AngelIE, AnvatoIE, AllocineIE, AliExpressLiveIE, Alsace20TVIE, Alsace20TVEmbedIE, APAIE, AparatIE, AppleConnectIE, AppleTrailersIE, AppleTrailersSectionIE, ApplePodcastsIE, ArchiveOrgIE, YoutubeWebArchiveIE, ArcPublishingIE, ArkenaIE, ARDBetaMediathekIE, ARDMediathekCollectionIE, ARDIE, Art19IE, Art19ShowIE, ArteTVIE, ArteTVEmbedIE, ArteTVPlaylistIE, ArteTVCategoryIE, ArnesIE, AsobiChannelIE, AsobiChannelTagURLIE, AsobiStageIE, AtresPlayerIE, AtScaleConfEventIE, ATVAtIE, AudiMediaIE, AudioBoomIE, AudiodraftCustomIE, AudiodraftGenericIE, AudiomackIE, AudiomackAlbumIE, AudiusIE, AudiusTrackIE, AudiusPlaylistIE, AudiusProfileIE, AWAANIE, AWAANVideoIE, AWAANLiveIE, AWAANSeasonIE, AxsIE, AZMedienIE, BaiduVideoIE, BanByeIE, BanByeChannelIE, BandaiChannelIE, BandcampIE, BandcampAlbumIE, BandcampWeeklyIE, BandcampUserIE, BannedVideoIE, BBCCoUkIE, BBCCoUkArticleIE, BBCCoUkIPlayerEpisodesIE, BBCCoUkIPlayerGroupIE, BBCCoUkPlaylistIE, BBCIE, BeegIE, BehindKinkIE, BellMediaIE, BeatBumpVideoIE, BeatBumpPlaylistIE, BeatportIE, BerufeTVIE, BetIE, BFIPlayerIE, BFMTVIE, BFMTVLiveIE, BFMTVArticleIE, BibelTVLiveIE, BibelTVSeriesIE, BibelTVVideoIE, BigflixIE, BigoIE, BildIE, BiliBiliIE, BiliBiliBangumiIE, BiliBiliBangumiSeasonIE, BiliBiliBangumiMediaIE, BilibiliCheeseIE, BilibiliCheeseSeasonIE, BiliBiliSearchIE, BilibiliCategoryIE, BilibiliAudioIE, BilibiliAudioAlbumIE, BiliBiliPlayerIE, BilibiliSpaceVideoIE, BilibiliSpaceAudioIE, BilibiliCollectionListIE, BilibiliSeriesListIE, BilibiliFavoritesListIE, BilibiliWatchlaterIE, BilibiliPlaylistIE, BiliIntlIE, BiliIntlSeriesIE, BiliLiveIE, BioBioChileTVIE, BitChuteIE, BitChuteChannelIE, BlackboardCollaborateIE, BleacherReportIE, BleacherReportCMSIE, BlerpIE, BloggerIE, BloombergIE, BokeCCIE, BongaCamsIE, BoostyIE, BostonGlobeIE, BoxIE, BoxCastVideoIE, BpbIE, BRIE, BravoTVIE, BrainPOPIE, BrainPOPJrIE, BrainPOPELLIE, BrainPOPEspIE, BrainPOPFrIE, BrainPOPIlIE, BreitBartIE, BrightcoveLegacyIE, BrightcoveNewIE, BrilliantpalaElearnIE, BrilliantpalaClassesIE, BusinessInsiderIE, BundesligaIE, BundestagIE, BuzzFeedIE, BYUtvIE, C56IE, CableAVIE, CallinIE, CaltransIE, CAM4IE, CamdemyIE, CamdemyFolderIE, CamFMEpisodeIE, CamFMShowIE, CamModelsIE, CamsodaIE, CamtasiaEmbedIE, Canal1IE, CanalAlphaIE, CanalplusIE, Canalc2IE, CaracolTvPlayIE, CartoonNetworkIE, CBCIE, CBCPlayerIE, CBCPlayerPlaylistIE, CBCGemIE, CBCGemPlaylistIE, CBCGemLiveIE, ParamountPressExpressIE, CBSNewsEmbedIE, CBSNewsIE, CBSLocalIE, CBSLocalArticleIE, CBSLocalLiveIE, CBSNewsLiveIE, CBSNewsLiveVideoIE, CBSSportsEmbedIE, CBSSportsIE, TwentyFourSevenSportsIE, CCCIE, CCCPlaylistIE, CCMAIE, CCTVIE, CDAIE, CellebriteIE, CeskaTelevizeIE, CGTNIE, CharlieRoseIE, ChaturbateIE, ChilloutzoneIE, CHZZKLiveIE, CHZZKVideoIE, CinemaxIE, CinetecaMilanoIE, CineverseIE, CineverseDetailsIE, CiscoLiveSessionIE, CiscoLiveSearchIE, CiscoWebexIE, CJSWIE, ClipchampIE, ClippitIE, ClipRsIE, CloserToTruthIE, CloudflareStreamIE, CloudyCDNIE, ClubicIE, ClypIE, CNBCVideoIE, CNNIE, CNNBlogsIE, CNNArticleIE, CNNIndonesiaIE, CoubIE, ComedyCentralIE, ComedyCentralTVIE, CommonMistakesIE, UnicodeBOMIE, MmsIE, RtmpIE, ViewSourceIE, CondeNastIE, CONtvIE, CPACIE, CPACPlaylistIE, CozyTVIE, CrackedIE, CrackleIE, CraftsyIE, CrooksAndLiarsIE, CrowdBunkerIE, CrowdBunkerChannelIE, CrtvgIE, CrunchyrollBetaIE, CrunchyrollBetaShowIE, CrunchyrollMusicIE, CrunchyrollArtistIE, CSpanIE, CSpanCongressIE, CtsNewsIE, CTVIE, CTVNewsIE, CultureUnpluggedIE, CuriosityStreamIE, CuriosityStreamCollectionsIE, CuriosityStreamSeriesIE, CWTVIE, CybraryIE, CybraryCourseIE, DacastVODIE, DacastPlaylistIE, DailyMailIE, DailymotionIE, DailymotionPlaylistIE, DailymotionSearchIE, DailymotionUserIE, DailyWireIE, DailyWirePodcastIE, DamtomoRecordIE, DamtomoVideoIE, DaumIE, DaumClipIE, DaumPlaylistIE, DaumUserIE, DaystarClipIE, DBTVIE, DctpTvIE, DeezerPlaylistIE, DeezerAlbumIE, DemocracynowIE, DetikEmbedIE, DLFIE, DLFCorpusIE, DFBIE, DHMIE, DouyuShowIE, DouyuTVIE, DPlayIE, DiscoveryPlusIE, HGTVDeIE, GoDiscoveryIE, TravelChannelIE, CookingChannelIE, HGTVUsaIE, FoodNetworkIE, InvestigationDiscoveryIE, DestinationAmericaIE, AmHistoryChannelIE, ScienceChannelIE, DIYNetworkIE, DiscoveryLifeIE, AnimalPlanetIE, TLCIE, MotorTrendIE, MotorTrendOnDemandIE, DiscoveryPlusIndiaIE, DiscoveryNetworksDeIE, DiscoveryPlusItalyIE, DiscoveryPlusItalyShowIE, DiscoveryPlusIndiaShowIE, GlobalCyclingNetworkPlusIE, DRBonanzaIE, DrTuberIE, DRTVIE, DRTVLiveIE, DRTVSeasonIE, DRTVSeriesIE, DTubeIE, DVTVIE, DubokuIE, DubokuPlaylistIE, DumpertIE, DeuxMIE, DeuxMNewsIE, DigitalConcertHallIE, DiscogsReleasePlaylistIE, DiscoveryIE, DisneyIE, DigitallySpeakingIE, DropboxIE, DropoutSeasonIE, DropoutIE, DuoplayIE, DWIE, DWArticleIE, EaglePlatformIE, ClipYouEmbedIE, EbaumsWorldIE, EbayIE, EggheadCourseIE, EggheadLessonIE, EightTracksIE, EinthusanIE, EitbIE, ElementorEmbedIE, ElonetIE, ElPaisIE, ElTreceTVIE, EmbedlyIE, EpiconIE, EpiconSeriesIE, EpidemicSoundIE, EplusIbIE, EpochIE, EpornerIE, ErocastIE, EroProfileIE, EroProfileAlbumIE, ERRJupiterIE, ERTFlixCodenameIE, ERTFlixIE, ERTWebtvEmbedIE, ESPNIE, WatchESPNIE, ESPNArticleIE, FiveThirtyEightIE, ESPNCricInfoIE, EttuTvIE, EuropaIE, EuroParlWebstreamIE, EuropeanTourIE, EurosportIE, EUScreenIE, ExpressenIE, EyedoTVIE, FacebookIE, FacebookPluginsVideoIE, FacebookRedirectURLIE, FacebookReelIE, FacebookAdsIE, FathomIE, FancodeVodIE, FancodeLiveIE, FazIE, FC2IE, FC2EmbedIE, FC2LiveIE, FczenitIE, FifaIE, FilmOnIE, FilmOnChannelIE, FilmwebIE, FirstTVIE, FiveTVIE, FlexTVIE, FlickrIE, FloatplaneIE, FloatplaneChannelIE, FolketingetIE, FootyRoomIE, Formula1IE, FourTubeIE, PornTubeIE, PornerBrosIE, FuxIE, FOXIE, FOX9IE, FOX9NewsIE, FoxNewsIE, FoxNewsArticleIE, FoxNewsVideoIE, FoxSportsIE, FptplayIE, FranceInterIE, FranceTVIE, FranceTVSiteIE, FranceTVInfoIE, FreesoundIE, FreespeechIE, FrontendMastersIE, FrontendMastersLessonIE, FrontendMastersCourseIE, FreeTvIE, FreeTvMoviesIE, FujiTVFODPlus7IE, FunimationIE, FunimationPageIE, FunimationShowIE, FunkIE, Funker530IE, FuyinTVIE, GabTVIE, GabIE, GaiaIE, GameJoltIE, GameJoltUserIE, GameJoltGameIE, GameJoltGameSoundtrackIE, GameJoltCommunityIE, GameJoltSearchIE, GameSpotIE, GameStarIE, GaskrankIE, GazetaIE, GDCVaultIE, GediDigitalIE, GeniusIE, GeniusLyricsIE, GetCourseRuPlayerIE, GetCourseRuIE, GettrIE, GettrStreamingIE, GiantBombIE, GlideIE, GlobalPlayerLiveIE, GlobalPlayerLivePlaylistIE, GlobalPlayerAudioIE, GlobalPlayerAudioEpisodeIE, GlobalPlayerVideoIE, GloboIE, GloboArticleIE, GMANetworkVideoIE, GoIE, GodTubeIE, GofileIE, GolemIE, GoodGameIE, GoogleDriveIE, GoogleDriveFolderIE, GooglePodcastsIE, GooglePodcastsFeedIE, GoogleSearchIE, GoProIE, GoPlayIE, GoshgayIE, GoToStageIE, GPUTechConfIE, GronkhIE, GronkhFeedIE, GronkhVodsIE, GrouponIE, HarpodeonIE, HBOIE, HearThisAtIE, HeiseIE, HellPornoIE, HGTVComShowIE, HKETVIE, HiDiveIE, HistoricFilmsIE, HitRecordIE, HollywoodReporterIE, HollywoodReporterPlaylistIE, HolodexIE, HotNewHipHopIE, HotStarIE, HotStarPrefixIE, HotStarPlaylistIE, HotStarSeasonIE, HotStarSeriesIE, HrefLiRedirectIE, HRFernsehenIE, HRTiIE, HRTiPlaylistIE, HSEShowIE, HSEProductIE, HTML5MediaEmbedIE, QuotedHTMLIE, HuajiaoIE, HuyaLiveIE, HuffPostIE, HungamaIE, HungamaSongIE, HungamaAlbumPlaylistIE, HypemIE, MonsterSirenHypergryphMusicIE, HytaleIE, IcareusIE, IchinanaLiveIE, IchinanaLiveClipIE, IdolPlusIE, IGNIE, IGNVideoIE, IGNArticleIE, IHeartRadioIE, IHeartRadioPodcastIE, IlPostIE, IltalehtiIE, ImdbIE, ImdbListIE, ImgurIE, ImgurAlbumIE, ImgurGalleryIE, InaIE, IncIE, IndavideoEmbedIE, InfoQIE, InstagramIE, InstagramIOSIE, InstagramUserIE, InstagramTagIE, InstagramStoryIE, InternazionaleIE, InternetVideoArchiveIE, IPrimaIE, IPrimaCNNIE, IqiyiIE, IqIE, IqAlbumIE, IslamChannelIE, IslamChannelSeriesIE, IsraelNationalNewsIE, ITProTVIE, ITProTVCourseIE, ITVIE, ITVBTCCIE, IviIE, IviCompilationIE, IvideonIE, IwaraIE, IwaraPlaylistIE, IwaraUserIE, IxiguaIE, IzleseneIE, JableIE, JablePlaylistIE, JamendoIE, JamendoAlbumIE, ShugiinItvLiveIE, ShugiinItvLiveRoomIE, ShugiinItvVodIE, SangiinInstructionIE, SangiinIE, JeuxVideoIE, JioSaavnSongIE, JioSaavnAlbumIE, JioSaavnPlaylistIE, JoveIE, JojIE, JoqrAgIE, JStreamIE, JTBCIE, JTBCProgramIE, JWPlatformIE, KakaoIE, KalturaIE, KankaNewsIE, KaraoketvIE, KelbyOneIE, KhanAcademyIE, KhanAcademyUnitIE, KickIE, KickVODIE, KickerIE, KickStarterIE, KinjaEmbedIE, KinoPoiskIE, KommunetvIE, KompasVideoIE, KooIE, KTHIE, KrasViewIE, Ku6IE, KukuluLiveIE, KuwoIE, KuwoAlbumIE, KuwoChartIE, KuwoSingerIE, KuwoCategoryIE, KuwoMvIE, LA7IE, LA7PodcastEpisodeIE, LA7PodcastIE, LastFMIE, LastFMPlaylistIE, LastFMUserIE, LaXarxaMesIE, LBRYIE, LBRYChannelIE, LBRYPlaylistIE, LCIIE, LcpPlayIE, LcpIE, Lecture2GoIE, LecturioIE, LecturioCourseIE, LecturioDeCourseIE, LeIE, LePlaylistIE, LetvCloudIE, LeFigaroVideoEmbedIE, LeFigaroVideoSectionIE, LEGOIE, LemondeIE, LentaIE, LibraryOfCongressIE, LibsynIE, LifeNewsIE, LifeEmbedIE, LikeeIE, LikeeUserIE, LimelightMediaIE, LimelightChannelIE, LimelightChannelListIE, LinkedInIE, LinkedInLearningIE, LinkedInLearningCourseIE, Liputan6IE, ListenNotesIE, LiTVIE, LiveJournalIE, LivestreamIE, LivestreamOriginalIE, LivestreamShortenerIE, LivestreamfailsIE, LnkGoIE, LnkIE, LoomIE, LoomFolderIE, LoveHomePornIE, LRTVODIE, LRTStreamIE, LSMLREmbedIE, LSMLTVEmbedIE, LSMReplayIE, LumniIE, LyndaIE, LyndaCourseIE, MaarivIE, MagellanTVIE, MagentaMusikIE, MailRuIE, MailRuMusicIE, MailRuMusicSearchIE, MainStreamingIE, MangomoloVideoIE, MangomoloLiveIE, ManotoTVIE, ManotoTVShowIE, ManotoTVLiveIE, ManyVidsIE, MaoriTVIE, MarkizaIE, MarkizaPageIE, MassengeschmackTVIE, MastersIE, MatchTVIE, MBNIE, MDRIE, MedalTVIE, MediaiteIE, MediaKlikkIE, MediasetIE, MediasetShowIE, MediasiteIE, MediasiteCatalogIE, MediasiteNamedCatalogIE, MediaStreamIE, WinSportsVideoIE, MediaWorksNZVODIE, MediciIE, MegaphoneIE, MeipaiIE, MelonVODIE, MetacriticIE, MGTVIE, MicrosoftStreamIE, MicrosoftVirtualAcademyIE, MicrosoftVirtualAcademyCourseIE, MicrosoftEmbedIE, MildomIE, MildomVodIE, MildomClipIE, MildomUserVodIE, MindsIE, MindsChannelIE, MindsGroupIE, MinotoIE, MirrativIE, MirrativUserIE, MirrorCoUKIE, TechTVMITIE, OCWMITIE, MixchIE, MixchArchiveIE, MixcloudIE, MixcloudUserIE, MixcloudPlaylistIE, MLBIE, MLBVideoIE, MLBTVIE, MLBArticleIE, MLSSoccerIE, MochaVideoIE, MojvideoIE, MonstercatIE, MotherlessIE, MotherlessGroupIE, MotherlessGalleryIE, MotherlessUploaderIE, MotorsportIE, MoviepilotIE, MoviewPlayIE, MoviezineIE, MovingImageIE, MSNIE, MTVIE, CMTIE, MTVVideoIE, MTVServicesEmbeddedIE, MTVDEIE, MTVJapanIE, MTVItaliaIE, MTVItaliaProgrammaIE, MuenchenTVIE, MurrtubeIE, MurrtubeUserIE, MuseAIIE, MuseScoreIE, MusicdexSongIE, MusicdexAlbumIE, MusicdexArtistIE, MusicdexPlaylistIE, Mx3IE, Mx3NeoIE, Mx3VolksmusikIE, MxplayerIE, MxplayerShowIE, MySpaceIE, MySpaceAlbumIE, MySpassIE, MyVideoGeIE, MyVidsterIE, MzaaloIE, N1InfoAssetIE, N1InfoIIE, NateIE, NateProgramIE, NationalGeographicVideoIE, NationalGeographicTVIE, NaverIE, NaverLiveIE, NaverNowIE, NBAWatchEmbedIE, NBAWatchIE, NBAWatchCollectionIE, NBAEmbedIE, NBAIE, NBAChannelIE, NBCOlympicsIE, NBCOlympicsStreamIE, NBCSportsIE, NBCSportsStreamIE, NBCSportsVPlayerIE, NBCStationsIE, NDRIE, NJoyIE, NDREmbedBaseIE, NDREmbedIE, NJoyEmbedIE, NDTVIE, NebulaIE, NebulaClassIE, NebulaSubscriptionsIE, NebulaChannelIE, NekoHackerIE, NerdCubedFeedIE, NetzkinoIE, NetEaseMusicIE, NetEaseMusicAlbumIE, NetEaseMusicSingerIE, NetEaseMusicListIE, NetEaseMusicMvIE, NetEaseMusicProgramIE, NetEaseMusicDjRadioIE, NetverseIE, NetversePlaylistIE, NetverseSearchIE, NewgroundsIE, NewgroundsPlaylistIE, NewgroundsUserIE, NewsPicksIE, NewsyIE, NextMediaIE, NextMediaActionNewsIE, AppleDailyIE, NextTVIE, NexxIE, NexxEmbedIE, NFBIE, NFBSeriesIE, NFHSNetworkIE, NFLIE, NFLArticleIE, NFLPlusEpisodeIE, NFLPlusReplayIE, NhkVodIE, NhkVodProgramIE, NhkForSchoolBangumiIE, NhkForSchoolSubjectIE, NhkForSchoolProgramListIE, NhkRadioNewsPageIE, NhkRadiruIE, NhkRadiruLiveIE, NHLIE, NickIE, NickBrIE, NickDeIE, NickRuIE, NiconicoIE, NiconicoPlaylistIE, NiconicoUserIE, NiconicoSeriesIE, NiconicoHistoryIE, NicovideoSearchDateIE, NicovideoSearchIE, NicovideoSearchURLIE, NicovideoTagURLIE, NiconicoLiveIE, NinaProtocolIE, NineCNineMediaIE, CPTwentyFourIE, NiconicoChannelPlusIE, NiconicoChannelPlusChannelVideosIE, NiconicoChannelPlusChannelLivesIE, NineGagIE, NineNewsIE, NineNowIE, NintendoIE, NitterIE, NobelPrizeIE, NoicePodcastIE, NonkTubeIE, NoodleMagazineIE, NoovoIE, NOSNLArticleIE, NovaEmbedIE, NovaIE, NovaPlayIE, NownessIE, NownessPlaylistIE, NownessSeriesIE, NozIE, NPOIE, AndereTijdenIE, NPOLiveIE, NPORadioIE, NPORadioFragmentIE, SchoolTVIE, HetKlokhuisIE, VPROIE, WNLIE, NprIE, NRKIE, NRKPlaylistIE, NRKSkoleIE, NRKTVIE, NRKTVDirekteIE, NRKRadioPodkastIE, NRKTVEpisodeIE, NRKTVEpisodesIE, NRKTVSeasonIE, NRKTVSeriesIE, NRLTVIE, NTVCoJpCUIE, NTVDeIE, NTVRuIE, NubilesPornIE, NYTimesIE, NYTimesArticleIE, NYTimesCookingIE, NYTimesCookingRecipeIE, NuumLiveIE, NuumTabIE, NuumMediaIE, NuvidIE, NZHeraldIE, NZOnScreenIE, NZZIE, OnDemandChinaEpisodeIE, OdnoklassnikiIE, OfTVIE, OfTVPlaylistIE, OktoberfestTVIE, OlympicsReplayIE, On24IE, OnDemandKoreaIE, OnDemandKoreaProgramIE, OneFootballIE, OneNewsNZIE, OnePlacePodcastIE, OnetIE, OnetChannelIE, OnetMVPIE, OnetPlIE, OnionStudiosIE, OpencastIE, OpencastPlaylistIE, OpenRecIE, OpenRecCaptureIE, OpenRecMovieIE, OraTVIE, ORFTVthekIE, ORFFM4StoryIE, ORFONIE, ORFRadioIE, ORFPodcastIE, ORFIPTVIE, OutsideTVIE, OwnCloudIE, PacktPubIE, PacktPubCourseIE, PalcoMP3IE, PalcoMP3ArtistIE, PalcoMP3VideoIE, PanoptoIE, PanoptoListIE, PanoptoPlaylistIE, ParamountPlusSeriesIE, ParlerIE, ParlviewIE, PatreonIE, PatreonCampaignIE, PBSIE, PBSKidsIE, PearVideoIE, PeekVidsIE, PlayVidsIE, PeerTubeIE, PeerTubePlaylistIE, PeerTVIE, PelotonIE, PelotonLiveIE, PerformGroupIE, PeriscopeIE, PeriscopeUserIE, PGATourIE, PhilharmonieDeParisIE, PhoenixIE, PhotobucketIE, PiaproIE, PIAULIZAPortalIE, PicartoIE, PicartoVodIE, PikselIE, PinkbikeIE, PinterestIE, PinterestCollectionIE, PixivSketchIE, PixivSketchUserIE, PladformIE, PlanetMarathiIE, PlatziIE, PlatziCourseIE, PlayPlusTVIE, PlaySuisseIE, PlaytvakIE, PlaywireIE, PlutoTVIE, PluralsightIE, PluralsightCourseIE, PodbayFMIE, PodbayFMChannelIE, PodchaserIE, PodomaticIE, PokemonIE, PokemonWatchIE, PokerGoIE, PokerGoCollectionIE, PolsatGoIE, PolskieRadioIE, PolskieRadioLegacyIE, PolskieRadioAuditionIE, PolskieRadioCategoryIE, PolskieRadioPlayerIE, PolskieRadioPodcastIE, PolskieRadioPodcastListIE, PopcorntimesIE, PopcornTVIE, Porn91IE, PornboxIE, PornFlipIE, PornHubIE, PornHubUserIE, PornHubPlaylistIE, PornHubPagedVideoListIE, PornHubUserVideosUploadIE, PornotubeIE, PornoVoisinesIE, PornoXOIE, PuhuTVIE, PuhuTVSerieIE, Pr0grammIE, PrankCastIE, PrankCastPostIE, PremiershipRugbyIE, PressTVIE, ProjectVeritasIE, ProSiebenSat1IE, PRXStoryIE, PRXSeriesIE, PRXAccountIE, PRXStoriesSearchIE, PRXSeriesSearchIE, Puls4IE, PyvideoIE, QDanceIE, QingTingIE, QQMusicIE, QQMusicSingerIE, QQMusicAlbumIE, QQMusicToplistIE, QQMusicPlaylistIE, R7IE, R7ArticleIE, RadikoIE, RadikoRadioIE, RadioCanadaIE, RadioCanadaAudioVideoIE, RadioComercialIE, RadioComercialPlaylistIE, RadioDeIE, RadioJavanIE, FranceCultureIE, RadioFranceIE, RadioFranceLiveIE, RadioFrancePodcastIE, RadioFranceProfileIE, RadioFranceProgramScheduleIE, RadioZetPodcastIE, RadioKapitalIE, RadioKapitalShowIE, RadLiveIE, RadLiveChannelIE, RadLiveSeasonIE, RaiIE, RaiPlayIE, RaiPlayLiveIE, RaiPlayPlaylistIE, RaiPlaySoundIE, RaiPlaySoundLiveIE, RaiPlaySoundPlaylistIE, RaiNewsIE, RaiCulturaIE, RaiSudtirolIE, RayWenderlichIE, RayWenderlichCourseIE, RbgTumIE, RbgTumCourseIE, RbgTumNewCourseIE, RCSIE, RCSEmbedsIE, RCSVariousIE, RCTIPlusIE, RCTIPlusSeriesIE, RCTIPlusTVIE, RDSIE, ParliamentLiveUKIE, RTBFIE, RedBullTVIE, RedBullEmbedIE, RedBullTVRrnContentIE, RedBullIE, RedditIE, RedCDNLivxIE, RedGifsIE, RedGifsSearchIE, RedGifsUserIE, RedTubeIE, RENTVIE, RENTVArticleIE, RestudyIE, ReutersIE, ReverbNationIE, RheinMainTVIE, RideHomeIE, RinseFMIE, RinseFMArtistPlaylistIE, RMCDecouverteIE, RockstarGamesIE, RokfinIE, RokfinStackIE, RokfinChannelIE, RokfinSearchIE, RoosterTeethIE, RoosterTeethSeriesIE, RottenTomatoesIE, RozhlasIE, RozhlasVltavaIE, MujRozhlasIE, RteIE, RteRadioIE, RtlNlIE, RTLLuTeleVODIE, RTLLuArticleIE, RTLLuLiveIE, RTLLuRadioIE, RTL2IE, RTNewsIE, RTDocumentryIE, RTDocumentryPlaylistIE, RuptlyIE, RTPIE, RTRFMIE, RTVCPlayIE, RTVCPlayEmbedIE, RTVCKalturaIE, RTVEALaCartaIE, RTVEAudioIE, RTVELiveIE, RTVEInfantilIE, RTVETelevisionIE, RTVSIE, RTVSLOIE, Rule34VideoIE, RumbleEmbedIE, RumbleIE, RumbleChannelIE, RudoVideoIE, RutubeIE, RutubeChannelIE, RutubeEmbedIE, RutubeMovieIE, RutubePersonIE, RutubePlaylistIE, RutubeTagsIE, GlomexIE, GlomexEmbedIE, MegaTVComIE, MegaTVComEmbedIE, AntennaGrWatchIE, Ant1NewsGrArticleIE, Ant1NewsGrEmbedIE, RUTVIE, RuutuIE, RuvIE, RuvSpilaIE, S4CIE, S4CSeriesIE, SafariIE, SafariApiIE, SafariCourseIE, SaitosanIE, SampleFocusIE, SapoIE, SBSIE, SBSCoKrIE, SBSCoKrAllvodProgramIE, SBSCoKrProgramsVodIE, Screen9IE, ScreencastIE, ScreencastifyIE, ScreencastOMaticIE, ScrippsNetworksWatchIE, ScrippsNetworksIE, SCTEIE, SCTECourseIE, ScrolllerIE, SejmIE, SenalColombiaLiveIE, SenateISVPIE, SenateGovIE, SendtoNewsIE, ServusIE, SevenPlusIE, SexuIE, SeznamZpravyIE, SeznamZpravyArticleIE, ShahidIE, ShahidShowIE, SharePointIE, ShareVideosEmbedIE, SibnetEmbedIE, ShemarooMeIE, ShowRoomLiveIE, SimplecastIE, SimplecastEpisodeIE, SimplecastPodcastIE, SinaIE, SixPlayIE, SkebIE, SkyItPlayerIE, SkyItVideoIE, SkyItVideoLiveIE, SkyItIE, SkyItArteIE, CieloTVItIE, TV8ItIE, SkylineWebcamsIE, SkyNewsArabiaIE, SkyNewsArabiaArticleIE, SkyNewsAUIE, SkyNewsIE, SkyNewsStoryIE, SkySportsIE, SkySportsNewsIE, SlideshareIE, SlidesLiveIE, SlutloadIE, SmotrimIE, SnotrIE, SohuIE, SohuVIE, SonyLIVIE, SonyLIVSeriesIE, SoundcloudEmbedIE, SoundcloudIE, SoundcloudSetIE, SoundcloudRelatedIE, SoundcloudUserIE, SoundcloudUserPermalinkIE, SoundcloudTrackStationIE, SoundcloudPlaylistIE, SoundcloudSearchIE, SoundgasmIE, SoundgasmProfileIE, SouthParkIE, SouthParkDeIE, SouthParkDkIE, SouthParkEsIE, SouthParkLatIE, SouthParkNlIE, SovietsClosetIE, SovietsClosetPlaylistIE, SpankBangIE, SpankBangPlaylistIE, SpiegelIE, BellatorIE, ParamountNetworkIE, StagePlusVODConcertIE, StarTrekIE, StitcherIE, StitcherShowIE, Sport5IE, SportBoxIE, SportDeutschlandIE, SpotifyIE, SpotifyShowIE, SpreakerIE, SpreakerPageIE, SpreakerShowIE, SpreakerShowPageIE, SpringboardPlatformIE, SproutIE, SRGSSRIE, RTSIE, SRGSSRPlayIE, SRMediathekIE, StacommuLiveIE, StacommuVODIE, TheaterComplexTownVODIE, TheaterComplexTownPPVIE, StanfordOpenClassroomIE, StarTVIE, SteamIE, SteamCommunityBroadcastIE, StoryFireIE, StoryFireUserIE, StoryFireSeriesIE, StreamableIE, StreamCZIE, StreetVoiceIE, StretchInternetIE, StripchatIE, STVPlayerIE, SubstackIE, SunPornoIE, SverigesRadioEpisodeIE, SverigesRadioPublicationIE, SVTIE, SVTPageIE, SVTPlayIE, SVTSeriesIE, SwearnetEpisodeIE, SYVDKIE, SyfyIE, SztvHuIE, TagesschauIE, TassIE, TBSIE, TBSJPEpisodeIE, TBSJPProgramIE, TBSJPPlaylistIE, TeachableIE, TeachableCourseIE, TeacherTubeIE, TeacherTubeUserIE, TeachingChannelIE, TeamcocoIE, ConanClassicIE, TeamTreeHouseIE, TedEmbedIE, TedPlaylistIE, TedSeriesIE, TedTalkIE, Tele5IE, Tele13IE, TeleBruxellesIE, TelecaribePlayIE, TelecincoIE, MiTeleIE, TelegraafIE, TelegramEmbedIE, TeleMBIE, TelemundoIE, TeleQuebecIE, TeleQuebecSquatIE, TeleQuebecEmissionIE, TeleQuebecLiveIE, TeleQuebecVideoIE, TeleTaskIE, TelewebionIE, TempoIE, IVXPlayerIE, IflixEpisodeIE, IflixSeriesIE, VQQSeriesIE, VQQVideoIE, WeTvEpisodeIE, WeTvSeriesIE, TennisTVIE, TenPlayIE, TenPlaySeasonIE, TestURLIE, TF1IE, TFOIE, TheGuardianPodcastIE, TheGuardianPodcastPlaylistIE, TheHoleTvIE, TheInterceptIE, ThePlatformIE, AENetworksIE, AENetworksCollectionIE, AENetworksShowIE, HistoryTopicIE, HistoryPlayerIE, BiographyIE, AMCNetworksIE, NBCIE, NBCNewsIE, ThePlatformFeedIE, CBSIE, CorusIE, ParamountPlusIE, TheStarIE, TheSunIE, TheWeatherChannelIE, ThisAmericanLifeIE, ThisOldHouseIE, ThisVidIE, ThisVidMemberIE, ThisVidPlaylistIE, ThreeSpeakIE, ThreeSpeakUserIE, ThreeQSDNIE, TikTokIE, TikTokUserIE, TikTokSoundIE, TikTokEffectIE, TikTokTagIE, TikTokVMIE, TikTokLiveIE, DouyinIE, TMZIE, TNAFlixNetworkEmbedIE, TNAFlixIE, EMPFlixIE, MovieFapIE, ToggleIE, MeWatchIE, ToggoIE, TOnlineIE, ToonGogglesIE, TouTvIE, ToypicsUserIE, ToypicsIE, TrailerAddictIE, TrillerIE, TrillerUserIE, TrillerShortIE, TrovoIE, TrovoVodIE, TrovoChannelVodIE, TrovoChannelClipIE, TrtCocukVideoIE, TrtWorldIE, TrueIDIE, TruNewsIE, TruthIE, TruTVIE, Tube8IE, TubeTuGrazIE, TubeTuGrazSeriesIE, TubiTvIE, TubiTvShowIE, TumblrIE, TuneInStationIE, TuneInPodcastIE, TuneInPodcastEpisodeIE, TuneInShortenerIE, TV2IE, TV2ArticleIE, KatsomoIE, MTVUutisetArticleIE, TV24UAVideoIE, TV2DKIE, TV2DKBornholmPlayIE, TV2HuIE, TV2HuSeriesIE, TV4IE, TV5MondePlusIE, TV5UnisVideoIE, TV5UnisIE, TVAIE, QubIE, TVANouvellesIE, TVANouvellesArticleIE, TVCIE, TVCArticleIE, TVerIE, TvigleIE, TVIPlayerIE, TVLandIE, TVN24IE, TVNoeIE, TVOpenGrWatchIE, TVOpenGrEmbedIE, TVPEmbedIE, TVPIE, TVPStreamIE, TVPVODSeriesIE, TVPVODVideoIE, TVPlayIE, TVPlayHomeIE, TVPlayerIE, TweakersIE, TwentyMinutenIE, TwentyThreeVideoIE, TwitCastingIE, TwitCastingLiveIE, TwitCastingUserIE, TwitchVodIE, TwitchCollectionIE, TwitchVideosIE, TwitchVideosClipsIE, TwitchVideosCollectionsIE, TwitchStreamIE, TwitchClipsIE, TwitterCardIE, TwitterIE, TwitterAmplifyIE, TwitterBroadcastIE, TwitterSpacesIE, TwitterShortenerIE, TxxxIE, PornTopIE, UdemyIE, UdemyCourseIE, UDNEmbedIE, UFCTVIE, UFCArabiaIE, UkColumnIE, UKTVPlayIE, DigitekaIE, DLiveVODIE, DLiveStreamIE, DroobleIE, UMGDeIE, UnistraIE, UnityIE, KnownDRMIE, KnownPiracyIE, UOLIE, UplynkIE, UplynkPreplayIE, UrortIE, URPlayIE, USANetworkIE, USATodayIE, UstreamIE, UstreamChannelIE, UstudioIE, UstudioEmbedIE, UtreonIE, Varzesh3IE, Vbox7IE, VeoIE, VeohIE, VeohUserIE, VestiIE, VevoIE, VevoPlaylistIE, BTArticleIE, BTVestlendingenIE, VH1IE, ViceIE, ViceArticleIE, ViceShowIE, ViddlerIE, VideaIE, VideocampusSachsenIE, ViMPPlaylistIE, VideoDetectiveIE, VideofyMeIE, VideoKenIE, VideoKenPlayerIE, VideoKenPlaylistIE, VideoKenCategoryIE, VideoKenTopicIE, VideomoreIE, VideomoreVideoIE, VideomoreSeasonIE, VideoPressIE, VidioIE, VidioPremierIE, VidioLiveIE, VidLiiIE, VidlyIE, ViewLiftIE, ViewLiftEmbedIE, ViideaIE, VimeoIE, VimeoAlbumIE, VimeoChannelIE, VimeoGroupsIE, VimeoLikesIE, VimeoOndemandIE, VimeoProIE, VimeoReviewIE, VimeoUserIE, VimeoWatchLaterIE, VHXEmbedIE, VimmIE, VimmRecordingIE, VineIE, VineUserIE, VikiIE, VikiChannelIE, ViouslyIE, ViqeoIE, ViuIE, ViuPlaylistIE, ViuOTTIE, ViuOTTIndonesiaIE, VKIE, VKUserVideosIE, VKWallPostIE, VKPlayIE, VKPlayLiveIE, VocarooIE, VODPlIE, VODPlatformIE, VoicyIE, VoicyChannelIE, VolejTVIE, VootIE, VootSeriesIE, VoxMediaVolumeIE, VoxMediaIE, VRTIE, VrtNUIE, KetnetIE, DagelijkseKostIE, Radio1BeIE, VTMIE, MedialaanIE, VuClipIE, VVVVIDIE, VVVVIDShowIE, WallaIE, WashingtonPostIE, WashingtonPostArticleIE, WatIE, WDRIE, WDRPageIE, WDRElefantIE, WDRMobileIE, WebcameraplIE, WebcasterIE, WebcasterFeedIE, WebOfStoriesIE, WebOfStoriesPlaylistIE, WeiboIE, WeiboVideoIE, WeiboUserIE, WeiqiTVIE, WeverseIE, WeverseMediaIE, WeverseMomentIE, WeverseLiveTabIE, WeverseMediaTabIE, WeverseLiveIE, WeVidiIE, WeyyakIE, WhypIE, WikimediaIE, WimbledonIE, WimTVIE, WhoWatchIE, WistiaIE, WistiaPlaylistIE, WistiaChannelIE, WordpressPlaylistEmbedIE, WordpressMiniAudioPlayerEmbedIE, WorldStarHipHopIE, WPPilotIE, WPPilotChannelsIE, WrestleUniverseVODIE, WrestleUniversePPVIE, WSJIE, WSJArticleIE, WWEIE, WykopDigIE, WykopDigCommentIE, WykopPostIE, WykopPostCommentIE, XanimuIE, XboxClipsIE, XFileShareIE, XHamsterIE, XHamsterEmbedIE, XHamsterUserIE, XimalayaIE, XimalayaAlbumIE, XinpianchangIE, XMinusIE, XNXXIE, XstreamIE, VGTVIE, XVideosIE, XVideosQuickiesIE, XXXYMoviesIE, YahooIE, AolIE, YahooSearchIE, YahooJapanNewsIE, YandexDiskIE, YandexMusicTrackIE, YandexMusicAlbumIE, YandexMusicPlaylistIE, YandexMusicArtistTracksIE, YandexMusicArtistAlbumsIE, YandexVideoIE, YandexVideoPreviewIE, ZenYandexIE, ZenYandexChannelIE, YapFilesIE, YappyIE, YappyProfileIE, YleAreenaIE, YouJizzIE, YoukuIE, YoukuShowIE, YouNowLiveIE, YouNowChannelIE, YouNowMomentIE, YouPornIE, YourPornIE, YourUploadIE, ZaikoIE, ZaikoETicketIE, ZapiksIE, BBVTVIE, BBVTVLiveIE, BBVTVRecordingsIE, EinsUndEinsTVIE, EinsUndEinsTVLiveIE, EinsUndEinsTVRecordingsIE, EWETVIE, EWETVLiveIE, EWETVRecordingsIE, GlattvisionTVIE, GlattvisionTVLiveIE, GlattvisionTVRecordingsIE, MNetTVIE, MNetTVLiveIE, MNetTVRecordingsIE, NetPlusTVIE, NetPlusTVLiveIE, NetPlusTVRecordingsIE, OsnatelTVIE, OsnatelTVLiveIE, OsnatelTVRecordingsIE, QuantumTVIE, QuantumTVLiveIE, QuantumTVRecordingsIE, SaltTVIE, SaltTVLiveIE, SaltTVRecordingsIE, SAKTVIE, SAKTVLiveIE, SAKTVRecordingsIE, VTXTVIE, VTXTVLiveIE, VTXTVRecordingsIE, WalyTVIE, WalyTVLiveIE, WalyTVRecordingsIE, ZattooIE, ZattooLiveIE, ZattooMoviesIE, ZattooRecordingsIE, ZDFIE, DreiSatIE, ZDFChannelIE, Zee5IE, Zee5SeriesIE, ZeeNewsIE, ZenPornIE, ZetlandDKArticleIE, ZhihuIE, ZingMp3IE, ZingMp3AlbumIE, ZingMp3ChartHomeIE, ZingMp3WeekChartIE, ZingMp3ChartMusicVideoIE, ZingMp3UserIE, ZingMp3HubIE, ZingMp3LiveRadioIE, ZingMp3PodcastEpisodeIE, ZingMp3PodcastIE, ZoomIE, ZypeIE, GenericIE]
