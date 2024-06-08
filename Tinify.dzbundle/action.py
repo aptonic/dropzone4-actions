@@ -7,7 +7,7 @@
 # Events: Dragged
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.4
+# Version: 1.5
 # UniqueID: 100300
 # MinDropzoneVersion: 4.7.6
 # OptionsNIB: Tinify
@@ -91,8 +91,9 @@ def add_suffix(full_path):
     return new_path
 
 def check_img_types_valid(paths):
+    valid_extensions = [".png", ".jpg", ".jpeg", ".webp"]
     for path in paths:
         name = os.path.basename(path).lower()
-        if not name.endswith(".png") and not name.endswith(".jpg") and not name.endswith(".webp"):
+        if not any(name.endswith(ext) for ext in valid_extensions):
             return False
     return True
