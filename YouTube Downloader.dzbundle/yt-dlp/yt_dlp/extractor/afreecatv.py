@@ -8,9 +8,11 @@ from ..utils import (
     determine_ext,
     filter_dict,
     int_or_none,
+    orderedSet,
     unified_timestamp,
     url_or_none,
     urlencode_postdata,
+    urljoin,
 )
 from ..utils.traversal import traverse_obj
 
@@ -53,7 +55,7 @@ class AfreecaTVBaseIE(InfoExtractor):
         if result != 1:
             error = _ERRORS.get(result, 'You have failed to log in.')
             raise ExtractorError(
-                'Unable to login: %s said: %s' % (self.IE_NAME, error),
+                f'Unable to login: {self.IE_NAME} said: {error}',
                 expected=True)
 
 
@@ -70,7 +72,7 @@ class AfreecaTVIE(AfreecaTVBaseIE):
                             )\?.*?\bnTitleNo=|
                             vod\.afreecatv\.com/(PLAYER/STATION|player)/
                         )
-                        (?P<id>\d+)
+                        (?P<id>\d+)/?(?:$|[?#&])
                     '''
     _TESTS = [{
         'url': 'http://live.afreecatv.com:8079/app/index.cgi?szType=read_ucc_bbs&szBjId=dailyapril&nStationNo=16711924&nBbsNo=18605867&nTitleNo=36164052&szSkin=',
@@ -187,7 +189,7 @@ class AfreecaTVIE(AfreecaTVBaseIE):
             headers={'Referer': url}, data=urlencode_postdata({
                 'nTitleNo': video_id,
                 'nApiLevel': 10,
-            }))['data']
+            }), impersonate=True)['data']
 
         error_code = traverse_obj(data, ('code', {int}))
         if error_code == -6221:
@@ -225,7 +227,7 @@ class AfreecaTVIE(AfreecaTVBaseIE):
                 **traverse_obj(file_element, {
                     'duration': ('duration', {functools.partial(int_or_none, scale=1000)}),
                     'timestamp': ('file_start', {unified_timestamp}),
-                })
+                }),
             })
 
         if traverse_obj(data, ('adult_status', {str})) == 'notLogin':
@@ -249,6 +251,43 @@ class AfreecaTVIE(AfreecaTVBaseIE):
         common_info['timestamp'] = traverse_obj(entries, (..., 'timestamp'), get_all=False)
 
         return self.playlist_result(entries, video_id, multi_video=True, **common_info)
+
+
+class AfreecaTVCatchStoryIE(AfreecaTVBaseIE):
+    IE_NAME = 'afreecatv:catchstory'
+    IE_DESC = 'afreecatv.com catch story'
+    _VALID_URL = r'https?://vod\.afreecatv\.com/player/(?P<id>\d+)/catchstory'
+    _TESTS = [{
+        'url': 'https://vod.afreecatv.com/player/103247/catchstory',
+        'info_dict': {
+            'id': '103247',
+        },
+        'playlist_count': 2,
+    }]
+
+    def _real_extract(self, url):
+        video_id = self._match_id(url)
+        data = self._download_json(
+            'https://api.m.afreecatv.com/catchstory/a/view', video_id, headers={'Referer': url},
+            query={'aStoryListIdx': '', 'nStoryIdx': video_id}, impersonate=True)
+
+        return self.playlist_result(self._entries(data), video_id)
+
+    @staticmethod
+    def _entries(data):
+        # 'files' is always a list with 1 element
+        yield from traverse_obj(data, (
+            'data', lambda _, v: v['story_type'] == 'catch',
+            'catch_list', lambda _, v: v['files'][0]['file'], {
+                'id': ('files', 0, 'file_info_key', {str}),
+                'url': ('files', 0, 'file', {url_or_none}),
+                'duration': ('files', 0, 'duration', {functools.partial(int_or_none, scale=1000)}),
+                'title': ('title', {str}),
+                'uploader': ('writer_nick', {str}),
+                'uploader_id': ('writer_id', {str}),
+                'thumbnail': ('thumb', {url_or_none}),
+                'timestamp': ('write_timestamp', {int_or_none}),
+            }))
 
 
 class AfreecaTVLiveIE(AfreecaTVBaseIE):
@@ -276,6 +315,47 @@ class AfreecaTVLiveIE(AfreecaTVBaseIE):
     }]
 
     _LIVE_API_URL = 'https://live.afreecatv.com/afreeca/player_live_api.php'
+    _WORKING_CDNS = [
+        'gcp_cdn',  # live-global-cdn-v02.afreecatv.com
+        'gs_cdn_pc_app',  # pc-app.stream.afreecatv.com
+        'gs_cdn_mobile_web',  # mobile-web.stream.afreecatv.com
+        'gs_cdn_pc_web',  # pc-web.stream.afreecatv.com
+    ]
+    _BAD_CDNS = [
+        'gs_cdn',  # chromecast.afreeca.gscdn.com (cannot resolve)
+        'gs_cdn_chromecast',  # chromecast.stream.afreecatv.com (HTTP Error 400)
+        'azure_cdn',  # live-global-cdn-v01.afreecatv.com (cannot resolve)
+        'aws_cf',  # live-global-cdn-v03.afreecatv.com (cannot resolve)
+        'kt_cdn',  # kt.stream.afreecatv.com (HTTP Error 400)
+    ]
+
+    def _extract_formats(self, channel_info, broadcast_no, aid):
+        stream_base_url = channel_info.get('RMD') or 'https://livestream-manager.afreecatv.com'
+
+        # If user has not passed CDN IDs, try API-provided CDN ID followed by other working CDN IDs
+        default_cdn_ids = orderedSet([
+            *traverse_obj(channel_info, ('CDN', {str}, all, lambda _, v: v not in self._BAD_CDNS)),
+            *self._WORKING_CDNS,
+        ])
+        cdn_ids = self._configuration_arg('cdn', default_cdn_ids)
+
+        for attempt, cdn_id in enumerate(cdn_ids, start=1):
+            m3u8_url = traverse_obj(self._download_json(
+                urljoin(stream_base_url, 'broad_stream_assign.html'), broadcast_no,
+                f'Downloading {cdn_id} stream info', f'Unable to download {cdn_id} stream info',
+                fatal=False, query={
+                    'return_type': cdn_id,
+                    'broad_key': f'{broadcast_no}-common-master-hls',
+                }), ('view_url', {url_or_none}))
+            try:
+                return self._extract_m3u8_formats(
+                    m3u8_url, broadcast_no, 'mp4', m3u8_id='hls', query={'aid': aid},
+                    headers={'Referer': 'https://play.afreecatv.com/'})
+            except ExtractorError as e:
+                if attempt == len(cdn_ids):
+                    raise
+                self.report_warning(
+                    f'{e.cause or e.msg}. Retrying... (attempt {attempt} of {len(cdn_ids)})')
 
     def _real_extract(self, url):
         broadcaster_id, broadcast_no = self._match_valid_url(url).group('id', 'bno')
@@ -294,7 +374,7 @@ class AfreecaTVLiveIE(AfreecaTVBaseIE):
                 'This livestream is protected by a password, use the --video-password option',
                 expected=True)
 
-        aid = self._download_json(
+        token_info = traverse_obj(self._download_json(
             self._LIVE_API_URL, broadcast_no, 'Downloading access token for stream',
             'Unable to download access token for stream', data=urlencode_postdata(filter_dict({
                 'bno': broadcast_no,
@@ -302,18 +382,17 @@ class AfreecaTVLiveIE(AfreecaTVBaseIE):
                 'type': 'aid',
                 'quality': 'master',
                 'pwd': password,
-            })))['CHANNEL']['AID']
+            }))), ('CHANNEL', {dict})) or {}
+        aid = token_info.get('AID')
+        if not aid:
+            result = token_info.get('RESULT')
+            if result == 0:
+                raise ExtractorError('This livestream has ended', expected=True)
+            elif result == -6:
+                self.raise_login_required('This livestream is for subscribers only', method='password')
+            raise ExtractorError('Unable to extract access token')
 
-        stream_base_url = channel_info.get('RMD') or 'https://livestream-manager.afreecatv.com'
-        stream_info = self._download_json(f'{stream_base_url}/broad_stream_assign.html', broadcast_no, query={
-            # works: gs_cdn_pc_app, gs_cdn_mobile_web, gs_cdn_pc_web
-            'return_type': 'gs_cdn_pc_app',
-            'broad_key': f'{broadcast_no}-common-master-hls',
-        }, note='Downloading metadata for stream', errnote='Unable to download metadata for stream')
-
-        formats = self._extract_m3u8_formats(
-            stream_info['view_url'], broadcast_no, 'mp4', m3u8_id='hls',
-            query={'aid': aid}, headers={'Referer': url})
+        formats = self._extract_formats(channel_info, broadcast_no, aid)
 
         station_info = traverse_obj(self._download_json(
             'https://st.afreecatv.com/api/get_station_status.php', broadcast_no,

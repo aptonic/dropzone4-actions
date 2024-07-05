@@ -172,6 +172,8 @@ Client to impersonate for requests.
 E.g.
 chrome, chrome-110, chrome:windows-10.
 Pass --impersonate=\[dq]\[dq] to impersonate any client.
+Note that forcing impersonation for all requests may have a detrimental
+impact on download speed and stability
 .TP
 --list-impersonate-targets
 List available clients to impersonate.
@@ -242,8 +244,8 @@ You can also simply specify a field to match if the field is present,
 use \[dq]!field\[dq] to check if the field is not present, and
 \[dq]&\[dq] to check multiple conditions.
 Use a \[dq]\[dq] to escape \[dq]&\[dq] or quotes if needed.
-If used multiple times, the filter matches if atleast one of the
-conditions are met.
+If used multiple times, the filter matches if at least one of the
+conditions is met.
 E.g.
 --match-filter !is_live --match-filter \[dq]like_count>?100 &
 description\[ti]=\[aq](?i)& dogs\[dq] matches only videos that are not
@@ -548,11 +550,11 @@ Do not read/dump cookies from/to file (default)
 --cookies-from-browser \f[I]BROWSER[+KEYRING][:PROFILE][::CONTAINER]\f[R]
 The name of the browser to load cookies from.
 Currently supported browsers are: brave, chrome, chromium, edge,
-firefox, opera, safari, vivaldi.
+firefox, opera, safari, vivaldi, whale.
 Optionally, the KEYRING used for decrypting Chromium cookies on Linux,
 the name/path of the PROFILE to load cookies from, and the CONTAINER
 name (if Firefox) (\[dq]none\[dq] for no container) can be given with
-their respective seperators.
+their respective separators.
 By default, all containers of the most recently accessed profile are
 used.
 Currently supported keyrings are: basictext, gnomekeyring, kwallet,
@@ -1073,10 +1075,9 @@ It can be one of \[dq]pre_process\[dq] (after video extraction),
 \[dq]after_filter\[dq] (after video passes filter), \[dq]video\[dq]
 (after --format; before --print/--output), \[dq]before_dl\[dq] (before
 each video download), \[dq]post_process\[dq] (after each video download;
-default), \[dq]after_move\[dq] (after moving video file to it\[aq]s
-final locations), \[dq]after_video\[dq] (after downloading and
-processing all formats of a video), or \[dq]playlist\[dq] (at end of
-playlist).
+default), \[dq]after_move\[dq] (after moving video file to its final
+locations), \[dq]after_video\[dq] (after downloading and processing all
+formats of a video), or \[dq]playlist\[dq] (at end of playlist).
 This option can be used multiple times to add different postprocessors
 .SS SponsorBlock Options:
 .PP
@@ -1209,7 +1210,7 @@ See also: Notes about environment variables
 .RE
 .PP
 E.g.
-with the following configuration file yt-dlp will always extract the
+with the following configuration file, yt-dlp will always extract the
 audio, not copy the mtime, use a proxy and save all videos under
 \f[C]YouTube\f[R] directory in your home directory:
 .IP
@@ -1236,7 +1237,7 @@ aka switches used in regular command line calls; thus there \f[B]must be
 no whitespace\f[R] after \f[C]-\f[R] or \f[C]--\f[R], e.g.
 \f[C]-o\f[R] or \f[C]--proxy\f[R] but not \f[C]- o\f[R] or
 \f[C]-- proxy\f[R].
-They must also be quoted when necessary as-if it were a UNIX shell.
+They must also be quoted when necessary, as if it were a UNIX shell.
 .PP
 You can use \f[C]--ignore-config\f[R] if you want to disable all
 configuration files for a particular yt-dlp run.
@@ -1266,7 +1267,7 @@ prevent tracking plain text passwords in the shell command history.
 You can achieve this using a \f[C].netrc\f[R]
 file (https://stackoverflow.com/tags/.netrc/info) on a per-extractor
 basis.
-For that you will need to create a \f[C].netrc\f[R] file in
+For that, you will need to create a \f[C].netrc\f[R] file in
 \f[C]--netrc-location\f[R] and restrict permissions to read/write by
 only you:
 .IP
@@ -1277,7 +1278,7 @@ chmod a-rwx,u+rw ${HOME}/.netrc
 \f[R]
 .fi
 .PP
-After that you can add credentials for an extractor in the following
+After that, you can add credentials for an extractor in the following
 format, where \f[I]extractor\f[R] is the name of the extractor in
 lowercase:
 .IP
@@ -1371,7 +1372,8 @@ have some special formatting:
 metadata can be traversed by using a dot \f[C].\f[R] separator; e.g.
 \f[C]%(tags.0)s\f[R], \f[C]%(subtitles.en.-1.ext)s\f[R].
 You can do Python slicing with colon \f[C]:\f[R]; E.g.
-\f[C]%(id.3:7:-1)s\f[R], \f[C]%(formats.:.format_id)s\f[R].
+\f[C]%(id.3:7)s\f[R], \f[C]%(id.6:2:-1)s\f[R],
+\f[C]%(formats.:.format_id)s\f[R].
 Curly braces \f[C]{}\f[R] can be used to build dictionaries with only
 specific keys; e.g.
 \f[C]%(formats.:.{format_id,height})#j\f[R].
@@ -1611,8 +1613,8 @@ the video
 \f[C]playlist_title\f[R] (string): Name of the playlist that contains
 the video
 .IP \[bu] 2
-\f[C]playlist\f[R] (string): \f[C]playlist_id\f[R] or
-\f[C]playlist_title\f[R]
+\f[C]playlist\f[R] (string): \f[C]playlist_title\f[R] if available or
+else \f[C]playlist_id\f[R]
 .IP \[bu] 2
 \f[C]playlist_count\f[R] (numeric): Total number of items in the
 playlist.
@@ -1630,8 +1632,14 @@ length of the playlist
 \f[C]playlist_uploader_id\f[R] (string): Nickname or id of the playlist
 uploader
 .IP \[bu] 2
-\f[C]webpage_url\f[R] (string): A URL to the video webpage which if
-given to yt-dlp should allow to get the same result again
+\f[C]playlist_channel\f[R] (string): Display name of the channel that
+uploaded the playlist
+.IP \[bu] 2
+\f[C]playlist_channel_id\f[R] (string): Identifier of the channel that
+uploaded the playlist
+.IP \[bu] 2
+\f[C]webpage_url\f[R] (string): A URL to the video webpage which, if
+given to yt-dlp, should yield the same result again
 .IP \[bu] 2
 \f[C]webpage_url_basename\f[R] (string): The basename of the webpage URL
 .IP \[bu] 2
@@ -1658,12 +1666,12 @@ belongs to
 .IP \[bu] 2
 \f[C]chapter_id\f[R] (string): Id of the chapter the video belongs to
 .PP
-Available for the video that is an episode of some series or programme:
+Available for the video that is an episode of some series or program:
 .IP \[bu] 2
-\f[C]series\f[R] (string): Title of the series or programme the video
+\f[C]series\f[R] (string): Title of the series or program the video
 episode belongs to
 .IP \[bu] 2
-\f[C]series_id\f[R] (string): Id of the series or programme the video
+\f[C]series_id\f[R] (string): Id of the series or program the video
 episode belongs to
 .IP \[bu] 2
 \f[C]season\f[R] (string): Title of the season the video episode belongs
@@ -1781,7 +1789,7 @@ for \f[C]-o %(title)s-%(id)s.%(ext)s\f[R] and an mp4 video with title
 result in a \f[C]yt-dlp test video-BaW_jenozKc.mp4\f[R] file created in
 the current directory.
 .PP
-\f[B]Note\f[R]: Some of the sequences are not guaranteed to be present
+\f[B]Note\f[R]: Some of the sequences are not guaranteed to be present,
 since they depend on the metadata obtained by a particular extractor.
 Such sequences will be replaced with placeholder value provided with
 \f[C]--output-na-placeholder\f[R] (\f[C]NA\f[R] by default).
@@ -1906,7 +1914,7 @@ with \f[C]--audio-multistreams\f[R], \f[C]--video-multistreams\f[R] or
 both)
 .IP \[bu] 2
 \f[C]b*\f[R], \f[C]best*\f[R]: Select the best quality format that
-\f[B]contains either\f[R] a video or an audio or both (ie;
+\f[B]contains either\f[R] a video or an audio or both (i.e.;
 \f[C]vcodec!=none or acodec!=none\f[R])
 .IP \[bu] 2
 \f[C]b\f[R], \f[C]best\f[R]: Select the best quality format that
@@ -1959,7 +1967,7 @@ Equivalent to \f[C]worst*[acodec!=none]\f[R]
 .PP
 For example, to download the worst quality video-only format you can use
 \f[C]-f worstvideo\f[R].
-It is however recommended not to use \f[C]worst\f[R] and related
+It is, however, recommended not to use \f[C]worst\f[R] and related
 options.
 When your format selector is \f[C]worst\f[R], the format which is worst
 in all respects is selected.
@@ -2096,7 +2104,7 @@ double or single quotes if it contains spaces or special characters
 other than \f[C]._-\f[R].
 .PP
 \f[B]Note\f[R]: None of the aforementioned meta fields are guaranteed to
-be present since this solely depends on the metadata obtained by
+be present since this solely depends on the metadata obtained by the
 particular extractor, i.e.
 the metadata offered by the website.
 Any other field made available by the extractor can also be used for
@@ -2228,7 +2236,7 @@ GiB.
 .PP
 The fields \f[C]hasvid\f[R] and \f[C]ie_pref\f[R] are always given
 highest priority in sorting, irrespective of the user-defined order.
-This behaviour can be changed by using \f[C]--format-sort-force\f[R].
+This behavior can be changed by using \f[C]--format-sort-force\f[R].
 Apart from these, the default order used is:
 \f[C]lang,quality,res,fps,hdr:12,vcodec:vp9.2,channels,acodec,size,br,asr,proto,ext,hasaud,source,id\f[R].
 The extractors may override this default order, but they cannot override
@@ -2237,7 +2245,7 @@ the user-provided order.
 Note that the default has \f[C]vcodec:vp9.2\f[R]; i.e.
 \f[C]av1\f[R] is not preferred.
 Similarly, the default for hdr is \f[C]hdr:12\f[R]; i.e.
-dolby vision is not preferred.
+Dolby Vision is not preferred.
 These choices are made since DV and AV1 formats are not yet fully
 compatible with most devices.
 This may be changed in the future as more devices become capable of
@@ -2566,7 +2574,7 @@ Some extractors accept additional arguments which can be passed using
 \f[C]ARGS\f[R] is a \f[C];\f[R] (semicolon) separated string of
 \f[C]ARG=VAL1,VAL2\f[R].
 E.g.
-\f[C]--extractor-args \[dq]youtube:player-client=android_embedded,web;include_live_dash\[dq] --extractor-args \[dq]funimation:version=uncut\[dq]\f[R]
+\f[C]--extractor-args \[dq]youtube:player-client=android_embedded,web;formats=incomplete\[dq] --extractor-args \[dq]funimation:version=uncut\[dq]\f[R]
 .PP
 Note: In CLI, \f[C]ARG\f[R] can use \f[C]-\f[R] instead of \f[C]_\f[R];
 e.g.
@@ -2591,16 +2599,18 @@ subtitles (https://github.com/yt-dlp/yt-dlp/issues/4090#issuecomment-1158102032)
 respectively
 .IP \[bu] 2
 \f[C]player_client\f[R]: Clients to extract video data from.
-The main clients are \f[C]web\f[R], \f[C]android\f[R] and \f[C]ios\f[R]
+The main clients are \f[C]web\f[R], \f[C]ios\f[R] and \f[C]android\f[R],
 with variants \f[C]_music\f[R], \f[C]_embedded\f[R],
 \f[C]_embedscreen\f[R], \f[C]_creator\f[R] (e.g.
-\f[C]web_embedded\f[R]); and \f[C]mweb\f[R], \f[C]mweb_embedscreen\f[R]
-and \f[C]tv_embedded\f[R] (agegate bypass) with no variants.
-By default, \f[C]ios,android,web\f[R] is used, but \f[C]tv_embedded\f[R]
-and \f[C]creator\f[R] variants are added as required for age-gated
-videos.
+\f[C]web_embedded\f[R]); and \f[C]mediaconnect\f[R], \f[C]mweb\f[R],
+\f[C]mweb_embedscreen\f[R] and \f[C]tv_embedded\f[R] (agegate bypass)
+with no variants.
+By default, \f[C]ios,web\f[R] is used, but \f[C]tv_embedded\f[R] and
+\f[C]creator\f[R] variants are added as required for age-gated videos.
 Similarly, the music variants are added for \f[C]music.youtube.com\f[R]
 urls.
+The \f[C]android\f[R] clients will always be given lowest priority since
+their formats are broken.
 You can use \f[C]all\f[R] to use all the clients, and \f[C]default\f[R]
 for the default clients.
 .IP \[bu] 2
@@ -2663,11 +2673,22 @@ This may cause date-based filters to be slightly off
 \f[C]fragment_query\f[R]: Passthrough any query in mpd/m3u8 manifest
 URLs to their fragments if no value is provided, or else apply the query
 string given as \f[C]fragment_query=VALUE\f[R].
+Note that if the stream has an HLS AES-128 key, then the query
+parameters will be passed to the key URI as well, unless the
+\f[C]key_query\f[R] extractor-arg is passed, or unless an external key
+URI is provided via the \f[C]hls_key\f[R] extractor-arg.
 Does not apply to ffmpeg
 .IP \[bu] 2
 \f[C]variant_query\f[R]: Passthrough the master m3u8 URL query to its
 variant playlist URLs if no value is provided, or else apply the query
 string given as \f[C]variant_query=VALUE\f[R]
+.IP \[bu] 2
+\f[C]key_query\f[R]: Passthrough the master m3u8 URL query to its HLS
+AES-128 decryption key URI if no value is provided, or else apply the
+query string given as \f[C]key_query=VALUE\f[R].
+Note that this will have no effect if the key URI is provided via the
+\f[C]hls_key\f[R] extractor-arg.
+Does not apply to ffmpeg
 .IP \[bu] 2
 \f[C]hls_key\f[R]: An HLS AES-128 key URI \f[I]or\f[R] key (as hex), and
 optionally the IV (as hex), in the form of \f[C](URI|KEY)[,IV]\f[R];
@@ -2744,16 +2765,21 @@ is \f[C]120\f[R]
 mobile API calls, e.g.
 \f[C]2023401020\f[R]
 .IP \[bu] 2
-\f[C]aid\f[R]: Default app ID to use with API calls, e.g.
+\f[C]aid\f[R]: Default app ID to use with mobile API calls, e.g.
 \f[C]1180\f[R]
 .IP \[bu] 2
-\f[C]app_info\f[R]: One or more app info strings in the format of
+\f[C]app_info\f[R]: Enable mobile API extraction with one or more app
+info strings in the format of
 \f[C]<iid>/[app_name]/[app_version]/[manifest_app_version]/[aid]\f[R],
 where \f[C]iid\f[R] is the unique app install ID.
 \f[C]iid\f[R] is the only required value; all other values and their
 \f[C]/\f[R] separators can be omitted, e.g.
 \f[C]tiktok:app_info=1234567890123456789\f[R] or
 \f[C]tiktok:app_info=123,456/trill///1180,789//34.0.1/340001\f[R]
+.IP \[bu] 2
+\f[C]device_id\f[R]: Enable mobile API extraction with a genuine device
+ID to be used with mobile API calls.
+Default is a random 19-digit string
 .SS rokfinchannel
 .IP \[bu] 2
 \f[C]tab\f[R]: Which tab to download - one of \f[C]new\f[R],
@@ -2789,12 +2815,48 @@ Valid types are: \f[C]full_game\f[R], \f[C]full_game_spanish\f[R],
 \f[C]condensed_game\f[R] and \f[C]all_22\f[R].
 You can use \f[C]all\f[R] to extract all available replay types, which
 is the default
+.SS jiocinema
+.IP \[bu] 2
+\f[C]refresh_token\f[R]: The \f[C]refreshToken\f[R] UUID from browser
+local storage can be passed to extend the life of your login session
+when logging in with \f[C]token\f[R] as username and the
+\f[C]accessToken\f[R] from browser local storage as password
 .SS jiosaavn
 .IP \[bu] 2
 \f[C]bitrate\f[R]: Audio bitrates to request.
 One or more of \f[C]16\f[R], \f[C]32\f[R], \f[C]64\f[R], \f[C]128\f[R],
 \f[C]320\f[R].
 Default is \f[C]128,320\f[R]
+.SS afreecatvlive
+.IP \[bu] 2
+\f[C]cdn\f[R]: One or more CDN IDs to use with the API call for stream
+URLs, e.g.
+\f[C]gcp_cdn\f[R], \f[C]gs_cdn_pc_app\f[R], \f[C]gs_cdn_mobile_web\f[R],
+\f[C]gs_cdn_pc_web\f[R]
+.SS soundcloud
+.IP \[bu] 2
+\f[C]formats\f[R]: Formats to request from the API.
+Requested values should be in the format of
+\f[C]{protocol}_{extension}\f[R] (omitting the bitrate), e.g.
+\f[C]hls_opus,http_aac\f[R].
+The \f[C]*\f[R] character functions as a wildcard, e.g.
+\f[C]*_mp3\f[R], and can be passed by itself to request all formats.
+Known protocols include \f[C]http\f[R], \f[C]hls\f[R] and
+\f[C]hls-aes\f[R]; known extensions include \f[C]aac\f[R],
+\f[C]opus\f[R] and \f[C]mp3\f[R].
+Original \f[C]download\f[R] formats are always extracted.
+Default is
+\f[C]http_aac,hls_aac,http_opus,hls_opus,http_mp3,hls_mp3\f[R]
+.SS orfon (orf:on)
+.IP \[bu] 2
+\f[C]prefer_segments_playlist\f[R]: Prefer a playlist of program
+segments instead of a single complete video when available.
+If individual segments are desired, use
+\f[C]--concat-playlist never --extractor-args \[dq]orfon:prefer_segments_playlist\[dq]\f[R]
+.SS bilibili
+.IP \[bu] 2
+\f[C]prefer_multi_flv\f[R]: Prefer extracting flv formats over mp4 for
+older videos that still provide legacy formats
 .PP
 \f[B]Note\f[R]: These options may be changed/removed in the future
 without concern for backward compatibility
@@ -2820,7 +2882,7 @@ simply re-run the same command that was used to install the program
 .PP
 For other third-party package managers, see the
 wiki (https://github.com/yt-dlp/yt-dlp/wiki/Installation#third-party-package-managers)
-or refer their documentation
+or refer to their documentation
 .PP
 .PP
 There are currently three release channels for binaries:
@@ -2883,7 +2945,7 @@ repository, tag \f[C]2023.09.24\f[R]
 yt-dlp --update-to nightly
 
 # To install nightly with pip:
-python3 -m pip install -U --pre yt-dlp[default]
+python3 -m pip install -U --pre \[dq]yt-dlp[default]\[dq]
 \f[R]
 .fi
 .SS DEPENDENCIES
@@ -2896,7 +2958,7 @@ While all the other dependencies are optional, \f[C]ffmpeg\f[R] and
 .SS Strongly recommended
 .IP \[bu] 2
 \f[B]ffmpeg\f[R] and \f[B]ffprobe\f[R] (https://www.ffmpeg.org) -
-Required for merging separate video and audio files as well as for
+Required for merging separate video and audio files, as well as for
 various post-processing tasks.
 License depends on the build (https://www.ffmpeg.org/legal.html)
 .RS 2
@@ -2950,8 +3012,8 @@ Licensed under
 MIT (https://github.com/yifeikong/curl_cffi/blob/main/LICENSE)
 .RS 2
 .IP \[bu] 2
-Can be installed with the \f[C]curl_cffi\f[R] group, e.g.
-\f[C]pip install yt-dlp[default,curl_cffi]\f[R]
+Can be installed with the \f[C]curl-cffi\f[R] group, e.g.
+\f[C]pip install \[dq]yt-dlp[default,curl-cffi]\[dq]\f[R]
 .IP \[bu] 2
 Currently only included in \f[C]yt-dlp.exe\f[R] and
 \f[C]yt-dlp_macos\f[R] builds
@@ -3083,8 +3145,8 @@ binary without updating any of the additional files.
 While we provide the option to build with
 py2exe (https://www.py2exe.org), it is recommended to build using
 PyInstaller instead since the py2exe builds \f[B]cannot contain
-\f[CB]pycryptodomex\f[B]/\f[CB]certifi\f[B] and needs VC++14\f[R] on the
-target computer to run.
+\f[CB]pycryptodomex\f[B]/\f[CB]certifi\f[B]/\f[CB]requests\f[B] and need
+VC++14\f[R] on the target computer to run.
 .PP
 If you wish to build it anyway, install Python (if it is not already
 installed) and you can run the following commands:
@@ -3102,7 +3164,7 @@ py -m bundle.py2exe
 for yt-dlp.
 .IP \[bu] 2
 \f[B]\f[CB]devscripts/update-version.py\f[B]\f[R] - Update the version
-number based on current date.
+number based on the current date.
 .IP \[bu] 2
 \f[B]\f[CB]devscripts/set-variant.py\f[B]\f[R] - Set the build variant
 of the executable.
@@ -3135,7 +3197,7 @@ Plugins can be of \f[C]<type>\f[R]s \f[C]extractor\f[R] or
 \f[C]postprocessor\f[R].
 - Extractor plugins do not need to be enabled from the CLI and are
 automatically invoked when the input URL is suitable for it.
-- Extractor plugins take priority over builtin extractors.
+- Extractor plugins take priority over built-in extractors.
 - Postprocessor plugins can be invoked using
 \f[C]--use-postprocessor NAME\f[R].
 .PP
@@ -3250,7 +3312,7 @@ Development (https://github.com/yt-dlp/yt-dlp/wiki/Plugin-Development)
 section of the wiki for a plugin development guide.
 .PP
 All public classes with a name ending in \f[C]IE\f[R]/\f[C]PP\f[R] are
-imported from each file for extractors and postprocessors repectively.
+imported from each file for extractors and postprocessors respectively.
 This respects underscore prefix (e.g.
 \f[C]_MyBasePluginIE\f[R] is private) and \f[C]__all__\f[R].
 Modules can similarly be excluded by prefixing the module name with an
@@ -3279,9 +3341,9 @@ should be callable from any programming language.
 .PP
 Your program should avoid parsing the normal stdout since they may
 change in future versions.
-Instead they should use options such as \f[C]-J\f[R], \f[C]--print\f[R],
-\f[C]--progress-template\f[R], \f[C]--exec\f[R] etc to create console
-output that you can reliably reproduce and parse.
+Instead, they should use options such as \f[C]-J\f[R],
+\f[C]--print\f[R], \f[C]--progress-template\f[R], \f[C]--exec\f[R] etc
+to create console output that you can reliably reproduce and parse.
 .PP
 From a Python program, you can embed yt-dlp in a more powerful fashion,
 like this:
@@ -3500,7 +3562,7 @@ with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 Forked from
 \f[B]yt-dlc\[at]f9401f2\f[R] (https://github.com/blackjack4494/yt-dlc/commit/f9401f2a91987068139c5f757b12fc711d4c0cee)
 and merged with
-\f[B]youtube-dl\[at]be008e6\f[R] (https://github.com/ytdl-org/youtube-dl/commit/be008e657d79832642e2158557c899249c9e31cd)
+\f[B]youtube-dl\[at]a08f2b7\f[R] (https://github.com/ytdl-org/youtube-dl/commit/a08f2b7e4567cdc50c0614ee0a4ffdff49b8b6e6)
 (exceptions (https://github.com/yt-dlp/yt-dlp/issues/21))
 .IP \[bu] 2
 \f[B]SponsorBlock Integration\f[R]: You can mark/remove sponsor sections
@@ -3786,13 +3848,14 @@ The sub-modules \f[C]swfinterp\f[R], \f[C]casefold\f[R] are removed.
 .PP
 For ease of use, a few more compat options are available:
 .IP \[bu] 2
-\f[C]--compat-options all\f[R]: Use all compat options (Do NOT use)
+\f[C]--compat-options all\f[R]: Use all compat options (\f[B]Do NOT use
+this!\f[R])
 .IP \[bu] 2
 \f[C]--compat-options youtube-dl\f[R]: Same as
-\f[C]--compat-options all,-multistreams,-playlist-match-filter,-manifest-filesize-approx\f[R]
+\f[C]--compat-options all,-multistreams,-playlist-match-filter,-manifest-filesize-approx,-allow-unsafe-ext\f[R]
 .IP \[bu] 2
 \f[C]--compat-options youtube-dlc\f[R]: Same as
-\f[C]--compat-options all,-no-live-chat,-no-youtube-channel-redirect,-playlist-match-filter,-manifest-filesize-approx\f[R]
+\f[C]--compat-options all,-no-live-chat,-no-youtube-channel-redirect,-playlist-match-filter,-manifest-filesize-approx,-allow-unsafe-ext\f[R]
 .IP \[bu] 2
 \f[C]--compat-options 2021\f[R]: Same as
 \f[C]--compat-options 2022,no-certifi,filename-sanitization,no-youtube-prefer-utc-upload-date\f[R]
@@ -3802,6 +3865,23 @@ For ease of use, a few more compat options are available:
 .IP \[bu] 2
 \f[C]--compat-options 2023\f[R]: Currently does nothing.
 Use this to enable all future compat options
+.PP
+The following compat options restore vulnerable behavior from before
+security patches:
+.IP \[bu] 2
+\f[C]--compat-options allow-unsafe-ext\f[R]: Allow files with any
+extension (including unsafe ones) to be downloaded
+(GHSA-79w7-vh3h-8g4j (https://github.com/yt-dlp/yt-dlp/security/advisories/GHSA-79w7-vh3h-8g4j))
+.RS 2
+.RS
+.PP
+:warning: Only use if a valid file download is rejected because its
+extension is detected as uncommon
+.PP
+\f[B]This option can enable remote code execution! Consider opening an
+issue (https://github.com/yt-dlp/yt-dlp/issues/new/choose) instead!\f[R]
+.RE
+.RE
 .SS Deprecated options
 .PP
 These are all the deprecated options and the current alternative to
@@ -3949,6 +4029,7 @@ These options may no longer work as intended
 --write-annotations              No supported site has annotations now
 --no-write-annotations           Default
 --compat-options seperate-video-versions  No longer needed
+--compat-options no-youtube-prefer-utc-upload-date  No longer supported
 \f[R]
 .fi
 .SS Removed

@@ -8,7 +8,7 @@
 # Events: Clicked, Dragged
 # SkipConfig: No
 # RunsSandboxed: No
-# Version: 3.0
+# Version: 3.1
 # MinDropzoneVersion: 3.5
 # UniqueID: 1036
 
@@ -60,9 +60,10 @@ def download_url(url):
     from yt_dlp import YoutubeDL
     
     ydl_opts = {
-        'format': 'bestvideo[ext=mp4][vcodec=h264]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+        'format': 'bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': os.path.join(os.environ['EXTRA_PATH'], '%(title)s.%(ext)s'),
         'logger': MyLogger(),
+        'extractor_args': {'youtube': {'player_client': 'mediaconnect'}},
         'progress_hooks': [my_hook]
     }
     
