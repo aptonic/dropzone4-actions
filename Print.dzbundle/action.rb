@@ -5,7 +5,7 @@
 # Events: Dragged
 # Creator: Aptonic Software
 # URL: http://aptonic.com
-# Version: 1.4
+# Version: 1.5
 # RunsSandboxed: No
 # MinDropzoneVersion: 3.0
 # UniqueID: 1012
@@ -14,7 +14,7 @@
 $printing_tmp_folder = "#{$dz.temp_folder}/Dropzone-Printing"
 
 def dragged
-  standard_types = ["pdf", "jpg", "jpeg", "gif", "bmp", "png", "tif", "tiff", "txt", "rtf"]
+  standard_types = ["pdf", "jpg", "jpeg", "gif", "bmp", "png", "tif", "tiff", "txt", "rtf", "webp"]
   rich_types = ["xlsx", "xls", "docm", "dotx", "dotm", "dot", "xlsm",  "doc", "docx", "ppt", "pptx", "pptm", "pages"]
   
   # Check for valid type
