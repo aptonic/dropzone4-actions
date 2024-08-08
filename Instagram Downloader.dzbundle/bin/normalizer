@@ -1,4 +1,4 @@
-#!/Applications/Xcode.app/Contents/Developer/usr/bin/python3
+#!/opt/homebrew/opt/python@3.12/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys

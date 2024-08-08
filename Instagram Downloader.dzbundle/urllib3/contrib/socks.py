@@ -41,7 +41,7 @@ with the proxy:
 from __future__ import annotations
 
 try:
-    import socks  # type: ignore[import]
+    import socks  # type: ignore[import-not-found]
 except ImportError:
     import warnings
 
@@ -51,7 +51,7 @@ except ImportError:
         (
             "SOCKS support in urllib3 requires the installation of optional "
             "dependencies: specifically, PySocks.  For more information, see "
-            "https://urllib3.readthedocs.io/en/latest/contrib.html#socks-proxies"
+            "https://urllib3.readthedocs.io/en/latest/advanced-usage.html#socks-proxies"
         ),
         DependencyWarning,
     )
@@ -71,10 +71,8 @@ try:
 except ImportError:
     ssl = None  # type: ignore[assignment]
 
-from typing import TypedDict
 
-
-class _TYPE_SOCKS_OPTIONS(TypedDict):
+class _TYPE_SOCKS_OPTIONS(typing.TypedDict):
     socks_version: int
     proxy_host: str | None
     proxy_port: str | None

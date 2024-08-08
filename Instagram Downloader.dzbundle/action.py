@@ -8,7 +8,7 @@
 # OptionsNIB: InstagramDownloader
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.3
+# Version: 1.4
 # MinDropzoneVersion: 4.4.4
 # UniqueID: 1020
 
@@ -21,11 +21,13 @@ import os.path
 
 
 def dragged():
-    m = re.search("instagram.com/p/(.*)", items[0])
+    url = items[0]
+    post_match = re.search("instagram.com/p/(.*)", url)
+    reel_match = re.search("instagram.com/reel/(.*)", url)
 
-    if m is None:
-        dz.error("Invalid Instagram Post URL", "The URL was not valid. You must use this action with a URL like https://www.instagram.com/p/post")
-    
+    if not post_match and not reel_match:
+        dz.error("Invalid Instagram Post URL", "The URL was not valid. You must use this action with a URL like https://www.instagram.com/p/post or https://www.instagram.com/reel/reel")
+
     dz.begin("Logging in to Instagram...")
     dz.determinate(False)
 
@@ -46,7 +48,8 @@ def dragged():
 
     os.chdir(os.environ['path'])
 
-    post = Post.from_shortcode(L.context, m.group(1).split("/", 1)[0])
+    shortcode = post_match.group(1).split("/", 1)[0] if post_match else reel_match.group(1).split("/", 1)[0]
+    post = Post.from_shortcode(L.context, shortcode)
     
     filename = post.pcaption.strip('. ')
     suffix = 1

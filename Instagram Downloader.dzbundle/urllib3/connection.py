@@ -14,8 +14,6 @@ from http.client import ResponseNotReady
 from socket import timeout as SocketTimeout
 
 if typing.TYPE_CHECKING:
-    from typing import Literal
-
     from .response import HTTPResponse
     from .util.ssl_ import _TYPE_PEER_CERT_RET_DICT
     from .util.ssltransport import SSLTransport
@@ -73,7 +71,7 @@ port_by_scheme = {"http": 80, "https": 443}
 
 # When it comes time to update this value as a part of regular maintenance
 # (ie test_recent_date is failing) update it to ~6 months before the current date.
-RECENT_DATE = datetime.date(2022, 1, 1)
+RECENT_DATE = datetime.date(2023, 6, 1)
 
 _CONTAINS_CONTROL_CHAR_RE = re.compile(r"[^-!#$%&'*+.^_`|~0-9a-zA-Z]")
 
@@ -160,11 +158,6 @@ class HTTPConnection(_HTTPConnection):
         self._tunnel_port: int | None = None
         self._tunnel_scheme: str | None = None
 
-    # https://github.com/python/mypy/issues/4125
-    # Mypy treats this as LSP violation, which is considered a bug.
-    # If `host` is made a property it violates LSP, because a writeable attribute is overridden with a read-only one.
-    # However, there is also a `host` setter so LSP is not violated.
-    # Potentially, a `@host.deleter` might be needed depending on how this issue will be fixed.
     @property
     def host(self) -> str:
         """
@@ -253,6 +246,9 @@ class HTTPConnection(_HTTPConnection):
         # not using tunnelling.
         self._has_connected_to_proxy = bool(self.proxy)
 
+        if self._has_connected_to_proxy:
+            self.proxy_is_verified = False
+
     @property
     def is_closed(self) -> bool:
         return self.sock is None
@@ -266,6 +262,13 @@ class HTTPConnection(_HTTPConnection):
     @property
     def has_connected_to_proxy(self) -> bool:
         return self._has_connected_to_proxy
+
+    @property
+    def proxy_is_forwarding(self) -> bool:
+        """
+        Return True if a forwarding proxy is configured, else return False
+        """
+        return bool(self.proxy) and self._tunnel_host is None
 
     def close(self) -> None:
         try:
@@ -302,7 +305,7 @@ class HTTPConnection(_HTTPConnection):
             method, url, skip_host=skip_host, skip_accept_encoding=skip_accept_encoding
         )
 
-    def putheader(self, header: str, *values: str) -> None:
+    def putheader(self, header: str, *values: str) -> None:  # type: ignore[override]
         """"""
         if not any(isinstance(v, str) and v == SKIP_HEADER for v in values):
             super().putheader(header, *values)
@@ -477,6 +480,7 @@ class HTTPConnection(_HTTPConnection):
             headers=headers,
             status=httplib_response.status,
             version=httplib_response.version,
+            version_string=getattr(self, "_http_vsn_str", "HTTP/?"),
             reason=httplib_response.reason,
             preload_content=resp_options.preload_content,
             decode_content=resp_options.decode_content,
@@ -518,7 +522,7 @@ class HTTPSConnection(HTTPConnection):
         proxy: Url | None = None,
         proxy_config: ProxyConfig | None = None,
         cert_reqs: int | str | None = None,
-        assert_hostname: None | str | Literal[False] = None,
+        assert_hostname: None | str | typing.Literal[False] = None,
         assert_fingerprint: str | None = None,
         server_hostname: str | None = None,
         ssl_context: ssl.SSLContext | None = None,
@@ -572,7 +576,7 @@ class HTTPSConnection(HTTPConnection):
         cert_reqs: int | str | None = None,
         key_password: str | None = None,
         ca_certs: str | None = None,
-        assert_hostname: None | str | Literal[False] = None,
+        assert_hostname: None | str | typing.Literal[False] = None,
         assert_fingerprint: str | None = None,
         ca_cert_dir: str | None = None,
         ca_cert_data: None | str | bytes = None,
@@ -616,8 +620,11 @@ class HTTPSConnection(HTTPConnection):
         if self._tunnel_host is not None:
             # We're tunneling to an HTTPS origin so need to do TLS-in-TLS.
             if self._tunnel_scheme == "https":
+                # _connect_tls_proxy will verify and assign proxy_is_verified
                 self.sock = sock = self._connect_tls_proxy(self.host, sock)
                 tls_in_tls = True
+            elif self._tunnel_scheme == "http":
+                self.proxy_is_verified = False
 
             # If we're tunneling it means we're connected to our proxy.
             self._has_connected_to_proxy = True
@@ -639,6 +646,9 @@ class HTTPSConnection(HTTPConnection):
                 SystemTimeWarning,
             )
 
+        # Remove trailing '.' from fqdn hostnames to allow certificate validation
+        server_hostname_rm_dot = server_hostname.rstrip(".")
+
         sock_and_verified = _ssl_wrap_socket_and_match_hostname(
             sock=sock,
             cert_reqs=self.cert_reqs,
@@ -651,19 +661,32 @@ class HTTPSConnection(HTTPConnection):
             cert_file=self.cert_file,
             key_file=self.key_file,
             key_password=self.key_password,
-            server_hostname=server_hostname,
+            server_hostname=server_hostname_rm_dot,
             ssl_context=self.ssl_context,
             tls_in_tls=tls_in_tls,
             assert_hostname=self.assert_hostname,
             assert_fingerprint=self.assert_fingerprint,
         )
         self.sock = sock_and_verified.socket
-        self.is_verified = sock_and_verified.is_verified
+
+        # Forwarding proxies can never have a verified target since
+        # the proxy is the one doing the verification. Should instead
+        # use a CONNECT tunnel in order to verify the target.
+        # See: https://github.com/urllib3/urllib3/issues/3267.
+        if self.proxy_is_forwarding:
+            self.is_verified = False
+        else:
+            self.is_verified = sock_and_verified.is_verified
 
         # If there's a proxy to be connected to we are fully connected.
         # This is set twice (once above and here) due to forwarding proxies
         # not using tunnelling.
         self._has_connected_to_proxy = bool(self.proxy)
+
+        # Set `self.proxy_is_verified` unless it's already set while
+        # establishing a tunnel.
+        if self._has_connected_to_proxy and self.proxy_is_verified is None:
+            self.proxy_is_verified = sock_and_verified.is_verified
 
     def _connect_tls_proxy(self, hostname: str, sock: socket.socket) -> ssl.SSLSocket:
         """
@@ -718,7 +741,7 @@ def _ssl_wrap_socket_and_match_hostname(
     ca_certs: str | None,
     ca_cert_dir: str | None,
     ca_cert_data: None | str | bytes,
-    assert_hostname: None | str | Literal[False],
+    assert_hostname: None | str | typing.Literal[False],
     assert_fingerprint: str | None,
     server_hostname: str | None,
     ssl_context: ssl.SSLContext | None,
@@ -864,6 +887,7 @@ def _wrap_proxy_error(err: Exception, proxy_scheme: str | None) -> ProxyError:
     is_likely_http_proxy = (
         "wrong version number" in error_normalized
         or "unknown protocol" in error_normalized
+        or "record layer failure" in error_normalized
     )
     http_proxy_warning = (
         ". Your proxy appears to only use HTTP and not HTTPS, "
