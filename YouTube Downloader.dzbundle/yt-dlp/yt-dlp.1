@@ -130,6 +130,8 @@ Whether to emit color codes in output, optionally prefixed by the STREAM
 Can be one of \[dq]always\[dq], \[dq]auto\[dq] (default),
 \[dq]never\[dq], or \[dq]no_color\[dq] (use non color terminal
 sequences).
+Use \[dq]auto-tty\[dq] or \[dq]no_color-tty\[dq] to decide based on
+terminal support only.
 Can be used multiple times
 .TP
 --compat-options \f[I]OPTS\f[R]
@@ -2574,7 +2576,7 @@ Some extractors accept additional arguments which can be passed using
 \f[C]ARGS\f[R] is a \f[C];\f[R] (semicolon) separated string of
 \f[C]ARG=VAL1,VAL2\f[R].
 E.g.
-\f[C]--extractor-args \[dq]youtube:player-client=android_embedded,web;formats=incomplete\[dq] --extractor-args \[dq]funimation:version=uncut\[dq]\f[R]
+\f[C]--extractor-args \[dq]youtube:player-client=mediaconnect,web;formats=incomplete\[dq] --extractor-args \[dq]funimation:version=uncut\[dq]\f[R]
 .PP
 Note: In CLI, \f[C]ARG\f[R] can use \f[C]-\f[R] instead of \f[C]_\f[R];
 e.g.
@@ -2600,17 +2602,18 @@ respectively
 .IP \[bu] 2
 \f[C]player_client\f[R]: Clients to extract video data from.
 The main clients are \f[C]web\f[R], \f[C]ios\f[R] and \f[C]android\f[R],
-with variants \f[C]_music\f[R], \f[C]_embedded\f[R],
-\f[C]_embedscreen\f[R], \f[C]_creator\f[R] (e.g.
-\f[C]web_embedded\f[R]); and \f[C]mediaconnect\f[R], \f[C]mweb\f[R],
-\f[C]mweb_embedscreen\f[R] and \f[C]tv_embedded\f[R] (agegate bypass)
-with no variants.
-By default, \f[C]ios,web\f[R] is used, but \f[C]tv_embedded\f[R] and
-\f[C]creator\f[R] variants are added as required for age-gated videos.
+with variants \f[C]_music\f[R] and \f[C]_creator\f[R] (e.g.
+\f[C]ios_creator\f[R]); and \f[C]mediaconnect\f[R], \f[C]mweb\f[R],
+\f[C]android_producer\f[R], \f[C]android_testsuite\f[R],
+\f[C]android_vr\f[R], \f[C]web_safari\f[R], \f[C]web_embedded\f[R],
+\f[C]tv\f[R] and \f[C]tv_embedded\f[R] with no variants.
+By default, \f[C]ios,web_creator\f[R] is used, and
+\f[C]tv_embedded\f[R], \f[C]web_creator\f[R] and \f[C]mediaconnect\f[R]
+are added as required for age-gated videos.
 Similarly, the music variants are added for \f[C]music.youtube.com\f[R]
 urls.
-The \f[C]android\f[R] clients will always be given lowest priority since
-their formats are broken.
+Most \f[C]android\f[R] clients will be given lowest priority since their
+formats are broken.
 You can use \f[C]all\f[R] to use all the clients, and \f[C]default\f[R]
 for the default clients.
 .IP \[bu] 2
@@ -2653,7 +2656,8 @@ requests; e.g.
 \f[C]studio.youtube.com\f[R], \f[C]youtubei.googleapis.com\f[R].
 Note that cookies exported from one subdomain will not work on others
 .IP \[bu] 2
-\f[C]innertube_key\f[R]: Innertube API key to use for all API requests
+\f[C]innertube_key\f[R]: Innertube API key to use for all API requests.
+By default, no API key is used
 .IP \[bu] 2
 \f[C]raise_incomplete_data\f[R]: \f[C]Incomplete Data Received\f[R]
 raises an error instead of reporting a warning
@@ -2857,6 +2861,12 @@ If individual segments are desired, use
 .IP \[bu] 2
 \f[C]prefer_multi_flv\f[R]: Prefer extracting flv formats over mp4 for
 older videos that still provide legacy formats
+.SS digitalconcerthall
+.IP \[bu] 2
+\f[C]prefer_combined_hls\f[R]: Prefer extracting combined/pre-merged
+video and audio HLS formats.
+This will exclude 4K/HEVC video and lossless/FLAC audio formats, which
+are only available as split video/audio HLS formats
 .PP
 \f[B]Note\f[R]: These options may be changed/removed in the future
 without concern for backward compatibility
@@ -3015,7 +3025,7 @@ MIT (https://github.com/yifeikong/curl_cffi/blob/main/LICENSE)
 Can be installed with the \f[C]curl-cffi\f[R] group, e.g.
 \f[C]pip install \[dq]yt-dlp[default,curl-cffi]\[dq]\f[R]
 .IP \[bu] 2
-Currently only included in \f[C]yt-dlp.exe\f[R] and
+Currently included in \f[C]yt-dlp.exe\f[R], \f[C]yt-dlp_linux\f[R] and
 \f[C]yt-dlp_macos\f[R] builds
 .RE
 .SS Metadata
@@ -3845,6 +3855,10 @@ legacy http handler (\f[C]urllib\f[R]) to be used for standard http
 requests.
 .IP \[bu] 2
 The sub-modules \f[C]swfinterp\f[R], \f[C]casefold\f[R] are removed.
+.IP \[bu] 2
+Passing \f[C]--simulate\f[R] (or calling \f[C]extract_info\f[R] with
+\f[C]download=False\f[R]) no longer alters the default format selection.
+See #9843 (https://github.com/yt-dlp/yt-dlp/issues/9843) for details.
 .PP
 For ease of use, a few more compat options are available:
 .IP \[bu] 2

@@ -234,7 +234,8 @@ may be required for some sites that employ TLS fingerprinting.
     under MIT
     -   Can be installed with the curl-cffi group, e.g.
         pip install "yt-dlp[default,curl-cffi]"
-    -   Currently only included in yt-dlp.exe and yt-dlp_macos builds
+    -   Currently included in yt-dlp.exe, yt-dlp_linux and yt-dlp_macos
+        builds
 
 Metadata
 
@@ -433,7 +434,9 @@ General Options:
                                     stderr) to apply the setting to. Can be one
                                     of "always", "auto" (default), "never", or
                                     "no_color" (use non color terminal
-                                    sequences). Can be used multiple times
+                                    sequences). Use "auto-tty" or "no_color-tty"
+                                    to decide based on terminal support only.
+                                    Can be used multiple times
     --compat-options OPTS           Options that can help keep compatibility
                                     with youtube-dl or youtube-dlc
                                     configurations by reverting some of the
@@ -2142,7 +2145,7 @@ EXTRACTOR ARGUMENTS
 Some extractors accept additional arguments which can be passed using
 --extractor-args KEY:ARGS. ARGS is a ; (semicolon) separated string of
 ARG=VAL1,VAL2. E.g.
---extractor-args "youtube:player-client=android_embedded,web;formats=incomplete" --extractor-args "funimation:version=uncut"
+--extractor-args "youtube:player-client=mediaconnect,web;formats=incomplete" --extractor-args "funimation:version=uncut"
 
 Note: In CLI, ARG can use - instead of _; e.g. youtube:player-client"
 becomes youtube:player_client"
@@ -2159,15 +2162,15 @@ youtube
     of the m3u8 manifests, dash manifests and auto-translated subtitles
     respectively
 -   player_client: Clients to extract video data from. The main clients
-    are web, ios and android, with variants _music, _embedded,
-    _embedscreen, _creator (e.g. web_embedded); and mediaconnect, mweb,
-    mweb_embedscreen and tv_embedded (agegate bypass) with no variants.
-    By default, ios,web is used, but tv_embedded and creator variants
-    are added as required for age-gated videos. Similarly, the music
-    variants are added for music.youtube.com urls. The android clients
-    will always be given lowest priority since their formats are broken.
-    You can use all to use all the clients, and default for the default
-    clients.
+    are web, ios and android, with variants _music and _creator (e.g.
+    ios_creator); and mediaconnect, mweb, android_producer,
+    android_testsuite, android_vr, web_safari, web_embedded, tv and
+    tv_embedded with no variants. By default, ios,web_creator is used,
+    and tv_embedded, web_creator and mediaconnect are added as required
+    for age-gated videos. Similarly, the music variants are added for
+    music.youtube.com urls. Most android clients will be given lowest
+    priority since their formats are broken. You can use all to use all
+    the clients, and default for the default clients.
 -   player_skip: Skip some network requests that are generally needed
     for robust extraction. One or more of configs (skip client configs),
     webpage (skip initial webpage), js (skip js player). While these
@@ -2192,7 +2195,8 @@ youtube
 -   innertube_host: Innertube API host to use for all API requests; e.g.
     studio.youtube.com, youtubei.googleapis.com. Note that cookies
     exported from one subdomain will not work on others
--   innertube_key: Innertube API key to use for all API requests
+-   innertube_key: Innertube API key to use for all API requests. By
+    default, no API key is used
 -   raise_incomplete_data: Incomplete Data Received raises an error
     instead of reporting a warning
 
@@ -2365,6 +2369,13 @@ bilibili
 
 -   prefer_multi_flv: Prefer extracting flv formats over mp4 for older
     videos that still provide legacy formats
+
+digitalconcerthall
+
+-   prefer_combined_hls: Prefer extracting combined/pre-merged video and
+    audio HLS formats. This will exclude 4K/HEVC video and lossless/FLAC
+    audio formats, which are only available as split video/audio HLS
+    formats
 
 Note: These options may be changed/removed in the future without concern
 for backward compatibility
@@ -2865,6 +2876,8 @@ and youtube-dlc:
     --compat-options prefer-legacy-http-handler to prefer the legacy
     http handler (urllib) to be used for standard http requests.
 -   The sub-modules swfinterp, casefold are removed.
+-   Passing --simulate (or calling extract_info with download=False) no
+    longer alters the default format selection. See #9843 for details.
 
 For ease of use, a few more compat options are available:
 
