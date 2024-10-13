@@ -8,7 +8,7 @@
 # OptionsNIB: InstagramDownloader
 # SkipConfig: No
 # RunsSandboxed: Yes
-# Version: 1.4
+# Version: 1.5
 # MinDropzoneVersion: 4.4.4
 # UniqueID: 1020
 
@@ -31,18 +31,21 @@ def dragged():
     dz.begin("Logging in to Instagram...")
     dz.determinate(False)
 
+    # Assuming dz is an instance of a class that has the temp_folder method defined
     L = instaloader.Instaloader()
 
-    if os.path.isfile('session'):
-        L.load_session_from_file(os.environ['username'], filename='session')
-        
+    session_file = dz.temp_folder() + '/session'
+
+    if os.path.isfile(session_file):
+        L.load_session_from_file(os.environ['username'], filename=session_file)
+
     try:
-        if L.test_login() == None:
+        if L.test_login() is None:
             L.login(os.environ['username'], os.environ['password'])
-            L.save_session_to_file('session')
+            L.save_session_to_file(session_file)
     except Exception as e:
         L.login(os.environ['username'], os.environ['password'])
-        L.save_session_to_file('session')
+        L.save_session_to_file(session_file)
 
     dz.begin("Downloading Instagram post...")
 

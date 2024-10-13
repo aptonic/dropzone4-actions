@@ -1,4 +1,3 @@
-import hashlib
 import json
 import os
 import pickle
@@ -33,7 +32,7 @@ def copy_session(session: requests.Session, request_timeout: Optional[float] = N
 
 def default_user_agent() -> str:
     return ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-            '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+            '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36')
 
 
 def default_iphone_headers() -> Dict[str, Any]:
@@ -94,7 +93,6 @@ class InstaloaderContext:
         self.quiet = quiet
         self.max_connection_attempts = max_connection_attempts
         self._graphql_page_length = 50
-        self._root_rhx_gis = None
         self.two_factor_auth_pending = None
         self.iphone_support = iphone_support
         self.iphone_headers = default_iphone_headers()
@@ -387,31 +385,42 @@ class InstaloaderContext:
 
     def get_json(self, path: str, params: Dict[str, Any], host: str = 'www.instagram.com',
                  session: Optional[requests.Session] = None, _attempt=1,
-                 response_headers: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                 response_headers: Optional[Dict[str, Any]] = None,
+                 use_post: bool = False) -> Dict[str, Any]:
         """JSON request to Instagram.
 
         :param path: URL, relative to the given domain which defaults to www.instagram.com/
-        :param params: GET parameters
+        :param params: request parameters
         :param host: Domain part of the URL from where to download the requested JSON; defaults to www.instagram.com
         :param session: Session to use, or None to use self.session
+        :param use_post: Use POST instead of GET to make the request
         :return: Decoded response dictionary
         :raises QueryReturnedBadRequestException: When the server responds with a 400.
         :raises QueryReturnedNotFoundException: When the server responds with a 404.
         :raises ConnectionException: When query repeatedly failed.
+
+        .. versionchanged:: 4.13
+           Added `use_post` parameter.
         """
         is_graphql_query = 'query_hash' in params and 'graphql/query' in path
+        is_doc_id_query = 'doc_id' in params and 'graphql/query' in path
         is_iphone_query = host == 'i.instagram.com'
-        is_other_query = not is_graphql_query and host == "www.instagram.com"
+        is_other_query = not is_graphql_query and not is_doc_id_query and host == "www.instagram.com"
         sess = session if session else self._session
         try:
             self.do_sleep()
             if is_graphql_query:
                 self._rate_controller.wait_before_query(params['query_hash'])
+            if is_doc_id_query:
+                self._rate_controller.wait_before_query(params['doc_id'])
             if is_iphone_query:
                 self._rate_controller.wait_before_query('iphone')
             if is_other_query:
                 self._rate_controller.wait_before_query('other')
-            resp = sess.get('https://{0}/{1}'.format(host, path), params=params, allow_redirects=False)
+            if use_post:
+                resp = sess.post('https://{0}/{1}'.format(host, path), data=params, allow_redirects=False)
+            else:
+                resp = sess.get('https://{0}/{1}'.format(host, path), params=params, allow_redirects=False)
             if resp.status_code in self.fatal_status_codes:
                 redirect = " redirect to {}".format(resp.headers['location']) if 'location' in resp.headers else ""
                 body = ""
@@ -462,6 +471,8 @@ class InstaloaderContext:
                 if isinstance(err, TooManyRequestsException):
                     if is_graphql_query:
                         self._rate_controller.handle_429(params['query_hash'])
+                    if is_doc_id_query:
+                        self._rate_controller.handle_429(params['doc_id'])
                     if is_iphone_query:
                         self._rate_controller.handle_429('iphone')
                     if is_other_query:
@@ -473,14 +484,48 @@ class InstaloaderContext:
                 raise ConnectionException(error_string) from err
 
     def graphql_query(self, query_hash: str, variables: Dict[str, Any],
-                      referer: Optional[str] = None, rhx_gis: Optional[str] = None) -> Dict[str, Any]:
+                      referer: Optional[str] = None) -> Dict[str, Any]:
         """
         Do a GraphQL Query.
 
         :param query_hash: Query identifying hash.
         :param variables: Variables for the Query.
         :param referer: HTTP Referer, or None.
-        :param rhx_gis: 'rhx_gis' variable as somewhere returned by Instagram, needed to 'sign' request
+        :return: The server's response dictionary.
+
+        .. versionchanged:: 4.13.1
+           Removed the `rhx_gis` parameter.
+        """
+        with copy_session(self._session, self.request_timeout) as tmpsession:
+            tmpsession.headers.update(self._default_http_header(empty_session_only=True))
+            del tmpsession.headers['Connection']
+            del tmpsession.headers['Content-Length']
+            tmpsession.headers['authority'] = 'www.instagram.com'
+            tmpsession.headers['scheme'] = 'https'
+            tmpsession.headers['accept'] = '*/*'
+            if referer is not None:
+                tmpsession.headers['referer'] = urllib.parse.quote(referer)
+
+            variables_json = json.dumps(variables, separators=(',', ':'))
+
+            resp_json = self.get_json('graphql/query',
+                                      params={'query_hash': query_hash,
+                                              'variables': variables_json},
+                                      session=tmpsession)
+        if 'status' not in resp_json:
+            self.error("GraphQL response did not contain a \"status\" field.")
+        return resp_json
+
+    def doc_id_graphql_query(self, doc_id: str, variables: Dict[str, Any],
+                             referer: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Do a doc_id-based GraphQL Query using method POST.
+
+        .. versionadded:: 4.13
+
+        :param doc_id: doc_id for the query.
+        :param variables: Variables for the Query.
+        :param referer: HTTP Referer, or None.
         :return: The server's response dictionary.
         """
         with copy_session(self._session, self.request_timeout) as tmpsession:
@@ -495,16 +540,12 @@ class InstaloaderContext:
 
             variables_json = json.dumps(variables, separators=(',', ':'))
 
-            if rhx_gis:
-                #self.log("rhx_gis {} query_hash {}".format(rhx_gis, query_hash))
-                values = "{}:{}".format(rhx_gis, variables_json)
-                x_instagram_gis = hashlib.md5(values.encode()).hexdigest()
-                tmpsession.headers['x-instagram-gis'] = x_instagram_gis
-
             resp_json = self.get_json('graphql/query',
-                                      params={'query_hash': query_hash,
-                                              'variables': variables_json},
-                                      session=tmpsession)
+                                      params={'variables': variables_json,
+                                              'doc_id': doc_id,
+                                              'server_timestamps': 'true'},
+                                      session=tmpsession,
+                                      use_post=True)
         if 'status' not in resp_json:
             self.error("GraphQL response did not contain a \"status\" field.")
         return resp_json
@@ -512,7 +553,7 @@ class InstaloaderContext:
     def graphql_node_list(self, query_hash: str, query_variables: Dict[str, Any],
                           query_referer: Optional[str],
                           edge_extractor: Callable[[Dict[str, Any]], Dict[str, Any]],
-                          rhx_gis: Optional[str] = None,
+                          _rhx_gis: Optional[str] = None,
                           first_data: Optional[Dict[str, Any]] = None) -> Iterator[Dict[str, Any]]:
         """
         Retrieve a list of GraphQL nodes.
@@ -524,7 +565,7 @@ class InstaloaderContext:
         def _query():
             query_variables['first'] = self._graphql_page_length
             try:
-                return edge_extractor(self.graphql_query(query_hash, query_variables, query_referer, rhx_gis))
+                return edge_extractor(self.graphql_query(query_hash, query_variables, query_referer))
             except QueryReturnedBadRequestException:
                 new_page_length = int(self._graphql_page_length / 2)
                 if new_page_length >= 12:
@@ -672,17 +713,6 @@ class InstaloaderContext:
                 # 404 not worth retrying.
                 raise QueryReturnedNotFoundException(self._response_error(resp))
             raise ConnectionException(self._response_error(resp))
-
-    @property
-    def root_rhx_gis(self) -> Optional[str]:
-        """rhx_gis string returned in the / query."""
-        if self.is_logged_in:
-            # At the moment, rhx_gis seems to be required for anonymous requests only. By returning None when logged
-            # in, we can save the root_rhx_gis lookup query.
-            return None
-        if self._root_rhx_gis is None:
-            self._root_rhx_gis = self.get_json('', {}).get('rhx_gis', '')
-        return self._root_rhx_gis or None
 
 
 class RateController:

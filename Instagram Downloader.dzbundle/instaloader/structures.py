@@ -232,20 +232,31 @@ class Post:
             "title": media.get("title"),
             "viewer_has_liked": media["has_liked"],
             "edge_media_preview_like": {"count": media["like_count"]},
+            "accessibility_caption": media.get("accessibility_caption"),
+            "comments": media.get("comment_count"),
             "iphone_struct": media,
         }
         with suppress(KeyError):
             fake_node["display_url"] = media['image_versions2']['candidates'][0]['url']
-        with suppress(KeyError):
+        with suppress(KeyError, TypeError):
             fake_node["video_url"] = media['video_versions'][-1]['url']
             fake_node["video_duration"] = media["video_duration"]
             fake_node["video_view_count"] = media["view_count"]
-        with suppress(KeyError):
-            fake_node["edge_sidecar_to_children"] = {"edges": [{"node": {
-                "display_url": node['image_versions2']['candidates'][0]['url'],
-                "is_video": media_types[node["media_type"]] == "GraphVideo",
-            }} for node in media["carousel_media"]]}
+        with suppress(KeyError, TypeError):
+            fake_node["edge_sidecar_to_children"] = {"edges": [{"node":
+                Post._convert_iphone_carousel(node, media_types)}
+                for node in media["carousel_media"]]}
         return cls(context, fake_node, Profile.from_iphone_struct(context, media["user"]) if "user" in media else None)
+
+    @staticmethod
+    def _convert_iphone_carousel(iphone_node: Dict[str, Any], media_types: Dict[int, str]) -> Dict[str, Any]:
+        fake_node = {
+            "display_url": iphone_node["image_versions2"]["candidates"][0]["url"],
+            "is_video": media_types[iphone_node["media_type"]] == "GraphVideo",
+        }
+        if "video_versions" in iphone_node and iphone_node["video_versions"] is not None:
+            fake_node["video_url"] = iphone_node["video_versions"][0]["url"]
+        return fake_node
 
     @staticmethod
     def shortcode_to_mediaid(code: str) -> int:
@@ -263,7 +274,7 @@ class Post:
     @staticmethod
     def supported_graphql_types() -> List[str]:
         """The values of __typename fields that the :class:`Post` class can handle."""
-        return ["GraphImage", "GraphVideo", "GraphSidecar"]
+        return ["GraphImage", "GraphVideo", "GraphSidecar", "XDTGraphImage", "XDTGraphVideo", "XDTGraphSidecar"]
 
     def _asdict(self):
         node = self._node
@@ -308,11 +319,11 @@ class Post:
 
     def _obtain_metadata(self):
         if not self._full_metadata_dict:
-            pic_json = self._context.graphql_query(
-                '2b0673e0dc4580674a88d426fe00ea90',
+            pic_json = self._context.doc_id_graphql_query(
+                '8845758582119845',
                 {'shortcode': self.shortcode}
             )
-            self._full_metadata_dict = pic_json['data']['shortcode_media']
+            self._full_metadata_dict = pic_json['data']['xdt_shortcode_media']
             if self._full_metadata_dict is None:
                 raise BadResponseException("Fetching Post metadata failed.")
             if self.shortcode != self._full_metadata_dict['shortcode']:
@@ -427,7 +438,7 @@ class Post:
 
         .. versionadded:: 4.6
         """
-        if self.typename == 'GraphSidecar':
+        if self.typename in ['GraphSidecar', 'XDTGraphSidecar']:
             edges = self._field('edge_sidecar_to_children', 'edges')
             return len(edges)
         return 1
@@ -444,7 +455,7 @@ class Post:
 
         .. versionadded:: 4.7
         """
-        if self.typename == 'GraphSidecar':
+        if self.typename in ['GraphSidecar', 'XDTGraphSidecar']:
             edges = self._field('edge_sidecar_to_children', 'edges')
             return [edge['node']['is_video'] for edge in edges]
         return [self.is_video]
@@ -456,7 +467,7 @@ class Post:
         .. versionchanged:: 4.6
            Added parameters *start* and *end* to specify a slice of sidecar media.
         """
-        if self.typename == 'GraphSidecar':
+        if self.typename in ['GraphSidecar', 'XDTGraphSidecar']:
             edges = self._field('edge_sidecar_to_children', 'edges')
             if end < 0:
                 end = len(edges)-1
@@ -738,7 +749,7 @@ class Post:
         return NodeIterator(
             self._context,
             '97b41c52301f77ce508f55e66d17620e',
-            lambda d: d['data']['shortcode_media']['edge_media_to_parent_comment'],
+            lambda d: d['data']['xdt_shortcode_media']['edge_media_to_parent_comment'],
             _postcomment,
             {'shortcode': self.shortcode},
             'https://www.instagram.com/p/{0}/'.format(self.shortcode),
@@ -764,7 +775,7 @@ class Post:
         yield from NodeIterator(
             self._context,
             '1cb6ec562846122743b61e492c85999f',
-            lambda d: d['data']['shortcode_media']['edge_liked_by'],
+            lambda d: d['data']['xdt_shortcode_media']['edge_liked_by'],
             lambda n: Profile(self._context, n),
             {'shortcode': self.shortcode},
             'https://www.instagram.com/p/{0}/'.format(self.shortcode),
@@ -897,8 +908,7 @@ class Profile:
                                       'include_reel': True,
                                       'include_suggested_users': False,
                                       'include_logged_out_extras': False,
-                                      'include_highlight_reels': False},
-                                     rhx_gis=context.root_rhx_gis)['data']['user']
+                                      'include_highlight_reels': False})['data']['user']
         if data:
             profile = cls(context, data['reel']['owner'])
         else:
@@ -1174,14 +1184,17 @@ class Profile:
         :rtype: NodeIterator[Post]"""
         self._obtain_metadata()
         return NodeIterator(
-            self._context,
-            '003056d32c2554def87228bc3fd9668a',
-            lambda d: d['data']['user']['edge_owner_to_timeline_media'],
-            lambda n: Post(self._context, n, self),
-            {'id': self.userid},
-            'https://www.instagram.com/{0}/'.format(self.username),
-            self._metadata('edge_owner_to_timeline_media'),
-            Profile._make_is_newest_checker()
+            context = self._context,
+            edge_extractor = lambda d: d['data']['xdt_api__v1__feed__user_timeline_graphql_connection'],
+            node_wrapper = lambda n: Post.from_iphone_struct(self._context, n),
+            query_variables = {'data': {
+                'count': 12, 'include_relationship_info': True,
+                'latest_besties_reel_media': True, 'latest_reel_media': True},
+             'username': self.username},
+            query_referer = 'https://www.instagram.com/{0}/'.format(self.username),
+            is_first = Profile._make_is_newest_checker(),
+            doc_id = '7898261790222653',
+            query_hash = None,
         )
 
     def get_saved_posts(self) -> NodeIterator[Post]:
@@ -1372,11 +1385,11 @@ class StoryItem:
 
         .. versionadded:: 4.9
         """
-        pic_json = context.graphql_query(
-            '2b0673e0dc4580674a88d426fe00ea90',
+        pic_json = context.doc_id_graphql_query(
+            '8845758582119845',
             {'shortcode': Post.mediaid_to_shortcode(mediaid)}
         )
-        shortcode_media = pic_json['data']['shortcode_media']
+        shortcode_media = pic_json['data']['xdt_shortcode_media']
         if shortcode_media is None:
             raise BadResponseException("Fetching StoryItem metadata failed.")
         return cls(context, shortcode_media)
