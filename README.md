@@ -2,7 +2,7 @@
 
 This repository contains a bunch of add-on actions that work with Dropzone 4. You can quick install most of these actions from a [list of featured](http://aptonic.com/actions) actions on our website [here](http://aptonic.com/actions). All other [untested actions](http://aptonic.com/actions/untested) from this repository can be installed from [this page.](http://aptonic.com/actions/untested)
 
-This repository works in conjunction with the [dropzone4-actions-zipped](https://github.com/aptonic/dropzone4-actions-zipped) repository which contains zipped versions of these actions (auto updated nightly). The zipped versions are better if you want to download only specific actions or need to provide a link to an action. The API documentation for Dropzone 4 is provided below.
+The API documentation for developing Dropzone 4 Add-on actions is provided below.
 
 ---
 
