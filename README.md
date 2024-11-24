@@ -1,6 +1,6 @@
 # Dropzone 4 Actions
 
-This repository contains a bunch of add-on actions that work with Dropzone 4. You can quick install most of these actions from a [list of featured](http://aptonic.com/actions) actions on our website [here](http://aptonic.com/actions). All other [untested actions](http://aptonic.com/actions/untested) from this repository can be installed from [this page.](http://aptonic.com/actions/untested)
+This repository contains a bunch of add-on actions that work with Dropzone 4. You can quick install most of these actions from a [list of featured](http://aptonic.com/actions) actions on our website [here](http://aptonic.com/actions). All other [untested actions](http://aptonic.com/actions/untested) can be installed from [this page.](http://aptonic.com/actions/untested)
 
 The API documentation for developing Dropzone 4 Add-on actions is provided below.
 
@@ -64,7 +64,7 @@ A Dropzone 4 action bundle is simply a directory with a .dzbundle extension. It 
 
 ## Developing an Action
 
-To develop a new Dropzone 4 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...' Hold down the option key to make the 'Develop Action...' item appear.
+To develop a new Dropzone 4 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...'<br> Hold down the option key to make the 'Develop Action...' item appear.
 
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/develop-action.png)
 <br>
