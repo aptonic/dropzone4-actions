@@ -14,7 +14,7 @@ The API documentation for developing Dropzone 4 Add-on actions is provided below
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
   - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
-- [Debug Console](#action-debug-console)
+- [Action Debug Console](#action-debug-console)
 - [Dragged Types](#dragged-types)
 - [Python Support](#python-support)
   - [Accessing OptionsNIB environment variables](#accessing-optionsnib-environment-variables)
