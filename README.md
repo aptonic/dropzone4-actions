@@ -14,7 +14,7 @@ The API documentation for developing Dropzone 4 Add-on actions is provided below
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
   - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
-- [Debug Console](#debug-console)
+- [Debug Console](#action-debug-console)
 - [Dragged Types](#dragged-types)
 - [Python Support](#python-support)
   - [Accessing OptionsNIB environment variables](#accessing-optionsnib-environment-variables)
@@ -129,15 +129,15 @@ The other way you can develop a new action is by right clicking on an existing a
 
 ![Copy & Edit](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/copy-and-edit.png)
 
-## Debug Console
+## Action Debug Console
 
-The debug console makes it quick and easy to view the output and environment of your action. To open the debug console, click on the Settings gear in the top right of the Dropzone grid and click 'Debug Console' - you can also open it by first clicking the Dropzone menu item so Dropzone gets keyboard focus and then pressing Cmd+Shift+D
+The action debug console makes it quick and easy to view the output and environment of your action. To open the action debug console, click on the Settings gear in the top right of the Dropzone grid, hold down the option key and click 'Action Console' - you can also open it by first clicking the Dropzone menu item so Dropzone gets keyboard focus and then pressing Cmd+Shift+D
 
-![Open Debug Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/open-debug-console.png)
+![Open Action Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/open-debug-console.png)
 
-![Debug Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/debug-console.png)
+![Action Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/debug-console.png)
 
-The screenshot above shows the debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located inside the Dropzone.app application bundle at Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your action.rb or action.py script. The task description file contents are output in the debug console when running a task.
+The screenshot above shows the action debug console after dropping two files onto the template action (the code for this is given in the [above section](#generated-template-action)). When a task is run, Dropzone creates a task description file that contains all the needed info to start the task. The runner.rb Ruby script (located inside the Dropzone.app application bundle at Contents/Actions/lib/runner.rb) then reads this task description file, sets environment variables and then calls the appropriate method in your action.rb or action.py script. The task description file contents are output in the debug console when running a task.
 
 In the above example, the task description file contents were:
 
@@ -151,7 +151,7 @@ ITEMS: "/Users/john/Desktop/Test2.jpeg" "/Users/john/Desktop/Test.jpeg"
 
 The ACTION and EVENT fields are used by runner.rb to determine which action bundle to use and which method to call in your script. The VARIABLE fields can be accessed in your script using the ENV['variable_name'] global.
 
-Note that output that was recognized and processed by Dropzone is shown in black (this is output that was generated from calling the $dz methods) while unrecognized output is shown in red. This is useful when debugging your script as if you use puts to output something for debugging purposes you can easily see it. Also, if your action causes a Ruby exception then the debug console will be shown automatically and the backtrace will be shown in red so you can fix the issue.
+Note that output that was recognized and processed by Dropzone is shown in black (this is output that was generated from calling the $dz methods) while unrecognized output is shown in red. This is useful when debugging your script as if you use puts to output something for debugging purposes you can easily see it. Also, if your action causes a Ruby exception then the action debug console will be shown automatically and the backtrace will be shown in red so you can fix the issue.
 
 Clicking on the 'Edit Last' button will open the last run action script in your text editor and clicking 'Rerun Last' runs the last run task again with the same items, drag type and variables. This makes developing and debugging actions faster and easier.
 
@@ -246,7 +246,7 @@ For Python actions you should do:
 dz.begin("Starting some task...")
 ```
 
-To output debug info to the Dropzone [debug console](#debug-console) you should use the Python print() function rather than the puts() function used in Ruby.
+To output debug info to the Dropzone [action debug console](#action-debug-console) you should use the Python print() function rather than the puts() function used in Ruby.
 
 For example:
 
@@ -268,7 +268,7 @@ And then:
 os.environ['variable_name']
 ```
 
-Here's an example action.py that requires a username and password when adding it and then prints these set variables to the Dropzone [debug console](#debug-console) when you click it.
+Here's an example action.py that requires a username and password when adding it and then prints these set variables to the Dropzone [action debug console](#action-debug-console) when you click it.
 
 ```python
 # Dropzone Action Info
@@ -614,7 +614,7 @@ Also see the blog post announcing Pashua support in Dropzone [here.](https://apt
 
 ## Saving and loading values
 
-Your action can store string values in the Dropzone database by calling $dz.save_value(value_name, value). This is useful for storing configuration for your action - e.g. when your action first runs you could use Pashua to prompt for a setting and then store the result. When your action is next run, all saved values are set as environment variables and can be accessed using ENV['stored_value_name'] in Ruby or os.environ['stored_value_name'] in Python. You can see which variables were set in the [debug console](#debug-console) each time your action is run. If the user has multiple instances of your action setup in the grid, the stored values are unique to each instance.
+Your action can store string values in the Dropzone database by calling $dz.save_value(value_name, value). This is useful for storing configuration for your action - e.g. when your action first runs you could use Pashua to prompt for a setting and then store the result. When your action is next run, all saved values are set as environment variables and can be accessed using ENV['stored_value_name'] in Ruby or os.environ['stored_value_name'] in Python. You can see which variables were set in the [debug console](#action-debug-console) each time your action is run. If the user has multiple instances of your action setup in the grid, the stored values are unique to each instance.
 
 Example
 
