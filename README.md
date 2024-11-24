@@ -133,7 +133,7 @@ The other way you can develop a new action is by right clicking on an existing a
 
 The action debug console makes it quick and easy to view the output and environment of your action. To open the action debug console, click on the Settings gear in the top right of the Dropzone grid, hold down the option key and click 'Action Console' - you can also open it by first clicking the Dropzone menu item so Dropzone gets keyboard focus and then pressing Cmd+Shift+D
 
-<img src="https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/open-debug-console.png" alt="Action Console" width="223">
+![Open Action Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/open-debug-console.png)
 
 ![Action Console](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/debug-console.png)
 
