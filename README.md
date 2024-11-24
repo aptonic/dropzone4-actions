@@ -64,7 +64,7 @@ A Dropzone 4 action bundle is simply a directory with a .dzbundle extension. It 
 
 ## Developing an Action
 
-To develop a new Dropzone 4 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...' Hold down the option key to make the 'Develop Action...' item appear.
+To develop a new Dropzone 4 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...'<br> Hold down the option key to make the 'Develop Action...' item appear.
 
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/develop-action.png)
 <br>
