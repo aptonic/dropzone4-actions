@@ -693,7 +693,7 @@ Would output /Users/john/Library/Application Support/Dropzone 4/Temp to the debu
 
 Some actions may require additional information from the user, such as login details, API keys or a folder path in order to work. Dropzone provides a way to collect this information by loading an additional interface into the 'Add Action' panel when a user adds your action to the Dropzone grid. When Dropzone runs your action, environment variables are set with the information collected in the OptionsNIB.
 
-The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder, ChooseApplication and GoogleAuth. To use an OptionsNIB, you need to add a line to the metadata section like below:
+The currently available OptionsNIBs are Login, ExtendedLogin, APIKey, UsernameAPIKey, ChooseFolder and ChooseApplication. To use an OptionsNIB, you need to add a line to the metadata section like below:
 
 ```ruby
 # OptionsNIB: Login
@@ -733,7 +733,7 @@ The following Ruby gems are distributed along with the Dropzone application bund
 - [excon](https://github.com/excon/excon/blob/master/README.md) - Usable, fast, simple Ruby HTTP 1.1
 - [aws-sdk](http://aws.amazon.com/sdk-for-ruby/) - AWS SDK for Ruby 
 - [multi_json](https://github.com/intridea/multi_json/blob/master/README.md) - A generic swappable back-end for JSON handling
-- [google-api-client](https://github.com/google/google-api-ruby-client) - Access many different Google APIs. Currently used by the Google Drive and YouTube actions.
+- [google-api-client](https://github.com/google/google-api-ruby-client) - Access many different Google APIs.
 
 You can find examples and documentation for these gems from the links above.
 
