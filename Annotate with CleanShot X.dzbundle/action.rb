@@ -1,6 +1,6 @@
 # Dropzone Action Info
 # Name: Annotate with CleanShot X
-# Description: Drag images to annotate in CleanShot X.\n\nClick to capture area; hold ⌘ and click for fullscreen, hold ⌥ and click for window.\n\nRequires CleanShot X to be installed.
+# Description: Drop images onto this action to annotate them with CleanShot X.\n\nClick to capture area; hold ⌘ and click for fullscreen, hold ⌥ and click for window.\n\nRequires CleanShot X to be installed.
 # Handles: Files
 # Creator: Brett Terpstra
 # URL: http://brettterpstra.com
@@ -9,7 +9,7 @@
 # SkipConfig: Yes
 # RunsSandboxed: Yes
 # UniqueID: 23455
-# Version: 1.0
+# Version: 1.1
 # MinDropzoneVersion: 3.0
 
 require 'shellwords'
@@ -21,7 +21,7 @@ def dragged
     `open "cleanshot://open-annotate?filepath=#{file_path}"`
   end
 
-  $dz.finish("Image opened")
+  $dz.finish("Image#{'s' if $items.count > 1} opened")
   $dz.url(false)
 end
 
