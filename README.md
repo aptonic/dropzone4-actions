@@ -1,8 +1,8 @@
-# Dropzone 4 Actions
+# Dropzone 5 Actions
 
-This repository contains a bunch of add-on actions that work with Dropzone 4. You can quick install most of these actions from a [list of featured](http://aptonic.com/actions) actions on our website [here](http://aptonic.com/actions). All other [untested actions](http://aptonic.com/actions/untested) can be installed from [this page.](http://aptonic.com/actions/untested)
+This repository contains a bunch of add-on actions that work with Dropzone 5. You can quick install most of these actions from a [list of featured](http://aptonic.com/actions) actions on our website [here](http://aptonic.com/actions). All other [untested actions](http://aptonic.com/actions/untested) can be installed from [this page.](http://aptonic.com/actions/untested)
 
-The API documentation for developing Dropzone 4 Add-on actions is provided below.
+The API documentation for developing Dropzone 5 Add-on actions is provided below.
 
 ---
 
@@ -10,7 +10,7 @@ The API documentation for developing Dropzone 4 Add-on actions is provided below
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Introducing the Dropzone 4 API](#introducing-the-dropzone-4-api)
+- [Introducing the Dropzone 5 API](#introducing-the-dropzone-5-api)
 - [Developing an Action](#developing-an-action)
   - [Generated Template Action](#generated-template-action)
   - [Copy and Edit an existing action](#copy-and-edit-an-existing-action)
@@ -52,7 +52,7 @@ The API documentation for developing Dropzone 4 Add-on actions is provided below
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Introducing the Dropzone 4 API
+## Introducing the Dropzone 5 API
 
 ![API Logo](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/dzbundle.png)
 
@@ -60,11 +60,11 @@ The general idea of a Dropzone action is that files or text will be dropped on t
 
 A Dropzone action also accepts a click event so when you click on it in the Dropzone grid it does something: for example the [Finder Path](https://aptonic.com/actions/install.php?bundle_name=Finder%20Path) action copies the currently selected item path in Finder to the clipboard. The API outlined below describes how you can easily develop your own actions to use with Dropzone and then share these actions with others. Dropzone actions are developed in either Ruby or Python. If you haven't coded in Ruby or Python before then it would be a good idea to learn a little of either of these languages before attempting to create a Dropzone action. There's a good hands-on introduction to the Ruby language [here](http://www.codecademy.com/tracks/ruby) and an introduction to Python [here.](http://www.learnpython.org)
 
-A Dropzone 4 action bundle is simply a directory with a .dzbundle extension. It must contain either an action.rb script (for Ruby actions) or an action.py script (for Python actions) and also an icon.png file that contains the default icon for the action. The bundle can also optionally contain other resources such as Ruby or Python libraries or executables. The action.rb or action.py file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
+A Dropzone 5 action bundle is simply a directory with a .dzbundle extension. It must contain either an action.rb script (for Ruby actions) or an action.py script (for Python actions) and also an icon.png file that contains the default icon for the action. The bundle can also optionally contain other resources such as Ruby or Python libraries or executables. The action.rb or action.py file must have certain metadata at the top. Dropzone parses this metadata when you add the action. 
 
 ## Developing an Action
 
-To develop a new Dropzone 4 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...'<br> Hold down the option key to make the 'Develop Action...' item appear.
+To develop a new Dropzone 5 action, click the white plus icon in the top left corner of the Dropzone grid and select 'Develop Action...'<br> Hold down the option key to make the 'Develop Action...' item appear.
 
 ![Develop Action](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/develop-action.png)
 <br>
@@ -142,9 +142,9 @@ The screenshot above shows the action debug console after dropping two files ont
 In the above example, the task description file contents were:
 
 ```ruby
-ACTION: "/Users/john/Library/Application Support/Dropzone 4/Actions/Custom Action.dzbundle"
+ACTION: "/Users/john/Library/Application Support/Dropzone 5/Actions/Custom Action.dzbundle"
 EVENT: "dragged"
-VARIABLE: "support_folder" "/Users/john/Library/Application Support/Dropzone 4"
+VARIABLE: "support_folder" "/Users/john/Library/Application Support/Dropzone 5"
 VARIABLE: "dragged_type" "files"
 ITEMS: "/Users/john/Desktop/Test2.jpeg" "/Users/john/Desktop/Test.jpeg"
 ```
@@ -687,7 +687,7 @@ Example
 puts $dz.temp_folder
 ```
 
-Would output /Users/john/Library/Application Support/Dropzone 4/Temp to the debug console. The output path will be different on your system.
+Would output /Users/john/Library/Application Support/Dropzone 5/Temp to the debug console. The output path will be different on your system.
 
 ## OptionsNIBs
 
@@ -853,7 +853,7 @@ uploader.post_vars = {:api_key => ENV['api_key']}
 
 The same applies for setting headers, simply set uploader.headers to a hash with the required headers as shown in the first example.
 
-You can view the source code for the CurlUploader library inside the Dropzone 4 application bundle at 'Dropzone 4.app/Contents/Actions/lib/curl_uploader.rb'
+You can view the source code for the CurlUploader library inside the Dropzone 5 application bundle at 'Dropzone 5.app/Contents/Actions/lib/curl_uploader.rb'
 
 ## Customizing your actions icon
 
@@ -867,7 +867,7 @@ There needs to be an icon.png file inside your action bundle. This icon is used 
 
 ## Distributing your action
 
-Dropzone 4 action distribution is done via GitHub. You should clone this repository, copy your dzbundle into it and send a GitHub pull request.
+Dropzone 5 action distribution is done via GitHub. You should clone this repository, copy your dzbundle into it and send a GitHub pull request.
 To copy your action, [Reveal](https://raw.githubusercontent.com/aptonic/dropzone4-actions/master/docs/reveal.png) it in the Finder from the User Actions tab in the Preferences and then copy it into your cloned copy of this repository. After your pull request is merged, within 24 hours your action can be automatically installed from a link like http://aptonic.com/actions/install.php?bundle_name=Bundle%20Name where Bundle%20Name is the URL encoded name of your action bundle. Your action will also appear on the [untested actions](http://aptonic.com/actions/untested) page automatically.
 
 In order to make your action updatable, you must add a UniqueID metadata field with a random numeric ID before releasing it.
@@ -952,7 +952,7 @@ All recognized metadata options are described below:
 	</tr>
 	<tr>
 		<td>RunsSandboxed</td>
-		<td>If your action does things that are incompatible with macOS sandboxing (such as running AppleScript or writing to arbitrary directories) then set this to No. Users of the non-Mac App Store version of Dropzone 4 will be able to run your action as normal but users of the Mac App Store version of Dropzone 4 will be prompted to transition to the non-Mac App Store version of the app.</td>
+		<td>If your action does things that are incompatible with macOS sandboxing (such as running AppleScript or writing to arbitrary directories) then set this to No. Users of the non-Mac App Store version of Dropzone 5 will be able to run your action as normal but users of the Mac App Store version of Dropzone 5 will be prompted to transition to the non-Mac App Store version of the app.</td>
 		<td>Yes</td>
 	</tr>
 	<tr>
