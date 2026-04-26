@@ -3,7 +3,7 @@
 # Description: Uploads files to a Gokapi server and copies the share URL to the clipboard.\n\nServer - your Gokapi URL (e.g. share.example.com)\nPort - only needed for non-default ports, otherwise leave blank\nUsername - enter "api" (placeholder; not used, but Dropzone requires a value before Test Connection will run)\nPassword - your Gokapi API key (must have UPLOAD permission)\nRemote Path and Root URL - leave blank (not used)\n\nHold Shift while dragging to set per-upload expiry, download limit, and password.
 # Handles: Files
 # Creator: Jason Learst
-# URL: https://github.com/jasonlearst/upload-to-gokapi
+# URL: https://github.com/jasonlearst/Gokapi-Dropzone-Action
 # Events: Dragged, Clicked, TestConnection
 # KeyModifiers: Command, Option, Control, Shift
 # SkipConfig: No
