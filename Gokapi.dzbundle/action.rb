@@ -1,6 +1,6 @@
 # Dropzone Action Info
-# Name: GokApi
-# Description: Uploads files to a GokApi server and copies the share URL to the clipboard.\n\nServer - your GokApi URL (e.g. share.example.com)\nPort - only needed for non-default ports, otherwise leave blank\nUsername - enter "api" (placeholder; not used, but Dropzone requires a value before Test Connection will run)\nPassword - your GokApi API key (must have UPLOAD permission)\nRemote Path and Root URL - leave blank (not used)\n\nHold Shift while dragging to set per-upload expiry, download limit, and password.
+# Name: Gokapi
+# Description: Uploads files to a Gokapi server and copies the share URL to the clipboard.\n\nServer - your Gokapi URL (e.g. share.example.com)\nPort - only needed for non-default ports, otherwise leave blank\nUsername - enter "api" (placeholder; not used, but Dropzone requires a value before Test Connection will run)\nPassword - your Gokapi API key (must have UPLOAD permission)\nRemote Path and Root URL - leave blank (not used)\n\nHold Shift while dragging to set per-upload expiry, download limit, and password.
 # Handles: Files
 # Creator: Jason Learst
 # URL: https://github.com/jasonlearst/upload-to-gokapi
@@ -12,7 +12,7 @@
 # MinDropzoneVersion: 4.0
 # OptionsNIB: ExtendedLogin
 # UniqueID: 73914820
-# OptionsTitle: GokApi Connection
+# OptionsTitle: Gokapi Connection
 
 require 'net/http'
 require 'uri'
@@ -58,7 +58,7 @@ def dragged
     opts = prompt_upload_options
   end
 
-  $dz.begin("Uploading #{files.length} file#{files.length > 1 ? 's' : ''} to GokApi...")
+  $dz.begin("Uploading #{files.length} file#{files.length > 1 ? 's' : ''} to Gokapi...")
   $dz.determinate(true)
 
   total_size = files.sum { |f| File.size(f) }
@@ -87,7 +87,7 @@ end
 def clicked
   url = "#{server_url}/admin"
   system("open", url)
-  $dz.finish("Opened GokApi")
+  $dz.finish("Opened Gokapi")
   $dz.url(false)
 rescue => e
   $dz.fail("Error: #{e.message}")
@@ -97,7 +97,7 @@ def test_connection
   api_key = ENV['password']
 
   if api_key.nil? || api_key.strip.empty?
-    $dz.error("Configuration Error", "API key is required. Paste your GokApi API key into the Password field.")
+    $dz.error("Configuration Error", "API key is required. Paste your Gokapi API key into the Password field.")
     return
   end
 
@@ -114,7 +114,7 @@ def test_connection
   response = http.request(request)
 
   if response.code.to_i >= 200 && response.code.to_i < 300
-    $dz.alert("Connection Successful", "Successfully connected to GokApi at #{server_url}")
+    $dz.alert("Connection Successful", "Successfully connected to Gokapi at #{server_url}")
   elsif response.code.to_i == 401 || response.code.to_i == 403
     $dz.error("Authentication Failed", "API key is invalid or missing the UPLOAD permission.")
   else
@@ -169,7 +169,7 @@ end
 
 def prompt_upload_options
   pconfig = <<~PASHUA
-    *.title = GokApi Upload Options
+    *.title = Gokapi Upload Options
     intro.type = text
     intro.text = Leave any field blank to use the server default. Set Expiry or Downloads to 0 for unlimited.
     expiry.type = textfield
@@ -204,11 +204,11 @@ def upload_file(file_path, bytes_offset, overall_total, opts = {})
   api_key = ENV['password']
 
   if api_key.nil? || api_key.strip.empty?
-    $dz.fail("API key not configured. Paste your GokApi API key into the Password field.")
+    $dz.fail("API key not configured. Paste your Gokapi API key into the Password field.")
   end
 
   uri = URI.parse("#{server_url}/api/files/add")
-  boundary = "----DZGokApi#{rand(1_000_000_000)}"
+  boundary = "----DZGokapi#{rand(1_000_000_000)}"
   filename = File.basename(file_path)
 
   body = build_multipart_body(boundary, file_path, filename, opts)
